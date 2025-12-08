@@ -1,0 +1,1127 @@
+<div id="merchantActionTemplate" style="display: none;">
+    <div class="merchant-action-popover" id="merchantActionMenu">
+        <button class="merchant-action-item" data-action="downline">View downline</button>
+
+        <button class="merchant-action-item" data-action="detail">View detail</button>
+    </div>
+</div>
+
+
+
+<div id="sourceActionTemplate" style="display: none;">
+    <div class="merchant-action-popover source-popover" id="sourceActionMenu">
+        <button class="merchant-action-item" data-action="all">All product</button>
+        <button class="merchant-action-item" data-action="fdm">FDM</button>
+        <button class="merchant-action-item" data-action="merchant">Merchant</button>
+    </div>
+</div>
+
+
+<!-- Merchant Details Modal -->
+<div id="merchantDetailModal" class="merchant-modal-backdrop" aria-hidden="true" style="z-index: 10008;">
+    <div class="asm-modal" role="dialog" aria-modal="true" tabindex="-1" style="max-width: 1200px;">
+        <!-- Header -->
+        <div class="asm-modal-header">
+            <h2 class="asm-modal-title" id="merchantDetailTitle">Shinta Kusuma</h2>
+            <button class="merchant-modal-close" aria-label="Tutup modal">✕</button>
+        </div>
+
+        <!-- Body -->
+        <div class="asm-modal-body">
+            <!-- Tabs (Segmented Toggle) -->
+            <div style="padding: 24px 23px 0;">
+                <div class="segmented" role="tablist" aria-label="CC Reg Status" style="width: 900px;">
+                    <div class="segmented-inner">
+                        <button type="button" role="tab" aria-selected="true" class="seg-item active"
+                            style="height: 32px; white-space: nowrap;" data-tab="send-bca">
+                            <span class="label">Send BCA</span>
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" class="seg-item"
+                            style="height: 32px; white-space: nowrap;" data-tab="inprocess">
+                            <span class="label">Inprocess</span>
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" class="seg-item"
+                            style="height: 32px; white-space: nowrap;" data-tab="duplicate">
+                            <span class="label">Duplicate</span>
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" class="seg-item"
+                            style="height: 32px; white-space: nowrap;" data-tab="rts">
+                            <span class="label">RTS</span>
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" class="seg-item"
+                            style="height: 32px; white-space: nowrap;" data-tab="cancel">
+                            <span class="label">Cancel</span>
+                        </button>
+                        <button type="button" role="tab" aria-selected="false" class="seg-item"
+                            style="height: 32px; white-space: nowrap;" data-tab="reject">
+                            <span class="label">Reject</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar (Search only, Full Width) -->
+            <div class="asm-filter-bar" style="border-bottom: none; padding-top: 16px;">
+                <div class="asm-search" style="width: 100%;">
+                    <span class="asm-search-icon">🔍</span>
+                    <input type="search" class="asm-search-input" placeholder="Search">
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="asm-table-card">
+                <table class="asm-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 32px;">No</th>
+                            <th>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    Costume Name
+                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                        </svg></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    Status
+                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                        </svg></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    DSR
+                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                        </svg></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    SPV
+                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                        </svg></div>
+                                </div>
+                            </th>
+                            <th>
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    Input Date
+                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none">
+                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                        </svg></div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer -->
+            <div class="asm-modal-footer">
+                <div class="asm-footer-info">Showing 1 to 1 of 1</div>
+
+                <div class="asm-footer-pages">
+                    <button type="button" class="asm-page-arrow">‹</button>
+                    <button type="button" class="asm-page-current">1</button>
+                    <button type="button" class="asm-page-arrow">›</button>
+                </div>
+
+                <div class="asm-footer-show">
+                    <span>Show</span>
+                    <button type="button" class="asm-show-dropdown">
+                        <span>10</span>
+                        <span class="asm-show-caret">▾</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Downline Modal -->
+<link rel="stylesheet" href="/assets/css/pemol-modal.css">
+<div class="asm-modal-backdrop" id="downlineModal" aria-hidden="true">
+    <div class="asm-modal" role="dialog" aria-modal="true" aria-labelledby="downlineModalTitle" tabindex="-1">
+        <!-- HEADER -->
+        <div class="asm-modal-header">
+            <h2 class="asm-modal-title" id="downlineModalTitle">Kiwamudin</h2>
+
+            <button class="asm-modal-close" id="closeDownlineModal" type="button" aria-label="Tutup dialog"
+                title="Tutup">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+
+        <!-- BODY -->
+        <div class="asm-modal-body">
+            <!-- FILTER BAR -->
+            <div class="asm-filter-bar">
+                <!-- Search -->
+                <div class="asm-search">
+                    <span class="asm-search-icon" aria-hidden="true">🔍</span>
+                    <input type="search" class="asm-search-input" placeholder="Search" aria-label="Cari" />
+                </div>
+
+                <!-- Date range -->
+                <button type="button" class="asm-date-btn">
+                    <span class="asm-date-icon" aria-hidden="true">📅</span>
+                    <span class="asm-date-text">1 Jan, 2025 - 2 Feb, 2025</span>
+                </button>
+            </div>
+
+            <!-- TABLE CARD -->
+            <div class="asm-table-card">
+                <table class="asm-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 32px;">No</th>
+                            <th style="width: 25%;">RSM Name</th>
+                            <th class="text-center">NIK Sales</th>
+                            <th class="text-center">Approve</th>
+                            <th class="text-center">In Process</th>
+                            <th class="text-center">Cancel</th>
+                            <th class="text-center">Decline</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Ramaldo Oktama</td>
+                            <td class="text-center">K1101285</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">50</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">
+                                <button class="asm-action-btn btn-view-asm-detail" type="button">👁</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Asep Syaefudin</td>
+                            <td class="text-center">K1131701</td>
+                            <td class="text-center">5</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">10</td>
+                            <td class="text-center">
+                                <button class="asm-action-btn btn-view-asm-detail" type="button">👁</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Sifa Fauziah</td>
+                            <td class="text-center">K1140414</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">
+                                <button class="asm-action-btn btn-view-asm-detail" type="button">👁</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FOOTER / PAGINATION -->
+            <div class="asm-modal-footer">
+                <div class="asm-footer-info">Showing 1 to 3 of 3</div>
+
+                <div class="asm-footer-pages">
+                    <button type="button" class="asm-page-arrow">‹</button>
+                    <button type="button" class="asm-page-current">1</button>
+                    <button type="button" class="asm-page-arrow">›</button>
+                </div>
+
+                <div class="asm-footer-show">
+                    <span>Show</span>
+                    <button type="button" class="asm-show-dropdown">
+                        <span>10</span>
+                        <span class="asm-show-caret">▾</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- CC Reg Downline Modal (ASM Modal Style - Like View Downline) -->
+
+
+
+
+
+<script>
+    (function () {
+        if (window.merchantModalInitialized) return;
+        window.merchantModalInitialized = true;
+
+        let currentPopover = null;
+
+        // Tutup popover kalau klik di luar
+        document.addEventListener('click', function (e) {
+            if (currentPopover &&
+                !currentPopover.contains(e.target) &&
+                !e.target.closest('.btn-merchant-action') &&
+                !e.target.closest('.btn-export-trigger') &&
+                !e.target.closest('.btn-source-trigger')) {
+                currentPopover.remove();
+                currentPopover = null;
+            }
+        });
+
+        // Delegasi tombol aksi (Action & Export separated logic)
+        document.body.addEventListener('click', function (e) {
+            // 1. Handle Merchant Action (Dots)
+            const actionBtn = e.target.closest('.btn-merchant-action');
+            if (actionBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                handlePopover(actionBtn, 'merchantActionTemplate', 4); // 10px gap
+                return;
+            }
+
+            // 2. Handle Export Data
+            const exportBtn = e.target.closest('.btn-export-trigger');
+            // Source Filter
+            const sourceBtn = e.target.closest('.btn-source-trigger');
+            if (sourceBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                handlePopover(sourceBtn, 'sourceActionTemplate', 0); // 0px gap
+                return;
+            }
+        });
+
+        function handlePopover(btn, templateId, topGap) {
+            // close existing
+            if (currentPopover) {
+                currentPopover.remove();
+                if (currentPopover._triggerBtn === btn) {
+                    currentPopover = null;
+                    return;
+                }
+            }
+
+            const template = document.getElementById(templateId);
+            if (!template) return;
+
+            const popover = template.firstElementChild.cloneNode(true);
+            popover.style.display = 'flex';
+            popover.style.zIndex = '10002';
+            popover.style.visibility = 'hidden';
+
+            document.body.appendChild(popover);
+
+            // Special case for Source Dropdown: Match trigger width
+            if (templateId === 'sourceActionTemplate') {
+                const rect = btn.getBoundingClientRect();
+                popover.style.width = rect.width + 'px';
+            }
+
+            // USE BROWSER CONSISTENCY HELPER
+            if (window.BrowserConsistency && window.BrowserConsistency.positionFloatingElement) {
+                const isSource = (templateId === 'sourceActionTemplate');
+                // Source = Left Align (bottom-start), Action = Right Align (bottom-end)
+                const placement = isSource ? 'bottom-start' : 'bottom-end';
+
+                // Gap adjustment
+                const gap = isSource ? 4 : (topGap || 10);
+
+                window.BrowserConsistency.positionFloatingElement(btn, popover, {
+                    placement: placement,
+                    gap: gap
+                });
+            } else {
+                // FALLBACK (Manual Absolute Positioning)
+                const rect = btn.getBoundingClientRect();
+                const popoverWidth = popover.offsetWidth;
+                const scrollY = window.pageYOffset || window.scrollY;
+                const scrollX = window.scrollX || window.pageXOffset;
+
+                popover.style.position = 'absolute';
+                const gap = (templateId === 'sourceActionTemplate') ? 4 : (topGap || 10);
+                const top = rect.bottom + scrollY + gap;
+                let left;
+
+                if (templateId === 'sourceActionTemplate') {
+                    left = rect.left + scrollX;
+                } else {
+                    left = (rect.right + scrollX) - popoverWidth;
+                }
+
+                popover.style.top = top + 'px';
+                popover.style.left = left + 'px';
+            }
+
+            popover.style.visibility = 'visible';
+
+            currentPopover = popover;
+            currentPopover._triggerBtn = btn;
+
+            // handler khusus merchant
+            if (templateId === 'merchantActionTemplate') {
+                const detailBtn = popover.querySelector('[data-action="detail"]');
+                if (detailBtn) {
+                    detailBtn.addEventListener('click', function () {
+                        const tr = btn.closest('tr');
+                        const name = tr ? tr.querySelector('.rsm-name-cell')?.textContent.trim() : 'Unknown';
+                        openMerchantModal(name);
+                        currentPopover.remove();
+                        currentPopover = null;
+                    });
+                }
+
+                const downlineBtn = popover.querySelector('[data-action="downline"]');
+                if (downlineBtn) {
+                    downlineBtn.addEventListener('click', function () {
+                        const tr = btn.closest('tr');
+                        const name = tr ? tr.querySelector('.rsm-name-cell')?.textContent.trim() : 'Unknown';
+                        // Use the existing global function openDownlineModal if defined, or define logic here
+                        if (typeof window.openDownlineModal === 'function') {
+                            window.openDownlineModal(name);
+                        } else {
+                            // Fallback or emit event
+                            console.warn('openDownlineModal function not found');
+                        }
+                        currentPopover.remove();
+                        currentPopover = null;
+                    });
+                }
+            } else if (templateId === 'sourceActionTemplate') {
+                // Handler for Source Actions
+                const items = popover.querySelectorAll('.merchant-action-item');
+                items.forEach(item => {
+                    item.addEventListener('click', function () {
+                        // Update label
+                        const labelSpan = btn.textContent.trim();
+                        // actually btn is the toggle button, maybe we want to update the text.
+                        // The button text is "All product" initially.
+
+                        btn.textContent = this.textContent.trim();
+
+                        // Close
+                        currentPopover.remove();
+                        currentPopover = null;
+                    });
+                });
+            }
+        }
+
+
+
+
+
+        // --- Modal utama (merchantDetailModal) ---
+        const modalBackdrop = document.getElementById('merchantDetailModal');
+        const modalTitle = document.getElementById('merchantDetailTitle');
+        const modalClose = modalBackdrop.querySelector('.merchant-modal-close');
+
+        // New Segmented Tabs Logic
+        const segContainer = modalBackdrop.querySelector('.segmented-inner');
+        if (segContainer) {
+            segContainer.addEventListener('click', function (e) {
+                const btn = e.target.closest('.seg-item');
+                if (btn) {
+                    // Remove active from peers
+                    const allBtns = segContainer.querySelectorAll('.seg-item');
+                    allBtns.forEach(b => {
+                        b.classList.remove('active');
+                        b.setAttribute('aria-selected', 'false');
+                    });
+
+                    // Activate clicked
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
+
+                    const tabName = btn.getAttribute('data-tab');
+                    console.log('Merchant Modal Tab Switched:', tabName);
+                    // Add content switching logic here if/when content for tabs is created
+                }
+            });
+        }
+
+        window.openMerchantModal = function (name) {
+            modalTitle.textContent = name;
+            modalBackdrop.classList.add('is-open');
+            modalBackdrop.setAttribute('aria-hidden', 'false');
+        };
+
+        modalClose.addEventListener('click', function () {
+            modalBackdrop.classList.remove('is-open');
+            modalBackdrop.setAttribute('aria-hidden', 'true');
+        });
+
+        modalBackdrop.addEventListener('click', function (e) {
+            if (e.target === modalBackdrop) {
+                modalBackdrop.classList.remove('is-open');
+                modalBackdrop.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const target = btn.dataset.tab;
+                tabContents.forEach(c => c.classList.remove('active'));
+                const targetContent = modalBackdrop.querySelector('#tab-' + target);
+                if (targetContent) targetContent.classList.add('active');
+            });
+        });
+
+        // --- Modal detail EDC Credit ---
+        const detailTriggers = document.querySelectorAll('.detail-modal-trigger');
+        const detailModal = document.getElementById('edcCreditModal');
+        const detailModalTitle = detailModal ? detailModal.querySelector('.merchant-modal-title') : null;
+        const detailClose = document.getElementById('closeEdcCreditModal');
+
+        if (detailModal && detailClose) {
+            detailTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function () {
+                    const title = this.getAttribute('data-title');
+                    if (detailModalTitle && title) {
+                        detailModalTitle.textContent = title;
+                    }
+                    detailModal.classList.add('is-open');
+                    detailModal.setAttribute('aria-hidden', 'false');
+                });
+            });
+
+            detailClose.addEventListener('click', function () {
+                detailModal.classList.remove('is-open');
+                detailModal.setAttribute('aria-hidden', 'true');
+            });
+
+            detailModal.addEventListener('click', function (e) {
+                if (e.target === detailModal) {
+                    detailModal.classList.remove('is-open');
+                    detailModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+        // --- Modal Downline ---
+        const downlineModal = document.getElementById('downlineModal');
+        const downlineModalTitle = document.getElementById('downlineModalTitle'); // Optional if dynamic
+        const closeDownlineModal = document.getElementById('closeDownlineModal');
+
+        window.openDownlineModal = function (name) {
+            if (downlineModal) {
+                if (downlineModalTitle) downlineModalTitle.textContent = name;
+                downlineModal.classList.add('is-open');
+                downlineModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (downlineModal && closeDownlineModal) {
+            closeDownlineModal.addEventListener('click', function () {
+                downlineModal.classList.remove('is-open');
+                downlineModal.setAttribute('aria-hidden', 'true');
+            });
+
+            downlineModal.addEventListener('click', function (e) {
+                if (e.target === downlineModal) {
+                    downlineModal.classList.remove('is-open');
+                    downlineModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+
+        // --- Modal Downline Detail (New separate modal Controller) ---
+        (function () {
+            const modalBackdrop = document.getElementById('merchantDetailModalDownline');
+            if (!modalBackdrop) return;
+            const modalTitle = document.getElementById('merchantDetailTitleDownline');
+            const modalClose = modalBackdrop.querySelector('.merchant-modal-close');
+            const tabBtns = modalBackdrop.querySelectorAll('.merchant-tab-btn');
+            const tabContents = modalBackdrop.querySelectorAll('.merchant-tab-content');
+
+            window.openMerchantDetailDownlineModal = function (name) {
+                if (modalTitle) modalTitle.textContent = name;
+                modalBackdrop.classList.add('is-open');
+                modalBackdrop.setAttribute('aria-hidden', 'false');
+            };
+
+            if (modalClose) {
+                modalClose.addEventListener('click', function () {
+                    modalBackdrop.classList.remove('is-open');
+                    modalBackdrop.setAttribute('aria-hidden', 'true');
+                });
+            }
+
+            modalBackdrop.addEventListener('click', function (e) {
+                if (e.target === modalBackdrop) {
+                    modalBackdrop.classList.remove('is-open');
+                    modalBackdrop.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const target = btn.dataset.tab; // e.g., 'new-downline'
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    const targetContent = modalBackdrop.querySelector('#tab-' + target);
+                    if (targetContent) targetContent.classList.add('active');
+                });
+            });
+
+            // --- Modal Downline Detail Table (Sub-detail) ---
+            const subDetailModal = document.getElementById('downlineTableModal');
+            const subDetailTitle = document.getElementById('downlineTableTitle');
+            const subDetailClose = document.getElementById('closeDownlineTableModal');
+
+            if (subDetailModal && subDetailClose) {
+                // Delegated event listener for dynamically added content if needed, 
+                // but since modal is in DOM, we can attach to body or the modal container if we prefer.
+                // However, the items are in `merchantDetailModalDownline`.
+                // Let's attach to the body document for simplicity as we did with others.
+                document.body.addEventListener('click', function (e) {
+                    const trigger = e.target.closest('.downline-sub-detail-trigger');
+                    if (trigger) {
+                        const title = trigger.getAttribute('data-title');
+                        if (subDetailTitle && title) {
+                            subDetailTitle.textContent = title;
+                        }
+                        subDetailModal.classList.add('is-open');
+                        subDetailModal.setAttribute('aria-hidden', 'false');
+                    }
+                });
+
+                subDetailClose.addEventListener('click', function () {
+                    subDetailModal.classList.remove('is-open');
+                    subDetailModal.setAttribute('aria-hidden', 'true');
+                });
+
+                subDetailModal.addEventListener('click', function (e) {
+                    if (e.target === subDetailModal) {
+                        subDetailModal.classList.remove('is-open');
+                        subDetailModal.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            }
+
+        })();
+
+        // --- Handler: View Detail from Downline (Eye Icon) ---
+        document.body.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view-asm-detail');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Ambil info nama dari kolom ke-2 (index 1)
+                const tr = btn.closest('tr');
+                const name = tr ? tr.querySelectorAll('td')[1].innerText.trim() : 'Unknown';
+
+                // Buka Modal Merchant Detail Khusus Downline
+                if (typeof window.openMerchantDetailDownlineModal === 'function') {
+                    window.openMerchantDetailDownlineModal(name);
+                }
+            }
+        });
+        // --- Handler: View CC Reg Detail (New) ---
+        // Expose function globally
+        window.openCcRegDownlineModal = function (name) {
+            const modal = document.getElementById('ccRegDownlineModal');
+            const title = document.getElementById('ccRegTitle');
+            if (modal) {
+                if (title && name) title.textContent = "Detail CC Reg: " + name;
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        const ccRegModal = document.getElementById('ccRegDownlineModal');
+        const ccRegClose = document.getElementById('closeCcRegDownlineModal');
+
+        if (ccRegModal) {
+            const closeModal = () => {
+                ccRegModal.classList.remove('is-open');
+                ccRegModal.setAttribute('aria-hidden', 'true');
+            };
+
+            if (ccRegClose) {
+                ccRegClose.addEventListener('click', closeModal);
+            }
+
+            ccRegModal.addEventListener('click', (e) => {
+                if (e.target === ccRegModal) closeModal();
+            });
+        }
+
+        // --- Handler: CC Reg Detail Sub-Modal (The new one) ---
+        window.openCcRegDetailModal = function (name) {
+            const modal = document.getElementById('ccRegDetailModal');
+            const title = document.getElementById('ccRegDetailTitle');
+            if (modal) {
+                if (title && name) title.textContent = name;
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        const ccRegDetailModal = document.getElementById('ccRegDetailModal');
+        const ccRegDetailClose = document.getElementById('closeCcRegDetailModal');
+
+        if (ccRegDetailModal) {
+            const closeDetail = () => {
+                ccRegDetailModal.classList.remove('is-open');
+                ccRegDetailModal.setAttribute('aria-hidden', 'true');
+            };
+            if (ccRegDetailClose) ccRegDetailClose.addEventListener('click', closeDetail);
+            ccRegDetailModal.addEventListener('click', (e) => {
+                if (e.target === ccRegDetailModal) closeDetail();
+            });
+
+            // Tab switching logic (Segmented)
+            const segContainer = ccRegDetailModal.querySelector('.segmented-inner');
+            if (segContainer) {
+                segContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.seg-item');
+                    if (btn) {
+                        const allBtns = segContainer.querySelectorAll('.seg-item');
+                        allBtns.forEach(b => {
+                            b.classList.remove('active');
+                            b.setAttribute('aria-selected', 'false');
+                        });
+                        btn.classList.add('active');
+                        btn.setAttribute('aria-selected', 'true');
+
+                        // Switch Tab Content
+                        const target = btn.dataset.tab;
+                        if (target) {
+                            const panes = ccRegDetailModal.querySelectorAll('.cc-reg-tab-pane');
+                            panes.forEach(p => p.classList.remove('active'));
+                            const targetPane = ccRegDetailModal.querySelector('#tab-' + target);
+                            if (targetPane) targetPane.classList.add('active');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Delegated listener for the eye button inside the CC Reg Downline modal
+        document.body.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view-cc-reg-detail');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Get name from column 2 (index 1) of the clicked row
+                const tr = btn.closest('tr');
+                const name = tr ? tr.querySelectorAll('td')[1].textContent.trim() : 'Unknown';
+                openCcRegDetailModal(name);
+            }
+        });
+
+        /* =========================================
+           CC MS MODAL LOGIC (New)
+           ========================================= */
+
+        // 1. Open CC MS Downline Modal
+        const ccMsDownlineModal = document.getElementById('ccMsDownlineModal');
+        const ccMsTitle = document.getElementById('ccMsTitle');
+        const closeCcMsDownlineModal = document.getElementById('closeCcMsDownlineModal');
+
+        window.openCcMsDownlineModal = function (name) {
+            console.log('Opening CC MS Downline for:', name);
+            if (ccMsDownlineModal) {
+                // if (ccMsTitle) ccMsTitle.textContent = "Detail CC MS for " + name; // Optional
+                ccMsDownlineModal.classList.add('is-open');
+                ccMsDownlineModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (ccMsDownlineModal && closeCcMsDownlineModal) {
+            closeCcMsDownlineModal.addEventListener('click', function () {
+                ccMsDownlineModal.classList.remove('is-open');
+                ccMsDownlineModal.setAttribute('aria-hidden', 'true');
+            });
+            ccMsDownlineModal.addEventListener('click', function (e) {
+                if (e.target === ccMsDownlineModal) {
+                    ccMsDownlineModal.classList.remove('is-open');
+                    ccMsDownlineModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+        // 2. Open CC MS Detail Modal
+        const ccMsDetailModal = document.getElementById('ccMsDetailModal');
+        const ccMsDetailTitle = document.getElementById('ccMsDetailTitle');
+        const closeCcMsDetailModal = document.getElementById('closeCcMsDetailModal');
+
+        window.openCcMsDetailModal = function (name) {
+            if (ccMsDetailModal) {
+                if (ccMsDetailTitle && name) ccMsDetailTitle.textContent = name;
+                ccMsDetailModal.classList.add('is-open');
+                ccMsDetailModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (ccMsDetailModal) {
+            const closeMsDetail = () => {
+                ccMsDetailModal.classList.remove('is-open');
+                ccMsDetailModal.setAttribute('aria-hidden', 'true');
+            };
+            // Assign global close function for inline onClick usage
+            window.closeCcMsDetailModalFn = closeMsDetail;
+
+            if (closeCcMsDetailModal) closeCcMsDetailModal.addEventListener('click', closeMsDetail);
+            ccMsDetailModal.addEventListener('click', (e) => {
+                if (e.target === ccMsDetailModal) closeMsDetail();
+            });
+
+            // MS Tab switching logic
+            const segContainerMs = ccMsDetailModal.querySelector('.segmented-inner');
+            if (segContainerMs) {
+                segContainerMs.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.seg-item');
+                    if (btn) {
+                        const allBtns = segContainerMs.querySelectorAll('.seg-item');
+                        allBtns.forEach(b => {
+                            b.classList.remove('active');
+                            b.setAttribute('aria-selected', 'false');
+                        });
+                        btn.classList.add('active');
+                        btn.setAttribute('aria-selected', 'true');
+
+                        // Switch Tab Content
+                        const target = btn.dataset.tab;
+                        if (target) {
+                            const panes = ccMsDetailModal.querySelectorAll('.cc-reg-tab-pane'); // Reuse class for styling
+                            panes.forEach(p => p.classList.remove('active'));
+                            const targetPane = ccMsDetailModal.querySelector('#ms-tab-' + target);
+                            if (targetPane) targetPane.classList.add('active');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Delegated listener for the eye button inside the CC MS Downline modal
+        document.body.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view-cc-ms-detail');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Get name from column 2 (index 1) of the clicked row
+                const tr = btn.closest('tr');
+                const name = tr ? tr.querySelectorAll('td')[1].textContent.trim() : 'Unknown';
+                openCcMsDetailModal(name);
+            }
+        });
+
+        /* =========================================
+           CORPORATE MODAL LOGIC (New)
+           ========================================= */
+
+        // 1. Open Corporate Downline Modal
+        const corporateDownlineModal = document.getElementById('corporateDownlineModal');
+        const corporateTitle = document.getElementById('corporateTitle');
+        const closeCorporateDownlineModal = document.getElementById('closeCorporateDownlineModal');
+
+        window.openCorporateDownlineModal = function (name) {
+            console.log('Opening Corporate Downline for:', name);
+            if (corporateDownlineModal) {
+                // if (corporateTitle) corporateTitle.textContent = "Detail Corporate for " + name; // Optional
+                corporateDownlineModal.classList.add('is-open');
+                corporateDownlineModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (corporateDownlineModal && closeCorporateDownlineModal) {
+            closeCorporateDownlineModal.addEventListener('click', function () {
+                corporateDownlineModal.classList.remove('is-open');
+                corporateDownlineModal.setAttribute('aria-hidden', 'true');
+            });
+            corporateDownlineModal.addEventListener('click', function (e) {
+                if (e.target === corporateDownlineModal) {
+                    corporateDownlineModal.classList.remove('is-open');
+                    corporateDownlineModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+        // 2. Open Corporate Detail Modal
+        const corporateDetailModal = document.getElementById('corporateDetailModal');
+        const corporateDetailTitle = document.getElementById('corporateDetailTitle');
+        const closeCorporateDetailModal = document.getElementById('closeCorporateDetailModal');
+
+        window.openCorporateDetailModal = function (name) {
+            if (corporateDetailModal) {
+                if (corporateDetailTitle && name) corporateDetailTitle.textContent = name;
+                corporateDetailModal.classList.add('is-open');
+                corporateDetailModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (corporateDetailModal) {
+            const closeCorpDetail = () => {
+                corporateDetailModal.classList.remove('is-open');
+                corporateDetailModal.setAttribute('aria-hidden', 'true');
+            };
+            // Assign global close function for inline onClick usage
+            window.closeCorporateDetailModalFn = closeCorpDetail;
+
+            if (closeCorporateDetailModal) closeCorporateDetailModal.addEventListener('click', closeCorpDetail);
+            corporateDetailModal.addEventListener('click', (e) => {
+                if (e.target === corporateDetailModal) closeCorpDetail();
+            });
+
+            // Corporate Tab switching logic
+            const segContainerCorp = corporateDetailModal.querySelector('.segmented-inner');
+            if (segContainerCorp) {
+                segContainerCorp.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.seg-item');
+                    if (btn) {
+                        const allBtns = segContainerCorp.querySelectorAll('.seg-item');
+                        allBtns.forEach(b => {
+                            b.classList.remove('active');
+                            b.setAttribute('aria-selected', 'false');
+                        });
+                        btn.classList.add('active');
+                        btn.setAttribute('aria-selected', 'true');
+
+                        // Switch Tab Content
+                        const target = btn.dataset.tab;
+                        if (target) {
+                            const panes = corporateDetailModal.querySelectorAll('.cc-reg-tab-pane'); // Reuse class for styling
+                            panes.forEach(p => p.classList.remove('active'));
+                            const targetPane = corporateDetailModal.querySelector('#corp-tab-' + target);
+                            if (targetPane) targetPane.classList.add('active');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Delegated listener for the eye button inside the Corporate Downline modal
+        document.body.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view-corporate-detail');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Get name from column 2 (index 1) of the clicked row
+                const tr = btn.closest('tr');
+                const name = tr ? tr.querySelectorAll('td')[1].textContent.trim() : 'Unknown';
+                openCorporateDetailModal(name);
+            }
+        });
+
+        /* =========================================
+           SMART CASH MODAL LOGIC (New)
+           ========================================= */
+
+        // 1. Open Smart Cash Downline Modal
+        const smartCashDownlineModal = document.getElementById('smartCashDownlineModal');
+        // const smartCashTitle = document.getElementById('smartCashTitle');
+        const closeSmartCashDownlineModal = document.getElementById('closeSmartCashDownlineModal');
+
+        window.openSmartCashDownlineModal = function (name) {
+            console.log('Opening Smart Cash Downline for:', name);
+            if (smartCashDownlineModal) {
+                smartCashDownlineModal.classList.add('is-open');
+                smartCashDownlineModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (smartCashDownlineModal && closeSmartCashDownlineModal) {
+            closeSmartCashDownlineModal.addEventListener('click', function () {
+                smartCashDownlineModal.classList.remove('is-open');
+                smartCashDownlineModal.setAttribute('aria-hidden', 'true');
+            });
+            smartCashDownlineModal.addEventListener('click', function (e) {
+                if (e.target === smartCashDownlineModal) {
+                    smartCashDownlineModal.classList.remove('is-open');
+                    smartCashDownlineModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+        // 2. Open Smart Cash Detail Modal
+        const smartCashDetailModal = document.getElementById('smartCashDetailModal');
+        const smartCashDetailTitle = document.getElementById('smartCashDetailTitle');
+        const closeSmartCashDetailModal = document.getElementById('closeSmartCashDetailModal');
+
+        window.openSmartCashDetailModal = function (name) {
+            if (smartCashDetailModal) {
+                if (smartCashDetailTitle && name) smartCashDetailTitle.textContent = name;
+                smartCashDetailModal.classList.add('is-open');
+                smartCashDetailModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (smartCashDetailModal) {
+            const closeScDetail = () => {
+                smartCashDetailModal.classList.remove('is-open');
+                smartCashDetailModal.setAttribute('aria-hidden', 'true');
+            };
+            // Assign global close function for inline onClick usage
+            window.closeSmartCashDetailModalFn = closeScDetail;
+
+            if (closeSmartCashDetailModal) closeSmartCashDetailModal.addEventListener('click', closeScDetail);
+            smartCashDetailModal.addEventListener('click', (e) => {
+                if (e.target === smartCashDetailModal) closeScDetail();
+            });
+
+            // Smart Cash Tab switching logic
+            const segContainerSc = smartCashDetailModal.querySelector('.segmented-inner');
+            if (segContainerSc) {
+                segContainerSc.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.seg-item');
+                    if (btn) {
+                        const allBtns = segContainerSc.querySelectorAll('.seg-item');
+                        allBtns.forEach(b => {
+                            b.classList.remove('active');
+                            b.setAttribute('aria-selected', 'false');
+                        });
+                        btn.classList.add('active');
+                        btn.setAttribute('aria-selected', 'true');
+
+                        // Switch Tab Content
+                        const target = btn.dataset.tab;
+                        if (target) {
+                            const panes = smartCashDetailModal.querySelectorAll('.cc-reg-tab-pane'); // Reuse class
+                            panes.forEach(p => p.classList.remove('active'));
+                            const targetPane = smartCashDetailModal.querySelector('#sc-tab-' + target);
+                            if (targetPane) targetPane.classList.add('active');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Delegated listener for the eye button inside the Smart Cash Downline modal
+        document.body.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view-smart-cash-detail');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const tr = btn.closest('tr');
+                const name = tr ? tr.querySelectorAll('td')[1].textContent.trim() : 'Unknown';
+                openSmartCashDetailModal(name);
+            }
+        });
+
+        /* =========================================
+           PERSONAL LOAN MODAL LOGIC (New)
+           ========================================= */
+
+        // 1. Open Personal Loan Downline Modal
+        const personalLoanDownlineModal = document.getElementById('personalLoanDownlineModal');
+        // const personalLoanTitle = document.getElementById('personalLoanTitle');
+        const closePersonalLoanDownlineModal = document.getElementById('closePersonalLoanDownlineModal');
+
+        window.openPersonalLoanDownlineModal = function (name) {
+            console.log('Opening Personal Loan Downline for:', name);
+            if (personalLoanDownlineModal) {
+                personalLoanDownlineModal.classList.add('is-open');
+                personalLoanDownlineModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (personalLoanDownlineModal && closePersonalLoanDownlineModal) {
+            closePersonalLoanDownlineModal.addEventListener('click', function () {
+                personalLoanDownlineModal.classList.remove('is-open');
+                personalLoanDownlineModal.setAttribute('aria-hidden', 'true');
+            });
+            personalLoanDownlineModal.addEventListener('click', function (e) {
+                if (e.target === personalLoanDownlineModal) {
+                    personalLoanDownlineModal.classList.remove('is-open');
+                    personalLoanDownlineModal.setAttribute('aria-hidden', 'true');
+                }
+            });
+        }
+
+        // 2. Open Personal Loan Detail Modal
+        const personalLoanDetailModal = document.getElementById('personalLoanDetailModal');
+        const personalLoanDetailTitle = document.getElementById('personalLoanDetailTitle');
+        const closePersonalLoanDetailModal = document.getElementById('closePersonalLoanDetailModal');
+
+        window.openPersonalLoanDetailModal = function (name) {
+            if (personalLoanDetailModal) {
+                if (personalLoanDetailTitle && name) personalLoanDetailTitle.textContent = name;
+                personalLoanDetailModal.classList.add('is-open');
+                personalLoanDetailModal.setAttribute('aria-hidden', 'false');
+            }
+        };
+
+        if (personalLoanDetailModal) {
+            const closePlDetail = () => {
+                personalLoanDetailModal.classList.remove('is-open');
+                personalLoanDetailModal.setAttribute('aria-hidden', 'true');
+            };
+            // Assign global close function for inline onClick usage
+            window.closePersonalLoanDetailModalFn = closePlDetail;
+
+            if (closePersonalLoanDetailModal) closePersonalLoanDetailModal.addEventListener('click', closePlDetail);
+            personalLoanDetailModal.addEventListener('click', (e) => {
+                if (e.target === personalLoanDetailModal) closePlDetail();
+            });
+
+            // Personal Loan Tab switching logic
+            const segContainerPl = personalLoanDetailModal.querySelector('.segmented-inner');
+            if (segContainerPl) {
+                segContainerPl.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.seg-item');
+                    if (btn) {
+                        const allBtns = segContainerPl.querySelectorAll('.seg-item');
+                        allBtns.forEach(b => {
+                            b.classList.remove('active');
+                            b.setAttribute('aria-selected', 'false');
+                        });
+                        btn.classList.add('active');
+                        btn.setAttribute('aria-selected', 'true');
+
+                        // Switch Tab Content
+                        const target = btn.dataset.tab;
+                        if (target) {
+                            const panes = personalLoanDetailModal.querySelectorAll('.cc-reg-tab-pane'); // Reuse class
+                            panes.forEach(p => p.classList.remove('active'));
+                            const targetPane = personalLoanDetailModal.querySelector('#pl-tab-' + target);
+                            if (targetPane) targetPane.classList.add('active');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Delegated listener for the eye button inside the Personal Loan Downline modal
+        document.body.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-view-personal-loan-detail');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const tr = btn.closest('tr');
+                const name = tr ? tr.querySelectorAll('td')[1].textContent.trim() : 'Unknown';
+                openPersonalLoanDetailModal(name);
+            }
+        });
+    })();
+</script>

@@ -1,0 +1,131 @@
+/* 
+   BROWSER CONSISTENCY CSS
+   -----------------------------------------
+   Helper classes to ensure consistent layout across:
+   - Safari (Desktop & Mobile iOS)
+   - Microsoft Edge
+   - Google Chrome
+   - ChatGPT Atlas (WebView)
+*/
+
+:root {
+    /* Default viewport height fallback */
+    --app-height: 100vh;
+
+    /* Safe area defaults */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* 
+   1. VIEWPORT HEIGHT FIX
+   Use .full-height instead of height: 100vh to handle url-bar resize on mobile
+*/
+.full-height {
+    height: 100vh;
+    /* Fallback */
+    height: var(--app-height);
+}
+
+.min-full-height {
+    min-height: 100vh;
+    /* Fallback */
+    min-height: var(--app-height);
+}
+
+/* 
+   2. SCROLL & OVERSCROLL
+   Prevent rubber-banding style scroll on body when possible, 
+   while allowing it on internal containers.
+*/
+html,
+body {
+    /* Ensure smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+}
+
+body.lock-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* 
+   3. SAFE AREA UTILITIES 
+   Useful for WebViews (Atlas) & iOS Safari (Notch)
+*/
+.padding-safe-top {
+    padding-top: var(--safe-top);
+}
+
+.padding-safe-bottom {
+    padding-bottom: var(--safe-bottom);
+}
+
+.margin-safe-top {
+    margin-top: var(--safe-top);
+}
+
+.margin-safe-bottom {
+    margin-bottom: var(--safe-bottom);
+}
+
+/*
+   4. MODALS & POPOVERS (Z-INDEX & POSITIONING)
+*/
+.ui-floating-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    overflow: visible;
+    z-index: 1050;
+    /* Bootstrap standard + offset */
+}
+
+/* Fix for Safari z-index stacking context issues */
+.is-safari .ui-floating-element {
+    /* Force hardware acceleration to fix accumulation bugs */
+    transform: translateZ(0);
+}
+
+/* Fix for WebView inputs being hidden by keyboard */
+.is-webview body {
+    /* Sometimes helpful to allow scrolling past content */
+    padding-bottom: 20px;
+}
+
+/* 
+   5. BROWSER SPECIFIC TWEAKS 
+*/
+/* Safari Scrollbar hiding (if desired) */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Form element consistency */
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+    /* Remove gray highlight on tap in Mobile Safari */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Autofill styling fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}

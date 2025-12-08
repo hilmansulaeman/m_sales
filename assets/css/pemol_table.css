@@ -1,0 +1,4 @@
+/* Bridge file so existing previews load the perf-table styles
+   Keeps original reference `assets/css/pemol_table.css` working.
+   This imports the main stylesheet `perf-table.css`. */
+@import url('perf-table.css');

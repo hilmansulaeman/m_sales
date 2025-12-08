@@ -1,0 +1,358 @@
+    .merchant-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 10000;
+        pointer-events: none;
+    }
+
+    .merchant-modal-backdrop.is-open {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* Card modal */
+    .merchant-modal {
+        width: 860px;
+        max-width: 95%;
+        background: #FFFFFF;
+        border-radius: 24px;
+        padding: 32px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+        font-family: 'TikTok Sans', Inter, system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /* Header */
+    .merchant-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .merchant-modal-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #29415C;
+        margin: 0;
+    }
+
+    .merchant-modal-close {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        color: #55586B;
+        font-size: 24px;
+        line-height: 1;
+    }
+
+    /* Tabs */
+    .merchant-modal-tabs {
+        display: flex;
+        background: #F3F5F7;
+        border-radius: 12px;
+        padding: 4px;
+        width: fit-content;
+    }
+
+    .merchant-tab-btn {
+        border: none;
+        background: transparent;
+        padding: 8px 32px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #55586B;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .merchant-tab-btn.active {
+        background: #1E62B3;
+        color: #FFFFFF;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Tab content */
+    .merchant-tab-content {
+        display: none;
+        gap: 16px;
+    }
+
+    .merchant-tab-content.active {
+        display: flex;
+    }
+
+    /* Cards EDC/QRIS */
+    .merchant-info-card {
+        flex: 1;
+        border-radius: 12px;
+        border: 1px solid #E6E9EF;
+        overflow: hidden;
+        background: #FFFFFF;
+    }
+
+    .merchant-card-header {
+        background: #1E62B3;
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .merchant-card-body {
+        padding: 12px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .merchant-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: #29415C;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #F3F5F7;
+    }
+
+    .merchant-info-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .merchant-info-label {
+        font-weight: 500;
+    }
+
+    .merchant-info-value {
+        font-weight: 600;
+    }
+
+    /* khusus dropdown Source */
+    .source-popover {
+        padding: 4px 0;
+        /* biar gak ada jarak kiri-kanan yang aneh */
+        border-radius: 16px;
+        min-width: 0;
+        /* width nanti diset dari JS */
+    }
+
+    /* spacing text di menu Source */
+    .source-popover .merchant-action-item {
+        padding: 10px 16px;
+    }
+
+
+    /* sel aksi jadi anchor untuk popover */
+    .rsm-action-cell {
+        position: relative;
+    }
+
+    /* popup selalu keluar tepat di bawah tombol, mepet kanan */
+    .merchant-action-popover {
+        box-sizing: border-box;
+        position: absolute;
+
+
+        background: #FFFFFF;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 6px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        min-width: 160px;
+        z-index: 1050;
+    }
+
+    .merchant-action-item {
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 8px 12px;
+        background: transparent;
+        border: none;
+        text-align: left;
+        font-size: 14px;
+        color: #29415C;
+        font-family: inherit;
+        cursor: pointer;
+        transition: all 0.2s;
+        border-radius: 8px;
+        font-weight: 500;
+        display: block;
+        width: 100%;
+    }
+
+    .merchant-action-item:hover {
+        background: #E9F2FF;
+        color: #1E62B3;
+    }
+
+    .merchant-action-item:first-child {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .merchant-action-item:last-child {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .merchant-modal {
+            width: 100%;
+            margin: 0 12px;
+            padding: 24px;
+        }
+
+        .merchant-tab-content.active {
+            flex-direction: column;
+        }
+    }
+
+    /* EDC Credit Modal Specifics */
+    .edc-search-container {
+        padding: 14px 24px;
+        background: white;
+        border-radius: 100px;
+        border: 1px solid #D9D9D9;
+        align-self: stretch;
+        /* allow container to span full modal width */
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .edc-search-input {
+        border: none;
+        outline: none;
+        font-size: 18px;
+        color: #29415C;
+        font-family: 'TikTok Sans', sans-serif;
+        width: 100%;
+        /* make input fill the search container */
+        max-width: 100%;
+    }
+
+    .edc-search-input::placeholder {
+        color: #A9A9A9;
+    }
+
+    .edc-table-container {
+        border-radius: 12px;
+        border: 1px solid #D9D9D9;
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+
+        overflow: hidden;
+        font-family: 'TikTok Sans', 'Inter', sans-serif;
+    }
+
+    .edc-table-header-row {
+        height: 42px;
+        /* Increased from 32px to 42px */
+        background: #1E62B3;
+        display: flex;
+        width: 100%;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .edc-table-head-cell {
+        padding: 0 12px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: 500;
+        border-right: 1px solid #D9D9D9;
+        height: 100%;
+        box-sizing: border-box;
+        /* Ensure padding doesn't add to width */
+    }
+
+    .edc-table-head-cell:last-child {
+        border-right: none;
+    }
+
+    .edc-table-row {
+        height: 42px;
+        /* Increased from 32px to 42px */
+        border-bottom: 1px solid #D9D9D9;
+        display: flex;
+        align-items: center;
+        background: #FFFFFF;
+    }
+
+    .edc-table-row:last-child {
+        border-bottom: none;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .edc-table-cell {
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        color: #29415C;
+        font-size: 18px;
+        font-weight: 400;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .edc-pagination-container {
+        height: 70px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .edc-page-btn {
+        width: 36px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #E9F2FF;
+        border-radius: 12px;
+        color: #1E62B3;
+        font-weight: 600;
+    }
+
+    /* Fix Safari Centering: Force backdrop to match viewport exactly */
+    body.is-safari .merchant-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translateZ(0);
+        /* Ensure hardware acceleration/layering */
+    }

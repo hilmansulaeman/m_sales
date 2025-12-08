@@ -1,0 +1,317 @@
+/* === PEMOL MODAL STYLES =========================== */
+
+/* === Token warna ================================================== */
+:root {
+  --asm-blue: #1e62b3;
+  --asm-border: #d9d9d9;
+  --asm-divider: #d9d9d9;
+  --asm-text-main: #29415c;
+  --asm-text-muted: #55586b;
+  --asm-placeholder: #a9a9a9;
+  --asm-page-active-bg: #e9f2ff;
+}
+
+/* === BACKDROP ===================================================== */
+.asm-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  font-family: "TikTok Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.asm-modal-backdrop.is-open {
+  display: flex;
+}
+
+/* === CARD MODAL =================================================== */
+.asm-modal {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 0 3px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* HEADER */
+.asm-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.asm-modal-title {
+  margin: 0;
+  font-size: 24px;
+  color: var(--asm-text-main);
+}
+
+.asm-modal-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: none;
+  background: #d9d9d9;
+  color: #55586b;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* BODY */
+.asm-modal-body {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid var(--asm-border);
+  display: flex;
+  flex-direction: column;
+}
+
+/* FILTER BAR (search + date range) */
+.asm-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--asm-border);
+}
+
+/* SEARCH */
+.asm-search {
+  width: 360px;
+  height: 40px;
+  border-radius: 100px;
+  border: 1px solid var(--asm-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-inline: 24px;
+  background: #ffffff;
+}
+
+.asm-search-icon {
+  font-size: 20px;
+  color: var(--asm-placeholder);
+}
+
+.asm-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--asm-text-main);
+  background: transparent;
+}
+
+.asm-search-input::placeholder {
+  color: var(--asm-placeholder);
+}
+
+/* DATE BUTTON */
+.asm-date-btn {
+  height: 40px;
+  padding-inline: 24px;
+  border-radius: 100px;
+  border: 1px solid var(--asm-border);
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--asm-text-main);
+  cursor: pointer;
+}
+
+.asm-date-icon {
+  font-size: 20px;
+}
+
+.asm-date-text {
+  white-space: nowrap;
+}
+
+/* TABLE CARD */
+.asm-table-card {
+  padding: 0;
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+}
+
+/* TABLE */
+.asm-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* THEAD */
+.asm-table thead th {
+  background: var(--asm-blue);
+  color: #ffffff;
+  font-size: 20px;
+  /* Header 20px */
+  font-weight: 600;
+  padding: 0 12px;
+  height: 42px;
+  /* Fixed Height 42px */
+  border-bottom: 1px solid var(--asm-divider);
+  border-left: 1px solid var(--asm-divider);
+  vertical-align: middle;
+  /* Ensure vertical center */
+  box-sizing: border-box;
+}
+
+.asm-table thead th:first-child {
+  border-left: none;
+}
+
+/* TBODY */
+.asm-table tbody td {
+  font-size: 18px;
+  /* Body 18px */
+  color: var(--asm-text-main);
+  padding: 0 12px;
+  height: 42px;
+  /* Fixed Height 42px */
+  border-bottom: 1px solid var(--asm-divider);
+  vertical-align: middle;
+  /* Ensure vertical center */
+  box-sizing: border-box;
+}
+
+.asm-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.asm-table .text-center {
+  text-align: center;
+}
+
+/* Action button (ellipsis) */
+.asm-action-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: var(--asm-blue);
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.asm-modal-footer {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 16px 32px 20px;
+  border-top: 1px solid var(--asm-border);
+}
+
+.asm-footer-info {
+  width: 160px;
+  font-size: 16px;
+  color: var(--asm-text-muted);
+}
+
+/* Pagination */
+.asm-footer-pages {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.asm-page-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: #f3f7fa;
+  color: #a9a9a9;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.asm-page-current {
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border-radius: 12px;
+  border: none;
+  background: var(--asm-page-active-bg);
+  color: var(--asm-blue);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* Show dropdown */
+.asm-footer-show {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: var(--asm-text-muted);
+}
+
+.asm-show-dropdown {
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--asm-border);
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  color: var(--asm-text-main);
+  cursor: pointer;
+}
+
+.asm-show-caret {
+  font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .asm-modal {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .asm-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .asm-search,
+  .asm-date-btn {
+    width: 100%;
+  }
+
+  .cc-reg-pill-tabs {
+    flex-wrap: wrap;
+    /* Allow wrapping on mobile */
+  }
+}
+
+.cc-reg-tab-pane {
+  display: none;
+  width: 100%;
+}
+
+.cc-reg-tab-pane.active {
+  display: block;
+}

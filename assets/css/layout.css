@@ -1,0 +1,128 @@
+/* 
+   layout.css
+   -----------------------------------------
+   Global Layout Structure for the Application.
+   - Menggantikan body/layout di custom.css
+   - Mengatur Sidebar + Main Content layout
+   - Mengatur Viewport Height & Scroll
+   - TANPA ZOOM (natural scaling)
+*/
+
+/* 1. Global Viewport & Body Structure */
+html {
+    height: 100%;
+    /* iOS Safari fix */
+    height: -webkit-fill-available;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    /* Tinggi penuh viewport di semua browser */
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    /* iOS fix */
+
+    /* Layout utama: sidebar di kiri, konten di kanan */
+    display: flex;
+    flex-direction: row;
+
+    background: var(--main-bg, #F3F7FA);
+    color: var(--main-color, #0F172A);
+
+    /* Hindari scroll horizontal gara-gara tabel agak melar */
+    overflow-x: hidden;
+
+    /* Global Scale 90% as requested */
+    zoom: 1.0;
+}
+
+/* 2. Login / Auth Page Override
+   usage: <body class="auth-page"> */
+body.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    /* mengikuti login.css */
+}
+
+/* 3. Main Content Wrapper (kanan, di samping sidebar) */
+.page-content {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    min-height: 100vh;
+}
+
+
+.page-main,
+.ms-main-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    /* center di dalam page-content */
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+/* 5. Sidebar Layout Context
+   (styling detail tetap di sidebar.css) */
+.ms-sidebar {
+    flex-shrink: 0;
+    /* jangan sampai mengecil ketika konten banyak */
+    /* height/position diatur di sidebar.css */
+}
+
+/* 6. Navbar Layout Context
+   (padding/warna diatur di navbar.css) */
+.ms-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+/* 7. Responsive Breakpoints */
+@media (max-width: 1024px) {
+
+    /* Tablet / laptop kecil */
+    .page-main,
+    .ms-main-container {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile: layout stack (sidebar jadi drawer) */
+    body {
+        flex-direction: column;
+    }
+
+    .ms-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        /* hidden default */
+        transition: transform 0.3s ease;
+        z-index: 50;
+    }
+
+    .ms-sidebar.is-open {
+        transform: translateX(0);
+        /* dibuka via JS */
+    }
+
+    .page-main,
+    .ms-main-container {
+        padding: 16px;
+    }
+}

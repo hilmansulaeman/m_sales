@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Preview — Dashboard (with sidebar)</title>
+
+  <!-- 1. Reset & Consistency -->
+  <link rel="stylesheet" href="assets/css/cross-browser-reset.css">
+  <link rel="stylesheet" href="assets/css/browser-consistency.css">
+
+  <!-- 2. Base & Layout -->
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+
+  <!-- 3. Components -->
+  <link rel="stylesheet" href="assets/css/sidebar.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- 4. Widgets / Pages -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="assets/css/cc-card.css">
+  <link rel="stylesheet" href="assets/css/perf-table.css">
+
+  <!-- HANYA style tambahan kecil, jangan ubah body/.page-content lagi -->
+  <style>
+    /* placeholder widget removed — component styles are in assets/css/cc-card.css */
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar (loaded from partial) -->
+  <!-- display: contents removes this wrapper from grid/flex layout, making sidebar direct child of body -->
+  <div id="ms-sidebar-container" aria-hidden="false" style="display: contents;"></div>
+
+  <script>
+    (function () {
+      var container = document.getElementById('ms-sidebar-container');
+      if (!container) return;
+      fetch('assets/partials/sidebar.html')
+        .then(function (resp) { if (!resp.ok) throw new Error('Network error'); return resp.text(); })
+        .then(function (html) {
+          container.innerHTML = html;
+
+          // Initialize sidebar dropdowns (submenu toggles)
+          try {
+            var sidebar = container;
+            var toggles = sidebar.querySelectorAll('.ms-item--has-submenu');
+            toggles.forEach(function (a) {
+              a.addEventListener('click', function (e) {
+                e.preventDefault();
+                var submenu = a.nextElementSibling;
+                if (!submenu || !submenu.classList.contains('ms-submenu')) return;
+                var expanded = a.getAttribute('aria-expanded') === 'true';
+                // close other open sibling submenus (accordion behavior)
+                var siblings = sidebar.querySelectorAll('.ms-item--has-submenu');
+                siblings.forEach(function (s) {
+                  if (s !== a) {
+                    s.setAttribute('aria-expanded', 'false');
+                    var sibSub = s.nextElementSibling;
+                    if (sibSub && sibSub.classList.contains('ms-submenu')) {
+                      sibSub.style.display = 'none';
+                      sibSub.setAttribute('aria-hidden', 'true');
+                      s.classList.remove('ms-item--open');
+                    }
+                  }
+                });
+
+                if (!expanded) {
+                  submenu.style.display = 'block';
+                  submenu.setAttribute('aria-hidden', 'false');
+                  a.setAttribute('aria-expanded', 'true');
+                  a.classList.add('ms-item--open');
+                } else {
+                  submenu.style.display = 'none';
+                  submenu.setAttribute('aria-hidden', 'true');
+                  a.setAttribute('aria-expanded', 'false');
+                  a.classList.remove('ms-item--open');
+                }
+              });
+            });
+          } catch (err) { console.error(err); }
+        })
+        .catch(function (err) {
+          console.error('Failed to load sidebar partial:', err);
+          container.innerHTML = '<!-- Sidebar failed to load -->';
+        });
+    })();
+  </script>
+
+  <!-- KONTEN KANAN -->
+  <div class="page-content">
+    <!-- NAVBAR ATAS -->
+    <header class="ms-navbar">
+      <div class="ms-title">Dashboard</div>
+    </header>
+
+    <!-- KONTEN DI BAWAH NAVBAR (JARAK 32PX) -->
+    <main class="page-main">
+      <!-- segmented toggle -->
+      <div id="preview-seg" class="segmented" role="tablist" aria-label="Performance segmented">
+        <div class="segmented-inner">
+          <button type="button" role="tab" aria-selected="true" data-index="0" class="seg-item active">
+            <span class="label">My Performance</span>
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-index="1" class="seg-item">
+            <span class="label">Team Performance</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- script toggle -->
+      <script>
+        (function () {
+          var root = document.getElementById('preview-seg');
+          if (!root) return;
+          root.addEventListener('click', function (e) {
+            var btn = e.target.closest('.seg-item');
+            if (!btn) return;
+            var items = root.querySelectorAll('.seg-item');
+            items.forEach(function (it) {
+              it.classList.remove('active');
+              it.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+          });
+        })();
+      </script>
+
+      <!-- Credit Card component (dashboard-my) -->
+      <div class="dashboard-row">
+
+        <div style="margin-top:16px;">
+          <!-- SECTION BESAR: background abu + border -->
+          <div class="dashboard-my">
+
+            <!-- CARD CREDIT CARD DI ATAS -->
+            <div class="ms-cc-card">
+              <div class="ms-cc-top">
+                <div class="ms-cc-top-header">
+                  <h2 class="ms-cc-title">Credit Card</h2>
+
+                  <button class="ms-cc-pill" type="button">
+                    <span>December 2025</span>
+                    <img src="assets/img/icon.svg" alt="chevron" width="16" height="16">
+                  </button>
+                </div>
+
+                <div class="ms-cc-metrics">
+                  <!-- Achievement -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Achievement</div>
+                    <div class="ms-cc-gauge" style="--value:244deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>68%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Approval Rate -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Approval Rate</div>
+                    <div class="ms-cc-gauge" style="--value:270deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>75%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Sales -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Total Sales</div>
+                    <div class="ms-cc-number-big">92</div>
+                    <div class="ms-cc-badge-row">
+                      <span class="ms-cc-badge-icon">⬈</span>
+                      <span class="ms-cc-badge-text">12 Increase from last month</span>
+                    </div>
+                  </div>
+
+                  <!-- Run Rate NoA -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Run Rate NoA</div>
+                    <div class="ms-cc-number-big ms-cc-number-turq">86</div>
+                    <div class="ms-cc-chip">35%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KONTEN DI BAWAH CARD (BAR CHART lama kamu) -->
+            <div class="frame">
+              <div class="div">
+                <div class="text-wrapper">Credit Card</div>
+                <div class="frame-2">
+                  <div class="text-wrapper-2">December 2025</div>
+                  <img class="icon" src="assets/img/icon.svg" alt="chevron" />
+                </div>
+              </div>
+
+              <div class="frame-3">
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming<br />DIKA</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming CCMS</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="div-wrapper">
+                      <div class="frame-7"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">NoA / Approval</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">54</div>
+                    <div class="frame-8">
+                      <div class="frame-9"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Cancel</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">32</div>
+                    <div class="frame-10">
+                      <div class="frame-11"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Decline / Reject</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <!-- SECTION BESAR: background abu + border -->
+          <div class="dashboard-my">
+
+            <!-- CARD CREDIT CARD DI ATAS -->
+            <div class="ms-cc-card">
+              <div class="ms-cc-top">
+                <div class="ms-cc-top-header">
+                  <h2 class="ms-cc-title">Credit Card</h2>
+
+                  <button class="ms-cc-pill" type="button">
+                    <span>December 2025</span>
+                    <img src="assets/img/icon.svg" alt="chevron" width="16" height="16">
+                  </button>
+                </div>
+
+                <div class="ms-cc-metrics">
+                  <!-- Achievement -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Achievement</div>
+                    <div class="ms-cc-gauge" style="--value:244deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>68%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Approval Rate -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Approval Rate</div>
+                    <div class="ms-cc-gauge" style="--value:270deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>75%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Sales -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Total Sales</div>
+                    <div class="ms-cc-number-big">92</div>
+                    <div class="ms-cc-badge-row">
+                      <span class="ms-cc-badge-icon">⬈</span>
+                      <span class="ms-cc-badge-text">12 Increase from last month</span>
+                    </div>
+                  </div>
+
+                  <!-- Run Rate NoA -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Run Rate NoA</div>
+                    <div class="ms-cc-number-big ms-cc-number-turq">86</div>
+                    <div class="ms-cc-chip">35%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KONTEN DI BAWAH CARD (BAR CHART lama kamu) -->
+            <div class="frame">
+              <div class="div">
+                <div class="text-wrapper">Credit Card</div>
+                <div class="frame-2">
+                  <div class="text-wrapper-2">December 2025</div>
+                  <img class="icon" src="assets/img/icon.svg" alt="chevron" />
+                </div>
+              </div>
+
+              <div class="frame-3">
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming<br />DIKA</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming CCMS</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="div-wrapper">
+                      <div class="frame-7"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">NoA / Approval</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">54</div>
+                    <div class="frame-8">
+                      <div class="frame-9"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Cancel</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">32</div>
+                    <div class="frame-10">
+                      <div class="frame-11"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Decline / Reject</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-row">
+
+        <div style="margin-top:16px;">
+          <!-- SECTION BESAR: background abu + border -->
+          <div class="dashboard-my">
+
+            <!-- CARD CREDIT CARD DI ATAS -->
+            <div class="ms-cc-card">
+              <div class="ms-cc-top">
+                <div class="ms-cc-top-header">
+                  <h2 class="ms-cc-title">Credit Card</h2>
+
+                  <button class="ms-cc-pill" type="button">
+                    <span>December 2025</span>
+                    <img src="assets/img/icon.svg" alt="chevron" width="16" height="16">
+                  </button>
+                </div>
+
+                <div class="ms-cc-metrics">
+                  <!-- Achievement -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Achievement</div>
+                    <div class="ms-cc-gauge" style="--value:244deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>68%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Approval Rate -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Approval Rate</div>
+                    <div class="ms-cc-gauge" style="--value:270deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>75%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Sales -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Total Sales</div>
+                    <div class="ms-cc-number-big">92</div>
+                    <div class="ms-cc-badge-row">
+                      <span class="ms-cc-badge-icon">⬈</span>
+                      <span class="ms-cc-badge-text">12 Increase from last month</span>
+                    </div>
+                  </div>
+
+                  <!-- Run Rate NoA -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Run Rate NoA</div>
+                    <div class="ms-cc-number-big ms-cc-number-turq">86</div>
+                    <div class="ms-cc-chip">35%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KONTEN DI BAWAH CARD (BAR CHART lama kamu) -->
+            <div class="frame">
+              <div class="div">
+                <div class="text-wrapper">Credit Card</div>
+                <div class="frame-2">
+                  <div class="text-wrapper-2">December 2025</div>
+                  <img class="icon" src="assets/img/icon.svg" alt="chevron" />
+                </div>
+              </div>
+
+              <div class="frame-3">
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming<br />DIKA</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming CCMS</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="div-wrapper">
+                      <div class="frame-7"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">NoA / Approval</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">54</div>
+                    <div class="frame-8">
+                      <div class="frame-9"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Cancel</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">32</div>
+                    <div class="frame-10">
+                      <div class="frame-11"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Decline / Reject</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <!-- SECTION BESAR: background abu + border -->
+          <div class="dashboard-my">
+
+            <!-- CARD CREDIT CARD DI ATAS -->
+            <div class="ms-cc-card">
+              <div class="ms-cc-top">
+                <div class="ms-cc-top-header">
+                  <h2 class="ms-cc-title">Credit Card</h2>
+
+                  <button class="ms-cc-pill" type="button">
+                    <span>December 2025</span>
+                    <img src="assets/img/icon.svg" alt="chevron" width="16" height="16">
+                  </button>
+                </div>
+
+                <div class="ms-cc-metrics">
+                  <!-- Achievement -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Achievement</div>
+                    <div class="ms-cc-gauge" style="--value:244deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>68%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Approval Rate -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Approval Rate</div>
+                    <div class="ms-cc-gauge" style="--value:270deg;">
+                      <div class="ms-cc-gauge-inner">
+                        <span>75%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Sales -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Total Sales</div>
+                    <div class="ms-cc-number-big">92</div>
+                    <div class="ms-cc-badge-row">
+                      <span class="ms-cc-badge-icon">⬈</span>
+                      <span class="ms-cc-badge-text">12 Increase from last month</span>
+                    </div>
+                  </div>
+
+                  <!-- Run Rate NoA -->
+                  <div class="ms-cc-metric">
+                    <div class="ms-cc-metric-label">Run Rate NoA</div>
+                    <div class="ms-cc-number-big ms-cc-number-turq">86</div>
+                    <div class="ms-cc-chip">35%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KONTEN DI BAWAH CARD (BAR CHART lama kamu) -->
+            <div class="frame">
+              <div class="div">
+                <div class="text-wrapper">Credit Card</div>
+                <div class="frame-2">
+                  <div class="text-wrapper-2">December 2025</div>
+                  <img class="icon" src="assets/img/icon.svg" alt="chevron" />
+                </div>
+              </div>
+
+              <div class="frame-3">
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming<br />DIKA</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="frame-wrapper">
+                      <div class="frame-6"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Incoming CCMS</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">68</div>
+                    <div class="div-wrapper">
+                      <div class="frame-7"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">NoA / Approval</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">54</div>
+                    <div class="frame-8">
+                      <div class="frame-9"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Cancel</div>
+                </div>
+                <div class="frame-4">
+                  <div class="frame-5">
+                    <div class="text-wrapper-3">32</div>
+                    <div class="frame-10">
+                      <div class="frame-11"></div>
+                    </div>
+                  </div>
+                  <div class="text-wrapper-4">Decline / Reject</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="assets/js/safari-helper.js"></script>
+</body>
+
+</html>

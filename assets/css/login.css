@@ -1,0 +1,284 @@
+/* ============================================
+   GLOBAL BODY (AUTH PAGE)
+   ============================================ */
+body.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fff;
+    /* Full white background or light grey? Image shows white card on white bg effectively */
+    margin: 0;
+}
+
+/* ============================================
+   ROOT CONTAINER
+   ============================================ */
+.auth-root {
+    width: 100%;
+    /* max-width: 1440px; -- user liked 1680 or similar wide layout? Image looks like standard desktop */
+    max-width: 1600px;
+    height: 900px;
+    max-height: 95vh;
+    background: #ffffff;
+    display: flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: 24px;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* ============================================
+   RIGHT PANEL (IMAGE)
+   ============================================ */
+.auth-right-panel {
+    flex: 1.2;
+    /* Slightly wider than form side? */
+    order: 2;
+    /* Move to right */
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+}
+
+.auth-right-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+.auth-logo {
+    position: absolute;
+    top: 48px;
+    left: 48px;
+    height: 48px;
+    /* Adjusted size */
+    z-index: 10;
+}
+
+/* ============================================
+   FORM SECTION (LEFT)
+   ============================================ */
+.auth-form,
+.forgot-form {
+    flex: 1;
+    order: 1;
+    /* Move to left */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 80px;
+    /* Spacious padding */
+    max-width: 600px;
+    /* Constrain width */
+    margin: 0 auto;
+}
+
+/* ... specific content overrides ... */
+
+.auth-title,
+.forgot-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1E62B3;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.auth-subtitle,
+.forgot-subtitle {
+    font-size: 16px;
+    color: #7F868B;
+    text-align: center;
+    margin-bottom: 48px;
+    margin-top: 8px;
+}
+
+/* INPUTS */
+.auth-inputs,
+.forgot-input-container,
+/* wrapper for inputs in forgot form if needed, or target input directly */
+.forgot-input {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 0;
+    /* Reset margin since flex handles gap */
+}
+
+/* Ensure inputs in both forms look same */
+.auth-inputs input[type="text"],
+.auth-inputs input[type="password"],
+.forgot-input input[type="email"] {
+    width: 100%;
+    height: 52px;
+    padding: 0 20px;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    font-size: 15px;
+    background: #fff;
+    color: #334155;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+.auth-inputs input:focus,
+.forgot-input input:focus {
+    border-color: #1E62B3;
+}
+
+.auth-inputs input::placeholder {
+    color: #94A3B8;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+}
+
+.toggle-password-btn:hover {
+    opacity: 1;
+}
+
+/* FORGOT PASSWORD */
+.forgot-password {
+    text-align: right;
+    margin-top: 8px;
+}
+
+.forgot-password a {
+    color: #1E62B3;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* BUTTON */
+.btn-primary,
+.btn-continue {
+    width: 100%;
+    height: 52px;
+    margin-top: 32px;
+    background: #1E62B3;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 99px;
+    /* Pill shape */
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+.btn-primary:hover,
+.btn-continue:hover {
+    background: #164e92;
+}
+
+/* Back Link specifics */
+.back-to-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #1E62B3;
+    text-decoration: none;
+    margin-bottom: 32px;
+    align-self: flex-start;
+    /* Align left or continue center? Design implies top-left of form area */
+}
+
+/* HELP TEXT */
+.help-text {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.help-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.help-contact .phone {
+    color: #1E62B3;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+
+    .auth-form,
+    .forgot-form {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 900px) {
+    .auth-root {
+        flex-direction: column;
+        height: auto;
+        padding: 0;
+        max-height: none;
+    }
+
+    .auth-logo {
+        position: relative;
+        top: 24px;
+        left: 24px;
+        margin-bottom: 24px;
+    }
+
+    .auth-form,
+    .forgot-form {
+        order: 2;
+        padding: 40px 24px;
+        max-width: 100%;
+    }
+
+    .auth-right-panel {
+        order: 3;
+        /* Move visual below or just hide? Standard mobile login often hides giant hero images or stacking them */
+        /* Let's keep it visible but maybe smaller? */
+        height: 300px;
+        flex: none;
+        border-radius: 0;
+        display: none;
+        /* Hide image on mobile usually cleaner or stack bottom */
+    }
+}

@@ -1,0 +1,410 @@
+:root {
+  --ms-blue: #1E62B3;
+  --bg: #1E62B3;
+  --muted-white: rgba(255, 255, 255, 0.85);
+}
+
+/* SIDEBAR */
+/* -------------------------------------------
+   See layout.css for the container layout details (.ms-sidebar context)
+------------------------------------------- */
+
+
+/* SIDEBAR */
+.ms-sidebar {
+  width: 250px;
+
+  /* HEIGHT STRATEGY FOR ZOOM: 0.75 */
+  /* Default (Chrome/Edge): 100vh fills the zoomed view perfectly. */
+  height: 100vh;
+
+  /* Safari sometimes needs help if it doesn't zoom the viewport height */
+  /* Fallback logic intentionally left simple to rely on sticky positioning */
+
+  min-height: 100vh;
+  /* Fix bottom gap on mobile Safari (address bar) */
+  min-height: -webkit-fill-available;
+  background: var(--bg);
+  color: #fff;
+  padding: 20px 16px;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  display: flex;
+  /* NEW: Flex layout */
+  flex-direction: column;
+  /* Stack vertically */
+  /* Stack vertically */
+  overflow: hidden;
+  /* Container fixed */
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+/* This rule is now for .ms-menu */
+
+/* LOGO */
+.ms-logo {
+  flex-shrink: 0;
+  /* Never shrink */
+}
+
+.ms-logo img {
+  height: 48px;
+  display: block;
+}
+
+/* USER SECTION */
+.ms-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+  /* Never shrink */
+}
+
+.ms-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ms-user-info {
+  flex: 1;
+}
+
+.ms-user-name {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ms-user-role {
+  font-size: 13px;
+  opacity: .85;
+}
+
+.ms-chevron {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* DIVIDER */
+.ms-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  border: 0;
+  margin: 12px 0 20px;
+  flex-shrink: 0;
+  /* Never shrink */
+}
+
+/* MENU - Scrollable Area */
+.ms-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  /* Take remaining height */
+  overflow-y: auto;
+  /* Scroll internally */
+  scrollbar-width: none;
+  /* Firefox */
+  padding-bottom: 24px;
+  /* Extra spacing at bottom */
+}
+
+/* Hide scrollbar for Chrome/Safari/Opera */
+.ms-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.ms-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--muted-white);
+  text-decoration: none;
+  font-size: 16px;
+  /* Applied to all items */
+  font-weight: 500;
+  /* Medium for all */
+}
+
+/* ... */
+.ms-item.ms-item--has-submenu .ms-label {
+  color: #FFFFFF;
+  font-family: 'TikTok Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-weight: 500;
+  /* Ensure medium consistency */
+  word-wrap: break-word;
+}
+
+.ms-subitem {
+  display: block;
+  padding: 8px 12px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: 'TikTok Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.ms-subitem--active {
+  background: #F4F7FB;
+  color: var(--ms-blue);
+  font-weight: 700;
+  font-size: 14px;
+  padding-left: 18px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.ms-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ms-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ms-item--active {
+  background: #F4F7FB;
+  color: var(--ms-blue);
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+.ms-label {
+  flex: 1;
+}
+
+.ms-item .ms-caret {
+  opacity: .95;
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+/* ICONS */
+.ms-item img {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+@media (max-width: 720px) {
+  .ms-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 40;
+    height: 100vh;
+  }
+}
+
+/* Adapted from provided BSH styles - mapped to .ms-sidebar structure */
+.ms-sidebar.BSH {
+  display: inline-flex;
+  flex-direction: column;
+  height: 100vh;
+  /* full height */
+  align-items: flex-start;
+  gap: 32px;
+  padding: 24px;
+  position: relative;
+  background-color: var(--side-menublue-side-menu, var(--ms-blue));
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-color: var(--side-menudivider-side-menu, rgba(255, 255, 255, 0.06));
+}
+
+.ms-sidebar.BSH .ms-frame {
+  position: relative;
+  width: 246px;
+  height: 78px;
+}
+
+.ms-sidebar.BSH .ms-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+}
+
+.ms-sidebar.BSH .ms-profile-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 12px;
+  width: 100%;
+}
+
+.ms-sidebar.BSH .ms-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.ms-sidebar.BSH .ms-profile-info {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ms-sidebar.BSH .ms-name {
+  color: var(--side-menuwhite, #fff);
+  font-weight: 700;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ms-sidebar.BSH .ms-role {
+  color: var(--side-menuwhite, #fff);
+  font-size: 13px;
+  opacity: .9;
+}
+
+.ms-sidebar.BSH .ms-chevron {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ms-sidebar.BSH .ms-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 12px 0 20px;
+  border: 0;
+}
+
+.ms-sidebar.BSH .ms-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.ms-sidebar.BSH .ms-nav .ms-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: var(--muted-white);
+  text-decoration: none;
+}
+
+.ms-sidebar.BSH .ms-nav .ms-item .ms-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ms-sidebar.BSH .ms-nav .ms-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ms-sidebar.BSH .ms-nav .ms-item.active {
+  background: #F4F7FB;
+  color: var(--ms-blue);
+  font-weight: 600;
+}
+
+.ms-sidebar.BSH .ms-nav .ms-item img {
+  width: 18px;
+  height: 18px;
+}
+
+/* small helpers */
+.ms-sidebar .ms-label {
+  flex: 1;
+}
+
+
+/* Submenu styles for Application Input */
+.ms-item.ms-item--has-submenu .ms-label {
+  color: #FFFFFF;
+  /* Application Input */
+  font-size: 16px;
+  font-family: 'TikTok Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.ms-item .ms-caret {
+  transition: transform 160ms ease;
+}
+
+.ms-item.ms-item--open .ms-caret {
+  transform: rotate(90deg);
+}
+
+.ms-submenu {
+  display: none;
+  /* toggled via JS */
+  padding-left: 12px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-left: 3px solid rgba(255, 255, 255, 0.12);
+}
+
+.ms-subitem {
+  display: block;
+  padding: 8px 12px;
+  color: #FFFFFF;
+  /* default submenu items */
+  font-size: 14px;
+  font-family: 'TikTok Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.ms-subitem:hover,
+.ms-subitem:focus {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Active PEMOL style */
+.ms-subitem--active {
+  background: #F4F7FB;
+  /* light pill */
+  color: var(--ms-blue);
+  font-weight: 700;
+  font-size: 14px;
+  padding-left: 18px;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+/* Improve accessible hidden state when JS toggles */
+[aria-hidden="true"].ms-submenu {
+  display: none !important;
+}
+
+[aria-hidden="false"].ms-submenu {
+  display: block !important;
+}

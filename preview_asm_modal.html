@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="id">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview ASM Modal</title>
+
+<link rel="stylesheet" href="assets/css/cross-browser-reset.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pemol-modal.css">
+<link rel="stylesheet" href="assets/css/browser-consistency.css">
+</head>
+
+<body>
+  <div class="demo-wrap">
+    <h1>Demo ASM Modal</h1>
+    <p>Contoh penggunaan modal ASM — fokus ke HTML/JS (bukan PHP).</p>
+
+    <!-- Tombol contoh untuk buka modal -->
+    <button type="button" id="openAsmModal">View ASM</button>
+
+    <!-- BACKDROP + MODAL -->
+    <div class="asm-modal-backdrop" id="asmModal">
+      <div class="asm-modal" role="dialog" aria-modal="true" aria-labelledby="asmTitle">
+        <!-- HEADER -->
+        <div class="asm-modal-header">
+          <h2 class="asm-modal-title" id="asmTitle">Kiwamudin</h2>
+
+          <button class="asm-modal-close" type="button" aria-label="Close">
+            ×
+          </button>
+        </div>
+
+        <!-- BODY -->
+        <div class="asm-modal-body">
+          <!-- FILTER BAR -->
+          <div class="asm-filter-bar">
+            <!-- Search -->
+            <div class="asm-search">
+              <span class="asm-search-icon">🔍</span>
+              <input type="text" class="asm-search-input" placeholder="Search" />
+            </div>
+
+            <!-- Date range -->
+            <button type="button" class="asm-date-btn">
+              <span class="asm-date-icon">📅</span>
+              <span class="asm-date-text">1 Jan, 2025 - 2 Feb, 2025</span>
+            </button>
+          </div>
+
+          <!-- TABLE CARD -->
+          <div class="asm-table-card">
+            <table class="asm-table">
+              <thead>
+                <tr>
+                  <th rowspan="2" class="text-center">No</th>
+                  <th rowspan="2">ASM Name</th>
+                  <th rowspan="2" class="text-center">NIK Sales</th>
+                  <th rowspan="2" class="text-center">Branch</th>
+                  <th colspan="2" class="text-center">Total DSR</th>
+                  <th colspan="3" class="text-center">Input</th>
+                  <th rowspan="2" class="text-center">Action</th>
+                </tr>
+                <tr>
+                  <th class="text-center">Active</th>
+                  <th class="text-center">Input</th>
+                  <th class="text-center">BCA Mobile</th>
+                  <th class="text-center">My BCA</th>
+                  <th class="text-center">Total</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td class="text-center">1</td>
+                  <td>Albert Lambert</td>
+                  <td class="text-center">K1101285</td>
+                  <td class="text-center">Jakarta</td>
+                  <td class="text-center">145</td>
+                  <td class="text-center">974</td>
+                  <td class="text-center">958</td>
+                  <td class="text-center">13</td>
+                  <td class="text-center">46</td>
+                  <td class="text-center">
+                    <button class="asm-action-btn" type="button">👁</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">2</td>
+                  <td>Angela Suriawarsita</td>
+                  <td class="text-center">K1131701</td>
+                  <td class="text-center">Jakarta</td>
+                  <td class="text-center">144</td>
+                  <td class="text-center">75</td>
+                  <td class="text-center">6</td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">
+                    <button class="asm-action-btn" type="button">👁</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">3</td>
+                  <td>Sifa Fauziah</td>
+                  <td class="text-center">K1140414</td>
+                  <td class="text-center">Jakarta</td>
+                  <td class="text-center">185</td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">
+                    <button class="asm-action-btn" type="button">👁</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- FOOTER / PAGINATION -->
+          <div class="asm-modal-footer">
+            <div class="asm-footer-info">
+              Showing 1 to 3 of 3
+            </div>
+
+            <div class="asm-footer-pages">
+              <button type="button" class="asm-page-arrow">‹</button>
+              <button type="button" class="asm-page-current">1</button>
+              <button type="button" class="asm-page-arrow">›</button>
+            </div>
+
+            <div class="asm-footer-show">
+              <span>Show</span>
+              <button type="button" class="asm-show-dropdown">
+                <span>10</span>
+                <span class="asm-show-caret">▾</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/safari-helper.js"></script>
+  <script>
+    // buka modal (contoh aja)
+    document.getElementById('openAsmModal').addEventListener('click', function () {
+      document.getElementById('asmModal').classList.add('is-open');
+      if (window.BrowserConsistency) window.BrowserConsistency.lockScroll(true);
+    });
+
+    // tutup modal (klik tombol X / backdrop)
+    document
+      .getElementById('asmModal')
+      .addEventListener('click', function (e) {
+        if (
+          e.target.id === 'asmModal' ||
+          e.target.classList.contains('asm-modal-close')
+        ) {
+          this.classList.remove('is-open');
+          if (window.BrowserConsistency) window.BrowserConsistency.lockScroll(false);
+        }
+      });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+:root {
+  --side-menuwhite: #ffffff;
+  --grey-scaledivider: #e6e9ef;
+  --side-menublue-side-menu: #1E62B3;
+}
+
+/* NAVBAR / PAGE HEADER */
+
+
+/* NAVBAR / PAGE HEADER */
+.ms-navbar {
+  height: 56px;
+  width: 100%;
+  background: var(--side-menuwhite);
+  border-bottom: 1px solid var(--grey-scaledivider);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  color: var(--side-menublue-side-menu);
+  margin-bottom: 24px;
+  /* JARAK KE TOGGLE = 32px */
+}
+
+.ms-navbar .ms-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--side-menublue-side-menu);
+}
+
+/* WRAPPER KONTEN DI BAWAH NAVBAR */
+/* .page-main handled in custom.css (Permanent Rules) */
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ms-navbar {
+    padding: 0 16px;
+  }
+
+  .ms-navbar .ms-title {
+    font-size: 20px;
+  }
+
+  .page-main {
+    padding: 0 16px 24px;
+  }
+}

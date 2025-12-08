@@ -1,0 +1,145 @@
+/* Application Check Styles */
+
+/* Hero Section */
+.app-check-hero {
+    background-image: url('../img/bg_application_pemol.svg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    padding: 40px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    /* Ensure it scales nicely */
+    width: 100%;
+
+}
+
+.app-check-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    font-family: 'TikTok Sans', sans-serif;
+
+}
+
+.app-check-search {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+.app-check-search input {
+    width: 100%;
+    height: 48px;
+    border-radius: 999px;
+    border: none;
+    padding: 0 20px 0 48px;
+    font-size: 14px;
+    /* Consistent with 90% scale */
+    outline: none;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-check-search input::placeholder {
+    color: #A9A9A9;
+}
+
+.app-check-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #999;
+    /* Use svg code or img */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Tabs */
+.app-check-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.app-check-tab {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    /* Consistent scale */
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    font-family: 'TikTok Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-check-tab.active {
+    background-color: #1E62B3;
+    color: #fff;
+}
+
+.app-check-tab.inactive {
+    background-color: #E9F2FF;
+    color: #1E62B3;
+}
+
+.app-check-tab:hover {
+    opacity: 0.9;
+}
+
+/* Table Card generic wrapper if not using card-rsm directly */
+.app-check-card {
+    border-radius: 24px;
+    /* Updated to 24px per request */
+    border: 1px solid #D9D9D9;
+    overflow: hidden;
+    padding: 0;
+    /* Table fills it */
+}
+
+/* Override for usage of .card-rsm in this page context */
+.card-rsm {
+    border-radius: 24px !important;
+    overflow: hidden !important;
+}
+
+/* Pagination container matches merchant table style */
+.app-check-footer {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* =======================================================================
+   SPECIFIC OVERRIDES FOR APPLICATION CHECK TABLE
+   ======================================================================= */
+/* The user requested ALL font sizes in the table/footer to be 18px */
+#app-check-table-container .rsm-table thead th {
+    font-size: 18px !important;
+}
+
+#app-check-table-container .rsm-table tbody td {
+    font-size: 18px !important;
+}
+
+#app-check-table-container .rsm-pagination-info,
+#app-check-table-container .rsm-pagination-show,
+#app-check-table-container .rsm-page-active,
+#app-check-table-container .rsm-show-dropdown span {
+    font-size: 18px !important;
+}

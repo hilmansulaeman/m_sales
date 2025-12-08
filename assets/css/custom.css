@@ -1,0 +1,61 @@
+/* 
+   custom.css
+   -----------------------------------------
+   Specific overrides and component styles for the Dashboard.
+   Layout logic has been moved to layout.css.
+*/
+
+/* 
+   NOTE: Font-faces are now loaded in base.css
+   NOTE: Body/Layout is now in layout.css
+*/
+
+/* ------------------------------------------
+   WIDGET / CARD
+------------------------------------------- */
+.widget {
+	background: #FFFFFF;
+	border-radius: 16px;
+	padding: 24px;
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+/* ------------------------------------------
+   TABLE SCALING
+------------------------------------------- */
+.rsm-table th,
+.rsm-table td,
+.ms-table th,
+.ms-table td {
+	font-size: 13px;
+	padding: 10px 12px;
+}
+
+/* ------------------------------------------
+   INPUT & BUTTON STANDARDIZATION
+------------------------------------------- */
+.form-control,
+.btn,
+.rsm-search-input,
+.rsm-source-filter,
+.btn-date-range,
+.btn-export-rsm {
+	height: 40px;
+	font-size: 14px;
+	padding: 0 16px;
+	border-radius: 999px;
+	/* More modern rounded look generally preferred in this design */
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------
+   ACCESSIBILITY
+------------------------------------------- */
+.sr-only {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	white-space: nowrap;
+}

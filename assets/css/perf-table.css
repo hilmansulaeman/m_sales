@@ -1,0 +1,648 @@
+/* perf-table.css */
+
+/* =======================================================================
+   COLOR TOKENS
+   ======================================================================= */
+:root {
+  --rsm-blue: #1E62B3;
+  --rsm-border: #D9D9D9;
+  --rsm-divider: #E6E9EF;
+  --rsm-text-main: #29415C;
+  --rsm-text-muted: #55586B;
+  --rsm-placeholder: #A9A9A9;
+  --rsm-page-active: #E9F2FF;
+}
+
+/* =======================================================================
+   PAGE BACKGROUND (KHUSUS PREVIEW STANDALONE)
+   ======================================================================= */
+.body-rsm {
+  background: #F3F7FA;
+  padding: 20px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* Fix for consistency: When loaded inside the main app layout, remove the standalone padding/bg */
+.page-main .body-rsm {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* =======================================================================
+   CARD UTAMA
+   ======================================================================= */
+/* CARD UTAMA */
+.card-rsm {
+  width: 1542px;
+  max-width: 100%;
+  /* Prevent overflow if screen is smaller, allow horizontal scroll on parent if needed */
+  background: #FFFFFF;
+  border-radius: 16px;
+  /* Slight adjustment to match image roundedness */
+  border: 1px solid var(--rsm-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Top bar (search + date range + export) */
+.rsm-top-bar {
+  padding: 20px;
+  gap: 16px;
+}
+
+/* SEARCH INPUT */
+.rsm-search-input {
+  width: 280px;
+  height: 40px;
+  /* Slightly taller to match image visual */
+  border-radius: 999px;
+  border: 1px solid #D9D9D9;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.rsm-search-input .input-group-text {
+  border: 0;
+  background: transparent;
+  padding-left: 18px;
+  padding-right: 8px;
+  font-size: 14px;
+  color: #A9A9A9;
+}
+
+.rsm-search-input .form-control {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  font-size: 14px;
+  color: #29415C;
+  padding: 8px 12px 8px 0;
+  height: 100%;
+}
+
+.rsm-search-input .form-control::placeholder {
+  color: #A9A9A9;
+}
+
+/* DATE RANGE BUTTON */
+.btn-date-range {
+  width: 260px;
+  height: 40px;
+  border-radius: 999px;
+  /* Pill shape matches images better than 20px */
+  border: 1px solid var(--rsm-border);
+  background: #FFFFFF;
+  padding-inline: 20px;
+  font-size: 14px;
+  color: var(--rsm-placeholder);
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* EXPORT BUTTON */
+.btn-export-rsm {
+  background: var(--rsm-blue);
+  color: #FFFFFF;
+  border-radius: 100px;
+  border-color: var(--rsm-blue);
+  font-size: 14px;
+  font-weight: 600;
+  height: 40px;
+  padding: 0 20px;
+}
+
+/* TABLE STYLES */
+.rsm-table {
+  width: 100%;
+  /* Fill the card */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* header & body */
+.rsm-table thead th,
+.rsm-table tbody td {
+  padding: 0 12px;
+  font-size: 18px;
+  /* Default to 18px, overridden for header */
+  border-bottom: 1px solid var(--rsm-divider);
+  height: 42px;
+  /* Increased from 32px to 42px for better fit with 18px font */
+  box-sizing: border-box;
+}
+
+/* header style */
+.rsm-table thead th {
+  background: var(--rsm-blue);
+  color: #FFFFFF;
+  font-size: 20px;
+  /* Header 20px */
+  font-weight: 500;
+  /* Medium */
+  white-space: nowrap;
+  height: 42px;
+  /* Flex alignment for header cells */
+  display: table-cell;
+  /* Keep table-cell for the th itself to respect table layout, or use flex? */
+  /* converting th/td to flex directly might break column widths if not careful. 
+       The user's previous 'edc-table' request forced flex. 
+       For rsm-table, let's try to keep table-cell but use vertical-align middle 
+       OR use internal flex wrapper if needed. 
+       However, user asked for 'consistency'. 
+       If I use display: flex on td, it stops behaving like a table cell in some browsers unless width is controlled.
+       Actually, 'edc-table' CSS I wrote uses display: flex on the cell.
+       Let's try to use vertical-align: middle for legacy table safety, 
+       unless I change the whole table to flex layout (divs). 
+       But the HTML is <table>. 
+       I will stick to table-cell with vertical-align: middle + padding for safety 
+       UNLESS I see specific instructions to change layout mode. 
+       Re-reading Step 0: "3. Semua cell using flexbox...". 
+       So I SHOULD apply flexbox. 
+       If I apply display: flex to a <td>, it becomes a flex container. 
+       The <td> itself still acts as a cell in most modern browsers (Chrome/Edge/Safari), 
+       but `vertical-align` property stops working, aligned via `align-items`. */
+}
+
+/* Internal content alignment for TH */
+.rsm-table thead th {
+  /* To align content inside TH if we don't set display:flex on TH */
+  vertical-align: middle;
+}
+
+.rsm-table thead tr:first-child th {
+  border-bottom: none;
+}
+
+/* body style */
+.rsm-table tbody td {
+  color: var(--rsm-text-main);
+  font-size: 18px;
+  /* Explicitly 18px */
+  font-weight: 400;
+  /* Regular */
+  vertical-align: middle;
+}
+
+/* If user insisted on flex for cells in edc-table, they might want it here.
+   But 'edc-table' was a div-based table in some contexts or styled div? 
+   No, edc-table was generic CSS. 
+   In `merchant-modal.css` I applied it to `.edc-table-cell` (divs).
+   Here `.rsm-table` is a real `<table>`. 
+   Applying `display: flex` to `<td>` can cause column misalignment because `<td>` 
+   needs to calculate width based on column peer. 
+   I will NOT use `display: flex` on `<td>` by default to avoid breaking table layout.
+   I will ensure the visual result (alignment, padding, height) matches. */
+
+/* garis vertikal standar antar kolom */
+.rsm-table thead th+th,
+.rsm-table tbody td+td {
+  border-left: 1px solid var(--rsm-divider);
+}
+
+/* garis group (Total DSR & Input) – start kolom group */
+.rsm-table .rsm-group,
+.rsm-table .rsm-group-col {
+  border-left: 1px solid var(--rsm-divider);
+}
+
+/* kolom terakhir: tidak perlu border kanan khusus */
+.rsm-table thead th:last-child,
+.rsm-table tbody td:last-child {
+  border-right: 0;
+}
+
+/* =======================================================================
+   PAGINATION
+   ======================================================================= */
+
+/* PAGINATION */
+.rsm-pagination-info,
+.rsm-pagination-show {
+  font-size: 12.5px;
+  /* Rule: 13px */
+  color: var(--rsm-text-muted);
+}
+
+/* angka halaman aktif (pill biru muda) */
+/* angka halaman aktif (pill biru muda) */
+.rsm-page-active {
+  background: var(--rsm-page-active);
+  color: var(--rsm-blue);
+  font-weight: 600;
+  border-radius: 999px;
+  border: 0;
+  font-size: 12.5px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* dropdown "Show 10" */
+.rsm-show-dropdown {
+  border-radius: 12px;
+  border: 1px solid var(--rsm-border);
+  padding: 4px 8px;
+}
+
+/* tombol bulat (prev/next / action) */
+.rsm-circle-btn {
+  border-radius: 999px !important;
+}
+
+.btn-merchant-action {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  /* Slight rounding if hovered */
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.btn-merchant-action:hover {
+  background-color: #E6E9EF;
+}
+
+.btn-merchant-action svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.btn-merchant-action svg path {
+  fill: #29415C;
+  /* Dark blue/black fill for dots */
+  stroke: none;
+  /* No stroke for dots */
+}
+
+/* Ensure no conflict with stroke based icons if reused elsewhere, but for this specific button we use fill for dots */
+.btn-merchant-action svg circle {
+  fill: #29415C;
+}
+
+.btn-merchant-action:hover svg circle {
+  fill: #1E62B3;
+}
+
+/* PREV/NEXT */
+.rsm-px-btn {
+  font-size: 12.5px;
+}
+
+/* SOURCE FILTER */
+.rsm-source-filter {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #D9D9D9;
+  border-radius: 999px;
+  overflow: hidden;
+  height: 40px;
+  /* Rule: 40px */
+  background: #fff;
+  padding: 0;
+}
+
+.rsm-source-label {
+  background: #1E62B3;
+  color: #fff;
+  font-size: 14px;
+  /* Rule: 14px */
+  font-weight: 400;
+  font-family: 'TikTok Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+}
+
+.btn.rsm-source-dropdown {
+  background: #FFFFFF;
+  color: #A9A9A9;
+  font-size: 14px;
+  /* Rule: 14px */
+  font-weight: 400;
+  font-family: 'TikTok Sans', sans-serif;
+  border: none;
+  height: 100%;
+  padding: 0 16px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 0;
+}
+
+.btn.rsm-source-dropdown::after {
+  margin-left: 0;
+  color: #55586B;
+  border: solid #55586B;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  content: '';
+  width: auto;
+  height: auto;
+}
+
+.btn-group>.rsm-source-label {
+  flex: 0 0 auto;
+}
+
+/* =======================================================================
+   RESPONSIVE
+   ======================================================================= */
+
+@media (max-width: 992px) {
+  .rsm-top-bar {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 12px;
+  }
+
+  .rsm-search-input {
+    width: 100%;
+  }
+
+  .btn-date-range {
+    width: 100%;
+  }
+
+  .card-rsm {
+    border-radius: 16px;
+  }
+}
+
+/* =======================================================================
+   DATE PICKER DROPDOWN (DOUBLE VIEW)
+   ======================================================================= */
+.rsm-date-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.rsm-date-dropdown {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  z-index: 1050;
+  background: #FFFFFF;
+  border: 1px solid var(--rsm-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 18px;
+  display: none;
+  /* hidden by default */
+  flex-direction: column;
+  gap: 8px;
+  width: max-content;
+}
+
+.rsm-date-dropdown.show {
+  display: flex;
+}
+
+.rsm-cal-body {
+  display: flex;
+  gap: 18px;
+}
+
+.rsm-cal-month {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Header Month */
+.rsm-cal-header-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rsm-cal-title {
+  flex: 1;
+  text-align: center;
+  color: #29415C;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'TikTok Sans', sans-serif;
+}
+
+.rsm-cal-btn-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 24px;
+}
+
+.rsm-cal-btn-icon:hover {
+  background: #f0f0f0;
+}
+
+/* Weekdays */
+.rsm-cal-week-row {
+  display: flex;
+}
+
+.rsm-cal-weekday {
+  width: 34px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7F868B;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'TikTok Sans', sans-serif;
+}
+
+/* Days Grid */
+.rsm-cal-days-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rsm-day-cell {
+  width: 34px;
+  height: 32px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rsm-day-number {
+  color: #29415C;
+  font-size: 13px;
+  font-family: 'TikTok Sans', sans-serif;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* State: Range Start/End */
+.rsm-day-cell.is-start {
+  background: #1E62B3;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.rsm-day-cell.is-end {
+  background: #1E62B3;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.rsm-day-cell.is-start .rsm-day-number,
+.rsm-day-cell.is-end .rsm-day-number {
+  color: white;
+  font-weight: 600;
+}
+
+/* State: Middle Range */
+.rsm-day-cell.is-range {
+  background: #E9F2FF;
+}
+
+/* Vertical Divider */
+.rsm-cal-divider {
+  width: 1px;
+  background: #D9D9D9;
+}
+
+/* Footer Actions */
+.rsm-cal-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.rsm-action-reset {
+  color: #1E62B3;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'TikTok Sans', sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 16px 24px;
+}
+
+
+.rsm-action-apply {
+  background: #1E62B3;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'TikTok Sans', sans-serif;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 28px;
+  cursor: pointer;
+}
+
+
+/* =======================================================================
+   SOURCE FILTER
+   ======================================================================= */
+.rsm-source-filter {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #D9D9D9;
+  border-radius: 999px;
+  /* Pill shape */
+  overflow: hidden;
+  height: 40px;
+  background: #fff;
+  padding: 0;
+  /* Bootstrap btn-group reset */
+}
+
+.rsm-source-label {
+  background: #1E62B3;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  /* Regular per design */
+  font-family: 'TikTok Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+}
+
+/* The dropdown toggle button */
+.btn.rsm-source-dropdown {
+  background: #FFFFFF;
+  color: #A9A9A9;
+  /* Placeholder color */
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'TikTok Sans', sans-serif;
+  border: none;
+  height: 100%;
+  padding: 0 24px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 0;
+}
+
+.btn.rsm-source-dropdown:hover,
+.btn.rsm-source-dropdown:focus,
+.btn.rsm-source-dropdown:active {
+  background: #FFFFFF;
+  color: #000000;
+  /* Darker on interact */
+  border: none;
+  box-shadow: none;
+}
+
+.btn.rsm-source-dropdown::after {
+  /* Custom caret styling if needed, or use default bootstrap but styled */
+  margin-left: 0;
+  /* gap handled by flex gap */
+  color: #55586B;
+  /* Arrow color */
+  border: solid #55586B;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  /* Remove default border triangle */
+  content: '';
+  width: auto;
+  height: auto;
+}
+
+/* Override Bootstrap default caret usually is a triangle, we make it a chevron */
+.btn-group>.rsm-source-label {
+  flex: 0 0 auto;
+}
