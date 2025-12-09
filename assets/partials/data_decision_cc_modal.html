@@ -39,10 +39,7 @@
                 </div>
             </div>
             <div class="asm-filter-bar" style="border-bottom: none; padding-top: 16px;">
-                <div class="asm-search" style="width: 100%;">
-                    <span class="asm-search-icon">🔍</span>
-                    <input type="search" class="asm-search-input" placeholder="Search">
-                </div>
+                <div class="rsm-search-component-container"></div>
             </div>
             <div class="asm-table-card">
                 <div id="tab-inprocess" class="cc-reg-tab-pane active">
@@ -117,16 +114,12 @@
 
         <div class="asm-modal-body">
 
-            <div class="asm-filter-bar">
-                <div class="asm-search">
-                    <span class="asm-search-icon" aria-hidden="true">🔍</span>
-                    <input type="search" class="asm-search-input" placeholder="Search" aria-label="Cari" />
-                </div>
+            <!-- Search -->
+            <div class="rsm-search-component-container"></div>
 
 
-                <!-- Date component container -->
-                <div class="rsm-date-component-container"></div>
-            </div>
+            <!-- Date component container -->
+            <div class="rsm-date-component-container"></div>
 
             <div class="asm-table-card">
                 <table class="asm-table">
@@ -455,6 +448,19 @@
         .then(response => response.text())
         .then(html => {
             document.querySelectorAll('.rsm-pagination-component-container').forEach(container => {
+                if (container.innerHTML.trim() === '') {
+                    container.innerHTML = html;
+                }
+            });
+        });
+</script>
+
+<script>
+    // Load Search Component
+    fetch('assets/partials/components/search.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelectorAll('.rsm-search-component-container').forEach(container => {
                 if (container.innerHTML.trim() === '') {
                     container.innerHTML = html;
                 }

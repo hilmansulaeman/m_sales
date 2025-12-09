@@ -1,7 +1,6 @@
 <div id="merchantActionTemplate" style="display: none;">
     <div class="merchant-action-popover" id="merchantActionMenu">
         <button class="merchant-action-item" data-action="downline">View downline</button>
-        <button class="merchant-action-item" data-action="detail">View detail</button>
     </div>
 </div>
 
@@ -13,95 +12,6 @@
     </div>
 </div>
 
-<div id="merchantDetailModal" class="merchant-modal-backdrop" aria-hidden="true" style="z-index: 10008;">
-    <div class="asm-modal" role="dialog" aria-modal="true" tabindex="-1" style="max-width: 1200px;">
-        <div class="asm-modal-header">
-            <h2 class="asm-modal-title" id="merchantDetailTitle">Shinta Kusuma</h2>
-            <button class="merchant-modal-close" aria-label="Tutup modal">✕</button>
-        </div>
-        <div class="asm-modal-body">
-            <div style="padding: 24px 23px 0;">
-                <div class="segmented" role="tablist" aria-label="CC Reg Status" style="width: 900px;">
-                    <div class="segmented-inner">
-                        <button type="button" role="tab" aria-selected="true" class="seg-item active"
-                            style="height: 32px; white-space: nowrap;" data-tab="inprocess"><span
-                                class="label">Inprocess</span></button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="duplicate"><span
-                                class="label">Duplicate</span></button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="cancel"><span
-                                class="label">Cancel</span></button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="reject"><span
-                                class="label">Reject</span></button>
-                    </div>
-                </div>
-            </div>
-            <div class="asm-filter-bar" style="border-bottom: none; padding-top: 16px;">
-                <div class="asm-search" style="width: 100%;">
-                    <span class="asm-search-icon">🔍</span>
-                    <input type="search" class="asm-search-input" placeholder="Search">
-                </div>
-            </div>
-            <div class="asm-table-card">
-                <div id="tab-inprocess" class="cc-reg-tab-pane active">
-                    <table class="asm-table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 32px;">No</th>
-                                <th>Costume Name</th>
-                                <th>Status</th>
-                                <th>DSR</th>
-                                <th>SPV</th>
-                                <th>Input Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tab-duplicate" class="cc-reg-tab-pane">
-                    <table class="asm-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Customer Name</th>
-                                <th>Decision Date</th>
-                                <th>DSR</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tab-cancel" class="cc-reg-tab-pane">
-                    <p style="padding:20px;">Cancel Data</p>
-                </div>
-                <div id="tab-reject" class="cc-reg-tab-pane">
-                    <p style="padding:20px;">Reject Data</p>
-                </div>
-            </div>
-            <div class="rsm-pagination-component-container"></div>
-        </div>
-    </div>
-</div>
 
 <link rel="stylesheet" href="/assets/css/pemol-modal.css">
 <div class="asm-modal-backdrop" id="downlineModal" aria-hidden="true" style="z-index: 10009;">
@@ -114,60 +24,65 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-
         <div class="asm-modal-body">
-
             <div class="asm-filter-bar">
-                <div class="asm-search">
-                    <span class="asm-search-icon" aria-hidden="true">🔍</span>
-                    <input type="search" class="asm-search-input" placeholder="Search" aria-label="Cari" />
-                </div>
+                <!-- Search -->
+                <div class="rsm-search-component-container"></div>
 
+                <!-- Date range -->
 
                 <!-- Date component container -->
                 <div class="rsm-date-component-container"></div>
             </div>
 
             <div class="asm-table-card">
-                <table class="asm-table">
+                <table class="table mb-0 rsm-table text-nowrap">
                     <thead>
                         <tr>
-                            <th rowspan="2" class="text-center" style="width: 32px;">No</th>
-                            <th rowspan="2">ASM Name</th>
-                            <th rowspan="2" class="text-center">NIK Sales</th>
-                            <th rowspan="2" class="text-center">Branch</th>
-                            <th rowspan="2" class="text-center">Total DSR</th>
-                            <th rowspan="2" class="text-center">Total Input DSR</th>
-                            <th colspan="2" class="text-center">Input</th>
-                            <th rowspan="2" class="text-center">Total</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center">BCA Mobile</th>
-                            <th class="text-center">My BCA</th>
+                            <th class="text-center" style="width: 60px">No</th>
+                            <th style="width: 25%">RSM Name</th>
+                            <th class="text-center">NIK Sales</th>
+                            <th class="text-center">Branch</th>
+                            <th class="text-center">Total DSR Active</th>
+                            <th class="text-center">Submit BCA</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="text-center">1</td>
-                            <td class="rsm-name-cell">Rivan Nur Mulki</td>
-                            <td class="text-center">K1101285</td>
-                            <td class="text-center">Bandung</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">8</td>
-                            <td class="text-center">5</td>
+                            <td class="rsm-name-cell">Ramaldo Oktama</td>
+                            <td class="text-center">K1104148</td>
+
                             <td class="text-center">3</td>
-                            <td class="text-center">8</td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">0</td>
+
+                            <!-- Action -->
+                            <td class="text-center rsm-action-cell">
+                                <button class="btn btn-sm rsm-circle-btn btn-merchant-action">
+                                    <img src="assets/img/icon/view1.svg" alt="More">
+
+                                </button>
+                            </td>
                         </tr>
+
                         <tr>
                             <td class="text-center">2</td>
                             <td class="rsm-name-cell">Asep Syaefudin</td>
-                            <td class="text-center">K1131701</td>
-                            <td class="text-center">Jakarta</td>
-                            <td class="text-center">8</td>
-                            <td class="text-center">4</td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">4</td>
+                            <td class="text-center">K1200215</td>
+
+                            <td class="text-center">1</td>
+                            <td class="text-center">0</td>
+                            <td class="text-center">0</td>
+
+                            <!-- Action -->
+                            <td class="text-center rsm-action-cell">
+                                <button class="btn btn-sm rsm-circle-btn btn-merchant-action">
+                                    <img src="assets/img/icon/view1.svg" alt="More">
+
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -201,12 +116,30 @@
 
             // Handle Trigger Clicks
             document.body.addEventListener('click', function (e) {
-                // Handle Merchant Action (Dots)
+                // Handle Merchant Action (Dots) -> Open Downline Modal Directly
                 const actionBtn = e.target.closest('.btn-merchant-action');
                 if (actionBtn) {
                     e.preventDefault();
                     e.stopPropagation();
-                    handlePopover(actionBtn, 'merchantActionTemplate', 4);
+
+                    // Extract name
+                    const tr = actionBtn.closest('tr');
+                    let name = 'Unknown';
+                    if (tr) {
+                        const nameEl = tr.querySelector('.rsm-name-cell');
+                        if (nameEl) name = nameEl.textContent.trim();
+                        else {
+                            const tds = tr.querySelectorAll('td');
+                            if (tds.length > 1) name = tds[1].textContent.trim();
+                        }
+                    }
+
+                    // Open Modal
+                    if (typeof window.openDownlineModal === 'function') {
+                        window.openDownlineModal(name);
+                    } else {
+                        console.error('Function openDownlineModal not found!');
+                    }
                     return;
                 }
 
@@ -437,6 +370,19 @@
         .then(response => response.text())
         .then(html => {
             document.querySelectorAll('.rsm-pagination-component-container').forEach(container => {
+                if (container.innerHTML.trim() === '') {
+                    container.innerHTML = html;
+                }
+            });
+        });
+</script>
+
+<script>
+    // Load Search Component
+    fetch('assets/partials/components/search.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelectorAll('.rsm-search-component-container').forEach(container => {
                 if (container.innerHTML.trim() === '') {
                     container.innerHTML = html;
                 }

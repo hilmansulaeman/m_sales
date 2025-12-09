@@ -21,10 +21,7 @@
     <div class="d-flex align-items-center justify-content-between rsm-top-bar">
       <div class="d-flex align-items-center gap-3">
         <!-- search -->
-        <div class="input-group rsm-search-input">
-          <span class="input-group-text">🔍</span>
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
+        <div class="rsm-search-component-container"></div>
 
         <!-- date range -->
         <!-- date range wrapper -->
@@ -150,8 +147,19 @@
     </script>
     <div id="asmModalContainer"></div>
     <script>
+      // Load Search Component
+      fetch('assets/partials/components/search.html')
+        .then(response => response.text())
+        .then(html => {
+          document.querySelectorAll('.rsm-search-component-container').forEach(container => {
+            if (container.innerHTML.trim() === '') {
+              container.innerHTML = html;
+            }
+          });
+        });
+
       // load modal partial from same folder as this file
-      fetch('assets/js/asm_modal.html')
+      fetch('assets/partials/data_decision_pemol_modal.html')
         .then(r => { if (!r.ok) throw r; return r.text(); })
         .then(html => {
           document.getElementById('asmModalContainer').innerHTML = html;
@@ -184,7 +192,7 @@
           modal.classList.add('is-open');
           modal.setAttribute('aria-hidden', 'false');
         } else {
-          console.warn('ASM modal not loaded yet. Make sure assets/js/asm_modal.html was fetched successfully.');
+          console.warn('ASM modal not loaded yet. Make sure assets/partials/data_decision_pemol_modal.html was fetched successfully.');
         }
       });
     </script>

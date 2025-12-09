@@ -38,16 +38,7 @@
                 <h2 class="app-check-title" style="color: #ffffff;">
                     Please enter your account number in the field below
                 </h2>
-                <div class="app-check-search">
-                    <div class="app-check-search-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                    </div>
-                    <input type="text" placeholder="Search" aria-label="Search Account Number">
-                </div>
+                <div class="rsm-search-component-container"></div>
             </div>
 
             <div id="preview-seg" class="segmented" role="tablist" aria-label="Data Type Selection"
@@ -219,6 +210,18 @@
                     container.innerHTML = '';
                 });
         })();
+    </script>
+    <script>
+        // Load Search Component
+        fetch('assets/partials/components/search.html')
+            .then(response => response.text())
+            .then(html => {
+                document.querySelectorAll('.rsm-search-component-container').forEach(container => {
+                    if (container.innerHTML.trim() === '') {
+                        container.innerHTML = html;
+                    }
+                });
+            });
     </script>
 </body>
 
