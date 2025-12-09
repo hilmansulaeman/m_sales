@@ -1,0 +1,331 @@
+{
+  "application_check_table.html": [
+    {
+      "file": "application_check_pemol.html",
+      "line": 93,
+      "text": "fetch('assets/partials/application_check_table.html')"
+    }
+  ],
+  "cc_ms_table.html": [
+    {
+      "file": "application_input_cc_ms.html",
+      "line": 104,
+      "text": "fetch('assets/partials/cc_ms_table.html')"
+    }
+  ],
+  "cc_reg_table.html": [
+    {
+      "file": "application_input_cc_reg.html",
+      "line": 104,
+      "text": "fetch('assets/partials/cc_reg_table.html')"
+    }
+  ],
+  "corporate_table.html": [
+    {
+      "file": "data_decision_corporate.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_corporate_table.html')"
+    },
+    {
+      "file": "application_input_corporate.html",
+      "line": 104,
+      "text": "fetch('assets/partials/corporate_table.html')"
+    }
+  ],
+  "data_decision_cc_modal.html": [
+    {
+      "file": "assets/partials/data_decision_cc_table.html",
+      "line": 405,
+      "text": "fetch('assets/partials/data_decision_cc_modal.html')"
+    },
+    {
+      "file": "assets/partials/data_incoming_mobile_sales_table.html",
+      "line": 471,
+      "text": "fetch(\"assets/partials/data_decision_cc_modal.html\") // Using CC modal for now as requested for \"appearance\""
+    },
+    {
+      "file": "assets/partials/data_decision_personal_loan_table.html",
+      "line": 396,
+      "text": "fetch('assets/partials/data_decision_cc_modal.html') // Using CC modal for now as requested for \"appearance\""
+    },
+    {
+      "file": "assets/partials/data_decision_personal_loan_table.html",
+      "line": 456,
+      "text": "// This logic is handled by the Modal JS (merchantActionTemplate) if loading from data_decision_cc_modal.html"
+    },
+    {
+      "file": "assets/partials/data_decision_smart_cash_table.html",
+      "line": 396,
+      "text": "fetch('assets/partials/data_decision_cc_modal.html') // Using CC modal for now as requested for \"appearance\""
+    },
+    {
+      "file": "assets/partials/data_decision_smart_cash_table.html",
+      "line": 456,
+      "text": "// This logic is handled by the Modal JS (merchantActionTemplate) if loading from data_decision_cc_modal.html"
+    },
+    {
+      "file": "assets/partials/data_decision_corporate_table.html",
+      "line": 405,
+      "text": "fetch('assets/partials/data_decision_cc_modal.html') // Using CC modal for now as requested for \"appearance\""
+    }
+  ],
+  "data_decision_cc_table.html": [
+    {
+      "file": "data_decision_cc.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_cc_table.html')"
+    }
+  ],
+  "data_decision_corporate_table.html": [
+    {
+      "file": "data_decision_corporate.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_corporate_table.html')"
+    }
+  ],
+  "data_decision_merchant_table.html": [
+    {
+      "file": "data_decision_merchant.html",
+      "line": 114,
+      "text": "fetch('assets/partials/data_decision_merchant_table.html')"
+    }
+  ],
+  "data_decision_pemol_modal.html": [
+    {
+      "file": "assets/partials/data_decision_pemol_modal.html",
+      "line": 1,
+      "text": "<!-- partial: assets/partials/data_decision_pemol_modal.html -->"
+    },
+    {
+      "file": "assets/partials/data_decision_pemol_table.html",
+      "line": 416,
+      "text": "fetch('assets/partials/data_decision_pemol_modal.html')"
+    },
+    {
+      "file": "assets/partials/data_decision_pemol_table.html",
+      "line": 449,
+      "text": "console.warn('ASM modal not loaded yet. Make sure assets/partials/data_decision_pemol_modal.html was fetched successfully.');"
+    }
+  ],
+  "data_decision_pemol_table.html": [
+    {
+      "file": "data_decision_pemol.html",
+      "line": 107,
+      "text": "fetch('assets/partials/data_decision_pemol_table.html')"
+    }
+  ],
+  "data_decision_personal_loan_table.html": [
+    {
+      "file": "data_decision_personal_loan.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_personal_loan_table.html')"
+    }
+  ],
+  "data_decision_smart_cash_table.html": [
+    {
+      "file": "data_decision_smart_cash.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_smart_cash_table.html')"
+    }
+  ],
+  "data_incoming_mobile_sales_table.html": [
+    {
+      "file": "data_incoming_mobile_sales.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_incoming_mobile_sales_table.html')"
+    }
+  ],
+  "merchant_detail_modal.html": [
+    {
+      "file": "data_decision_merchant.html",
+      "line": 102,
+      "text": "merchant_table.html loads 'assets/partials/merchant_detail_modal.html'."
+    },
+    {
+      "file": "data_decision_merchant.html",
+      "line": 104,
+      "text": "By loading 'merchant_table.html', we implicitly load 'merchant_detail_modal.html' (because the table checks/loads it)."
+    },
+    {
+      "file": "assets/partials/cc_ms_table.html",
+      "line": 425,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    },
+    {
+      "file": "assets/partials/cc_reg_table.html",
+      "line": 425,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    },
+    {
+      "file": "assets/partials/smart_cash_table.html",
+      "line": 422,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    },
+    {
+      "file": "assets/partials/personal_loan_table.html",
+      "line": 422,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    },
+    {
+      "file": "assets/partials/corporate_table.html",
+      "line": 422,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    },
+    {
+      "file": "assets/partials/data_decision_merchant_table.html",
+      "line": 421,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    },
+    {
+      "file": "assets/partials/merchant_table.html",
+      "line": 433,
+      "text": "fetch('assets/partials/merchant_detail_modal.html')"
+    }
+  ],
+  "merchant_table.html": [
+    {
+      "file": "preview_merchant.html",
+      "line": 105,
+      "text": "fetch('assets/partials/merchant_table.html')"
+    },
+    {
+      "file": "data_decision_merchant.html",
+      "line": 101,
+      "text": "preview_merchant.html loads 'assets/partials/merchant_table.html'."
+    },
+    {
+      "file": "data_decision_merchant.html",
+      "line": 102,
+      "text": "merchant_table.html loads 'assets/partials/merchant_detail_modal.html'."
+    },
+    {
+      "file": "data_decision_merchant.html",
+      "line": 104,
+      "text": "By loading 'merchant_table.html', we implicitly load 'merchant_detail_modal.html' (because the table checks/loads it)."
+    },
+    {
+      "file": "data_decision_merchant.html",
+      "line": 114,
+      "text": "fetch('assets/partials/data_decision_merchant_table.html')"
+    }
+  ],
+  "pemol_table.html": [
+    {
+      "file": "preview_pemol.html",
+      "line": 107,
+      "text": "fetch('assets/partials/pemol_table.html')"
+    },
+    {
+      "file": "data_decision_pemol.html",
+      "line": 107,
+      "text": "fetch('assets/partials/data_decision_pemol_table.html')"
+    }
+  ],
+  "personal_loan_table.html": [
+    {
+      "file": "application_input_personal_loan.html",
+      "line": 104,
+      "text": "fetch('assets/partials/personal_loan_table.html')"
+    },
+    {
+      "file": "data_decision_personal_loan.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_personal_loan_table.html')"
+    }
+  ],
+  "sidebar.html": [
+    {
+      "file": "data_decision_smart_cash.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "preview_merchant.html",
+      "line": 39,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "data_decision_corporate.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "data_decision_merchant.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "preview_dashboard.html",
+      "line": 42,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "data_incoming_mobile_sales.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "application_input_cc_ms.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "application_input_smart_cash.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "application_input_corporate.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "application_input_personal_loan.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "application_check_pemol.html",
+      "line": 160,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "application_input_cc_reg.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "data_decision_cc.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "data_decision_personal_loan.html",
+      "line": 38,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "preview_pemol.html",
+      "line": 41,
+      "text": "fetch('assets/partials/sidebar.html')"
+    },
+    {
+      "file": "data_decision_pemol.html",
+      "line": 41,
+      "text": "fetch('assets/partials/sidebar.html')"
+    }
+  ],
+  "smart_cash_table.html": [
+    {
+      "file": "data_decision_smart_cash.html",
+      "line": 105,
+      "text": "fetch('assets/partials/data_decision_smart_cash_table.html')"
+    },
+    {
+      "file": "application_input_smart_cash.html",
+      "line": 104,
+      "text": "fetch('assets/partials/smart_cash_table.html')"
+    }
+  ],
+  "temp_modal_content.html": []
+}

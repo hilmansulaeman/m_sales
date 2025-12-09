@@ -21,10 +21,9 @@
                 </div>
 
                 <!-- Date range -->
-                <button type="button" class="asm-date-btn">
-                    <span class="asm-date-icon" aria-hidden="true">📅</span>
-                    <span class="asm-date-text">1 Jan, 2025 - 2 Feb, 2025</span>
-                </button>
+
+                <!-- Date component container -->
+                <div class="rsm-date-component-container"></div>
             </div>
 
             <!-- TABLE CARD -->
@@ -108,23 +107,8 @@
             </div>
 
             <!-- FOOTER / PAGINATION -->
-            <div class="asm-modal-footer">
-                <div class="asm-footer-info">Showing 1 to 3 of 3</div>
-
-                <div class="asm-footer-pages">
-                    <button type="button" class="asm-page-arrow">‹</button>
-                    <button type="button" class="asm-page-current">1</button>
-                    <button type="button" class="asm-page-arrow">›</button>
-                </div>
-
-                <div class="asm-footer-show">
-                    <span>Show</span>
-                    <button type="button" class="asm-show-dropdown">
-                        <span>10</span>
-                        <span class="asm-show-caret">▾</span>
-                    </button>
-                </div>
-            </div>
+            <!-- FOOTER / PAGINATION -->
+            <div class="rsm-pagination-component-container"></div>
         </div>
     </div>
 </div>
@@ -152,4 +136,35 @@
             }
         });
     })();
+</script>
+
+<script>
+    // Load Date Pickers
+    fetch('assets/partials/components/date_picker.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelectorAll('.rsm-date-component-container').forEach(container => {
+                if (container.innerHTML.trim() === '') {
+                    container.innerHTML = html;
+                    container.querySelectorAll('script').forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        newScript.textContent = oldScript.textContent;
+                        document.body.appendChild(newScript);
+                    });
+                }
+            });
+        });
+</script>
+
+<script>
+    // Load Pagination
+    fetch('assets/partials/components/pagination.html')
+        .then(response => response.text())
+        .then(html => {
+            document.querySelectorAll('.rsm-pagination-component-container').forEach(container => {
+                if (container.innerHTML.trim() === '') {
+                    container.innerHTML = html;
+                }
+            });
+        });
 </script>

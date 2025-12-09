@@ -3,58 +3,54 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Application Check PEMOL</title>
 
-    <!-- 1. Reset & Consistency -->
     <link rel="stylesheet" href="assets/css/cross-browser-reset.css">
     <link rel="stylesheet" href="assets/css/browser-consistency.css">
 
-    <!-- 2. Base & Layout -->
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">
 
-    <!-- 3. Components -->
     <link rel="stylesheet" href="assets/css/sidebar.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/pemol-modal.css">
 
-    <!-- 4. Widgets / Pages -->
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/merchant-table.css"> <!-- Reusing table styles -->
-    <link rel="stylesheet" href="assets/css/application-check.css"> <!-- Hero & Tabs -->
+    <link rel="stylesheet" href="assets/css/merchant-table.css">
+    <link rel="stylesheet" href="assets/css/application-check.css">
 </head>
 
 <body>
-    <!-- Sidebar -->
+
     <div id="ms-sidebar-container" aria-hidden="false" style="display: contents;"></div>
 
-    <!-- Content -->
     <div class="page-content">
-        <!-- Navbar -->
+
         <header class="ms-navbar">
             <div class="ms-title">Application Check PEMOL</div>
         </header>
 
         <main class="page-main">
-            <!-- Hero Section -->
+
             <div class="app-check-hero">
-                <h2 class="app-check-title">Please enter your account number in the field below</h2>
+                <h2 class="app-check-title" style="color: #ffffff;">
+                    Please enter your account number in the field below
+                </h2>
                 <div class="app-check-search">
                     <div class="app-check-search-icon">
-                        <svg width="18" height="18" viewBox="24 24 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
-                    <input type="text" placeholder="Search">
+                    <input type="text" placeholder="Search" aria-label="Search Account Number">
                 </div>
             </div>
 
-            <!-- Toggle Segmented -->
-            <div id="preview-seg" class="segmented" role="tablist" aria-label="Performance segmented"
+            <div id="preview-seg" class="segmented" role="tablist" aria-label="Data Type Selection"
                 style="margin-top: 20px; margin-bottom: 32px;">
                 <div class="segmented-inner">
                     <button type="button" role="tab" aria-selected="true" data-index="0" class="seg-item active">
@@ -66,113 +62,127 @@
                 </div>
             </div>
 
-            <script>
-                (function () {
-                    var root = document.getElementById('preview-seg');
-                    if (!root) return;
-                    root.addEventListener('click', function (e) {
-                        var btn = e.target.closest('.seg-item');
-                        if (!btn) return;
-                        var items = root.querySelectorAll('.seg-item');
-                        items.forEach(function (it) {
-                            it.classList.remove('active');
-                            it.setAttribute('aria-selected', 'false');
-                        });
-                        btn.classList.add('active');
-                        btn.setAttribute('aria-selected', 'true');
-                    });
-                })();
-            </script>
-
             <div id="app-check-table-container"></div>
-
-            <script>
-                (function () {
-                    var container = document.getElementById('app-check-table-container');
-                    if (!container) return;
-                    fetch('assets/partials/application_check_table.html')
-                        .then(function (resp) { if (!resp.ok) throw new Error('Network error'); return resp.text(); })
-                        .then(function (html) {
-                            try {
-                                var parser = new DOMParser();
-                                var doc = parser.parseFromString(html, 'text/html');
-
-                                // Copy stylesheet links from partial into the main document head (avoid duplicates)
-                                var links = doc.querySelectorAll('link[rel="stylesheet"]');
-                                links.forEach(function (link) {
-                                    var href = link.getAttribute('href');
-                                    if (!href) return;
-                                    // If an identical href isn't already present in head, append it
-                                    if (!document.head.querySelector('link[href="' + href + '"]')) {
-                                        var newLink = document.createElement('link');
-                                        newLink.rel = 'stylesheet';
-                                        newLink.href = href;
-                                        document.head.appendChild(newLink);
-                                    }
-                                });
-
-                                var wrapper = doc.querySelector('.body-rsm');
-                                if (wrapper) {
-                                    // copy class list (except accidental global body class)
-                                    wrapper.classList.forEach(function (c) { if (!container.classList.contains(c)) container.classList.add(c); });
-                                    // copy inline style if present
-                                    if (wrapper.getAttribute('style')) container.setAttribute('style', wrapper.getAttribute('style'));
-                                }
-
-                                // Inject the entire body content to ensure we get the card, modal container, and scripts
-                                container.innerHTML = doc.body.innerHTML;
-
-                                // Manually execute scripts found in the container
-                                var scripts = container.querySelectorAll('script');
-                                scripts.forEach(function (s) {
-                                    var newScript = document.createElement('script');
-                                    if (s.src) {
-                                        newScript.src = s.src;
-                                    } else {
-                                        newScript.textContent = s.textContent;
-                                    }
-                                    document.body.appendChild(newScript);
-                                    // optionally remove the original script tag
-                                    s.remove();
-                                });
-
-                            } catch (err) {
-                                console.error('Error parsing pemol partial:', err);
-                                container.innerHTML = '<!-- parsing error -->';
-                            }
-                        })
-                        .catch(function (err) {
-                            console.error('Failed to load pemol table partial:', err);
-                            container.innerHTML = '<!-- pemol table failed to load -->';
-                        });
-                })();
-            </script>
-
 
         </main>
     </div>
 
-    <!-- Scripts -->
+    <script>
+        (function () {
+            var root = document.getElementById('preview-seg');
+            if (!root) return;
+
+            root.addEventListener('click', function (e) {
+                var btn = e.target.closest('.seg-item');
+                if (!btn) return;
+
+                var items = root.querySelectorAll('.seg-item');
+                items.forEach(function (it) {
+                    it.classList.remove('active');
+                    it.setAttribute('aria-selected', 'false');
+                });
+
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+            });
+        })();
+    </script>
+
+    <script>
+        (function () {
+            var container = document.getElementById('app-check-table-container');
+            if (!container) return;
+
+            fetch('assets/partials/application_check_table.html')
+                .then(function (resp) {
+                    if (!resp.ok) throw new Error('Network error');
+                    return resp.text();
+                })
+                .then(function (html) {
+                    try {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+
+                        // A. Inject CSS from Partial Header
+                        var links = doc.querySelectorAll('link[rel="stylesheet"]');
+                        links.forEach(function (link) {
+                            var href = link.getAttribute('href');
+                            if (!href) return;
+                            // Prevent duplicate CSS loading
+                            if (!document.head.querySelector('link[href="' + href + '"]')) {
+                                var newLink = document.createElement('link');
+                                newLink.rel = 'stylesheet';
+                                newLink.href = href;
+                                document.head.appendChild(newLink);
+                            }
+                        });
+
+                        // B. Copy Classes & Styles from Partial Body
+                        var wrapper = doc.querySelector('.body-rsm'); // Looks for the class in the partial
+                        if (wrapper) {
+                            wrapper.classList.forEach(function (c) {
+                                if (!container.classList.contains(c)) container.classList.add(c);
+                            });
+                            if (wrapper.getAttribute('style')) {
+                                container.setAttribute('style', wrapper.getAttribute('style'));
+                            }
+                        }
+
+                        // C. Inject HTML Content
+                        container.innerHTML = doc.body.innerHTML;
+
+                        // D. Execute Scripts from Partial
+                        var scripts = container.querySelectorAll('script');
+                        scripts.forEach(function (s) {
+                            var newScript = document.createElement('script');
+                            if (s.src) {
+                                newScript.src = s.src;
+                            } else {
+                                newScript.textContent = s.textContent;
+                            }
+                            document.body.appendChild(newScript);
+                            s.remove(); // Clean up old script tag
+                        });
+
+                    } catch (err) {
+                        console.error('Error parsing partial:', err);
+                        container.innerHTML = '';
+                    }
+                })
+                .catch(function (err) {
+                    console.error('Failed to load table partial:', err);
+                    container.innerHTML = '';
+                });
+        })();
+    </script>
+
     <script>
         (function () {
             var container = document.getElementById('ms-sidebar-container');
             if (!container) return;
+
             fetch('assets/partials/sidebar.html')
-                .then(function (resp) { if (!resp.ok) throw new Error('Network error'); return resp.text(); })
+                .then(function (resp) {
+                    if (!resp.ok) throw new Error('Network error');
+                    return resp.text();
+                })
                 .then(function (html) {
                     container.innerHTML = html;
 
-                    // Initialize sidebar dropdowns (submenu toggles)
+                    // Initialize sidebar dropdowns
                     try {
                         var sidebar = container;
                         var toggles = sidebar.querySelectorAll('.ms-item--has-submenu');
+
                         toggles.forEach(function (a) {
                             a.addEventListener('click', function (e) {
                                 e.preventDefault();
                                 var submenu = a.nextElementSibling;
                                 if (!submenu || !submenu.classList.contains('ms-submenu')) return;
+
                                 var expanded = a.getAttribute('aria-expanded') === 'true';
-                                // close other open sibling submenus (accordion behavior)
+
+                                // Close siblings (Accordion effect)
                                 var siblings = sidebar.querySelectorAll('.ms-item--has-submenu');
                                 siblings.forEach(function (s) {
                                     if (s !== a) {
@@ -186,6 +196,7 @@
                                     }
                                 });
 
+                                // Toggle current
                                 if (!expanded) {
                                     submenu.style.display = 'block';
                                     submenu.setAttribute('aria-hidden', 'false');
@@ -199,11 +210,13 @@
                                 }
                             });
                         });
-                    } catch (err) { console.error(err); }
+                    } catch (err) {
+                        console.error(err);
+                    }
                 })
                 .catch(function (err) {
-                    console.error('Failed to load sidebar partial:', err);
-                    container.innerHTML = '<!-- Sidebar failed to load -->';
+                    console.error('Failed to load sidebar:', err);
+                    container.innerHTML = '';
                 });
         })();
     </script>

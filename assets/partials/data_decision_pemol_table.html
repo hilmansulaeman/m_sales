@@ -28,272 +28,24 @@
 
                 <!-- date range -->
                 <!-- date range wrapper -->
-                <div class="rsm-date-wrapper">
-                    <button class="btn btn-outline-secondary btn-date-range" id="rsmDateBtn">
-                        📅
-                        <span id="rsmDateText">Select date range</span>
-                    </button>
-
-                    <!-- Calendar Dropdown -->
-                    <div class="rsm-date-dropdown" id="rsmDateDropdown">
-                        <div class="rsm-cal-body">
-                            <!-- MONTH 1: JANUARY 2025 -->
-                            <div class="rsm-cal-month">
-                                <div class="rsm-cal-header-row">
-                                    <button class="rsm-cal-btn-icon">
-                                        <!-- Icon Back -->
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15 18L9 12L15 6" stroke="#29415C" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </button>
-                                    <div class="rsm-cal-title">January 2025</div>
-                                    <div style="width: 40px;"></div> <!-- spacer to balance title -->
-                                </div>
-
-                                <div class="rsm-cal-week-row">
-                                    <div class="rsm-cal-weekday">Mo</div>
-                                    <div class="rsm-cal-weekday">Tu</div>
-                                    <div class="rsm-cal-weekday">We</div>
-                                    <div class="rsm-cal-weekday">Th</div>
-                                    <div class="rsm-cal-weekday">Fr</div>
-                                    <div class="rsm-cal-weekday">Sa</div>
-                                    <div class="rsm-cal-weekday">Su</div>
-                                </div>
-
-                                <div class="rsm-cal-days-grid">
-                                    <!-- Empty for alignment if needed, or previous month days -->
-                                    <div class="rsm-day-cell"></div>
-                                    <div class="rsm-day-cell"></div>
-                                    <!-- 1 - 31 -->
-                                    <div class="rsm-day-cell is-start">
-                                        <div class="rsm-day-number">1</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">2</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">3</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">4</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">5</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">6</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">7</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">8</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">9</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">10</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">11</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">12</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">13</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">14</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">15</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">16</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">17</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">18</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">19</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">20</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">21</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">22</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">23</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">24</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">25</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">26</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">27</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">28</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">29</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">30</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">31</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- DIVIDER -->
-                            <div class="rsm-cal-divider"></div>
-
-                            <!-- MONTH 2: FEBRUARY 2025 -->
-                            <div class="rsm-cal-month">
-                                <div class="rsm-cal-header-row">
-                                    <div style="width: 40px;"></div>
-                                    <div class="rsm-cal-title">February 2025</div>
-                                    <button class="rsm-cal-btn-icon">
-                                        <!-- Icon Next -->
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 18L15 12L9 6" stroke="#29415C" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </button>
-                                </div>
-
-                                <div class="rsm-cal-week-row">
-                                    <div class="rsm-cal-weekday">Mo</div>
-                                    <div class="rsm-cal-weekday">Tu</div>
-                                    <div class="rsm-cal-weekday">We</div>
-                                    <div class="rsm-cal-weekday">Th</div>
-                                    <div class="rsm-cal-weekday">Fr</div>
-                                    <div class="rsm-cal-weekday">Sa</div>
-                                    <div class="rsm-cal-weekday">Su</div>
-                                </div>
-
-                                <div class="rsm-cal-days-grid">
-                                    <!-- Previous month fillers -->
-                                    <div class="rsm-day-cell"></div>
-                                    <div class="rsm-day-cell"></div>
-                                    <div class="rsm-day-cell"></div>
-                                    <div class="rsm-day-cell"></div>
-                                    <div class="rsm-day-cell"></div>
-                                    <!-- 1 - 28 -->
-                                    <div class="rsm-day-cell is-range">
-                                        <div class="rsm-day-number">1</div>
-                                    </div>
-                                    <div class="rsm-day-cell is-end">
-                                        <div class="rsm-day-number">2</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">3</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">4</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">5</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">6</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">7</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">8</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">9</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">10</div>
-                                    </div>
-                                    <!-- ... simple fill ... -->
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">11</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">12</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">13</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">14</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">15</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">16</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">17</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">18</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">19</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">20</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">21</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">22</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">23</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">24</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">25</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">26</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">27</div>
-                                    </div>
-                                    <div class="rsm-day-cell">
-                                        <div class="rsm-day-number">28</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="rsm-cal-footer-actions">
-                            <button class="rsm-action-reset">Reset</button>
-                            <button class="rsm-action-apply" id="rsmApplyDate">Apply</button>
-                        </div>
-                    </div>
-                </div>
+                <!-- date range wrapper (Component) -->
+                <div id="rsmDateComponentContainer"></div>
+                <script>
+                    fetch('assets/partials/components/date_picker.html')
+                        .then(response => response.text())
+                        .then(html => {
+                            const container = document.getElementById('rsmDateComponentContainer');
+                            if (container) {
+                                container.innerHTML = html;
+                                // Execute scripts found in the component
+                                container.querySelectorAll('script').forEach(oldScript => {
+                                    const newScript = document.createElement('script');
+                                    newScript.textContent = oldScript.textContent;
+                                    document.body.appendChild(newScript);
+                                });
+                            }
+                        });
+                </script>
             </div>
 
             <!-- export -->
@@ -391,25 +143,20 @@
         </div>
 
         <!-- FOOTER / PAGINATION -->
-        <div class="d-flex align-items-center gap-4 px-4 py-3">
-            <div class="rsm-pagination-info">
-                Showing 1 to 3 of 3
-            </div>
+        <div class="rsm-pagination-component-container"></div>
 
-            <div class="flex-grow-1 d-flex justify-content-center align-items-center gap-1">
-                <button class="btn btn-sm px-2">‹</button>
-                <button class="btn btn-sm rsm-page-active">1</button>
-                <button class="btn btn-sm px-2">›</button>
-            </div>
-
-            <div class="d-flex align-items-center gap-2">
-                <span class="rsm-pagination-show">Show</span>
-                <div class="rsm-show-dropdown d-flex align-items-center gap-1">
-                    <span class="rsm-pagination-show text-dark">10</span>
-                    <span>▾</span>
-                </div>
-            </div>
-        </div>
+        <script>
+            // Load Pagination
+            fetch('assets/partials/components/pagination.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.querySelectorAll('.rsm-pagination-component-container').forEach(container => {
+                        if (container.innerHTML.trim() === '') {
+                            container.innerHTML = html;
+                        }
+                    });
+                });
+        </script>
         <div id="asmModalContainer"></div>
         <script>
             // load modal partial from same folder as this file
@@ -451,37 +198,7 @@
             });
         </script>
 
-        <script>
-            // Date Picker Logic
-            (function () {
-                const btn = document.getElementById('rsmDateBtn');
-                const dropdown = document.getElementById('rsmDateDropdown');
-                const applyBtn = document.getElementById('rsmApplyDate');
-                const dateText = document.getElementById('rsmDateText');
-                if (!btn || !dropdown) return;
 
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    dropdown.classList.toggle('show');
-                });
-
-                // Close when clicking outside
-                document.addEventListener('click', function (e) {
-                    if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
-                        dropdown.classList.remove('show');
-                    }
-                });
-
-                if (applyBtn) {
-                    applyBtn.addEventListener('click', function () {
-                        // Mock fetch update or just update text
-                        dateText.textContent = "8 Jul 2024 - 13 Jul 2024";
-                        dropdown.classList.remove('show');
-                    });
-                }
-            })();
-        </script>
     </div>
 </body>
 

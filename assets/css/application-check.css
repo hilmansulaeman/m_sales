@@ -24,7 +24,8 @@
     font-weight: 600;
     margin: 0;
     font-family: 'TikTok Sans', sans-serif;
-
+    color: #ffffff;
+    /* <--- Tambahkan baris ini */
 }
 
 .app-check-search {
