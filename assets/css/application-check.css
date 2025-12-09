@@ -144,3 +144,9 @@
 #app-check-table-container .rsm-show-dropdown span {
     font-size: 18px !important;
 }
+
+/* Specific Override for Search Component in Application Check Hero */
+.app-check-hero .rsm-search-component-container .asm-search {
+    width: 900px !important;
+    max-width: 100%;
+}

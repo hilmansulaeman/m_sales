@@ -86,7 +86,7 @@
 
 /* SEARCH */
 .asm-search {
-  width: 360px;
+  width: 250px;
   height: 40px;
   border-radius: 100px;
   border: 1px solid var(--asm-border);

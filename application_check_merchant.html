@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Application Check PEMOL</title>
+    <title>Application Check Merchant</title>
 
     <link rel="stylesheet" href="assets/css/cross-browser-reset.css">
     <link rel="stylesheet" href="assets/css/browser-consistency.css">
@@ -29,15 +29,14 @@
     <div class="page-content">
 
         <header class="ms-navbar">
-            <div class="ms-title">Application Check PEMOL</div>
+            <div class="ms-title">Application Check Merchant</div>
         </header>
 
         <main class="page-main">
 
             <div class="app-check-hero">
                 <h2 class="app-check-title" style="color: #ffffff;">
-                    Please enter your account number in the field below
-                </h2>
+                    Please enter the Merchant Name / Owner Name / ID Card Number in the field below </h2>
                 <div class="rsm-search-component-container"></div>
             </div>
 
@@ -46,10 +45,10 @@
                 <div class="segmented-inner">
                     <button type="button" role="tab" aria-selected="true" class="seg-item active"
                         style="height: 32px; white-space: nowrap;" data-tab="inprocess"><span class="label">Data
-                            Incoming PEMOL</span></button>
+                            Incoming Merchant</span></button>
                     <button type="button" role="tab" aria-selected="false" class="seg-item"
                         style="height: 32px; white-space: nowrap;" data-tab="duplicate"><span class="label">Data
-                            Approval PEMOL</span></button>
+                            Approval Merchant</span></button>
 
                 </div>
             </div>
@@ -134,7 +133,7 @@
             }
 
             // Initial load (default tab)
-            loadTable('application_check_table.html');
+            loadTable('application_check_merchant_table.html');
 
             // Tab switching logic
             var root = document.getElementById('preview-seg');
@@ -155,9 +154,9 @@
                     // Load appropriate table based on data-tab attribute
                     var tab = btn.getAttribute('data-tab');
                     if (tab === 'duplicate') {
-                        loadTable('application_check_table_2.html');
+                        loadTable('application_check_merchant_table_2.html');
                     } else {
-                        loadTable('application_check_table.html');
+                        loadTable('application_check_merchant_table.html');
                     }
                 });
             }
