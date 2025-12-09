@@ -33,20 +33,12 @@
                 <div class="segmented" role="tablist" aria-label="CC Reg Status" style="width: 900px;">
                     <div class="segmented-inner">
                         <button type="button" role="tab" aria-selected="true" class="seg-item active"
-                            style="height: 32px; white-space: nowrap;" data-tab="send-bca">
-                            <span class="label">Send BCA</span>
-                        </button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
                             style="height: 32px; white-space: nowrap;" data-tab="inprocess">
                             <span class="label">Inprocess</span>
                         </button>
                         <button type="button" role="tab" aria-selected="false" class="seg-item"
                             style="height: 32px; white-space: nowrap;" data-tab="duplicate">
                             <span class="label">Duplicate</span>
-                        </button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="rts">
-                            <span class="label">RTS</span>
                         </button>
                         <button type="button" role="tab" aria-selected="false" class="seg-item"
                             style="height: 32px; white-space: nowrap;" data-tab="cancel">
@@ -68,70 +60,167 @@
                 </div>
             </div>
 
-            <!-- Table -->
+            <!-- Table Content Area -->
             <div class="asm-table-card">
-                <table class="asm-table">
-                    <thead>
-                        <tr>
-                            <th class="text-center" style="width: 32px;">No</th>
-                            <th>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    Costume Name
-                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
-                                        </svg></div>
-                                </div>
-                            </th>
-                            <th>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    Status
-                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
-                                        </svg></div>
-                                </div>
-                            </th>
-                            <th>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    DSR
-                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
-                                        </svg></div>
-                                </div>
-                            </th>
-                            <th>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    SPV
-                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
-                                        </svg></div>
-                                </div>
-                            </th>
-                            <th>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    Input Date
-                                    <div style="width: 24px; height: 24px;"><svg width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none">
-                                            <path d="M12 17L7 12H17L12 17Z" fill="white" />
-                                        </svg></div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <!-- Tab: Inprocess (Default content) -->
+                <div id="tab-inprocess" class="cc-reg-tab-pane active">
+                    <table class="asm-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 32px;">No</th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        Costume Name
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        Status
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        DSR
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        SPV
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        Input Date
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tab: Duplicate -->
+                <div id="tab-duplicate" class="cc-reg-tab-pane">
+                    <table class="asm-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 32px;">No</th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        Customer Name
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        Decision Date
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        DSR
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div style="display: flex; align-items: center; gap: 4px;">
+                                        Date
+                                        <div style="width: 24px; height: 24px;"><svg width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 17L7 12H17L12 17Z" fill="white" />
+                                            </svg></div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tab: Cancel (Placeholder) -->
+                <div id="tab-cancel" class="cc-reg-tab-pane">
+                    <table class="asm-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Pending Data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tab: Reject (Placeholder) -->
+                <div id="tab-reject" class="cc-reg-tab-pane">
+                    <table class="asm-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Pending Data</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
 
             <!-- Footer -->
@@ -456,8 +545,14 @@
                     btn.setAttribute('aria-selected', 'true');
 
                     const tabName = btn.getAttribute('data-tab');
-                    console.log('Merchant Modal Tab Switched:', tabName);
-                    // Add content switching logic here if/when content for tabs is created
+                    // Switch Content
+                    const panes = modalBackdrop.querySelectorAll('.cc-reg-tab-pane');
+                    panes.forEach(p => p.classList.remove('active'));
+
+                    const targetPane = modalBackdrop.querySelector('#tab-' + tabName);
+                    if (targetPane) {
+                        targetPane.classList.add('active');
+                    }
                 }
             });
         }
