@@ -4,20 +4,20 @@
    COLOR TOKENS
    ======================================================================= */
 :root {
-  --rsm-blue: #1E62B3;
-  --rsm-border: #D9D9D9;
-  --rsm-divider: #E6E9EF;
-  --rsm-text-main: #29415C;
-  --rsm-text-muted: #55586B;
-  --rsm-placeholder: #A9A9A9;
-  --rsm-page-active: #E9F2FF;
+  --rsm-blue: #1e62b3;
+  --rsm-border: #d9d9d9;
+  --rsm-divider: #e6e9ef;
+  --rsm-text-main: #29415c;
+  --rsm-text-muted: #55586b;
+  --rsm-placeholder: #a9a9a9;
+  --rsm-page-active: #e9f2ff;
 }
 
 /* =======================================================================
    PAGE BACKGROUND (KHUSUS PREVIEW STANDALONE)
    ======================================================================= */
 .body-rsm {
-  background: #F3F7FA;
+  background: #f3f7fa;
   padding: 20px;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
@@ -36,7 +36,7 @@
   width: 1542px;
   max-width: 100%;
   /* Prevent overflow if screen is smaller, allow horizontal scroll on parent if needed */
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 16px;
   /* Slight adjustment to match image roundedness */
   border: 1px solid var(--rsm-border);
@@ -55,8 +55,8 @@
   height: 40px;
   /* Slightly taller to match image visual */
   border-radius: 999px;
-  border: 1px solid #D9D9D9;
-  background: #FFFFFF;
+  border: 1px solid #d9d9d9;
+  background: #ffffff;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -68,7 +68,7 @@
   padding-left: 18px;
   padding-right: 8px;
   font-size: 14px;
-  color: #A9A9A9;
+  color: #a9a9a9;
 }
 
 .rsm-search-input .form-control {
@@ -76,13 +76,13 @@
   box-shadow: none;
   background: transparent;
   font-size: 14px;
-  color: #29415C;
+  color: #29415c;
   padding: 8px 12px 8px 0;
   height: 100%;
 }
 
 .rsm-search-input .form-control::placeholder {
-  color: #A9A9A9;
+  color: #a9a9a9;
 }
 
 /* DATE RANGE BUTTON */
@@ -92,7 +92,7 @@
   border-radius: 999px;
   /* Pill shape matches images better than 20px */
   border: 1px solid var(--rsm-border);
-  background: #FFFFFF;
+  background: #ffffff;
   padding-inline: 20px;
   font-size: 14px;
   color: var(--rsm-placeholder);
@@ -105,7 +105,7 @@
 /* EXPORT BUTTON */
 .btn-export-rsm {
   background: var(--rsm-blue);
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 100px;
   border-color: var(--rsm-blue);
   font-size: 14px;
@@ -137,7 +137,7 @@
 /* header style */
 .rsm-table thead th {
   background: var(--rsm-blue);
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 20px;
   /* Header 20px */
   font-weight: 500;
@@ -197,8 +197,8 @@
    I will ensure the visual result (alignment, padding, height) matches. */
 
 /* garis vertikal standar antar kolom */
-.rsm-table thead th+th,
-.rsm-table tbody td+td {
+.rsm-table thead th + th,
+.rsm-table tbody td + td {
   border-left: 1px solid var(--rsm-divider);
 }
 
@@ -270,7 +270,7 @@
 }
 
 .btn-merchant-action:hover {
-  background-color: #E6E9EF;
+  background-color: #e6e9ef;
 }
 
 .btn-merchant-action svg {
@@ -280,7 +280,7 @@
 }
 
 .btn-merchant-action svg path {
-  fill: #29415C;
+  fill: #29415c;
   /* Dark blue/black fill for dots */
   stroke: none;
   /* No stroke for dots */
@@ -288,11 +288,11 @@
 
 /* Ensure no conflict with stroke based icons if reused elsewhere, but for this specific button we use fill for dots */
 .btn-merchant-action svg circle {
-  fill: #29415C;
+  fill: #29415c;
 }
 
 .btn-merchant-action:hover svg circle {
-  fill: #1E62B3;
+  fill: #1e62b3;
 }
 
 /* PREV/NEXT */
@@ -304,7 +304,7 @@
 .rsm-source-filter {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   border-radius: 999px;
   overflow: hidden;
   height: 40px;
@@ -314,12 +314,12 @@
 }
 
 .rsm-source-label {
-  background: #1E62B3;
+  background: #1e62b3;
   color: #fff;
   font-size: 14px;
   /* Rule: 14px */
   font-weight: 400;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -330,12 +330,12 @@
 }
 
 .btn.rsm-source-dropdown {
-  background: #FFFFFF;
-  color: #A9A9A9;
+  background: #ffffff;
+  color: #a9a9a9;
   font-size: 14px;
   /* Rule: 14px */
   font-weight: 400;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   border: none;
   height: 100%;
   padding: 0 16px 0 12px;
@@ -347,19 +347,19 @@
 
 .btn.rsm-source-dropdown::after {
   margin-left: 0;
-  color: #55586B;
-  border: solid #55586B;
+  color: #55586b;
+  border: solid #55586b;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
-  content: '';
+  content: "";
   width: auto;
   height: auto;
 }
 
-.btn-group>.rsm-source-label {
+.btn-group > .rsm-source-label {
   flex: 0 0 auto;
 }
 
@@ -400,7 +400,7 @@
   top: 110%;
   left: 0;
   z-index: 1050;
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid var(--rsm-border);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -438,10 +438,10 @@
 .rsm-cal-title {
   flex: 1;
   text-align: center;
-  color: #29415C;
+  color: #29415c;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
 }
 
 .rsm-cal-btn-icon {
@@ -467,10 +467,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #7F868B;
+  color: #7f868b;
   font-size: 14px;
   font-weight: 400;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
 }
 
 /* Days Grid */
@@ -490,9 +490,9 @@
 }
 
 .rsm-day-number {
-  color: #29415C;
+  color: #29415c;
   font-size: 13px;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   width: 28px;
   height: 28px;
   border-radius: 14px;
@@ -503,13 +503,13 @@
 
 /* State: Range Start/End */
 .rsm-day-cell.is-start {
-  background: #1E62B3;
+  background: #1e62b3;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
 }
 
 .rsm-day-cell.is-end {
-  background: #1E62B3;
+  background: #1e62b3;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
@@ -522,13 +522,13 @@
 
 /* State: Middle Range */
 .rsm-day-cell.is-range {
-  background: #E9F2FF;
+  background: #e9f2ff;
 }
 
 /* Vertical Divider */
 .rsm-cal-divider {
   width: 1px;
-  background: #D9D9D9;
+  background: #d9d9d9;
 }
 
 /* Footer Actions */
@@ -541,29 +541,27 @@
 }
 
 .rsm-action-reset {
-  color: #1E62B3;
+  color: #1e62b3;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   background: none;
   border: none;
   cursor: pointer;
   padding: 16px 24px;
 }
 
-
 .rsm-action-apply {
-  background: #1E62B3;
+  background: #1e62b3;
   color: white;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   border: none;
   border-radius: 100px;
   padding: 8px 28px;
   cursor: pointer;
 }
-
 
 /* =======================================================================
    SOURCE FILTER
@@ -571,7 +569,7 @@
 .rsm-source-filter {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #D9D9D9;
+  border: 1px solid #d9d9d9;
   border-radius: 999px;
   /* Pill shape */
   overflow: hidden;
@@ -582,12 +580,12 @@
 }
 
 .rsm-source-label {
-  background: #1E62B3;
+  background: #1e62b3;
   color: #fff;
   font-size: 14px;
   font-weight: 400;
   /* Regular per design */
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -599,12 +597,12 @@
 
 /* The dropdown toggle button */
 .btn.rsm-source-dropdown {
-  background: #FFFFFF;
-  color: #A9A9A9;
+  background: #ffffff;
+  color: #a9a9a9;
   /* Placeholder color */
   font-size: 14px;
   font-weight: 400;
-  font-family: 'TikTok Sans', sans-serif;
+  font-family: "TikTok Sans", sans-serif;
   border: none;
   height: 100%;
   padding: 0 24px 0 16px;
@@ -617,7 +615,7 @@
 .btn.rsm-source-dropdown:hover,
 .btn.rsm-source-dropdown:focus,
 .btn.rsm-source-dropdown:active {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #000000;
   /* Darker on interact */
   border: none;
@@ -628,21 +626,181 @@
   /* Custom caret styling if needed, or use default bootstrap but styled */
   margin-left: 0;
   /* gap handled by flex gap */
-  color: #55586B;
+  color: #55586b;
   /* Arrow color */
-  border: solid #55586B;
+  border: solid #55586b;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   /* Remove default border triangle */
-  content: '';
+  content: "";
   width: auto;
   height: auto;
 }
 
 /* Override Bootstrap default caret usually is a triangle, we make it a chevron */
-.btn-group>.rsm-source-label {
+.btn-group > .rsm-source-label {
   flex: 0 0 auto;
+}
+
+/* =======================================================================
+   TEAM PERFORMANCE SPECIFIC
+   ======================================================================= */
+.tp-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  background-color: #e0e0e0;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tp-agent-name {
+  font-weight: 600;
+  color: var(--rsm-text-main);
+  font-size: 14px;
+}
+
+.tp-role {
+  font-size: 12px;
+  color: var(--rsm-text-muted);
+}
+
+/* =======================================================================
+   TEAM PERFORMANCE DRILLDOWN CARD
+   ======================================================================= */
+.tp-card-list {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  gap: 32px;
+  width: 100%;
+  overflow-x: auto; /* Allow scrolling if they don't fit */
+  padding-bottom: 20px; /* Space for scrollbar */
+}
+
+/* --- STYLE CARD --- */
+.tp-drilldown-card {
+  min-width: 400px; /* Ensure cards don't get too small in horizontal view */
+  flex: 1; /* Allow them to grow/shrink similarly */
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* HEADER */
+.tp-drilldown-header {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--rsm-blue);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.tp-drilldown-title {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tp-drilldown-btn {
+  padding: 6px 18px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.tp-drilldown-btn:hover {
+  opacity: 0.9;
+}
+
+.tp-drilldown-btn-text {
+  color: var(--rsm-blue);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* BODY */
+.tp-drilldown-body {
+  width: 100%;
+  background: white;
+  border: 1px solid var(--rsm-border);
+  border-top: none; 
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-drilldown-row {
+  width: 100%;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: white;
+  transition: background 0.2s;
+}
+
+.tp-drilldown-row:hover {
+  background-color: #f9f9f9;
+}
+
+.tp-drilldown-label {
+  color: var(--rsm-text-grey);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* ICON */
+.tp-chevron-down {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-right: 2px solid var(--rsm-blue);
+  border-bottom: 2px solid var(--rsm-blue);
+  transform: rotate(45deg);
+  margin-bottom: 4px;
+}
+
+
+.sales-select-btn {
+    width: 400px;
+    height: 52px;
+    padding: 14px 24px;
+    background: #F7F7F7;
+    border-radius: 100px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box; /* Penting agar padding tidak membuat ukuran melebihi 100% */
+    cursor: pointer; /* Opsional: agar kursor berubah jadi tangan */
+}
+
+.sales-select-label {
+    text-align: center;
+    color: #1E62B3;
+    font-size: 18px;
+    font-weight: 600;
+    word-wrap: break-word;
 }

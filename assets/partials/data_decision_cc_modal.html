@@ -1,469 +1,571 @@
-<div id="merchantActionTemplate" style="display: none;">
-    <div class="merchant-action-popover" id="merchantActionMenu">
-        <button class="merchant-action-item" data-action="downline">View downline</button>
-        <button class="merchant-action-item" data-action="detail">View detail</button>
-    </div>
+<div id="merchantActionTemplate" style="display: none">
+  <div class="merchant-action-popover" id="merchantActionMenu">
+    <button class="merchant-action-item" data-action="downline">
+      View downline
+    </button>
+    <button class="merchant-action-item" data-action="detail">
+      View detail
+    </button>
+  </div>
 </div>
 
-<div id="sourceActionTemplate" style="display: none;">
-    <div class="merchant-action-popover source-popover" id="sourceActionMenu">
-        <button class="merchant-action-item" data-action="all">All product</button>
-        <button class="merchant-action-item" data-action="fdm">FDM</button>
-        <button class="merchant-action-item" data-action="merchant">Merchant</button>
-    </div>
+<div id="sourceActionTemplate" style="display: none">
+  <div class="merchant-action-popover source-popover" id="sourceActionMenu">
+    <button class="merchant-action-item" data-action="all">All product</button>
+    <button class="merchant-action-item" data-action="fdm">FDM</button>
+    <button class="merchant-action-item" data-action="merchant">
+      Merchant
+    </button>
+  </div>
 </div>
 
-<div id="merchantDetailModal" class="merchant-modal-backdrop" aria-hidden="true" style="z-index: 10008;">
-    <div class="asm-modal" role="dialog" aria-modal="true" tabindex="-1" style="max-width: 1200px;">
-        <div class="asm-modal-header">
-            <h2 class="asm-modal-title" id="merchantDetailTitle">Shinta Kusuma</h2>
-            <button class="merchant-modal-close" aria-label="Tutup modal">✕</button>
-        </div>
-        <div class="asm-modal-body">
-            <div style="padding: 24px 23px 0;">
-                <div class="segmented" role="tablist" aria-label="CC Reg Status" style="width: 900px;">
-                    <div class="segmented-inner">
-                        <button type="button" role="tab" aria-selected="true" class="seg-item active"
-                            style="height: 32px; white-space: nowrap;" data-tab="inprocess"><span
-                                class="label">Inprocess</span></button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="duplicate"><span
-                                class="label">Duplicate</span></button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="cancel"><span
-                                class="label">Cancel</span></button>
-                        <button type="button" role="tab" aria-selected="false" class="seg-item"
-                            style="height: 32px; white-space: nowrap;" data-tab="reject"><span
-                                class="label">Reject</span></button>
-                    </div>
-                </div>
-            </div>
-            <div class="asm-filter-bar" style="border-bottom: none; padding-top: 16px;">
-                <div class="rsm-search-component-container"></div>
-            </div>
-            <div class="asm-table-card">
-                <div id="tab-inprocess" class="cc-reg-tab-pane active">
-                    <table class="asm-table">
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 32px;">No</th>
-                                <th>Costume Name</th>
-                                <th>Status</th>
-                                <th>DSR</th>
-                                <th>SPV</th>
-                                <th>Input Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tab-duplicate" class="cc-reg-tab-pane">
-                    <table class="asm-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Customer Name</th>
-                                <th>Decision Date</th>
-                                <th>DSR</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tab-cancel" class="cc-reg-tab-pane">
-                    <p style="padding:20px;">Cancel Data</p>
-                </div>
-                <div id="tab-reject" class="cc-reg-tab-pane">
-                    <p style="padding:20px;">Reject Data</p>
-                </div>
-            </div>
-            <div class="rsm-pagination-component-container"></div>
-        </div>
+<div
+  id="merchantDetailModal"
+  class="merchant-modal-backdrop"
+  aria-hidden="true"
+  style="z-index: 10008"
+>
+  <div
+    class="asm-modal"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    style="max-width: 1200px"
+  >
+    <div class="asm-modal-header">
+      <h2 class="asm-modal-title" id="merchantDetailTitle">Shinta Kusuma</h2>
+      <button class="merchant-modal-close" aria-label="Tutup modal">✕</button>
     </div>
-</div>
-
-<link rel="stylesheet" href="/assets/css/pemol-modal.css">
-<div class="asm-modal-backdrop" id="downlineModal" aria-hidden="true" style="z-index: 10009;">
-    <div class="asm-modal" role="dialog" aria-modal="true" aria-labelledby="downlineModalTitle" tabindex="-1">
-
-        <div class="asm-modal-header">
-            <h2 class="asm-modal-title" id="downlineModalTitle">Kiwamudin</h2>
-            <button class="asm-modal-close" id="closeDownlineModal" type="button" aria-label="Tutup dialog"
-                title="Tutup">
-                <span aria-hidden="true">×</span>
+    <div class="asm-modal-body">
+      <div style="padding: 24px 23px 0">
+        <div
+          class="segmented"
+          role="tablist"
+          aria-label="CC Reg Status"
+          style="width: 900px"
+        >
+          <div class="segmented-inner">
+            <button
+              type="button"
+              role="tab"
+              aria-selected="true"
+              class="seg-item active"
+              style="height: 32px; white-space: nowrap"
+              data-tab="inprocess"
+            >
+              <span class="label">Inprocess</span>
             </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              class="seg-item"
+              style="height: 32px; white-space: nowrap"
+              data-tab="duplicate"
+            >
+              <span class="label">Duplicate</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              class="seg-item"
+              style="height: 32px; white-space: nowrap"
+              data-tab="cancel"
+            >
+              <span class="label">Cancel</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              class="seg-item"
+              style="height: 32px; white-space: nowrap"
+              data-tab="reject"
+            >
+              <span class="label">Reject</span>
+            </button>
+          </div>
         </div>
-
-        <div class="asm-modal-body">
-
-            <!-- Search -->
-            <div class="rsm-search-component-container"></div>
-
-
-            <!-- Date component container -->
-            <div class="rsm-date-component-container"></div>
-
-            <div class="asm-table-card">
-                <table class="asm-table">
-                    <thead>
-                        <tr>
-                            <th class="text-center" style="width: 32px;">No</th>
-                            <th style="width: 25%;">RSM Name</th>
-                            <th class="text-center">NIK Sales</th>
-                            <th class="text-center">Approve</th>
-                            <th class="text-center">In Process</th>
-                            <th class="text-center">Cancel</th>
-                            <th class="text-center">Decline</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td class="rsm-name-cell">Ramaldo Oktama</td>
-                            <td class="text-center">K1101285</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">50</td>
-                            <td class="text-center">5</td>
-                            <td class="text-center">25</td>
-                            <td class="text-center">
-                                <button class="asm-action-btn btn-view-asm-detail" type="button">👁</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td class="rsm-name-cell">Asep Syaefudin</td>
-                            <td class="text-center">K1131701</td>
-                            <td class="text-center">5</td>
-                            <td class="text-center">25</td>
-                            <td class="text-center">2</td>
-                            <td class="text-center">10</td>
-                            <td class="text-center">
-                                <button class="asm-action-btn btn-view-asm-detail" type="button">👁</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">3</td>
-                            <td class="rsm-name-cell">Sifa Fauziah</td>
-                            <td class="text-center">K1140414</td>
-                            <td class="text-center">0</td>
-                            <td class="text-center">0</td>
-                            <td class="text-center">0</td>
-                            <td class="text-center">0</td>
-                            <td class="text-center">
-                                <button class="asm-action-btn btn-view-asm-detail" type="button">👁</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="rsm-pagination-component-container"></div>
-
+      </div>
+      <div
+        class="asm-filter-bar"
+        style="border-bottom: none; padding-top: 16px"
+      >
+        <div class="rsm-search-component-container"></div>
+      </div>
+      <div class="asm-table-card">
+        <div id="tab-inprocess" class="cc-reg-tab-pane active">
+          <table class="asm-table">
+            <thead>
+              <tr>
+                <th class="text-center" style="width: 32px">No</th>
+                <th>Costume Name</th>
+                <th>Status</th>
+                <th>DSR</th>
+                <th>SPV</th>
+                <th>Input Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">1</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <div id="tab-duplicate" class="cc-reg-tab-pane">
+          <table class="asm-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Customer Name</th>
+                <th>Decision Date</th>
+                <th>DSR</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">1</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="tab-cancel" class="cc-reg-tab-pane">
+          <p style="padding: 20px">Cancel Data</p>
+        </div>
+        <div id="tab-reject" class="cc-reg-tab-pane">
+          <p style="padding: 20px">Reject Data</p>
+        </div>
+      </div>
+      <div class="rsm-pagination-component-container"></div>
     </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="/assets/css/pemol-modal.css" />
+<div
+  class="asm-modal-backdrop"
+  id="downlineModal"
+  aria-hidden="true"
+  style="z-index: 10009"
+>
+  <div
+    class="asm-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="downlineModalTitle"
+    tabindex="-1"
+  >
+    <div class="asm-modal-header">
+      <h2 class="asm-modal-title" id="downlineModalTitle">Kiwamudin</h2>
+      <button
+        class="asm-modal-close"
+        id="closeDownlineModal"
+        type="button"
+        aria-label="Tutup dialog"
+        title="Tutup"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="asm-modal-body">
+      <!-- Search -->
+      <div class="rsm-search-component-container"></div>
+
+      <!-- Date component container -->
+      <div class="rsm-date-component-container"></div>
+
+      <div class="asm-table-card">
+        <table class="asm-table">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 32px">No</th>
+              <th style="width: 25%">RSM Name</th>
+              <th class="text-center">NIK Sales</th>
+              <th class="text-center">Approve</th>
+              <th class="text-center">In Process</th>
+              <th class="text-center">Cancel</th>
+              <th class="text-center">Decline</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">1</td>
+              <td class="rsm-name-cell">Ramaldo Oktama</td>
+              <td class="text-center">K1101285</td>
+              <td class="text-center">10</td>
+              <td class="text-center">50</td>
+              <td class="text-center">5</td>
+              <td class="text-center">25</td>
+              <td class="text-center">
+                <button
+                  class="asm-action-btn btn-view-asm-detail"
+                  type="button"
+                >
+                  👁
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">2</td>
+              <td class="rsm-name-cell">Asep Syaefudin</td>
+              <td class="text-center">K1131701</td>
+              <td class="text-center">5</td>
+              <td class="text-center">25</td>
+              <td class="text-center">2</td>
+              <td class="text-center">10</td>
+              <td class="text-center">
+                <button
+                  class="asm-action-btn btn-view-asm-detail"
+                  type="button"
+                >
+                  👁
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">3</td>
+              <td class="rsm-name-cell">Sifa Fauziah</td>
+              <td class="text-center">K1140414</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">
+                <button
+                  class="asm-action-btn btn-view-asm-detail"
+                  type="button"
+                >
+                  👁
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rsm-pagination-component-container"></div>
+    </div>
+  </div>
 </div>
 
 <script>
-    (function () {
-        let currentPopover = null;
+  (function () {
+    let currentPopover = null;
 
-        // 1. GLOBAL EVENT LISTENERS (POPOVER & DELEGATION)
-        if (!window.merchantModalListenersAttached) {
-            window.merchantModalListenersAttached = true;
+    // 1. GLOBAL EVENT LISTENERS (POPOVER & DELEGATION)
+    if (!window.merchantModalListenersAttached) {
+      window.merchantModalListenersAttached = true;
 
-            // Close popover when clicking outside
-            document.addEventListener('click', function (e) {
-                if (currentPopover &&
-                    !currentPopover.contains(e.target) &&
-                    !e.target.closest('.btn-merchant-action') &&
-                    !e.target.closest('.btn-export-trigger') &&
-                    !e.target.closest('.btn-source-trigger')) {
-                    currentPopover.remove();
-                    currentPopover = null;
-                }
-            });
+      // Close popover when clicking outside
+      document.addEventListener("click", function (e) {
+        if (
+          currentPopover &&
+          !currentPopover.contains(e.target) &&
+          !e.target.closest(".btn-merchant-action") &&
+          !e.target.closest(".btn-export-trigger") &&
+          !e.target.closest(".btn-source-trigger")
+        ) {
+          currentPopover.remove();
+          currentPopover = null;
+        }
+      });
 
-            // Handle Trigger Clicks
-            document.body.addEventListener('click', function (e) {
-                // Handle Merchant Action (Dots)
-                const actionBtn = e.target.closest('.btn-merchant-action');
-                if (actionBtn) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handlePopover(actionBtn, 'merchantActionTemplate', 4);
-                    return;
-                }
-
-                // Handle Source/Export
-                const sourceBtn = e.target.closest('.btn-source-trigger');
-                if (sourceBtn) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handlePopover(sourceBtn, 'sourceActionTemplate', 0);
-                    return;
-                }
-            });
+      // Handle Trigger Clicks
+      document.body.addEventListener("click", function (e) {
+        // Handle Merchant Action (Dots)
+        const actionBtn = e.target.closest(".btn-merchant-action");
+        if (actionBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          handlePopover(actionBtn, "merchantActionTemplate", 4);
+          return;
         }
 
-        // 2. POPOVER LOGIC
-        function handlePopover(btn, templateId, topGap) {
-            if (currentPopover) {
-                currentPopover.remove();
-                if (currentPopover._triggerBtn === btn) {
-                    currentPopover = null;
-                    return;
-                }
+        // Handle Source/Export
+        const sourceBtn = e.target.closest(".btn-source-trigger");
+        if (sourceBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          handlePopover(sourceBtn, "sourceActionTemplate", 0);
+          return;
+        }
+      });
+    }
+
+    // 2. POPOVER LOGIC
+    function handlePopover(btn, templateId, topGap) {
+      if (currentPopover) {
+        currentPopover.remove();
+        if (currentPopover._triggerBtn === btn) {
+          currentPopover = null;
+          return;
+        }
+      }
+
+      const template = document.getElementById(templateId);
+      if (!template) return;
+
+      const popover = template.firstElementChild.cloneNode(true);
+      popover.style.display = "flex";
+      popover.style.zIndex = "10002";
+      popover.style.visibility = "hidden"; // Hide initially to calculate position
+      document.body.appendChild(popover);
+
+      // Positioning Logic
+      if (templateId === "sourceActionTemplate") {
+        const rect = btn.getBoundingClientRect();
+        popover.style.width = rect.width + "px";
+      }
+
+      const zoomFactor = 0.75; // Must match your CSS zoom
+
+      // 2. Get Rect
+      const rect = btn.getBoundingClientRect();
+      const scrollY = window.pageYOffset || window.scrollY;
+      const scrollX = window.scrollX || window.pageXOffset;
+
+      popover.style.position = "absolute";
+      const gap = templateId === "sourceActionTemplate" ? 4 : topGap || 10;
+
+      // 3. APPLY MATH CORRECTION (Divide by zoomFactor)
+      // Correct Top Position
+      const adjustedTop = rect.bottom / zoomFactor + scrollY + gap;
+
+      // Correct Left/Right Position
+      const adjustedLeftRect = rect.left / zoomFactor + scrollX;
+      const adjustedRightRect = rect.right / zoomFactor + scrollX;
+
+      let left;
+      if (templateId === "sourceActionTemplate") {
+        // Source: Align Left
+        left = adjustedLeftRect;
+      } else {
+        // Action: Align Right (rect.right - popoverWidth)
+        // Note: popover.offsetWidth usually reads unzoomed width if zoom is normal on element
+        left = adjustedRightRect - popover.offsetWidth;
+      }
+
+      // 4. Apply Styles
+      popover.style.top = adjustedTop + "px";
+      popover.style.left = left + "px";
+      popover.style.visibility = "visible";
+
+      currentPopover = popover;
+      currentPopover._triggerBtn = btn;
+
+      // --- ATTACH LISTENERS INSIDE POPOVER ---
+      if (templateId === "merchantActionTemplate") {
+        // View Detail Handler
+        const detailBtn = popover.querySelector('[data-action="detail"]');
+        if (detailBtn) {
+          detailBtn.addEventListener("click", function () {
+            const tr = btn.closest("tr");
+            const name = tr
+              ? tr.querySelector(".rsm-name-cell")?.textContent.trim()
+              : "Unknown User";
+            if (typeof window.openMerchantModal === "function")
+              window.openMerchantModal(name);
+            currentPopover.remove();
+            currentPopover = null;
+          });
+        }
+
+        // View Downline Handler
+        const downlineBtn = popover.querySelector('[data-action="downline"]');
+        if (downlineBtn) {
+          downlineBtn.addEventListener("click", function () {
+            const tr = btn.closest("tr");
+            // Cari nama. Jika tidak ada class .rsm-name-cell, coba ambil kolom ke-2
+            let name = "Unknown";
+            if (tr) {
+              const nameEl = tr.querySelector(".rsm-name-cell");
+              if (nameEl) name = nameEl.textContent.trim();
+              else {
+                const tds = tr.querySelectorAll("td");
+                if (tds.length > 1) name = tds[1].textContent.trim();
+              }
             }
 
-            const template = document.getElementById(templateId);
-            if (!template) return;
-
-            const popover = template.firstElementChild.cloneNode(true);
-            popover.style.display = 'flex';
-            popover.style.zIndex = '10002';
-            popover.style.visibility = 'hidden'; // Hide initially to calculate position
-            document.body.appendChild(popover);
-
-            // Positioning Logic
-            if (templateId === 'sourceActionTemplate') {
-                const rect = btn.getBoundingClientRect();
-                popover.style.width = rect.width + 'px';
-            }
-
-            const rect = btn.getBoundingClientRect();
-            const scrollY = window.pageYOffset || window.scrollY;
-            const scrollX = window.scrollX || window.pageXOffset;
-
-            popover.style.position = 'absolute';
-            const gap = (templateId === 'sourceActionTemplate') ? 4 : (topGap || 10);
-            const top = rect.bottom + scrollY + gap;
-
-            // Simple alignment: Source=Left aligned, Action=Right aligned
-            let left;
-            if (templateId === 'sourceActionTemplate') {
-                left = rect.left + scrollX;
+            // Panggil Fungsi Global
+            if (typeof window.openDownlineModal === "function") {
+              window.openDownlineModal(name);
             } else {
-                left = (rect.right + scrollX) - popover.offsetWidth;
+              console.error("Function openDownlineModal not found!");
             }
-
-            popover.style.top = top + 'px';
-            popover.style.left = left + 'px';
-            popover.style.visibility = 'visible';
-
-            currentPopover = popover;
-            currentPopover._triggerBtn = btn;
-
-            // --- ATTACH LISTENERS INSIDE POPOVER ---
-            if (templateId === 'merchantActionTemplate') {
-                // View Detail Handler
-                const detailBtn = popover.querySelector('[data-action="detail"]');
-                if (detailBtn) {
-                    detailBtn.addEventListener('click', function () {
-                        const tr = btn.closest('tr');
-                        const name = tr ? tr.querySelector('.rsm-name-cell')?.textContent.trim() : 'Unknown User';
-                        if (typeof window.openMerchantModal === 'function') window.openMerchantModal(name);
-                        currentPopover.remove();
-                        currentPopover = null;
-                    });
-                }
-
-                // View Downline Handler
-                const downlineBtn = popover.querySelector('[data-action="downline"]');
-                if (downlineBtn) {
-                    downlineBtn.addEventListener('click', function () {
-                        const tr = btn.closest('tr');
-                        // Cari nama. Jika tidak ada class .rsm-name-cell, coba ambil kolom ke-2
-                        let name = 'Unknown';
-                        if (tr) {
-                            const nameEl = tr.querySelector('.rsm-name-cell');
-                            if (nameEl) name = nameEl.textContent.trim();
-                            else {
-                                const tds = tr.querySelectorAll('td');
-                                if (tds.length > 1) name = tds[1].textContent.trim();
-                            }
-                        }
-
-                        // Panggil Fungsi Global
-                        if (typeof window.openDownlineModal === 'function') {
-                            window.openDownlineModal(name);
-                        } else {
-                            console.error('Function openDownlineModal not found!');
-                        }
-                        currentPopover.remove();
-                        currentPopover = null;
-                    });
-                }
-            } else if (templateId === 'sourceActionTemplate') {
-                const items = popover.querySelectorAll('.merchant-action-item');
-                items.forEach(item => {
-                    item.addEventListener('click', function () {
-                        btn.textContent = this.textContent.trim();
-                        currentPopover.remove();
-                        currentPopover = null;
-                    });
-                });
-            }
+            currentPopover.remove();
+            currentPopover = null;
+          });
         }
-
-        // 3. MERCHANT DETAIL MODAL LOGIC
-        const modalBackdrop = document.getElementById('merchantDetailModal');
-        const modalTitle = document.getElementById('merchantDetailTitle');
-        const modalClose = modalBackdrop ? modalBackdrop.querySelector('.merchant-modal-close') : null;
-
-        // Init Tabs (Delegation)
-        const segContainer = modalBackdrop ? modalBackdrop.querySelector('.segmented-inner') : null;
-        if (segContainer) {
-            segContainer.addEventListener('click', function (e) {
-                const btn = e.target.closest('.seg-item');
-                if (btn) {
-                    const allBtns = segContainer.querySelectorAll('.seg-item');
-                    allBtns.forEach(b => {
-                        b.classList.remove('active');
-                        b.setAttribute('aria-selected', 'false');
-                    });
-                    btn.classList.add('active');
-                    btn.setAttribute('aria-selected', 'true');
-
-                    const tabName = btn.getAttribute('data-tab');
-                    const panes = modalBackdrop.querySelectorAll('.cc-reg-tab-pane');
-                    panes.forEach(p => p.classList.remove('active'));
-                    const targetPane = modalBackdrop.querySelector('#tab-' + tabName);
-                    if (targetPane) targetPane.classList.add('active');
-                }
-            });
-        }
-
-        window.openMerchantModal = function (name) {
-            if (modalBackdrop && modalTitle) {
-                modalTitle.textContent = name;
-                modalBackdrop.classList.add('is-open');
-                modalBackdrop.setAttribute('aria-hidden', 'false');
-            }
-        };
-
-        if (modalBackdrop && modalClose) {
-            modalClose.addEventListener('click', function () {
-                modalBackdrop.classList.remove('is-open');
-                modalBackdrop.setAttribute('aria-hidden', 'true');
-            });
-            modalBackdrop.addEventListener('click', function (e) {
-                if (e.target === modalBackdrop) {
-                    modalBackdrop.classList.remove('is-open');
-                    modalBackdrop.setAttribute('aria-hidden', 'true');
-                }
-            });
-        }
-
-        // [DIBUANG] Baris kode tabBtns.forEach yang duplikat dan menyebabkan error
-
-        // 4. DOWNLINE MODAL LOGIC (FIXED)
-        const downlineModal = document.getElementById('downlineModal');
-        const downlineModalTitle = document.getElementById('downlineModalTitle');
-        const closeDownlineModal = document.getElementById('closeDownlineModal');
-
-        window.openDownlineModal = function (name) {
-            if (downlineModal) {
-                if (downlineModalTitle) downlineModalTitle.textContent = name;
-                downlineModal.classList.add('is-open');
-                downlineModal.setAttribute('aria-hidden', 'false');
-                console.log('Opening Downline Modal for: ' + name);
-            } else {
-                console.error('Element #downlineModal not found in DOM');
-            }
-        };
-
-        if (downlineModal && closeDownlineModal) {
-            closeDownlineModal.addEventListener('click', function () {
-                downlineModal.classList.remove('is-open');
-                downlineModal.setAttribute('aria-hidden', 'true');
-            });
-
-            downlineModal.addEventListener('click', function (e) {
-                if (e.target === downlineModal) {
-                    downlineModal.classList.remove('is-open');
-                    downlineModal.setAttribute('aria-hidden', 'true');
-                }
-            });
-        }
-
-        // --- SISA KODE LAINNYA (Sub-modal, CC Reg, dll) TETAP ADA DISINI ---
-        // (Saya tidak menyertakan sisa modal lain seperti CCReg, Corporate dll 
-        // agar jawaban tidak terlalu panjang, tapi logika di atas sudah memperbaiki
-        // core issue yang membuat script error).
-
-        // Untuk demonstrasi tombol "Eye" di dalam tabel Downline:
-        document.body.addEventListener('click', function (e) {
-            const btn = e.target.closest('.btn-view-asm-detail');
-            if (btn) {
-                e.preventDefault();
-                const tr = btn.closest('tr');
-                // Contoh logika mengambil nama untuk sub-modal
-                alert("Membuka detail sub-modal (logika ini ada di kode lengkap Anda)");
-            }
+      } else if (templateId === "sourceActionTemplate") {
+        const items = popover.querySelectorAll(".merchant-action-item");
+        items.forEach((item) => {
+          item.addEventListener("click", function () {
+            btn.textContent = this.textContent.trim();
+            currentPopover.remove();
+            currentPopover = null;
+          });
         });
+      }
+    }
 
-    })();
+    // 3. MERCHANT DETAIL MODAL LOGIC
+    const modalBackdrop = document.getElementById("merchantDetailModal");
+    const modalTitle = document.getElementById("merchantDetailTitle");
+    const modalClose = modalBackdrop
+      ? modalBackdrop.querySelector(".merchant-modal-close")
+      : null;
+
+    // Init Tabs (Delegation)
+    const segContainer = modalBackdrop
+      ? modalBackdrop.querySelector(".segmented-inner")
+      : null;
+    if (segContainer) {
+      segContainer.addEventListener("click", function (e) {
+        const btn = e.target.closest(".seg-item");
+        if (btn) {
+          const allBtns = segContainer.querySelectorAll(".seg-item");
+          allBtns.forEach((b) => {
+            b.classList.remove("active");
+            b.setAttribute("aria-selected", "false");
+          });
+          btn.classList.add("active");
+          btn.setAttribute("aria-selected", "true");
+
+          const tabName = btn.getAttribute("data-tab");
+          const panes = modalBackdrop.querySelectorAll(".cc-reg-tab-pane");
+          panes.forEach((p) => p.classList.remove("active"));
+          const targetPane = modalBackdrop.querySelector("#tab-" + tabName);
+          if (targetPane) targetPane.classList.add("active");
+        }
+      });
+    }
+
+    window.openMerchantModal = function (name) {
+      if (modalBackdrop && modalTitle) {
+        modalTitle.textContent = name;
+        modalBackdrop.classList.add("is-open");
+        modalBackdrop.setAttribute("aria-hidden", "false");
+      }
+    };
+
+    if (modalBackdrop && modalClose) {
+      modalClose.addEventListener("click", function () {
+        modalBackdrop.classList.remove("is-open");
+        modalBackdrop.setAttribute("aria-hidden", "true");
+      });
+      modalBackdrop.addEventListener("click", function (e) {
+        if (e.target === modalBackdrop) {
+          modalBackdrop.classList.remove("is-open");
+          modalBackdrop.setAttribute("aria-hidden", "true");
+        }
+      });
+    }
+
+    // [DIBUANG] Baris kode tabBtns.forEach yang duplikat dan menyebabkan error
+
+    // 4. DOWNLINE MODAL LOGIC (FIXED)
+    const downlineModal = document.getElementById("downlineModal");
+    const downlineModalTitle = document.getElementById("downlineModalTitle");
+    const closeDownlineModal = document.getElementById("closeDownlineModal");
+
+    window.openDownlineModal = function (name) {
+      if (downlineModal) {
+        if (downlineModalTitle) downlineModalTitle.textContent = name;
+        downlineModal.classList.add("is-open");
+        downlineModal.setAttribute("aria-hidden", "false");
+        console.log("Opening Downline Modal for: " + name);
+      } else {
+        console.error("Element #downlineModal not found in DOM");
+      }
+    };
+
+    if (downlineModal && closeDownlineModal) {
+      closeDownlineModal.addEventListener("click", function () {
+        downlineModal.classList.remove("is-open");
+        downlineModal.setAttribute("aria-hidden", "true");
+      });
+
+      downlineModal.addEventListener("click", function (e) {
+        if (e.target === downlineModal) {
+          downlineModal.classList.remove("is-open");
+          downlineModal.setAttribute("aria-hidden", "true");
+        }
+      });
+    }
+
+    // Untuk demonstrasi tombol "Eye" di dalam tabel Downline:
+    document.body.addEventListener("click", function (e) {
+      const btn = e.target.closest(".btn-view-asm-detail");
+      if (btn) {
+        e.preventDefault();
+        const tr = btn.closest("tr");
+        // Contoh logika mengambil nama untuk sub-modal
+        alert("Membuka detail sub-modal (logika ini ada di kode lengkap Anda)");
+      }
+    });
+  })();
 </script>
 
 <script>
-    // Load Date Pickers
-    fetch('assets/partials/components/date_picker.html')
-        .then(response => response.text())
-        .then(html => {
-            document.querySelectorAll('.rsm-date-component-container').forEach(container => {
-                if (container.innerHTML.trim() === '') {
-                    container.innerHTML = html;
-                    container.querySelectorAll('script').forEach(oldScript => {
-                        const newScript = document.createElement('script');
-                        newScript.textContent = oldScript.textContent;
-                        document.body.appendChild(newScript);
-                    });
-                }
+  // Load Date Pickers
+  fetch("assets/partials/components/date_picker.html")
+    .then((response) => response.text())
+    .then((html) => {
+      document
+        .querySelectorAll(".rsm-date-component-container")
+        .forEach((container) => {
+          if (container.innerHTML.trim() === "") {
+            container.innerHTML = html;
+            container.querySelectorAll("script").forEach((oldScript) => {
+              const newScript = document.createElement("script");
+              newScript.textContent = oldScript.textContent;
+              document.body.appendChild(newScript);
             });
+          }
         });
+    });
 </script>
 
 <script>
-    // Load Pagination
-    fetch('assets/partials/components/pagination.html')
-        .then(response => response.text())
-        .then(html => {
-            document.querySelectorAll('.rsm-pagination-component-container').forEach(container => {
-                if (container.innerHTML.trim() === '') {
-                    container.innerHTML = html;
-                }
-            });
+  // Load Pagination
+  fetch("assets/partials/components/pagination.html")
+    .then((response) => response.text())
+    .then((html) => {
+      document
+        .querySelectorAll(".rsm-pagination-component-container")
+        .forEach((container) => {
+          if (container.innerHTML.trim() === "") {
+            container.innerHTML = html;
+          }
         });
+    });
 </script>
 
 <script>
-    // Load Search Component
-    fetch('assets/partials/components/search.html')
-        .then(response => response.text())
-        .then(html => {
-            document.querySelectorAll('.rsm-search-component-container').forEach(container => {
-                if (container.innerHTML.trim() === '') {
-                    container.innerHTML = html;
-                }
-            });
+  // Load Search Component
+  fetch("assets/partials/components/search.html")
+    .then((response) => response.text())
+    .then((html) => {
+      document
+        .querySelectorAll(".rsm-search-component-container")
+        .forEach((container) => {
+          if (container.innerHTML.trim() === "") {
+            container.innerHTML = html;
+          }
         });
+    });
 </script>
