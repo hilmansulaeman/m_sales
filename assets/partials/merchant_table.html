@@ -1,213 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Merchant Table - Bootstrap</title>
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/perf-table.css">
+    <link rel="stylesheet" href="assets/css/perf-table.css" />
     <!-- Modal CSS -->
-    <link rel="stylesheet" href="assets/css/merchant-modal.css">
-</head>
+    <link rel="stylesheet" href="assets/css/merchant-modal.css" />
+  </head>
 
-<body class="body-rsm">
-
+  <body class="body-rsm">
     <div class="card-rsm">
-        <!-- TOP BAR -->
-        <div class="d-flex align-items-center justify-content-between rsm-top-bar">
-            <div class="d-flex align-items-center gap-3">
-                <!-- search -->
-                <div class="input-group rsm-search-input">
-                    <span class="input-group-text">🔍</span>
-                    <input type="text" class="form-control" placeholder="Cari">
-                </div>
+      <!-- TOP BAR -->
+      <div
+        class="d-flex align-items-center justify-content-between rsm-top-bar"
+      >
+        <div class="d-flex align-items-center gap-3">
+          <!-- search -->
+          <div class="input-group rsm-search-input">
+            <span class="input-group-text">🔍</span>
+            <input type="text" class="form-control" placeholder="Cari" />
+          </div>
 
-                <!-- SOURCE FILTER -->
-                <div class="btn-group rsm-source-filter" role="group" aria-label="Source filter">
-                    <span class="btn rsm-source-label">Source</span>
-                    <button type="button" class="btn dropdown-toggle rsm-source-dropdown btn-source-trigger">
-                        All product
-                    </button>
-                </div>
-
-                <!-- date range wrapper (Component) -->
-                <div id="rsmDateComponentContainer"></div>
-                <script>
-                    fetch('assets/partials/components/date_picker.html')
-                        .then(response => response.text())
-                        .then(html => {
-                            const container = document.getElementById('rsmDateComponentContainer');
-                            if (container) {
-                                container.innerHTML = html;
-                                // Execute scripts found in the component
-                                container.querySelectorAll('script').forEach(oldScript => {
-                                    const newScript = document.createElement('script');
-                                    newScript.textContent = oldScript.textContent;
-                                    document.body.appendChild(newScript);
-                                });
-                            }
-                        });
-                </script>
-            </div>
-
-            <!-- export -->
-            <!-- export -->
-            <button class="btn d-flex align-items-center gap-2 px-4 py-2 btn-export-rsm btn-export-trigger">
-                ⬇
-                <span>Ekspor data</span>
+          <!-- SOURCE FILTER -->
+          <div
+            class="btn-group rsm-source-filter"
+            role="group"
+            aria-label="Source filter"
+          >
+            <span class="btn rsm-source-label">Source</span>
+            <button
+              type="button"
+              class="btn dropdown-toggle rsm-source-dropdown btn-source-trigger"
+            >
+              All product
             </button>
+          </div>
+
+          <!-- date range wrapper (Component) -->
+          <div id="rsmDateComponentContainer"></div>
+          <script>
+            fetch("assets/partials/components/date_picker.html")
+              .then((response) => response.text())
+              .then((html) => {
+                const container = document.getElementById(
+                  "rsmDateComponentContainer"
+                );
+                if (container) {
+                  container.innerHTML = html;
+                  // Execute scripts found in the component
+                  container.querySelectorAll("script").forEach((oldScript) => {
+                    const newScript = document.createElement("script");
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                  });
+                }
+              });
+          </script>
         </div>
 
-        <!-- TABLE -->
-        <div class="table-responsive">
-            <table class="table mb-0 rsm-table text-nowrap">
-                <thead>
-                    <tr>
-                        <th rowspan="2" class="text-center" style="width: 60px;">No</th>
-                        <th rowspan="2" style="width: 25%;">BSH Name</th>
-                        <th rowspan="2" class="text-center">NIK Sales</th>
-                        <th rowspan="2" class="text-center">Branch</th>
-                        <th rowspan="2" class="text-center">Total<br>DSR Active</th>
-                        <th rowspan="2" class="text-center">Input<br>by System</th>
-                        <th rowspan="2" class="text-center">Received<br>by APP</th>
+        <!-- export -->
+        <!-- export -->
+        <button
+          class="btn d-flex align-items-center gap-2 px-4 py-2 btn-export-rsm btn-export-trigger"
+        >
+          ⬇
+          <span>Ekspor data</span>
+        </button>
+      </div>
 
-                        <th colspan="5" class="text-center rsm-group">New</th>
+      <!-- TABLE -->
+      <div class="table-responsive">
+        <table class="table mb-0 rsm-table text-nowrap">
+          <thead>
+            <tr>
+              <th rowspan="2" class="text-center" style="width: 60px">No</th>
+              <th rowspan="2" style="width: 25%">BSH Name</th>
+              <th rowspan="2" class="text-center">NIK Sales</th>
+              <th rowspan="2" class="text-center">Branch</th>
+              <th rowspan="2" class="text-center">Total<br />DSR Active</th>
+              <th rowspan="2" class="text-center">Input<br />by System</th>
+              <th rowspan="2" class="text-center">Received<br />by APP</th>
 
-                        <th rowspan="2" class="text-center rsm-group">Rejected</th>
-                        <th rowspan="2" class="text-center">Action</th>
-                    </tr>
-                    <tr>
-                        <!-- Sub columns for New -->
-                        <th class="text-center rsm-group-col">Account</th>
-                        <th class="text-center rsm-group-col">RTS</th>
-                        <th class="text-center rsm-group-col">BCA</th>
-                        <th class="text-center rsm-group-col">Pending</th>
-                        <th class="text-center rsm-group-col">Cencel</th>
+              <th colspan="5" class="text-center rsm-group">New</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td class="rsm-name-cell">Ramaldo Oktama</td>
-                        <td class="text-center">K1104148</td>
+              <th rowspan="2" class="text-center rsm-group">Rejected</th>
+              <th rowspan="2" class="text-center">Action</th>
+            </tr>
+            <tr>
+              <!-- Sub columns for New -->
+              <th class="text-center rsm-group-col">Account</th>
+              <th class="text-center rsm-group-col">RTS</th>
+              <th class="text-center rsm-group-col">BCA</th>
+              <th class="text-center rsm-group-col">Pending</th>
+              <th class="text-center rsm-group-col">Cencel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">1</td>
+              <td class="rsm-name-cell">Ramaldo Oktama</td>
+              <td class="text-center">K1104148</td>
 
-                        <td class="text-center rsm-group-col">3</td>
-                        <td class="text-center">1</td>
+              <td class="text-center rsm-group-col">3</td>
+              <td class="text-center">1</td>
 
-                        <td class="text-center rsm-group-col">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
+              <td class="text-center rsm-group-col">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
 
+              <!-- PENTING: pakai rsm-action-cell -->
+              <td class="text-center rsm-action-cell">
+                <button class="btn btn-sm rsm-circle-btn btn-merchant-action">
+                  <img src="assets/img/icon/view1.svg" alt="More" />
+                </button>
+              </td>
+            </tr>
 
-                        <!-- PENTING: pakai rsm-action-cell -->
-                        <td class="text-center rsm-action-cell">
-                            <button class="btn btn-sm rsm-circle-btn btn-merchant-action">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="5" cy="12" r="2" fill="#29415C" />
-                                    <circle cx="12" cy="12" r="2" fill="#29415C" />
-                                    <circle cx="19" cy="12" r="2" fill="#29415C" />
-                                </svg>
-                            </button>
-                        </td>
-                    </tr>
+            <tr>
+              <td class="text-center">2</td>
+              <td class="rsm-name-cell">Asep Syaefudin</td>
+              <td class="text-center">K1200215</td>
 
-                    <tr>
-                        <td class="text-center">2</td>
-                        <td class="rsm-name-cell">Asep Syaefudin</td>
-                        <td class="text-center">K1200215</td>
+              <td class="text-center rsm-group-col">1</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
+              <td class="text-center">0</td>
 
-                        <td class="text-center rsm-group-col">1</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
+              <!-- PENTING: juga pakai rsm-action-cell -->
+              <td class="text-center rsm-action-cell">
+                <button class="btn btn-sm rsm-circle-btn">
+                  <img src="assets/img/icon/view1.svg" alt="More" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
+      <!-- FOOTER / PAGINATION -->
+      <div class="d-flex align-items-center gap-4 px-4 py-3">
+        <div class="rsm-pagination-info">Menampilkan 1 sampai 2 dari 2</div>
 
-                        <!-- PENTING: juga pakai rsm-action-cell -->
-                        <td class="text-center rsm-action-cell">
-                            <button class="btn btn-sm rsm-circle-btn btn-merchant-action">
-                                <span class="text-black">…</span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-
-            </table>
+        <div
+          class="flex-grow-1 d-flex justify-content-center align-items-center gap-1"
+        >
+          <button class="btn btn-sm px-2">‹</button>
+          <button class="btn btn-sm rsm-page-active">1</button>
+          <button class="btn btn-sm px-2">›</button>
         </div>
 
-        <!-- FOOTER / PAGINATION -->
-        <div class="d-flex align-items-center gap-4 px-4 py-3">
-            <div class="rsm-pagination-info">
-                Menampilkan 1 sampai 2 dari 2
-            </div>
-
-            <div class="flex-grow-1 d-flex justify-content-center align-items-center gap-1">
-                <button class="btn btn-sm px-2">‹</button>
-                <button class="btn btn-sm rsm-page-active">1</button>
-                <button class="btn btn-sm px-2">›</button>
-            </div>
-
-            <div class="d-flex align-items-center gap-2">
-                <span class="rsm-pagination-show">Tampilkan</span>
-                <div class="rsm-show-dropdown d-flex align-items-center gap-1">
-                    <span class="rsm-pagination-show text-dark">10</span>
-                    <span>▾</span>
-                </div>
-            </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="rsm-pagination-show">Tampilkan</span>
+          <div class="rsm-show-dropdown d-flex align-items-center gap-1">
+            <span class="rsm-pagination-show text-dark">10</span>
+            <span>▾</span>
+          </div>
         </div>
+      </div>
 
-        <!-- Container for the Modal Partial -->
-        <div id="merchantModalContainer"></div>
+      <!-- Container for the Modal Partial -->
+      <div id="merchantModalContainer"></div>
 
-        <script>
-            // Load the modal partial dynamically
-            fetch('assets/partials/merchant_detail_modal.html')
-                .then(r => r.text())
-                .then(html => {
-                    const container = document.getElementById('merchantModalContainer');
+      <script>
+        // Load the modal partial dynamically
+        fetch("assets/partials/merchant_detail_modal.html")
+          .then((r) => r.text())
+          .then((html) => {
+            const container = document.getElementById("merchantModalContainer");
 
-                    // Cleanup existing elements if they exist (to exist reuse issues)
-                    const existingModal = document.getElementById('merchantDetailModal');
-                    if (existingModal) existingModal.remove();
-                    const existingTemplate = document.getElementById('merchantActionTemplate');
-                    if (existingTemplate) existingTemplate.remove();
+            // Cleanup existing elements if they exist (to exist reuse issues)
+            const existingModal = document.getElementById(
+              "merchantDetailModal"
+            );
+            if (existingModal) existingModal.remove();
+            const existingTemplate = document.getElementById(
+              "merchantActionTemplate"
+            );
+            if (existingTemplate) existingTemplate.remove();
 
-                    container.innerHTML = html;
+            container.innerHTML = html;
 
-                    // Move NEW components to body
-                    const modal = container.querySelector('#merchantDetailModal');
-                    const actionTemplate = container.querySelector('#merchantActionTemplate');
-                    if (modal) document.body.appendChild(modal);
-                    if (actionTemplate) document.body.appendChild(actionTemplate);
+            // Move NEW components to body
+            const modal = container.querySelector("#merchantDetailModal");
+            const actionTemplate = container.querySelector(
+              "#merchantActionTemplate"
+            );
+            if (modal) document.body.appendChild(modal);
+            if (actionTemplate) document.body.appendChild(actionTemplate);
 
-                    // Execute scripts in partial
-                    const scripts = container.querySelectorAll('script');
-                    scripts.forEach(s => {
-                        const ns = document.createElement('script');
-                        ns.textContent = s.textContent;
-                        document.body.appendChild(ns);
-                    });
-                });
-        </script>
-
-
+            // Execute scripts in partial
+            const scripts = container.querySelectorAll("script");
+            scripts.forEach((s) => {
+              const ns = document.createElement("script");
+              ns.textContent = s.textContent;
+              document.body.appendChild(ns);
+            });
+          });
+      </script>
     </div>
-</body>
-
+  </body>
 </html>

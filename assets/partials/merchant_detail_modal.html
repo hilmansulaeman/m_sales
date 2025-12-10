@@ -6296,6 +6296,41 @@
           handlePopover(sourceBtn, "sourceActionTemplate", 4);
           return;
         }
+
+        // C. Handle Detail Modal Triggers (Drill-down in Merchant Detail)
+        const detailTrigger = e.target.closest(".detail-modal-trigger");
+        if (detailTrigger) {
+          const title = detailTrigger.getAttribute("data-title");
+          if (typeof window.openEdcCredit === "function")
+            window.openEdcCredit(title);
+          return;
+        }
+
+        // D. Handle Downline Sub-Detail Triggers (Drill-down in Downline Detail)
+        const subDetailTrigger = e.target.closest(
+          ".downline-sub-detail-trigger"
+        );
+        if (subDetailTrigger) {
+          const title = subDetailTrigger.getAttribute("data-title");
+          if (typeof window.openDownlineTable === "function")
+            window.openDownlineTable(title);
+          return;
+        }
+
+        // E. Handle "Eye" Button in Downline Modal
+        const viewAsmBtn = e.target.closest(".btn-view-asm-detail");
+        if (viewAsmBtn) {
+          e.preventDefault();
+          const tr = viewAsmBtn.closest("tr");
+          let name = "Unknown";
+          if (tr) {
+            const tds = tr.querySelectorAll("td");
+            if (tds.length > 1) name = tds[1].textContent.trim();
+          }
+          if (typeof window.openMerchantDetailDownline === "function")
+            window.openMerchantDetailDownline(name);
+          return;
+        }
       });
     }
 
@@ -6416,9 +6451,124 @@
       }
     }
 
-    // --- EXISTING MODAL LOGIC (Merchant, Downline, etc.) TETAP DISINI ---
-    // Pastikan logic modal open/close Anda tetap ada di bawah sini
-    // ...
+    // 3. DEFINISI FUNGSI MODAL (Global)
+    // Menggunakan querySelector di dalam fungsi agar selalu mendapat elemen DOM terbaru
+
+    window.openMerchantModal = function (name) {
+      const modal = document.getElementById("merchantDetailModal");
+      const title = document.getElementById("merchantDetailTitle");
+      if (modal && title) {
+        title.textContent = name;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      } else {
+        console.warn("Merchant Modal not found");
+      }
+    };
+
+    // Alias untuk corporate modal
+    window.openCorporateDownlineModal = function (name) {
+      window.openDownlineModal(name);
+    };
+
+    window.openDownlineModal = function (name) {
+      const modal = document.getElementById("downlineModal");
+      const title = document.getElementById("downlineModalTitle");
+      if (modal) {
+        if (title) title.textContent = name;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+    };
+
+    window.openEdcCredit = function (title) {
+      const modal = document.getElementById("edcCreditModal");
+      const modalTitle = modal
+        ? modal.querySelector(".merchant-modal-title")
+        : null;
+      if (modal) {
+        if (modalTitle) modalTitle.textContent = title;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+    };
+
+    window.openDownlineTable = function (title) {
+      const modal = document.getElementById("downlineTableModal");
+      const modalTitle = modal
+        ? modal.querySelector("#downlineTableTitle")
+        : null;
+      if (modal) {
+        if (modalTitle) modalTitle.textContent = title;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+    };
+
+    window.openMerchantDetailDownline = function (name) {
+      const modal = document.getElementById("merchantDetailModalDownline");
+      const modalTitle = document.getElementById("merchantDetailTitleDownline");
+      if (modal) {
+        if (modalTitle) modalTitle.textContent = name;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+    };
+
+    // 4. ATTACH LISTENERS UTILS (Close Button & Tabs)
+    function attachModalUtils(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+
+      // Close Button
+      const closeBtn = modal.querySelector(
+        ".merchant-modal-close, .asm-modal-close, #closeDownlineModal, #closeEdcCreditModal, #closeDownlineTableModal"
+      );
+      if (closeBtn) {
+        closeBtn.onclick = function () {
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+        };
+      }
+
+      // Backdrop Click
+      modal.onclick = function (e) {
+        if (e.target === modal) {
+          modal.classList.remove("is-open");
+          modal.setAttribute("aria-hidden", "true");
+        }
+      };
+
+      // Tabs Logic (Delegation inside modal)
+      const tabBtns = modal.querySelectorAll(".merchant-tab-btn");
+      if (tabBtns.length > 0) {
+        tabBtns.forEach(function (btn) {
+          btn.onclick = function () {
+            // Reset Active
+            tabBtns.forEach(function (b) {
+              b.classList.remove("active");
+            });
+            const contents = modal.querySelectorAll(".merchant-tab-content");
+            contents.forEach(function (c) {
+              c.classList.remove("active");
+            });
+
+            // Set Active
+            btn.classList.add("active");
+            const targetId = "tab-" + btn.getAttribute("data-tab");
+            const target = modal.querySelector("#" + targetId);
+            if (target) target.classList.add("active");
+          };
+        });
+      }
+    }
+
+    // Initialize Listeners
+    attachModalUtils("merchantDetailModal");
+    attachModalUtils("downlineModal");
+    attachModalUtils("merchantDetailModalDownline");
+    attachModalUtils("edcCreditModal");
+    attachModalUtils("downlineTableModal");
   })();
 </script>
 
