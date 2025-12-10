@@ -1,18 +1,29 @@
-/* 
-   layout.css
-   -----------------------------------------
-   Global Layout Structure for the Application.
-   - Menggantikan body/layout di custom.css
-   - Mengatur Sidebar + Main Content layout
-   - Mengatur Viewport Height & Scroll
-   - TANPA ZOOM (natural scaling)
-*/
-
 /* 1. Global Viewport & Body Structure */
 html {
+    width: 100%;
     height: 100%;
     /* iOS Safari fix */
     height: -webkit-fill-available;
+
+    /* --- SKALA GLOBAL 75% --- */
+    /* Menggunakan transform: scale() untuk konsistensi cross-browser.
+       1 / 0.75 = 1.3333... jadi width/height harus 133.3333% */
+    transform: scale(0.75);
+    transform-origin: 0 0;
+    width: 133.3333%;
+    height: 133.3333%;
+
+    overflow-x: hidden;
+}
+
+/* FALLBACK FIREFOX (Wajib, karena Firefox tidak support 'zoom') */
+@supports (-moz-appearance:none) {
+    html {
+        /* Firefox sudah tercover rule di atas karena support transform scale */
+        /* Pastikan width/height konsisten */
+        width: 133.3333% !important;
+        height: 133.3333% !important;
+    }
 }
 
 body {
@@ -20,36 +31,41 @@ body {
     padding: 0;
     width: 100%;
 
-    /* Tinggi penuh viewport di semua browser */
+    /* Tinggi penuh viewport */
     min-height: 100vh;
     min-height: -webkit-fill-available;
-    /* iOS fix */
 
-    /* Layout utama: sidebar di kiri, konten di kanan */
+    /* Layout utama */
     display: flex;
     flex-direction: row;
 
     background: var(--main-bg, #F3F7FA);
     color: var(--main-color, #0F172A);
 
-    /* Hindari scroll horizontal gara-gara tabel agak melar */
     overflow-x: hidden;
-
-    /* Global Scale 90% as requested */
-    zoom: 1.0;
 }
 
-/* 2. Login / Auth Page Override
-   usage: <body class="auth-page"> */
+/* Hapus rule zoom/transform parsial untuk mencegah offset posisi */
+#ms-sidebar-container,
+.page-content,
+.merchant-modal {
+    zoom: normal;
+    transform: none;
+}
+
+/* 3. Login / Auth Page Override */
 body.auth-page {
     display: flex;
     justify-content: center;
     align-items: center;
     background: #ffffff;
-    /* mengikuti login.css */
+
+    /* Opsional: Kembalikan ukuran normal untuk login agar input jelas */
+    /* zoom: 1.25; */
+    /* Kebalikan dari 0.8 agar kembali ke 1 */
 }
 
-/* 3. Main Content Wrapper (kanan, di samping sidebar) */
+/* 4. Main Content Wrapper */
 .page-content {
     flex: 1;
     min-width: 0;
@@ -61,27 +77,22 @@ body.auth-page {
     min-height: 100vh;
 }
 
-
 .page-main,
 .ms-main-container {
     width: 100%;
+    /* Opsional: Batasi max-width jika layar user benar-benar 4K */
     max-width: 100%;
     margin: 0 auto;
-    /* center di dalam page-content */
     padding: 24px;
     box-sizing: border-box;
 }
 
-/* 5. Sidebar Layout Context
-   (styling detail tetap di sidebar.css) */
+/* 5. Sidebar Layout Context */
 .ms-sidebar {
     flex-shrink: 0;
-    /* jangan sampai mengecil ketika konten banyak */
-    /* height/position diatur di sidebar.css */
 }
 
-/* 6. Navbar Layout Context
-   (padding/warna diatur di navbar.css) */
+/* 6. Navbar Layout Context */
 .ms-navbar {
     position: sticky;
     top: 0;
@@ -100,7 +111,22 @@ body.auth-page {
 
 @media (max-width: 768px) {
 
-    /* Mobile: layout stack (sidebar jadi drawer) */
+    /* --- RESET ZOOM DI MOBILE (PENTING) --- */
+    /* Di HP, zoom 0.8 terlalu kecil. Kita kembalikan ke normal (100%) */
+    html {
+        zoom: 1;
+    }
+
+    /* Reset Firefox Mobile */
+    @supports (-moz-appearance:none) {
+        html {
+            transform: none;
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+
+    /* Mobile Layout Stack */
     body {
         flex-direction: column;
     }
@@ -111,14 +137,12 @@ body.auth-page {
         top: 0;
         height: 100%;
         transform: translateX(-100%);
-        /* hidden default */
         transition: transform 0.3s ease;
         z-index: 50;
     }
 
     .ms-sidebar.is-open {
         transform: translateX(0);
-        /* dibuka via JS */
     }
 
     .page-main,

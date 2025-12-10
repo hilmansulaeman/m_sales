@@ -1,175 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Application Check PEMOL</title>
+    <title>Application Check Personal Loan</title>
 
-    <link rel="stylesheet" href="assets/css/cross-browser-reset.css">
-    <link rel="stylesheet" href="assets/css/browser-consistency.css">
+    <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
+    <link rel="stylesheet" href="assets/css/browser-consistency.css" />
 
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
 
-    <link rel="stylesheet" href="assets/css/sidebar.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/pemol-modal.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css" />
+    <link rel="stylesheet" href="assets/css/navbar.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+    <link rel="stylesheet" href="assets/css/pemol-modal.css" />
 
-    <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/merchant-table.css">
-    <link rel="stylesheet" href="assets/css/application-check.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="stylesheet" href="assets/css/merchant-table.css" />
+    <link rel="stylesheet" href="assets/css/application-check.css" />
+    <link rel="stylesheet" href="assets/css/perf-table.css" />
+  </head>
 
-<body>
-
-    <div id="ms-sidebar-container" aria-hidden="false" style="display: contents;"></div>
+  <body>
+    <div
+      id="ms-sidebar-container"
+      aria-hidden="false"
+      style="display: contents"
+    ></div>
 
     <div class="page-content">
+      <header class="ms-navbar">
+        <div class="ms-title">Application Check Personal Loan</div>
+      </header>
 
-        <header class="ms-navbar">
-            <div class="ms-title">Application Check PEMOL</div>
-        </header>
+      <main class="page-main">
+        <div class="app-check-hero">
+          <h2 class="app-check-title" style="color: #ffffff">
+            Please enter your Name / ID Card Number in the field below
+          </h2>
+          <div class="sales-select-btn">
+            <div class="sales-select-label">Select Sales</div>
+          </div>
+        </div>
 
-        <main class="page-main">
-
-            <div class="app-check-hero">
-                <h2 class="app-check-title" style="color: #ffffff;">
-                    Please enter your account number in the field below
-                </h2>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-light rounded-pill py-3 d-flex align-items-center justify-content-center"
-                        id="btn-select-sales" onclick="showSalesData()"
-                        style="width: 400px; color: #1E62B3; font-size: 18px; font-weight: 700; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                        Select Sales
-                    </button>
-                </div>
-
-            </div>
-
-
-
-
-
-            <div id="app-check-table-container"></div>
-
-        </main>
+        <div id="app-check-table-container"></div>
+      </main>
     </div>
 
     <script>
-        // Function to load the Sales Data (Cards) Partial
-        function showSalesData() {
-            var container = document.getElementById('app-check-table-container');
-            if (!container) return;
+      (function () {
+        // Function to load table based on tab
+        function loadTable(partialName) {
+          var container = document.getElementById("app-check-table-container");
+          if (!container) return;
 
-            container.innerHTML = 'Loading...';
+          // Clear current content
+          container.innerHTML = "Loading...";
 
-            fetch('assets/partials/select_sales_modal.html')
-                .then(function (resp) {
-                    if (!resp.ok) throw new Error('Network error');
-                    return resp.text();
-                })
-                .then(function (html) {
-                    container.innerHTML = html;
-                    // Execute scripts if any
-                    var scripts = container.querySelectorAll('script');
-                    scripts.forEach(function (s) {
-                        var newScript = document.createElement('script');
-                        if (s.src) {
-                            newScript.src = s.src;
-                        } else {
-                            newScript.textContent = s.textContent;
-                        }
-                        document.body.appendChild(newScript);
-                        s.remove();
-                    });
-                })
-                .catch(function (err) {
-                    console.error('Failed to load sales data:', err);
-                    container.innerHTML = 'Failed to load data.';
+          fetch("assets/partials/" + partialName)
+            .then(function (resp) {
+              if (!resp.ok) throw new Error("Network error");
+              return resp.text();
+            })
+            .then(function (html) {
+              try {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, "text/html");
+
+                // A. Inject CSS from Partial Header
+                var links = doc.querySelectorAll('link[rel="stylesheet"]');
+                links.forEach(function (link) {
+                  var href = link.getAttribute("href");
+                  if (!href) return;
+                  // Prevent duplicate CSS loading
+                  if (
+                    !document.head.querySelector('link[href="' + href + '"]')
+                  ) {
+                    var newLink = document.createElement("link");
+                    newLink.rel = "stylesheet";
+                    newLink.href = href;
+                    document.head.appendChild(newLink);
+                  }
                 });
-        }
-    </script>
 
-    <script>
-        (function () {
-            var container = document.getElementById('ms-sidebar-container');
-            if (!container) return;
+                // B. Copy Classes & Styles from Partial Body
+                var wrapper = doc.querySelector(".body-rsm"); // Looks for the class in the partial
+                if (wrapper) {
+                  wrapper.classList.forEach(function (c) {
+                    if (!container.classList.contains(c))
+                      container.classList.add(c);
+                  });
+                  if (wrapper.getAttribute("style")) {
+                    container.setAttribute(
+                      "style",
+                      wrapper.getAttribute("style")
+                    );
+                  }
+                }
 
-            fetch('assets/partials/sidebar.html')
-                .then(function (resp) {
-                    if (!resp.ok) throw new Error('Network error');
-                    return resp.text();
-                })
-                .then(function (html) {
-                    container.innerHTML = html;
+                // C. Inject HTML Content
+                container.innerHTML = doc.body.innerHTML;
 
-                    // Initialize sidebar dropdowns
-                    try {
-                        var sidebar = container;
-                        var toggles = sidebar.querySelectorAll('.ms-item--has-submenu');
-
-                        toggles.forEach(function (a) {
-                            a.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                var submenu = a.nextElementSibling;
-                                if (!submenu || !submenu.classList.contains('ms-submenu')) return;
-
-                                var expanded = a.getAttribute('aria-expanded') === 'true';
-
-                                // Close siblings (Accordion effect)
-                                var siblings = sidebar.querySelectorAll('.ms-item--has-submenu');
-                                siblings.forEach(function (s) {
-                                    if (s !== a) {
-                                        s.setAttribute('aria-expanded', 'false');
-                                        var sibSub = s.nextElementSibling;
-                                        if (sibSub && sibSub.classList.contains('ms-submenu')) {
-                                            sibSub.style.display = 'none';
-                                            sibSub.setAttribute('aria-hidden', 'true');
-                                            s.classList.remove('ms-item--open');
-                                        }
-                                    }
-                                });
-
-                                // Toggle current
-                                if (!expanded) {
-                                    submenu.style.display = 'block';
-                                    submenu.setAttribute('aria-hidden', 'false');
-                                    a.setAttribute('aria-expanded', 'true');
-                                    a.classList.add('ms-item--open');
-                                } else {
-                                    submenu.style.display = 'none';
-                                    submenu.setAttribute('aria-hidden', 'true');
-                                    a.setAttribute('aria-expanded', 'false');
-                                    a.classList.remove('ms-item--open');
-                                }
-                            });
-                        });
-                    } catch (err) {
-                        console.error(err);
-                    }
-                })
-                .catch(function (err) {
-                    console.error('Failed to load sidebar:', err);
-                    container.innerHTML = '';
+                // D. Execute Scripts from Partial
+                var scripts = container.querySelectorAll("script");
+                scripts.forEach(function (s) {
+                  var newScript = document.createElement("script");
+                  if (s.src) {
+                    newScript.src = s.src;
+                  } else {
+                    newScript.textContent = s.textContent;
+                  }
+                  document.body.appendChild(newScript);
+                  s.remove(); // Clean up old script tag
                 });
-        })();
-    </script>
-    <script>
-        // Load Search Component
-        fetch('assets/partials/components/search.html')
-            .then(response => response.text())
-            .then(html => {
-                document.querySelectorAll('.rsm-search-component-container').forEach(container => {
-                    if (container.innerHTML.trim() === '') {
-                        container.innerHTML = html;
-                    }
-                });
+              } catch (err) {
+                console.error("Error parsing partial:", err);
+                container.innerHTML = "Error loading table";
+              }
+            })
+            .catch(function (err) {
+              console.error("Failed to load table partial:", err);
+              container.innerHTML = "Failed to load table";
             });
+        }
+
+        // Initial load (default tab)
+        loadTable("team_performance_table.html");
+
+        // Tab switching logic
+        var root = document.getElementById("preview-seg");
+        if (root) {
+          root.addEventListener("click", function (e) {
+            var btn = e.target.closest(".seg-item");
+            if (!btn) return;
+
+            var items = root.querySelectorAll(".seg-item");
+            items.forEach(function (it) {
+              it.classList.remove("active");
+              it.setAttribute("aria-selected", "false");
+            });
+
+            btn.classList.add("active");
+            btn.setAttribute("aria-selected", "true");
+
+            // Load appropriate table based on data-tab attribute
+            var tab = btn.getAttribute("data-tab");
+            if (tab === "duplicate") {
+              loadTable("application_check_pl_table_2.html");
+            } else {
+              loadTable("application_check_pl_table.html");
+            }
+          });
+        }
+      })();
     </script>
 
-</body>
+    <script>
+      (function () {
+        var container = document.getElementById("ms-sidebar-container");
+        if (!container) return;
 
+        fetch("assets/partials/sidebar.html")
+          .then(function (resp) {
+            if (!resp.ok) throw new Error("Network error");
+            return resp.text();
+          })
+          .then(function (html) {
+            container.innerHTML = html;
+
+            // Initialize sidebar dropdowns
+            try {
+              var sidebar = container;
+              var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
+
+              toggles.forEach(function (a) {
+                a.addEventListener("click", function (e) {
+                  e.preventDefault();
+                  var submenu = a.nextElementSibling;
+                  if (!submenu || !submenu.classList.contains("ms-submenu"))
+                    return;
+
+                  var expanded = a.getAttribute("aria-expanded") === "true";
+
+                  // Close siblings (Accordion effect)
+                  var siblings = sidebar.querySelectorAll(
+                    ".ms-item--has-submenu"
+                  );
+                  siblings.forEach(function (s) {
+                    if (s !== a) {
+                      s.setAttribute("aria-expanded", "false");
+                      var sibSub = s.nextElementSibling;
+                      if (sibSub && sibSub.classList.contains("ms-submenu")) {
+                        sibSub.style.display = "none";
+                        sibSub.setAttribute("aria-hidden", "true");
+                        s.classList.remove("ms-item--open");
+                      }
+                    }
+                  });
+
+                  // Toggle current
+                  if (!expanded) {
+                    submenu.style.display = "block";
+                    submenu.setAttribute("aria-hidden", "false");
+                    a.setAttribute("aria-expanded", "true");
+                    a.classList.add("ms-item--open");
+                  } else {
+                    submenu.style.display = "none";
+                    submenu.setAttribute("aria-hidden", "true");
+                    a.setAttribute("aria-expanded", "false");
+                    a.classList.remove("ms-item--open");
+                  }
+                });
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          })
+          .catch(function (err) {
+            console.error("Failed to load sidebar:", err);
+            container.innerHTML = "";
+          });
+      })();
+    </script>
+    <script>
+      // Load Search Component
+      fetch("assets/partials/components/search.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document
+            .querySelectorAll(".rsm-search-component-container")
+            .forEach((container) => {
+              if (container.innerHTML.trim() === "") {
+                container.innerHTML = html;
+              }
+            });
+        });
+    </script>
+  </body>
 </html>
