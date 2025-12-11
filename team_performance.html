@@ -237,5 +237,50 @@
             });
         });
     </script>
+    <div id="rsm-modal-container"></div>
+    <script>
+      // Global Modal Functions
+      window.openRsmModal = function () {
+        var modal = document.getElementById("rsmModalPemol");
+        if (modal) {
+          modal.classList.add("is-open");
+        } else {
+          console.error("Modal element 'rsmModalPemol' not found!");
+        }
+      };
+
+      window.closeRsmModal = function () {
+        var modal = document.getElementById("rsmModalPemol");
+        if (modal) {
+          modal.classList.remove("is-open");
+        }
+      };
+
+      // Global Event Delegation for Modal Closing
+      document.addEventListener("click", function (e) {
+        // Close button
+        if (
+          e.target.closest("#closeRsmModalBtn") ||
+          e.target.closest(".asm-modal-close")
+        ) {
+          window.closeRsmModal();
+        }
+        // Backdrop click
+        if (e.target.id === "rsmModalPemol") {
+          window.closeRsmModal();
+        }
+      });
+
+      // Load Team Performance Modal
+      fetch("assets/partials/team_performance_modal.html")
+        .then((response) => response.text())
+        .then((html) => {
+          const container = document.getElementById("rsm-modal-container");
+          if (container) {
+            container.innerHTML = html;
+          }
+        })
+        .catch((err) => console.error("Failed to load modal:", err));
+    </script>
   </body>
 </html>
