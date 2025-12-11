@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sales Information Table - Bootstrap</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/perf-table.css" />
+    <!-- Modal CSS -->
+    <link rel="stylesheet" href="assets/css/pemol-modal.css" />
+  </head>
+
+  <body class="body-rsm">
+    <div class="card-rsm">
+      <!-- TOP BAR -->
+      <div
+        class="d-flex align-items-center justify-content-between rsm-top-bar"
+      >
+        <div class="d-flex align-items-center gap-3">
+          <!-- search -->
+          <div class="rsm-search-component-container"></div>
+
+          <!-- date range (Component) -->
+          <div id="rsmDateComponentContainer"></div>
+          <script>
+            fetch("assets/partials/components/date_picker.html")
+              .then((response) => response.text())
+              .then((html) => {
+                const container = document.getElementById(
+                  "rsmDateComponentContainer"
+                );
+                if (container) {
+                  container.innerHTML = html;
+                  // Execute scripts found in the component
+                  container.querySelectorAll("script").forEach((oldScript) => {
+                    const newScript = document.createElement("script");
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                  });
+                }
+              });
+          </script>
+        </div>
+
+        <!-- export -->
+        <button
+          class="btn d-flex align-items-center gap-2 px-4 py-2 btn-export-rsm"
+        >
+          ⬇
+          <span>Export data</span>
+        </button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-responsive">
+        <table class="table mb-0 rsm-table text-nowrap">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 60px">No</th>
+              <th class="text-center">Photo</th>
+              <th>Sales Name</th>
+              <th class="text-center">Sales Code</th>
+              <th class="text-center">Branch</th>
+              <th class="text-center">Position</th>
+              <th class="text-center">Product</th>
+              <th class="text-center">Channel</th>
+              <th class="text-center">Level</th>
+              <th>SPV Name</th>
+              <th class="text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">1</td>
+              <td class="text-center">
+                <img
+                  src="assets/img/avatar-placeholder.png"
+                  alt="Photo"
+                  class="tp-avatar"
+                  style="margin: 0 auto; display: block"
+                />
+              </td>
+              <td>Ramaldo Oktama</td>
+              <td class="text-center">K1104148</td>
+              <td class="text-center">Jakarta</td>
+              <td class="text-center">Sales</td>
+              <td class="text-center">CC</td>
+              <td class="text-center">DSR</td>
+              <td class="text-center">Junior</td>
+              <td>Budi Dharma</td>
+              <td class="text-center">
+                <span style="color: #28a745; font-weight: 600">Active</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="text-center">2</td>
+              <td class="text-center">
+                <img
+                  src="assets/img/avatar-placeholder.png"
+                  alt="Photo"
+                  class="tp-avatar"
+                  style="margin: 0 auto; display: block"
+                />
+              </td>
+              <td>Asep Syaefudin Nugraha</td>
+              <td class="text-center">K1200215</td>
+              <td class="text-center">Bandung</td>
+              <td class="text-center">Sales</td>
+              <td class="text-center">PL</td>
+              <td class="text-center">Agency</td>
+              <td class="text-center">Senior</td>
+              <td>Rina Wulandari</td>
+              <td class="text-center">
+                <span style="color: #28a745; font-weight: 600">Active</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="text-center">3</td>
+              <td class="text-center">
+                <img
+                  src="assets/img/avatar-placeholder.png"
+                  alt="Photo"
+                  class="tp-avatar"
+                  style="margin: 0 auto; display: block"
+                />
+              </td>
+              <td>Kiwamudin</td>
+              <td class="text-center">K1102242</td>
+              <td class="text-center">Bandung</td>
+              <td class="text-center">Sales</td>
+              <td class="text-center">SC</td>
+              <td class="text-center">DSR</td>
+              <td class="text-center">Trainee</td>
+              <td>Joko Susilo</td>
+              <td class="text-center">
+                <span class="status-pill terminate">Terminate</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FOOTER / PAGINATION -->
+      <div class="rsm-pagination-component-container"></div>
+
+      <script>
+        // Load Pagination
+        fetch("assets/partials/components/pagination.html")
+          .then((response) => response.text())
+          .then((html) => {
+            document
+              .querySelectorAll(".rsm-pagination-component-container")
+              .forEach((container) => {
+                if (container.innerHTML.trim() === "") {
+                  container.innerHTML = html;
+                }
+              });
+          });
+      </script>
+      <div id="asmModalContainer"></div>
+      <script>
+        // Load Search Component
+        fetch("assets/partials/components/search.html")
+          .then((response) => response.text())
+          .then((html) => {
+            document
+              .querySelectorAll(".rsm-search-component-container")
+              .forEach((container) => {
+                if (container.innerHTML.trim() === "") {
+                  container.innerHTML = html;
+                }
+              });
+          });
+
+        // load modal partial specific to incoming pemol
+        fetch("assets/partials/incoming_pemol_modal.html")
+          .then((r) => {
+            if (!r.ok) throw r;
+            return r.text();
+          })
+          .then((html) => {
+            document.getElementById("asmModalContainer").innerHTML = html;
+            // jika partial berisi <script>, jalankan juga (opsional)
+            const container = document.getElementById("asmModalContainer");
+            const scripts = container.querySelectorAll("script");
+            scripts.forEach((s) => {
+              const ns = document.createElement("script");
+              if (s.src) ns.src = s.src;
+              ns.type = s.type || "text/javascript";
+              ns.text = s.textContent;
+              document.body.appendChild(ns);
+              s.remove();
+            });
+          })
+          .catch((err) => console.error("Load modal failed", err));
+      </script>
+
+      <script>
+        document.addEventListener("click", function (e) {
+          const btn = e.target.closest(".rsm-circle-btn");
+          if (!btn) return;
+          e.preventDefault();
+          // buka modal: set title-nya dari td ke-2, lalu tambah class is-open
+          const tr = btn.closest("tr");
+          const name =
+            tr && tr.querySelector("td:nth-child(2)")?.textContent.trim();
+          const modal = document.getElementById("asmModal");
+          if (modal) {
+            modal.querySelector("#asmTitle").textContent = name || "";
+            modal.classList.add("is-open");
+            modal.setAttribute("aria-hidden", "false");
+          } else {
+            console.warn(
+              "ASM modal not loaded yet. Make sure assets/partials/data_decision_pemol_modal.html was fetched successfully."
+            );
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>

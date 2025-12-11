@@ -888,6 +888,37 @@
   text-decoration: none;
 }
 
-.tp-view-link:hover {
-  text-decoration: underline;
+/* === STATUS BADGES === */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-pill.terminate {
+  background-color: #F5D8D3;
+  border: 1px solid #EDBCB4;
+  color: #843B30;
+  font-size: 18px;
+  /* Specific request */
+  font-family: 'TikTok Sans', sans-serif;
+  word-wrap: break-word;
+}
+
+.status-pill.active {
+  background-color: #D1E7DD;
+  /* Light green */
+  color: #0F5132;
+  /* Dark green */
+}
+
+.status-pill.inactive {
+  background-color: #E2E3E5;
+  /* Light grey */
+  color: #41464B;
+  /* Dark grey */
 }
