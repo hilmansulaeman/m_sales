@@ -1,0 +1,234 @@
+<link rel="stylesheet" href="assets/css/filter.css" />
+
+<div class="rsm-filter-wrapper">
+  <!-- Button -->
+  <div class="rsm-filter-btn" id="rsmFilterToggle">
+    <div class="rsm-filter-icon">
+      <!-- SVG Filter Icon Placeholder -->
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3 6h18M6 12h12M10 18h4"
+          stroke="#55586B"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <div class="rsm-filter-text">Filter</div>
+  </div>
+
+  <!-- Dropdown -->
+  <div class="rsm-filter-dropdown" id="rsmFilterDropdown">
+    <div class="rsm-filter-label">Filter by</div>
+
+    <!-- Section: Product -->
+    <div class="rsm-filter-section">
+      <div class="rsm-filter-header" onclick="toggleSection(this)">
+        <div
+          class="rsm-checkbox"
+          style="opacity: 0; pointer-events: none"
+        ></div>
+        <!-- Spacer alignment -->
+        <div class="rsm-section-title">Product</div>
+        <div class="rsm-filter-arrow">
+          <svg
+            width="12"
+            height="7"
+            viewBox="0 0 12 7"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L6 6L11 1"
+              stroke="#55586B"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="rsm-filter-items">
+        <!-- Items -->
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox checked"></div>
+          <div class="rsm-item-text">CC Reguler</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox checked"></div>
+          <div class="rsm-item-text">CC Corporate</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Merchant</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">PEMOL</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Personal Loan</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Smart Cash</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Channel -->
+    <div class="rsm-filter-section">
+      <div class="rsm-filter-header" onclick="toggleSection(this)">
+        <div
+          class="rsm-checkbox"
+          style="opacity: 0; pointer-events: none"
+        ></div>
+        <div class="rsm-section-title">Channel</div>
+        <div class="rsm-filter-arrow">
+          <svg
+            width="12"
+            height="7"
+            viewBox="0 0 12 7"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L6 6L11 1"
+              stroke="#55586B"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="rsm-filter-items">
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Exhibition</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">PEMOL</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Sales Merchant</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Level -->
+    <div class="rsm-filter-section">
+      <div class="rsm-filter-header" onclick="toggleSection(this)">
+        <div
+          class="rsm-checkbox"
+          style="opacity: 0; pointer-events: none"
+        ></div>
+        <div class="rsm-section-title">Level</div>
+        <div class="rsm-filter-arrow">
+          <svg
+            width="12"
+            height="7"
+            viewBox="0 0 12 7"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L6 6L11 1"
+              stroke="#55586B"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="rsm-filter-items">
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Junior</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Mobile Sales</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Sales Merchant</div>
+        </div>
+        <div class="rsm-filter-item" onclick="toggleCheckbox(this)">
+          <div class="rsm-checkbox"></div>
+          <div class="rsm-item-text">Senior</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rsm-filter-divider"></div>
+
+    <button class="rsm-remove-filter" onclick="clearAllFilters()">
+      Remove Filter
+    </button>
+  </div>
+</div>
+
+<script>
+  // Toggle Dropdown
+  document
+    .getElementById("rsmFilterToggle")
+    .addEventListener("click", function (e) {
+      e.stopPropagation();
+      var dropdown = document.getElementById("rsmFilterDropdown");
+      dropdown.classList.toggle("show");
+    });
+
+  // Close when clicking outside
+  document.addEventListener("click", function (e) {
+    var dropdown = document.getElementById("rsmFilterDropdown");
+    var toggle = document.getElementById("rsmFilterToggle");
+    if (
+      dropdown &&
+      !dropdown.contains(e.target) &&
+      !toggle.contains(e.target)
+    ) {
+      dropdown.classList.remove("show");
+    }
+  });
+
+  // Toggle Checkbox
+  function toggleCheckbox(el) {
+    var cb = el.querySelector(".rsm-checkbox");
+    cb.classList.toggle("checked");
+  }
+
+  // Toggle Section
+  function toggleSection(header) {
+    var section = header.parentElement;
+    var items = section.querySelector(".rsm-filter-items");
+    var arrow = header.querySelector(".rsm-filter-arrow");
+
+    if (items.classList.contains("collapsed")) {
+      items.classList.remove("collapsed");
+      arrow.classList.remove("rotated");
+    } else {
+      items.classList.add("collapsed");
+      arrow.classList.add("rotated");
+    }
+  }
+
+  // Clear All
+  function clearAllFilters() {
+    var cbs = document.querySelectorAll(".rsm-checkbox");
+    cbs.forEach(function (cb) {
+      cb.classList.remove("checked");
+    });
+  }
+</script>

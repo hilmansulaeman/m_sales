@@ -129,7 +129,7 @@
   font-size: 18px;
   /* Default to 18px, overridden for header */
   border-bottom: 1px solid var(--rsm-divider);
-  height: 42px;
+  height: 64px;
   /* Increased from 32px to 42px for better fit with 18px font */
   box-sizing: border-box;
 }
@@ -143,27 +143,10 @@
   font-weight: 500;
   /* Medium */
   white-space: nowrap;
-  height: 42px;
+  height: 64px;
   /* Flex alignment for header cells */
   display: table-cell;
-  /* Keep table-cell for the th itself to respect table layout, or use flex? */
-  /* converting th/td to flex directly might break column widths if not careful. 
-       The user's previous 'edc-table' request forced flex. 
-       For rsm-table, let's try to keep table-cell but use vertical-align middle 
-       OR use internal flex wrapper if needed. 
-       However, user asked for 'consistency'. 
-       If I use display: flex on td, it stops behaving like a table cell in some browsers unless width is controlled.
-       Actually, 'edc-table' CSS I wrote uses display: flex on the cell.
-       Let's try to use vertical-align: middle for legacy table safety, 
-       unless I change the whole table to flex layout (divs). 
-       But the HTML is <table>. 
-       I will stick to table-cell with vertical-align: middle + padding for safety 
-       UNLESS I see specific instructions to change layout mode. 
-       Re-reading Step 0: "3. Semua cell using flexbox...". 
-       So I SHOULD apply flexbox. 
-       If I apply display: flex to a <td>, it becomes a flex container. 
-       The <td> itself still acts as a cell in most modern browsers (Chrome/Edge/Safari), 
-       but `vertical-align` property stops working, aligned via `align-items`. */
+
 }
 
 /* Internal content alignment for TH */
@@ -186,17 +169,6 @@
   vertical-align: middle;
 }
 
-/* If user insisted on flex for cells in edc-table, they might want it here.
-   But 'edc-table' was a div-based table in some contexts or styled div? 
-   No, edc-table was generic CSS. 
-   In `merchant-modal.css` I applied it to `.edc-table-cell` (divs).
-   Here `.rsm-table` is a real `<table>`. 
-   Applying `display: flex` to `<td>` can cause column misalignment because `<td>` 
-   needs to calculate width based on column peer. 
-   I will NOT use `display: flex` on `<td>` by default to avoid breaking table layout.
-   I will ensure the visual result (alignment, padding, height) matches. */
-
-/* garis vertikal standar antar kolom */
 .rsm-table thead th+th,
 .rsm-table tbody td+td {
   border-left: 1px solid var(--rsm-divider);
@@ -905,20 +877,24 @@
   color: #843B30;
   font-size: 18px;
   /* Specific request */
-  font-family: 'TikTok Sans', sans-serif;
   word-wrap: break-word;
 }
 
 .status-pill.active {
   background-color: #D1E7DD;
-  /* Light green */
+  border: 1px solid #B4DDB4;
   color: #0F5132;
-  /* Dark green */
+  font-size: 18px;
+
+  /* Specific request */
+  word-wrap: break-word;
 }
 
 .status-pill.inactive {
   background-color: #E2E3E5;
-  /* Light grey */
+  border: 1px solid #E2E3E5;
   color: #41464B;
-  /* Dark grey */
+  font-size: 18px;
+  /* Specific request */
+  word-wrap: break-word;
 }

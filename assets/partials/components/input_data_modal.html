@@ -1,0 +1,561 @@
+<link rel="stylesheet" href="assets/css/input_data_modal.css" />
+
+<div id="inputDataModal" class="idm-backdrop">
+  <div class="idm-modal">
+    <!-- Header -->
+    <div class="idm-header">
+      <div class="idm-title">Input data</div>
+      <button class="idm-close" id="btnCloseInputData">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 1L13 13M1 13L13 1"
+            stroke="#55586B"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Form Container -->
+    <div class="idm-form">
+      <!-- Candidate ID -->
+      <div class="idm-field-group">
+        <div class="idm-label">Candidate ID</div>
+        <div class="idm-input-wrapper">
+          <input type="text" class="idm-input" placeholder="Add candidate ID" />
+        </div>
+      </div>
+
+      <!-- Area & Product Row -->
+      <div class="idm-row">
+        <!-- Area -->
+        <div class="idm-col">
+          <div class="idm-label">Area<span class="idm-required">*</span></div>
+          <div class="idm-select-wrapper" id="areaSelectWrapper">
+            <div class="idm-select-text" id="areaSelectText">
+              Select an area
+            </div>
+            <div class="idm-select-arrow">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7L10 12L15 7"
+                  stroke="#55586B"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="idm-dropdown-menu" id="areaDropdown">
+              <input
+                type="text"
+                class="idm-search-box"
+                placeholder="Search area"
+                id="areaSearchInput"
+                onclick="event.stopPropagation()"
+              />
+              <div class="idm-dropdown-list" id="areaList">
+                <!-- Items populated via JS or static -->
+                <div class="idm-dropdown-item">Ambon</div>
+                <div class="idm-dropdown-item">Balikpapan</div>
+                <div class="idm-dropdown-item">Banda Aceh</div>
+                <div class="idm-dropdown-item">Bandung</div>
+                <div class="idm-dropdown-item">Banjarmasin</div>
+                <div class="idm-dropdown-item">Banyuwangi</div>
+                <div class="idm-dropdown-item">Batam</div>
+                <!-- Add more items to demonstrate scroll -->
+                <div class="idm-dropdown-item">Bekasi</div>
+                <div class="idm-dropdown-item">Bogor</div>
+                <div class="idm-dropdown-item">Cirebon</div>
+                <div class="idm-dropdown-item">Denpasar</div>
+                <div class="idm-dropdown-item">Depok</div>
+                <div class="idm-dropdown-item">Jakarta</div>
+                <div class="idm-dropdown-item">Makassar</div>
+                <div class="idm-dropdown-item">Malang</div>
+                <div class="idm-dropdown-item">Medan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="idm-col">
+          <div class="idm-label">
+            Product<span class="idm-required">*</span>
+          </div>
+          <div class="idm-select-wrapper" id="productSelectWrapper">
+            <div class="idm-select-text" id="productSelectText">
+              Select product
+            </div>
+            <div class="idm-select-arrow">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7L10 12L15 7"
+                  stroke="#55586B"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="idm-dropdown-menu" id="productDropdown">
+              <div class="idm-dropdown-list" id="productList">
+                <div class="idm-dropdown-item">Credit Card (CC)</div>
+                <div class="idm-dropdown-item">PEMOL</div>
+                <div class="idm-dropdown-item">Sales Merchant</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Position & Level Row -->
+      <div class="idm-row">
+        <!-- Position -->
+        <div class="idm-col">
+          <div class="idm-label">
+            Position<span class="idm-required">*</span>
+          </div>
+          <div class="idm-select-wrapper" id="positionSelectWrapper">
+            <div class="idm-select-text" id="positionSelectText">
+              Select position
+            </div>
+            <div class="idm-select-arrow">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7L10 12L15 7"
+                  stroke="#55586B"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="idm-dropdown-menu" id="positionDropdown">
+              <div class="idm-dropdown-list" id="positionList">
+                <div class="idm-dropdown-item">ASM</div>
+                <div class="idm-dropdown-item">SPV</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Level -->
+        <div class="idm-col">
+          <div class="idm-label">Level<span class="idm-required">*</span></div>
+          <div class="idm-select-wrapper" id="levelSelectWrapper">
+            <div class="idm-select-text" id="levelSelectText">Select level</div>
+            <div class="idm-select-arrow">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7L10 12L15 7"
+                  stroke="#55586B"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="idm-dropdown-menu" id="levelDropdown">
+              <div class="idm-dropdown-list" id="levelList">
+                <div class="idm-dropdown-item">ASM</div>
+                <div class="idm-dropdown-item">Executive</div>
+                <div class="idm-dropdown-item">SPV</div>
+                <div class="idm-dropdown-item">Junior</div>
+                <div class="idm-dropdown-item">Mobile Sales</div>
+                <div class="idm-dropdown-item">PEMOL</div>
+                <div class="idm-dropdown-item">Sales Merchant</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upliner -->
+      <div class="idm-field-group">
+        <div class="idm-label">Upliner<span class="idm-required">*</span></div>
+        <div class="idm-select-wrapper" id="uplinerSelectWrapper">
+          <div class="idm-select-text" id="uplinerSelectText">
+            Select upliner
+          </div>
+          <div class="idm-select-arrow">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 7L10 12L15 7"
+                stroke="#55586B"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+           <!-- Dropdown Menu -->
+            <div class="idm-dropdown-menu" id="uplinerDropdown">
+                 <input type="text" class="idm-search-box" placeholder="Search upliner" id="uplinerSearchInput" onclick="event.stopPropagation()">
+                 <div class="idm-dropdown-list" id="uplinerList">
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center"><span>RSM Ahmad</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center" data-has-submenu="true" id="triggerRsmAsep"><span>RSM Asep Syaefuddin Nugraha</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center"><span>RSM Asep Wiguna</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center"><span>RSM Budi Setiawan</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center"><span>RSM Bustanil Aripin</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center"><span>RSM Catherine Brigitta</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                     <div class="idm-dropdown-item d-flex justify-content-between align-items-center"><span>RSM Dede Sudrajat</span> <span style="font-size:18px; color:#55586B">›</span></div>
+                 </div>
+                 
+                 <!-- Submenu for RSM Asep -->
+                 <div class="idm-submenu" id="submenuRsmAsep">
+                     <div class="idm-dropdown-item">RSM Asep Syaefuddin Nugraha</div>
+                     <div class="idm-dropdown-item">ASM Arya Rangga Dwipayana</div>
+                     <div class="idm-dropdown-item">ASM Asep Wiguna</div>
+                     <div class="idm-dropdown-item">ASM Asih</div>
+                     <div class="idm-dropdown-item">ASM Bayu Aji Pamungkas</div>
+                     <div class="idm-dropdown-item">ASM Desy Anggasari</div>
+                     <div class="idm-dropdown-item">ASM Dian Novita Sari</div>
+                 </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Submenu Styles */
+.idm-submenu {
+    position: absolute;
+    left: 100%;
+    margin-left: 10px;
+    width: 350px;
+    background: white;
+    box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 16px;
+    z-index: 10070;
+    display: none;
+    flex-direction: column;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.idm-submenu.show {
+    display: flex;
+}
+</style>
+
+<script>
+  (function () {
+    const modal = document.getElementById("inputDataModal");
+    const closeBtn = document.getElementById("btnCloseInputData");
+
+    // Close logic
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        modal.classList.remove("show");
+      });
+    }
+
+    // Close on click outside
+    if (modal) {
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+          modal.classList.remove("show");
+        }
+      });
+    }
+
+    // Window global to open it if needed elsewhere
+    window.openInputDataModal = function () {
+      if (modal) modal.classList.add("show");
+    };
+
+    /* --- Area Dropdown Logic --- */
+    const areaWrapper = document.getElementById("areaSelectWrapper");
+    const areaDropdown = document.getElementById("areaDropdown");
+    const areaText = document.getElementById("areaSelectText");
+    const areaSearch = document.getElementById("areaSearchInput");
+    const areaList = document.getElementById("areaList");
+
+    if (areaWrapper && areaDropdown) {
+      // Toggle Dropdown
+      areaWrapper.addEventListener("click", function (e) {
+        // Prevent toggling if clicking inside search box
+        if (e.target === areaSearch) return;
+
+        // Close other dropdowns if any (not implemented yet, but good practice)
+        areaDropdown.classList.toggle("show");
+      });
+
+      // Search Filter
+      if (areaSearch && areaList) {
+        areaSearch.addEventListener("input", function (e) {
+          const term = e.target.value.toLowerCase();
+          const items = areaList.querySelectorAll(".idm-dropdown-item");
+          items.forEach((item) => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(term)) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      }
+
+      // Select Item delegation
+      if (areaList) {
+        areaList.addEventListener("click", function (e) {
+          if (e.target.classList.contains("idm-dropdown-item")) {
+            areaText.textContent = e.target.textContent;
+            areaText.style.color = "#29415C"; // Active color
+            areaDropdown.classList.remove("show");
+            e.stopPropagation(); // Stop wrapper click from immediately reopening
+          }
+        });
+      }
+
+      // Close on outside click
+      document.addEventListener("click", function (e) {
+        if (!areaWrapper.contains(e.target)) {
+          areaDropdown.classList.remove("show");
+        }
+      });
+    }
+
+    /* --- Product Dropdown Logic (No Search) --- */
+    const productWrapper = document.getElementById("productSelectWrapper");
+    const productDropdown = document.getElementById("productDropdown");
+    const productText = document.getElementById("productSelectText");
+    const productList = document.getElementById("productList");
+
+    if (productWrapper && productDropdown) {
+      // Toggle
+      productWrapper.addEventListener("click", function (e) {
+        productDropdown.classList.toggle("show");
+      });
+
+      // Select
+      if (productList) {
+        productList.addEventListener("click", function (e) {
+          if (e.target.classList.contains("idm-dropdown-item")) {
+            productText.textContent = e.target.textContent;
+            productText.style.color = "#29415C";
+            productDropdown.classList.remove("show");
+            e.stopPropagation();
+          }
+        });
+      }
+
+      // Close outside
+      document.addEventListener("click", function (e) {
+        if (!productWrapper.contains(e.target)) {
+          productDropdown.classList.remove("show");
+        }
+      });
+    }
+    /* --- Position Dropdown Logic (No Search) --- */
+    const positionWrapper = document.getElementById("positionSelectWrapper");
+    const positionDropdown = document.getElementById("positionDropdown");
+    const positionText = document.getElementById("positionSelectText");
+    const positionList = document.getElementById("positionList");
+
+    if (positionWrapper && positionDropdown) {
+      // Toggle
+      positionWrapper.addEventListener("click", function (e) {
+        positionDropdown.classList.toggle("show");
+      });
+
+      // Select
+      if (positionList) {
+        positionList.addEventListener("click", function (e) {
+          if (e.target.classList.contains("idm-dropdown-item")) {
+            positionText.textContent = e.target.textContent;
+            positionText.style.color = "#29415C";
+            positionDropdown.classList.remove("show");
+            e.stopPropagation();
+          }
+        });
+      }
+
+      // Close outside
+      document.addEventListener("click", function (e) {
+        if (!positionWrapper.contains(e.target)) {
+          positionDropdown.classList.remove("show");
+        }
+      });
+    }
+    /* --- Level Dropdown Logic (No Search) --- */
+    const levelWrapper = document.getElementById("levelSelectWrapper");
+    const levelDropdown = document.getElementById("levelDropdown");
+    const levelText = document.getElementById("levelSelectText");
+    const levelList = document.getElementById("levelList");
+
+    if (levelWrapper && levelDropdown) {
+      // Toggle
+      levelWrapper.addEventListener("click", function (e) {
+        levelDropdown.classList.toggle("show");
+      });
+
+      // Select
+      if (levelList) {
+        levelList.addEventListener("click", function (e) {
+          if (e.target.classList.contains("idm-dropdown-item")) {
+            levelText.textContent = e.target.textContent;
+            levelText.style.color = "#29415C";
+            levelDropdown.classList.remove("show");
+            e.stopPropagation();
+          }
+        });
+      }
+
+      // Close outside
+      document.addEventListener("click", function (e) {
+        if (!levelWrapper.contains(e.target)) {
+          levelDropdown.classList.remove("show");
+        }
+      });
+    }
+    /* --- Upliner Dropdown Logic (With Search) --- */
+    const uplinerWrapper = document.getElementById("uplinerSelectWrapper");
+    const uplinerDropdown = document.getElementById("uplinerDropdown");
+    const uplinerText = document.getElementById("uplinerSelectText");
+    const uplinerSearch = document.getElementById("uplinerSearchInput");
+    const uplinerList = document.getElementById("uplinerList");
+    const triggerRsmAsep = document.getElementById("triggerRsmAsep");
+    const submenuRsmAsep = document.getElementById("submenuRsmAsep");
+
+    if (uplinerWrapper && uplinerDropdown) {
+      // Toggle
+      uplinerWrapper.addEventListener("click", function (e) {
+        // Prevent toggling if clicking inside search box
+        if (e.target === uplinerSearch) return;
+        uplinerDropdown.classList.toggle("show");
+        // Hide submenu when main dropdown toggles
+        if (submenuRsmAsep) {
+          submenuRsmAsep.classList.remove("show");
+        }
+      });
+
+      // Search Filter
+      if (uplinerSearch && uplinerList) {
+        uplinerSearch.addEventListener("input", function (e) {
+          const term = e.target.value.toLowerCase();
+          // We need to target the span text or the whole item text
+          const items = uplinerList.querySelectorAll(".idm-dropdown-item");
+          items.forEach((item) => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(term)) {
+              item.style.display = "flex"; // Restore flex layout
+            } else {
+              item.style.display = "none";
+            }
+          });
+          // Hide submenu if search is active
+          if (submenuRsmAsep) {
+            submenuRsmAsep.classList.remove("show");
+          }
+        });
+      }
+
+      // Select
+      if (uplinerList) {
+        uplinerList.addEventListener("click", function (e) {
+          // Handle click on item or its children (span)
+          let target = e.target;
+          while (target && !target.classList.contains("idm-dropdown-item")) {
+            target = target.parentElement;
+          }
+
+          if (target && target.classList.contains("idm-dropdown-item")) {
+            // If it's the trigger for the submenu, show submenu and prevent closing main dropdown
+            if (target.id === "triggerRsmAsep") {
+              if (submenuRsmAsep) {
+                submenuRsmAsep.classList.toggle("show");
+              }
+              e.stopPropagation(); // Prevent main dropdown from closing
+            } else {
+              // Extract just the name (first span)
+              const nameSpan = target.querySelector("span:first-child");
+              const val = nameSpan ? nameSpan.textContent : target.textContent;
+
+              uplinerText.textContent = val;
+              uplinerText.style.color = "#29415C";
+              uplinerDropdown.classList.remove("show");
+              if (submenuRsmAsep) {
+                submenuRsmAsep.classList.remove("show"); // Hide submenu when an item is selected
+              }
+              e.stopPropagation();
+            }
+          }
+        });
+      }
+
+      // Submenu item selection
+      if (submenuRsmAsep) {
+        submenuRsmAsep.addEventListener("click", function (e) {
+          if (e.target.classList.contains("idm-dropdown-item")) {
+            uplinerText.textContent = e.target.textContent;
+            uplinerText.style.color = "#29415C";
+            uplinerDropdown.classList.remove("show");
+            submenuRsmAsep.classList.remove("show"); // Hide submenu after selection
+            e.stopPropagation();
+          }
+        });
+      }
+
+      // Close outside
+      document.addEventListener("click", function (e) {
+        if (!uplinerWrapper.contains(e.target)) {
+          uplinerDropdown.classList.remove("show");
+        }
+      });
+    }
+  })();
+</script>

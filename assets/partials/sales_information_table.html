@@ -26,35 +26,50 @@
           <!-- search -->
           <div class="rsm-search-component-container"></div>
 
-          <!-- date range (Component) -->
-          <div id="rsmDateComponentContainer"></div>
+          <!-- filter -->
+          <div id="rsmFilterComponentContainer"></div>
           <script>
-            fetch("assets/partials/components/date_picker.html")
+            fetch("assets/partials/components/filter.html")
               .then((response) => response.text())
               .then((html) => {
                 const container = document.getElementById(
-                  "rsmDateComponentContainer"
+                  "rsmFilterComponentContainer"
                 );
                 if (container) {
                   container.innerHTML = html;
-                  // Execute scripts found in the component
+                  // Execute scripts
                   container.querySelectorAll("script").forEach((oldScript) => {
                     const newScript = document.createElement("script");
                     newScript.textContent = oldScript.textContent;
                     document.body.appendChild(newScript);
+                    oldScript.remove();
+                  });
+                }
+              });
+          </script>
+
+          <!-- sort -->
+          <div id="rsmSortComponentContainer"></div>
+          <script>
+            fetch("assets/partials/components/sort.html")
+              .then((response) => response.text())
+              .then((html) => {
+                const container = document.getElementById(
+                  "rsmSortComponentContainer"
+                );
+                if (container) {
+                  container.innerHTML = html;
+                  // Execute scripts
+                  container.querySelectorAll("script").forEach((oldScript) => {
+                    const newScript = document.createElement("script");
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                    oldScript.remove();
                   });
                 }
               });
           </script>
         </div>
-
-        <!-- export -->
-        <button
-          class="btn d-flex align-items-center gap-2 px-4 py-2 btn-export-rsm"
-        >
-          ⬇
-          <span>Export data</span>
-        </button>
       </div>
 
       <!-- TABLE -->
@@ -95,7 +110,7 @@
               <td class="text-center">Junior</td>
               <td>Budi Dharma</td>
               <td class="text-center">
-                <span style="color: #28a745; font-weight: 600">Active</span>
+                <span class="status-pill active">Active</span>
               </td>
             </tr>
 
@@ -118,7 +133,7 @@
               <td class="text-center">Senior</td>
               <td>Rina Wulandari</td>
               <td class="text-center">
-                <span style="color: #28a745; font-weight: 600">Active</span>
+                <span class="status-pill active">Active</span>
               </td>
             </tr>
 

@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="assets/css/sort.css" />
+
+<div class="rsm-sort-wrapper">
+  <!-- Button -->
+  <div class="rsm-sort-btn" id="rsmSortToggle">
+    <div class="rsm-sort-icon">
+      <!-- Sort Icon SVG -->
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M3 6h7M3 12h5M3 18h3"
+          stroke="#55586B"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <div class="rsm-sort-text">Sort</div>
+  </div>
+
+  <!-- Dropdown -->
+  <div class="rsm-sort-dropdown" id="rsmSortDropdown">
+    <div class="rsm-sort-label">Sort by</div>
+
+    <div class="rsm-sort-items">
+      <!-- Active Status -->
+      <div class="rsm-sort-item selected" onclick="toggleSort(this)">
+        <div class="rsm-sort-checkbox"></div>
+        <div class="rsm-sort-item-text">Active Status</div>
+      </div>
+
+      <!-- Terminate Status -->
+      <div class="rsm-sort-item" onclick="toggleSort(this)">
+        <div class="rsm-sort-checkbox"></div>
+        <div class="rsm-sort-item-text">Terminate Status</div>
+      </div>
+
+      <!-- Newest First -->
+      <div class="rsm-sort-item selected" onclick="toggleSort(this)">
+        <div class="rsm-sort-checkbox"></div>
+        <div class="rsm-sort-item-text">Newest First</div>
+      </div>
+
+      <!-- Oldest First -->
+      <div class="rsm-sort-item" onclick="toggleSort(this)">
+        <div class="rsm-sort-checkbox"></div>
+        <div class="rsm-sort-item-text">Oldest First</div>
+      </div>
+    </div>
+
+    <div class="rsm-sort-divider"></div>
+
+    <button class="rsm-remove-sort" onclick="clearSort()">Remove Sort</button>
+  </div>
+</div>
+
+<script>
+  // Toggle Dropdown
+  document
+    .getElementById("rsmSortToggle")
+    .addEventListener("click", function (e) {
+      e.stopPropagation();
+      var dropdown = document.getElementById("rsmSortDropdown");
+      dropdown.classList.toggle("show");
+    });
+
+  // Close when clicking outside
+  document.addEventListener("click", function (e) {
+    var dropdown = document.getElementById("rsmSortDropdown");
+    var toggle = document.getElementById("rsmSortToggle");
+    if (
+      dropdown &&
+      !dropdown.contains(e.target) &&
+      !toggle.contains(e.target)
+    ) {
+      dropdown.classList.remove("show");
+    }
+  });
+
+  // Toggle Sort Item (Checkbox behavior)
+  function toggleSort(el) {
+    el.classList.toggle("selected");
+  }
+
+  // Clear Sort
+  function clearSort() {
+    var items = document.querySelectorAll(".rsm-sort-item");
+    items.forEach(function (item) {
+      item.classList.remove("selected");
+    });
+  }
+</script>
