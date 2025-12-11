@@ -1,51 +1,55 @@
-/* 1. Global Viewport & Body Structure */
+/* 1. KUNCI VIEWPORT UTAMA */
 html {
     width: 100%;
     height: 100%;
-    /* iOS Safari fix */
-    height: -webkit-fill-available;
-
-    /* --- SKALA GLOBAL 75% --- */
-    /* Menggunakan transform: scale() untuk konsistensi cross-browser.
-       1 / 0.75 = 1.3333... jadi width/height harus 133.3333% */
-    transform: scale(0.75);
-    transform-origin: 0 0;
-    width: 133.3333%;
-    height: 133.3333%;
-
-    overflow-x: hidden;
+    /* Sembunyikan scrollbar bawaan browser karena kita akan scroll di body */
+    overflow: hidden;
 }
 
-/* FALLBACK FIREFOX (Wajib, karena Firefox tidak support 'zoom') */
+/* 2. SCALE & SCROLL DI BODY */
+body {
+    /* --- SKALA 80% --- */
+    transform: scale(0.80);
+    transform-origin: 0 0;
+
+    /* Kompensasi Lebar & Tinggi: 100 / 0.8 = 125% */
+    width: 125%;
+
+    /* Gunakan height 125vh agar area scroll pas setinggi layar monitor */
+    height: 130vh;
+
+    /* Aktifkan scroll di sini */
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* Layout & Warna */
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    background: var(--main-bg, #F3F7FA);
+    color: var(--main-color, #0F172A);
+}
+
+/* FALLBACK FIREFOX */
 @supports (-moz-appearance:none) {
-    html {
-        /* Firefox sudah tercover rule di atas karena support transform scale */
-        /* Pastikan width/height konsisten */
-        width: 133.3333% !important;
-        height: 133.3333% !important;
+    body {
+        width: 125% !important;
+        height: 130vh !important;
     }
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-
-    /* Tinggi penuh viewport */
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-
-    /* Layout utama */
+/* 3. PASTIKAN WRAPPER KONTEN FLEXIBEL */
+.page-content {
+    flex: 1;
+    min-width: 0;
     display: flex;
-    flex-direction: row;
-
-    background: var(--main-bg, #F3F7FA);
-    color: var(--main-color, #0F172A);
-
-    overflow-x: hidden;
+    flex-direction: column;
+    /* Min-height mengikuti parent (body) agar background nyambung terus */
+    min-height: 100%;
 }
 
-/* Hapus rule zoom/transform parsial untuk mencegah offset posisi */
+/* Reset Scale untuk elemen internal agar tidak double scale */
 #ms-sidebar-container,
 .page-content,
 .merchant-modal {

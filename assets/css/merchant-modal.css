@@ -168,7 +168,7 @@
     /* popup selalu keluar tepat di bawah tombol, mepet kanan */
     .merchant-action-popover {
         box-sizing: border-box;
-        position: absolute;
+        position: fixed;
 
 
         background: #FFFFFF;
