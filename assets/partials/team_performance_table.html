@@ -24,7 +24,61 @@
               ASM Achmad Reynaldi Mahendra
             </div>
             <div class="tp-chevron-down"></div>
+            <!-- Dropdown Menu -->
+            <div class="tp-dropdown-menu" id="tpDropdown1">
+              <div class="tp-dropdown-header">List ASM</div>
+              <div class="tp-dropdown-list">
+                <div class="tp-dropdown-item">
+                  <span>Achmad Reynaldi Mahendra</span>
+                  <span class="tp-view-link">View</span>
+                </div>
+                <div class="tp-dropdown-item">
+                  <span>Aji Kornando</span>
+                  <span class="tp-view-link">View</span>
+                </div>
+                <div class="tp-dropdown-item">
+                  <span>Dandi Mulya Dian Saputra</span>
+                  <span class="tp-view-link">View</span>
+                </div>
+              </div>
+            </div>
           </div>
+          <script>
+            /**
+             * Dropdown Toggle Logic
+             * Added via replacement for 'List ASM' dropdown
+             */
+            (function () {
+              var dropdown = document.getElementById("tpDropdown1");
+              if (dropdown) {
+                var row = dropdown.closest(".tp-drilldown-row");
+                if (row) {
+                  row.addEventListener("click", function (e) {
+                    // Don't close if clicking inside the dropdown itself (e.g. view links)
+                    if (e.target.closest(".tp-dropdown-menu")) return;
+
+                    var wasShown = dropdown.classList.contains("show");
+
+                    // 1. Hide ALL dropdowns first (to act like an accordion/exclusive menu)
+                    document
+                      .querySelectorAll(".tp-dropdown-menu")
+                      .forEach(function (d) {
+                        d.classList.remove("show");
+                      });
+
+                    // 2. Toggle current
+                    if (!wasShown) {
+                      dropdown.classList.add("show");
+                    }
+                  });
+
+                  // Optional: Global click to close if clicking outside
+                  // But be careful not to conflict with multiple listeners if this partial is reloaded.
+                  // Relying on row click is safer for now.
+                }
+              }
+            })();
+          </script>
         </div>
       </div>
 

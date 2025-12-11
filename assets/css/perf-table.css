@@ -197,8 +197,8 @@
    I will ensure the visual result (alignment, padding, height) matches. */
 
 /* garis vertikal standar antar kolom */
-.rsm-table thead th + th,
-.rsm-table tbody td + td {
+.rsm-table thead th+th,
+.rsm-table tbody td+td {
   border-left: 1px solid var(--rsm-divider);
 }
 
@@ -359,7 +359,7 @@
   height: auto;
 }
 
-.btn-group > .rsm-source-label {
+.btn-group>.rsm-source-label {
   flex: 0 0 auto;
 }
 
@@ -641,7 +641,7 @@
 }
 
 /* Override Bootstrap default caret usually is a triangle, we make it a chevron */
-.btn-group > .rsm-source-label {
+.btn-group>.rsm-source-label {
   flex: 0 0 auto;
 }
 
@@ -678,17 +678,22 @@
    ======================================================================= */
 .tp-card-list {
   display: flex;
-  flex-direction: row; /* Horizontal layout */
+  flex-direction: row;
+  /* Horizontal layout */
   gap: 32px;
   width: 100%;
-  overflow-x: auto; /* Allow scrolling if they don't fit */
-  padding-bottom: 20px; /* Space for scrollbar */
+  overflow-x: auto;
+  /* Allow scrolling if they don't fit */
+  padding-bottom: 20px;
+  /* Space for scrollbar */
 }
 
 /* --- STYLE CARD --- */
 .tp-drilldown-card {
-  min-width: 400px; /* Ensure cards don't get too small in horizontal view */
-  flex: 1; /* Allow them to grow/shrink similarly */
+  min-width: 400px;
+  /* Ensure cards don't get too small in horizontal view */
+  flex: 1;
+  /* Allow them to grow/shrink similarly */
   background: white;
   border-radius: 16px;
   display: flex;
@@ -743,7 +748,7 @@
   width: 100%;
   background: white;
   border: 1px solid var(--rsm-border);
-  border-top: none; 
+  border-top: none;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   display: flex;
@@ -784,23 +789,105 @@
 
 
 .sales-select-btn {
-    width: 400px;
-    height: 52px;
-    padding: 14px 24px;
-    background: #F7F7F7;
-    border-radius: 100px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    box-sizing: border-box; /* Penting agar padding tidak membuat ukuran melebihi 100% */
-    cursor: pointer; /* Opsional: agar kursor berubah jadi tangan */
+  width: 400px;
+  height: 52px;
+  padding: 14px 24px;
+  background: #F7F7F7;
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  /* Penting agar padding tidak membuat ukuran melebihi 100% */
+  cursor: pointer;
+  /* Opsional: agar kursor berubah jadi tangan */
 }
 
 .sales-select-label {
-    text-align: center;
-    color: #1E62B3;
-    font-size: 18px;
-    font-weight: 600;
-    word-wrap: break-word;
+  width: 100%;
+  text-align: center;
+  color: #55586B;
+  font-size: 18px;
+  font-family: 'TikTok Sans';
+  font-weight: 500;
+  line-height: 24px;
+  word-wrap: break-word;
+}
+
+/* === DROPDOWN MENU === */
+.tp-dropdown-menu {
+  display: none;
+  /* hidden by default */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 493px;
+  max-width: 90vw;
+  /* responsive safety */
+  /* height: 188px;  flexible height based on content or fixed if strict */
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+  margin-top: 8px;
+  /* slight gap from trigger */
+  box-sizing: border-box;
+}
+
+.tp-drilldown-row {
+  position: relative;
+  /* layout context for absolute dropdown */
+}
+
+/* Ensure dropdown is hidden initially, toggled via JS class or inline style */
+.tp-dropdown-menu.hidden {
+  display: none !important;
+}
+
+/* When visible, override display */
+.tp-dropdown-menu.show {
+  display: flex !important;
+}
+
+.tp-dropdown-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--rsm-text-main);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rsm-border);
+  margin-bottom: 4px;
+}
+
+.tp-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 200px;
+  /* Optional cap if many items */
+}
+
+.tp-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--rsm-text-main);
+  padding: 4px 0;
+}
+
+.tp-view-link {
+  color: var(--rsm-blue);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tp-view-link:hover {
+  text-decoration: underline;
 }
