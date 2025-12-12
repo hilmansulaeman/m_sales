@@ -1,0 +1,464 @@
+<div class="approval-modal-backdrop" id="approvalDetailModal" aria-hidden="true" style="z-index: 10009">
+    <div class="approval-modal-content" role="dialog" aria-modal="true">
+
+        <!-- HEADER -->
+        <div class="approval-modal-header">
+            <div class="approval-modal-title">View detail data</div>
+            <!-- Close Button -->
+            <button class="approval-modal-close" id="closeApprovalModal" type="button" aria-label="Close"></button>
+        </div>
+
+        <!-- BODY GRID -->
+        <div class="approval-modal-body-grid">
+
+            <!-- LEFT COLUMN: FORM -->
+            <div class="approval-col-left">
+                <div class="approval-form-scroll">
+
+                    <!-- SECTION 1: Recruiter -->
+                    <div class="approval-section">
+                        <div class="approval-section-header">
+                            <div class="approval-section-dot"></div>
+                            <div class="approval-section-title">Recruiter</div>
+                        </div>
+
+                        <!-- Row 1 -->
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Source Recruiter</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Internal Reference" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Recruiter</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="D7231985" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 2 -->
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Interviewed by</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Agnes" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Interview Results</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Passed the interview"
+                                        readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: Personal Data -->
+                    <div class="approval-section">
+                        <div class="approval-section-header">
+                            <div class="approval-section-dot"></div>
+                            <div class="approval-section-title">Personal Data</div>
+                        </div>
+
+                        <!-- Row -->
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Name <span class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Kelly Saputra" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">ID Number (KTP) <span
+                                        class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="3275082107930024" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row -->
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Birth Place <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Ambon" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Birth Date <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box">
+                                    <!-- Calendar Icon SVG -->
+                                    <div class="approval-icon-calendar">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#62696F"
+                                            stroke-width="2">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        </svg>
+                                    </div>
+                                    <input type="text" class="approval-input-value" value="08-May-1997" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ... Marital Status, Children ... -->
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Marital Status</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Single" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Number of Children</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="0" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Phone Number</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="021 847-6680" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Call Phone Number <span
+                                        class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="0812-7054-6947" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Email <span class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="kelly@gmail.com" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Facebook</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="None" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Twitter</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="None" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Instagram</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="None" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Religion <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Catholic" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Mother Name</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Naomi" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Height (Cm)</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="171" readonly>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Weight (Kg)</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="95" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-group">
+                            <div class="approval-label">Registered ID Address <span
+                                    class="approval-label-asterisk">*</span></div>
+                            <div class="approval-input-box" style="height: 80px; align-items: start;">
+                                <textarea class="approval-input-value" readonly
+                                    style="resize:none; height:100%;">Jl. Bendungan Hilir Raya No. 31A</textarea>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-group">
+                            <div class="approval-label">Province <span class="approval-label-asterisk">*</span></div>
+                            <div class="approval-input-box">
+                                <input type="text" class="approval-input-value" value="DKI Jakarta" readonly>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">City <span class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Central Jakarta" readonly>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#55586B"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">District <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Tanah Abang" readonly>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#55586B"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Subdistrict <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="Bendungan Hilir" readonly>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#55586B"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">RT/RW</div>
+                                <div class="approval-input-box">
+                                    <input type="text" class="approval-input-value" value="001 / 003" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Home Address (Same structure) -->
+                        <div class="approval-form-group">
+                            <div class="approval-label">Home Address <span class="approval-label-asterisk">*</span>
+                            </div>
+                            <div class="approval-input-box" style="height:80px; align-items:start;">
+                                <textarea class="approval-input-value" readonly
+                                    style="resize:none; height:100%;">Jl. Bendungan Hilir Raya No. 31A</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- SECTION: Education -->
+                    <div class="approval-section">
+                        <div class="approval-section-header">
+                            <div class="approval-section-dot"></div>
+                            <div class="approval-section-title">Education Data</div>
+                        </div>
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Highest Education</div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="Bachelor’s Degree" readonly></div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Educational Institution</div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="ABC University" readonly></div>
+                            </div>
+                        </div>
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Faculty</div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="Information Systems" readonly></div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Grade</div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="3.72" readonly></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION: Relatives -->
+                    <div class="approval-section">
+                        <div class="approval-section-header">
+                            <div class="approval-section-dot"></div>
+                            <div class="approval-section-title">Other Relatives</div>
+                        </div>
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Name <span class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="Muhammad Ali" readonly></div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Relation <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="Cousin" readonly></div>
+                            </div>
+                        </div>
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Phone Number</div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="021 847-6680" readonly></div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Call Phone Number <span
+                                        class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="0812-7054-6947" readonly></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION: Structure -->
+                    <div class="approval-section">
+                        <div class="approval-section-header">
+                            <div class="approval-section-dot"></div>
+                            <div class="approval-section-title">Structure</div>
+                        </div>
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Division <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="-" readonly></div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Product <span class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="Credit Card" readonly></div>
+                            </div>
+                        </div>
+                        <!-- Note: User's Structure section has many nested parts, I will simplify/flatten or just include essential rows for demo -->
+                        <div class="approval-form-row">
+                            <div class="approval-form-group">
+                                <div class="approval-label">Position <span class="approval-label-asterisk">*</span>
+                                </div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="ASM" readonly><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                        stroke="#55586B" stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg></div>
+                            </div>
+                            <div class="approval-form-group">
+                                <div class="approval-label">Branch <span class="approval-label-asterisk">*</span></div>
+                                <div class="approval-input-box"><input type="text" class="approval-input-value"
+                                        value="Balikpapan" readonly></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Floating Verify Bar (Converted to Static Footer) -->
+                <div class="approval-verify-bar">
+                    <div class="approval-verify-pill">
+                        <div class="approval-verify-label">Verify data</div>
+                        <div class="approval-verify-actions">
+                            <button class="btn-verify-approve">Approve</button>
+                            <button class="btn-verify-reject">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: PHOTOS -->
+            <div class="approval-col-right">
+                <!-- Header for right col? Figma says "Photo & Document" header implies it's a section -->
+                <div class="approval-section-header">
+                    <div class="approval-section-dot"></div>
+                    <div class="approval-section-title">Photo & Document</div>
+                </div>
+
+                <div class="approval-thumbnails-box">
+                    <div class="approval-thumbnails-scroll">
+
+                        <div class="approval-thumb-item">
+                            <div class="approval-thumb-box"></div>
+                            <div class="approval-thumb-text">Interview Data</div>
+                        </div>
+                        <div class="approval-thumb-item">
+                            <div class="approval-thumb-box"></div>
+                            <div class="approval-thumb-text">ID Number (KTP)</div>
+                        </div>
+                        <div class="approval-thumb-item">
+                            <div class="approval-thumb-box"></div>
+                            <div class="approval-thumb-text">NPWP</div>
+                        </div>
+                        <div class="approval-thumb-item">
+                            <div class="approval-thumb-box"></div>
+                            <div class="approval-thumb-text">Family Card</div>
+                        </div>
+                        <div class="approval-thumb-item">
+                            <div class="approval-thumb-box"></div>
+                            <div class="approval-thumb-text">CV</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="approval-viewer-box">
+                    <div class="approval-viewer-placeholder">Select Photo & Document to see the data</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const modalBackdrop = document.getElementById("approvalDetailModal");
+        const closeBtn = document.getElementById("closeApprovalModal");
+
+        window.openApprovalModal = function (title) {
+            if (modalBackdrop) {
+                modalBackdrop.classList.add("is-open");
+                modalBackdrop.setAttribute("aria-hidden", "false");
+            }
+        };
+
+        function closeModal() {
+            if (modalBackdrop) {
+                modalBackdrop.classList.remove("is-open");
+                modalBackdrop.setAttribute("aria-hidden", "true");
+            }
+        }
+
+        if (modalBackdrop && closeBtn) {
+            closeBtn.addEventListener("click", closeModal);
+            modalBackdrop.addEventListener("click", function (e) {
+                if (e.target === modalBackdrop) {
+                    closeModal();
+                }
+            });
+        }
+    })();
+</script>
