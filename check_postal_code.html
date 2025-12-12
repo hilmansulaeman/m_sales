@@ -135,8 +135,45 @@
     <div class="page-content">
       <!-- NAVBAR -->
       <header class="ms-navbar">
+        <button class="ms-navbar-toggle">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
         <div class="ms-title">Check Postal Code</div>
       </header>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var toggle = document.querySelector(".ms-navbar-toggle");
+          if (toggle) {
+            toggle.addEventListener("click", function () {
+              var sidebar = document.querySelector(".ms-sidebar");
+              if (sidebar) sidebar.classList.toggle("open");
+            });
+            document.addEventListener("click", function (e) {
+              var sidebar = document.querySelector(".ms-sidebar");
+              if (
+                sidebar &&
+                sidebar.classList.contains("open") &&
+                !sidebar.contains(e.target) &&
+                !toggle.contains(e.target)
+              ) {
+                sidebar.classList.remove("open");
+              }
+            });
+          }
+        });
+      </script>
 
       <main class="page-main">
         <!-- Container for the Table Partial -->
