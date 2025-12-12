@@ -1,464 +1,646 @@
-<div class="approval-modal-backdrop" id="approvalDetailModal" aria-hidden="true" style="z-index: 10009">
-    <div class="approval-modal-content" role="dialog" aria-modal="true">
-
-        <!-- HEADER -->
-        <div class="approval-modal-header">
-            <div class="approval-modal-title">View detail data</div>
-            <!-- Close Button -->
-            <button class="approval-modal-close" id="closeApprovalModal" type="button" aria-label="Close"></button>
+<div
+  class="approval-modal-backdrop"
+  id="approvalDetailModal"
+  aria-hidden="true"
+  style="z-index: 10009"
+>
+    <div data-property-1="INPUT DATA FORM" style="width: 1800px; max-width: 95%; height: 1000px; max-height: 95%; padding: 36px; position: relative; background: white; box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.08); border-radius: 32px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 32px; display: flex; box-sizing: border-box;">
+        <div style="align-self: stretch; height: 42px; justify-content: space-between; align-items: center; display: inline-flex">
+            <div style="color: #29415C; font-size: 32px; font-family: TikTok Sans, sans-serif; font-weight: 600; word-wrap: break-word">View detail data</div>
+            <div id="closeApprovalModal" data-property-1="Close" data-size="32" data-state="Off" style="width: 32px; height: 32px; position: relative; cursor: pointer;">
+                <div style="width: 32px; height: 32px; left: 0px; top: 0px; position: absolute; background: #D9D9D9; border-radius: 50%;"></div>
+                <div style="width: 17.53px; height: 17.53px; left: 7.23px; top: 7.23px; position: absolute; background: #55586B; mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center; -webkit-mask: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat center; background-color: #55586B;"></div>
+                 <svg style="position: absolute; top: 6px; left: 6px; width: 20px; height: 20px; color: #55586B;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
         </div>
-
-        <!-- BODY GRID -->
-        <div class="approval-modal-body-grid">
-
-            <!-- LEFT COLUMN: FORM -->
-            <div class="approval-col-left">
-                <div class="approval-form-scroll">
-
-                    <!-- SECTION 1: Recruiter -->
-                    <div class="approval-section">
-                        <div class="approval-section-header">
-                            <div class="approval-section-dot"></div>
-                            <div class="approval-section-title">Recruiter</div>
+        <div style="width: 100%; flex: 1 1 0; justify-content: flex-start; align-items: flex-start; gap: 40px; display: inline-flex; overflow: hidden;">
+            <div style="width: 50%; max-width: 892px; align-self: stretch; position: relative; overflow: hidden; border-radius: 24px; outline: 1px #D9D9D9 solid; display: flex; flex-direction: column;">
+                <div class="approval-form-scroll" style="padding-top: 24px; padding-bottom: 120px; padding-left: 24px; padding-right: 32px; background: white; border-radius: 24px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 40px; display: flex; overflow-y: auto; height: 100%;">
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700; word-wrap: break-word">Recruiter</div>
                         </div>
-
-                        <!-- Row 1 -->
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Source Recruiter</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Internal Reference" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Recruiter</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="D7231985" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Row 2 -->
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Interviewed by</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Agnes" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Interview Results</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Passed the interview"
-                                        readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SECTION 2: Personal Data -->
-                    <div class="approval-section">
-                        <div class="approval-section-header">
-                            <div class="approval-section-dot"></div>
-                            <div class="approval-section-title">Personal Data</div>
-                        </div>
-
-                        <!-- Row -->
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Name <span class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Kelly Saputra" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">ID Number (KTP) <span
-                                        class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="3275082107930024" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Row -->
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Birth Place <span class="approval-label-asterisk">*</span>
-                                </div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Ambon" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Birth Date <span class="approval-label-asterisk">*</span>
-                                </div>
-                                <div class="approval-input-box">
-                                    <!-- Calendar Icon SVG -->
-                                    <div class="approval-icon-calendar">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#62696F"
-                                            stroke-width="2">
-                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                        </svg>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500; word-wrap: break-word">Source Recruiter</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400; word-wrap: break-word">Internal Reference</div>
                                     </div>
-                                    <input type="text" class="approval-input-value" value="08-May-1997" readonly>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500; word-wrap: break-word">Recruiter</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400; word-wrap: break-word">D7231985</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- ... Marital Status, Children ... -->
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Marital Status</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Single" readonly>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500; word-wrap: break-word">Interviewed by</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400; word-wrap: break-word">Agnes</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Number of Children</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="0" readonly>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500; word-wrap: break-word">Interview Results</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400; word-wrap: break-word">Passed the interview</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Phone Number</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="021 847-6680" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Call Phone Number <span
-                                        class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="0812-7054-6947" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Email <span class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="kelly@gmail.com" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Facebook</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="None" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Twitter</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="None" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Instagram</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="None" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Religion <span class="approval-label-asterisk">*</span>
-                                </div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Catholic" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Mother Name</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Naomi" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Height (Cm)</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="171" readonly>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Weight (Kg)</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="95" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-group">
-                            <div class="approval-label">Registered ID Address <span
-                                    class="approval-label-asterisk">*</span></div>
-                            <div class="approval-input-box" style="height: 80px; align-items: start;">
-                                <textarea class="approval-input-value" readonly
-                                    style="resize:none; height:100%;">Jl. Bendungan Hilir Raya No. 31A</textarea>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-group">
-                            <div class="approval-label">Province <span class="approval-label-asterisk">*</span></div>
-                            <div class="approval-input-box">
-                                <input type="text" class="approval-input-value" value="DKI Jakarta" readonly>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">City <span class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Central Jakarta" readonly>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#55586B"
-                                        stroke-width="2">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">District <span class="approval-label-asterisk">*</span>
-                                </div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Tanah Abang" readonly>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#55586B"
-                                        stroke-width="2">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Subdistrict <span class="approval-label-asterisk">*</span>
-                                </div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="Bendungan Hilir" readonly>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#55586B"
-                                        stroke-width="2">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">RT/RW</div>
-                                <div class="approval-input-box">
-                                    <input type="text" class="approval-input-value" value="001 / 003" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Home Address (Same structure) -->
-                        <div class="approval-form-group">
-                            <div class="approval-label">Home Address <span class="approval-label-asterisk">*</span>
-                            </div>
-                            <div class="approval-input-box" style="height:80px; align-items:start;">
-                                <textarea class="approval-input-value" readonly
-                                    style="resize:none; height:100%;">Jl. Bendungan Hilir Raya No. 31A</textarea>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- SECTION: Education -->
-                    <div class="approval-section">
-                        <div class="approval-section-header">
-                            <div class="approval-section-dot"></div>
-                            <div class="approval-section-title">Education Data</div>
-                        </div>
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Highest Education</div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="Bachelor’s Degree" readonly></div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Educational Institution</div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="ABC University" readonly></div>
-                            </div>
-                        </div>
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Faculty</div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="Information Systems" readonly></div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Grade</div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="3.72" readonly></div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- SECTION: Relatives -->
-                    <div class="approval-section">
-                        <div class="approval-section-header">
-                            <div class="approval-section-dot"></div>
-                            <div class="approval-section-title">Other Relatives</div>
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Personal Data</div>
                         </div>
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Name <span class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="Muhammad Ali" readonly></div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Relation <span class="approval-label-asterisk">*</span>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Name</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Kelly Saputra</div>
+                                    </div>
                                 </div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="Cousin" readonly></div>
-                            </div>
-                        </div>
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Phone Number</div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="021 847-6680" readonly></div>
-                            </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Call Phone Number <span
-                                        class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="0812-7054-6947" readonly></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SECTION: Structure -->
-                    <div class="approval-section">
-                        <div class="approval-section-header">
-                            <div class="approval-section-dot"></div>
-                            <div class="approval-section-title">Structure</div>
-                        </div>
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Division <span class="approval-label-asterisk">*</span>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">ID Number (KTP)</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">3275082107930024</div>
+                                    </div>
                                 </div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="-" readonly></div>
                             </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Product <span class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="Credit Card" readonly></div>
-                            </div>
-                        </div>
-                        <!-- Note: User's Structure section has many nested parts, I will simplify/flatten or just include essential rows for demo -->
-                        <div class="approval-form-row">
-                            <div class="approval-form-group">
-                                <div class="approval-label">Position <span class="approval-label-asterisk">*</span>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Birth Place</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Ambon</div>
+                                    </div>
                                 </div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="ASM" readonly><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                        stroke="#55586B" stroke-width="2">
-                                        <polyline points="6 9 12 15 18 9"></polyline>
-                                    </svg></div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Birth Date</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">08-May-1997</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="approval-form-group">
-                                <div class="approval-label">Branch <span class="approval-label-asterisk">*</span></div>
-                                <div class="approval-input-box"><input type="text" class="approval-input-value"
-                                        value="Balikpapan" readonly></div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Marital Status</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Single</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Number of Children</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Phone Number</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">021 847-6680</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Call Phone Number</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">0812-7054-6947</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Email</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">kelly@gmail.com</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Facebook</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">None</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Twitter</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">None</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Instagram</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">None</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Religion</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Catholic</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Mother Name</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Naomi</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Height (Cm)</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">171</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Weight (Kg)</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">95</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Registered ID Address</span><span style="color: #EB5A52;">*</span></div>
+                                <div style="align-self: stretch; height: 80px; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: flex-start; align-items: flex-start; gap: 32px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Jl. Bendungan Hilir Raya No. 31A</div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Province</span><span style="color: #EB5A52;">*</span></div>
+                                <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">DKI Jakarta</div>
+                                </div>
+                            </div>
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">City</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Central Jakarta</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">District</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Tanah Abang</div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Subdistrict</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Bendungan Hilir</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; justify-content: flex-start; align-items: center; gap: 24px; display: flex">
+                                    <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                        <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">RT</div>
+                                        <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                            <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">001</div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                        <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">RW</div>
+                                        <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                            <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">003</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Home Address</span><span style="color: #EB5A52;">*</span></div>
+                                <div style="align-self: stretch; height: 80px; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: flex-start; align-items: flex-start; gap: 32px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Jl. Bendungan Hilir Raya No. 31A</div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Province</span><span style="color: #EB5A52;">*</span></div>
+                                <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">DKI Jakarta</div>
+                                </div>
+                            </div>
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">City</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Central Jakarta</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">District</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Tanah Abang</div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Subdistrict</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Bendungan Hilir</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; justify-content: flex-start; align-items: center; gap: 24px; display: flex">
+                                    <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                        <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">RT</div>
+                                        <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                            <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">001</div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                        <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">RW</div>
+                                        <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                            <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">003</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                </div>
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Education Data</div>
+                        </div>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Highest Education</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Bachelor’s Degree</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Educational Institution</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">ABC University</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Faculty</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Information Systems</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Grade</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">3.72</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Floating Verify Bar (Converted to Static Footer) -->
-                <div class="approval-verify-bar">
-                    <div class="approval-verify-pill">
-                        <div class="approval-verify-label">Verify data</div>
-                        <div class="approval-verify-actions">
-                            <button class="btn-verify-approve">Approve</button>
-                            <button class="btn-verify-reject">Reject</button>
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Other Relatives</div>
+                        </div>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Name</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Muhammad Ali</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Relation</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Cousin</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Phone Number</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">021 847-6680</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Call Phone Number</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">0812-7054-6947</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Home Address</span><span style="color: #EB5A52;">*</span></div>
+                                <div style="align-self: stretch; height: 80px; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: flex-start; align-items: flex-start; gap: 32px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Jl. Tebet Timur IX A No.2</div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Province</span><span style="color: #EB5A52;">*</span></div>
+                                <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">DKI Jakarta</div>
+                                </div>
+                            </div>
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">City</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">South Jakarta</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">District</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Tebet</div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Subdistrict</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">East Tebet</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; justify-content: flex-start; align-items: center; gap: 24px; display: flex">
+                                    <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                        <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">RT</div>
+                                        <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                            <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">013</div>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                        <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">RW</div>
+                                        <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                            <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">009</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Sibling</div>
+                        </div>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                             <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Name</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Rosana</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Relation</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Sister</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Phone Number</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">021 847-6680</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Call Phone Number</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">0812-7054-6947</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Structure</div>
+                        </div>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Division</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">-</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Product</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Credit Card</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Client Name</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">-</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Project Name</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Position</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">ASM</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Channel</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Undefined</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Group Type</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Undefined</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Level</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Undefined</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Sales Mode</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Undefined</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Department</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Branch</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Balikpapan</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Employee Type</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: flex">
+                        <div style="justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Payroll Data</div>
+                        </div>
+                        <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 24px; display: flex">
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Bank Name</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">XYZ Bank</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Branch</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">East Jakarta</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; justify-content: flex-start; align-items: center; gap: 24px; display: inline-flex">
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch"><span style="color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Account Number</span><span style="color: #EB5A52;">*</span></div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">2301769284</div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1 1 0; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+                                    <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">NPWP Number</div>
+                                    <div style="align-self: stretch; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: center; align-items: center; gap: 16px; display: inline-flex">
+                                        <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">90.000.498.3-784.000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex">
+                                <div style="align-self: stretch; color: #29415C; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">NPWP Address</div>
+                                <div style="align-self: stretch; height: 80px; padding: 10px 16px; background: #F2F2F2; border-radius: 8px; justify-content: flex-start; align-items: flex-start; gap: 32px; display: inline-flex">
+                                    <div style="flex: 1 1 0; color: #62696F; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 400;">Jl. Bendungan Hilir No. 31A</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: PHOTOS -->
-            <div class="approval-col-right">
-                <!-- Header for right col? Figma says "Photo & Document" header implies it's a section -->
-                <div class="approval-section-header">
-                    <div class="approval-section-dot"></div>
-                    <div class="approval-section-title">Photo & Document</div>
+            <div style="flex: 1 1 0; align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 33px; display: inline-flex; min-width: 0;">
+                <div style="align-self: stretch; height: 246px; position: relative; border-radius: 24px; outline: 1px #D9D9D9 solid; outline-offset: -1px; overflow: hidden; display: flex; flex-direction: column;">
+                     <div style="padding: 24px; display: flex; flex-direction: column; gap: 12px; height: 100%;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 14px; height: 14px; background: #1E62B3; border-radius: 14px"></div>
+                            <div style="color: #29415C; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 700;">Photo & Document</div>
+                        </div>
+                        <div class="approval-thumbnails-scroll" style="display: flex; flex-wrap: wrap; gap: 24px; overflow-y: auto; flex: 1; align-content: flex-start; padding-right: 8px;">
+                            <div class="approval-thumb-item">
+                                <div style="width: 120px; height: 115px; background: #D9D9D9; border-radius: 28px"></div>
+                                <div style="text-align: center; margin-top: 8px;">Interview Data</div>
+                            </div>
+                            <div class="approval-thumb-item">
+                                <div style="width: 120px; height: 115px; background: #D9D9D9; border-radius: 28px"></div>
+                                <div style="text-align: center; margin-top: 8px;">ID Number (KTP)</div>
+                            </div>
+                            <div class="approval-thumb-item">
+                                <div style="width: 120px; height: 115px; background: #D9D9D9; border-radius: 28px"></div>
+                                <div style="text-align: center; margin-top: 8px;">NPWP</div>
+                            </div>
+                            <div class="approval-thumb-item">
+                                <div style="width: 120px; height: 115px; background: #D9D9D9; border-radius: 28px"></div>
+                                <div style="text-align: center; margin-top: 8px;">Family Card</div>
+                            </div>
+                            <div class="approval-thumb-item">
+                                <div style="width: 120px; height: 115px; background: #D9D9D9; border-radius: 28px"></div>
+                                <div style="text-align: center; margin-top: 8px;">CV</div>
+                            </div>
+                        </div>
+                     </div>
                 </div>
 
-                <div class="approval-thumbnails-box">
-                    <div class="approval-thumbnails-scroll">
-
-                        <div class="approval-thumb-item">
-                            <div class="approval-thumb-box"></div>
-                            <div class="approval-thumb-text">Interview Data</div>
-                        </div>
-                        <div class="approval-thumb-item">
-                            <div class="approval-thumb-box"></div>
-                            <div class="approval-thumb-text">ID Number (KTP)</div>
-                        </div>
-                        <div class="approval-thumb-item">
-                            <div class="approval-thumb-box"></div>
-                            <div class="approval-thumb-text">NPWP</div>
-                        </div>
-                        <div class="approval-thumb-item">
-                            <div class="approval-thumb-box"></div>
-                            <div class="approval-thumb-text">Family Card</div>
-                        </div>
-                        <div class="approval-thumb-item">
-                            <div class="approval-thumb-box"></div>
-                            <div class="approval-thumb-text">CV</div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="approval-viewer-box">
-                    <div class="approval-viewer-placeholder">Select Photo & Document to see the data</div>
+                <div style="align-self: stretch; flex: 1 1 0; position: relative; overflow: hidden; border-radius: 24px; outline: 1px #D9D9D9 solid; outline-offset: -1px; display: flex; align-items: center; justify-content: center;">
+                    <div style="color: #7F868B; font-size: 24px; font-family: TikTok Sans, sans-serif; font-weight: 400; text-align: center;">Select Photo & Document to see the data</div>
                 </div>
             </div>
-
+        </div>
+        
+        <div class="approval-verify-bar" style="position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); background: #1E62B3; box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.16); border-radius: 100px; padding: 12px 32px; display: flex; align-items: center; gap: 50px;">
+             <div style="color: white; font-size: 18px; font-family: TikTok Sans, sans-serif; font-weight: 500;">Verify data</div>
+             <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="padding: 8px 24px; background: #FAFAFC; border-radius: 100px; cursor: pointer; color: #1E62B3; font-weight: 500;">Submit</div>
+                <div style="padding: 8px 24px; background: #EB5A52; border-radius: 100px; cursor: pointer; color: white; font-weight: 500;">Return</div>
+             </div>
         </div>
     </div>
 </div>
 
+
 <script>
-    (function () {
-        const modalBackdrop = document.getElementById("approvalDetailModal");
-        const closeBtn = document.getElementById("closeApprovalModal");
+  (function () {
+    const modalBackdrop = document.getElementById("approvalDetailModal");
+    const closeBtn = document.getElementById("closeApprovalModal");
 
-        window.openApprovalModal = function (title) {
-            if (modalBackdrop) {
-                modalBackdrop.classList.add("is-open");
-                modalBackdrop.setAttribute("aria-hidden", "false");
-            }
-        };
+    window.openApprovalModal = function (title) {
+      if (modalBackdrop) {
+        modalBackdrop.classList.add("is-open");
+        modalBackdrop.setAttribute("aria-hidden", "false");
+      }
+    };
 
-        function closeModal() {
-            if (modalBackdrop) {
-                modalBackdrop.classList.remove("is-open");
-                modalBackdrop.setAttribute("aria-hidden", "true");
-            }
+    function closeModal() {
+      if (modalBackdrop) {
+        modalBackdrop.classList.remove("is-open");
+        modalBackdrop.setAttribute("aria-hidden", "true");
+      }
+    }
+
+    if (modalBackdrop && closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+      modalBackdrop.addEventListener("click", function (e) {
+        if (e.target === modalBackdrop) {
+          closeModal();
         }
-
-        if (modalBackdrop && closeBtn) {
-            closeBtn.addEventListener("click", closeModal);
-            modalBackdrop.addEventListener("click", function (e) {
-                if (e.target === modalBackdrop) {
-                    closeModal();
-                }
-            });
-        }
-    })();
+      });
+    }
+  })();
 </script>
