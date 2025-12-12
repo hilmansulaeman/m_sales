@@ -155,6 +155,8 @@
 @media (max-width: 992px) {
     .app-check-hero .rsm-search-component-container .asm-search {
         width: 100% !important;
+        margin-top: 0;
+        /* Align with navbar padding logic unless explicitly spaced */
     }
 
     .app-check-tabs {

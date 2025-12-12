@@ -177,49 +177,72 @@
                 .then(function (html) {
                     container.innerHTML = html;
 
-                    // Initialize sidebar dropdowns
+                    // A. Initialize Sidebar Dropdowns
                     try {
-                        var sidebar = container;
-                        var toggles = sidebar.querySelectorAll('.ms-item--has-submenu');
+                        var sidebar = container.querySelector('.ms-sidebar');
+                        if (sidebar) {
+                            var toggles = sidebar.querySelectorAll('.ms-item--has-submenu');
+                            toggles.forEach(function (a) {
+                                a.addEventListener('click', function (e) {
+                                    e.preventDefault();
+                                    var submenu = a.nextElementSibling;
+                                    if (!submenu || !submenu.classList.contains('ms-submenu')) return;
 
-                        toggles.forEach(function (a) {
-                            a.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                var submenu = a.nextElementSibling;
-                                if (!submenu || !submenu.classList.contains('ms-submenu')) return;
+                                    var expanded = a.getAttribute('aria-expanded') === 'true';
 
-                                var expanded = a.getAttribute('aria-expanded') === 'true';
-
-                                // Close siblings (Accordion effect)
-                                var siblings = sidebar.querySelectorAll('.ms-item--has-submenu');
-                                siblings.forEach(function (s) {
-                                    if (s !== a) {
-                                        s.setAttribute('aria-expanded', 'false');
-                                        var sibSub = s.nextElementSibling;
-                                        if (sibSub && sibSub.classList.contains('ms-submenu')) {
-                                            sibSub.style.display = 'none';
-                                            sibSub.setAttribute('aria-hidden', 'true');
-                                            s.classList.remove('ms-item--open');
+                                    // Close siblings
+                                    var siblings = sidebar.querySelectorAll('.ms-item--has-submenu');
+                                    siblings.forEach(function (s) {
+                                        if (s !== a) {
+                                            s.setAttribute('aria-expanded', 'false');
+                                            var sibSub = s.nextElementSibling;
+                                            if (sibSub && sibSub.classList.contains('ms-submenu')) {
+                                                sibSub.style.display = 'none';
+                                                sibSub.setAttribute('aria-hidden', 'true');
+                                                s.classList.remove('ms-item--open');
+                                            }
                                         }
+                                    });
+
+                                    // Toggle current
+                                    if (!expanded) {
+                                        submenu.style.display = 'block';
+                                        submenu.setAttribute('aria-hidden', 'false');
+                                        a.setAttribute('aria-expanded', 'true');
+                                        a.classList.add('ms-item--open');
+                                    } else {
+                                        submenu.style.display = 'none';
+                                        submenu.setAttribute('aria-hidden', 'true');
+                                        a.setAttribute('aria-expanded', 'false');
+                                        a.classList.remove('ms-item--open');
                                     }
                                 });
-
-                                // Toggle current
-                                if (!expanded) {
-                                    submenu.style.display = 'block';
-                                    submenu.setAttribute('aria-hidden', 'false');
-                                    a.setAttribute('aria-expanded', 'true');
-                                    a.classList.add('ms-item--open');
-                                } else {
-                                    submenu.style.display = 'none';
-                                    submenu.setAttribute('aria-hidden', 'true');
-                                    a.setAttribute('aria-expanded', 'false');
-                                    a.classList.remove('ms-item--open');
-                                }
                             });
-                        });
+                        }
                     } catch (err) {
                         console.error(err);
+                    }
+
+                    // B. Initialize Mobile Toggle (Hamburger)
+                    try {
+                        var mobileToggle = container.querySelector('.ms-mobile-toggle');
+                        var sidebarEl = container.querySelector('.ms-sidebar');
+
+                        if (mobileToggle && sidebarEl) {
+                            mobileToggle.addEventListener('click', function () {
+                                sidebarEl.classList.toggle('open');
+                            });
+
+                            // Close sidebar when clicking outside on mobile
+                            document.addEventListener('click', function (e) {
+                                if (window.innerWidth > 992) return; // Only mobile
+                                if (!sidebarEl.contains(e.target) && !mobileToggle.contains(e.target) && sidebarEl.classList.contains('open')) {
+                                    sidebarEl.classList.remove('open');
+                                }
+                            });
+                        }
+                    } catch (err) {
+                        console.error('Mobile toggle init error:', err);
                     }
                 })
                 .catch(function (err) {

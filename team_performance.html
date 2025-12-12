@@ -49,6 +49,12 @@
           width: 864px !important;
           max-width: 100%;
         }
+
+        @media (max-width: 900px) {
+          .team-perf-search .asm-search {
+            margin-top: 24px;
+          }
+        }
       </style>
     </main>
   </div>
@@ -174,9 +180,11 @@
         .then(function (html) {
           container.innerHTML = html;
 
-          // Initialize sidebar dropdowns
+          // A. Initialize sidebar dropdowns
           try {
-            var sidebar = container;
+            var sidebar = container.querySelector(".ms-sidebar"); // Ensure we select inside container
+            if (!sidebar) sidebar = container; // Fallback
+
             var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
 
             toggles.forEach(function (a) {
@@ -220,6 +228,32 @@
             });
           } catch (err) {
             console.error(err);
+          }
+
+          // B. Initialize Mobile Toggle (Hamburger)
+          try {
+            var mobileToggle = container.querySelector(".ms-mobile-toggle");
+            var sidebarEl = container.querySelector(".ms-sidebar");
+
+            if (mobileToggle && sidebarEl) {
+              mobileToggle.addEventListener("click", function () {
+                sidebarEl.classList.toggle("open");
+              });
+
+              // Close sidebar when clicking outside on mobile
+              document.addEventListener("click", function (e) {
+                if (window.innerWidth > 992) return; // Only mobile
+                if (
+                  !sidebarEl.contains(e.target) &&
+                  !mobileToggle.contains(e.target) &&
+                  sidebarEl.classList.contains("open")
+                ) {
+                  sidebarEl.classList.remove("open");
+                }
+              });
+            }
+          } catch (err) {
+            console.error("Mobile toggle init error:", err);
           }
         })
         .catch(function (err) {

@@ -113,7 +113,7 @@ body.auth-page {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
     /* --- RESET ZOOM DI MOBILE (PENTING) --- */
     /* Di HP, zoom 0.8 terlalu kecil. Kita kembalikan ke normal (100%) */
@@ -152,5 +152,7 @@ body.auth-page {
     .page-main,
     .ms-main-container {
         padding: 16px;
+        padding-top: 80px !important;
+        /* 56px Fixed Header + 24px Gap */
     }
 }

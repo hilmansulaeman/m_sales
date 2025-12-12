@@ -357,6 +357,10 @@
   .card-rsm {
     border-radius: 16px;
   }
+
+  .card-rsm .table-responsive {
+    margin-top: 24px;
+  }
 }
 
 /* =======================================================================

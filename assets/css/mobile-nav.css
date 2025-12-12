@@ -1,0 +1,49 @@
+/* Mobile Nav Bar - Hidden on desktop, visible on mobile */
+.ms-mobile-navbar {
+    display: none;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px;
+    background: #1E62B3;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    gap: 16px;
+}
+
+.ms-mobile-menu-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ms-mobile-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+/* Sidebar behavior on mobile */
+@media (max-width: 900px) {
+    .ms-mobile-navbar {
+        display: flex;
+    }
+
+    .ms-sidebar {
+        top: 0;
+        /* Sidebar needs to be below navbar? OR cover full screen. 
+           User image shows sidebar is separate or this IS the navbar?
+           The image shows a blue bar with "Data Decision" and a hamburger.
+           This suggests we need a TOP navbar on mobile that controls the sidebar.
+        */
+        height: 100vh;
+        z-index: 1000;
+    }
+}

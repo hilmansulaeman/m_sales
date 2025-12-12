@@ -392,22 +392,125 @@
 }
 
 /* RESPONSIVE DRAWER */
+/* RESPONSIVE DRAWER */
 @media (max-width: 992px) {
   .ms-sidebar {
-    position: absolute;
-    /* Behaves like fixed due to body transform */
-    top: 0;
+    position: fixed;
+    top: 56px;
     left: 0;
-    bottom: 0;
-    height: 100%;
-    /* Cover body height */
+    /* Height calculation: Viewport - Header (56px) - Bottom Gap (16px) */
+    height: calc(100vh - 72px);
+    width: 85vw;
+    /* Match the wide appearance in the image (~85-90%) */
+    max-width: 320px;
     z-index: 1000;
     transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.15);
+    background: #1E62B3;
+    padding: 16px;
+    /* Rounded bottom-right corner as seen in the image */
+    border-bottom-right-radius: 24px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    /* Hide scrollbar for cleaner look */
+  }
+
+  .ms-sidebar::-webkit-scrollbar {
+    display: none;
   }
 
   .ms-sidebar.open {
     transform: translateX(0);
+  }
+
+  /* Hide Logo on Mobile (User profile is top element) */
+  .ms-sidebar .ms-logo {
+    display: none;
+  }
+
+  /* Adjust User Section for Mobile */
+  .ms-sidebar .ms-user {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  .ms-sidebar .ms-user-name,
+  .ms-sidebar .ms-user-role {
+    color: #FFFFFF;
+  }
+
+  /* Mobile Active Item Style (White BG, Blue Text) */
+  .ms-sidebar .ms-item--active,
+  .ms-sidebar .ms-subitem--active {
+    background: #FFFFFF !important;
+    color: #1E62B3 !important;
+    border-radius: 8px;
+  }
+
+  .ms-sidebar .ms-item--active .ms-label,
+  .ms-sidebar .ms-subitem--active {
+    color: #1E62B3 !important;
+    font-weight: 600;
+  }
+
+  /* Active Menu Icon filter to match Blue Text if SVG */
+  /* If using IMG icons, might need filter if not already blue. 
+     Assuming SVGs or images can cope or are acceptable as is for now. 
+     Often icons are white, so if background becomes white, icon needs to be blue.
+     We can use filter: invert(...) or similar if needed. 
+     For now, let's try to set filter for active item images. */
+  .ms-sidebar .ms-item--active img,
+  .ms-sidebar .ms-subitem--active img {
+    /* Blue filter to match #1E62B3. Generated for input black/white */
+    filter: invert(30%) sepia(96%) saturate(1437%) hue-rotate(190deg) brightness(92%) contrast(92%);
+  }
+
+  /* Non-active Items */
+  .ms-sidebar .ms-item {
+    color: #FFFFFF;
+  }
+
+  .ms-sidebar .ms-label {
+    color: #FFFFFF;
+  }
+}
+
+/* MOBILE HEADER (Injected via Sidebar Partial) */
+.ms-mobile-header {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .ms-mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 56px;
+    width: 100%;
+    background: #1E62B3;
+    padding: 0 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    /* Above sidebar */
+  }
+
+  .ms-mobile-toggle {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ms-mobile-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'TikTok Sans', sans-serif;
   }
 }
