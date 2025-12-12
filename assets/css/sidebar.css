@@ -387,10 +387,27 @@
 }
 
 /* Improve accessible hidden state when JS toggles */
-[aria-hidden="true"].ms-submenu {
-  display: none !important;
-}
-
 [aria-hidden="false"].ms-submenu {
   display: block !important;
+}
+
+/* RESPONSIVE DRAWER */
+@media (max-width: 992px) {
+  .ms-sidebar {
+    position: absolute;
+    /* Behaves like fixed due to body transform */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    /* Cover body height */
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .ms-sidebar.open {
+    transform: translateX(0);
+  }
 }

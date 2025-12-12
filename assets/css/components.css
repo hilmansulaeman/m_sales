@@ -102,3 +102,33 @@
   display: inline-block;
   line-height: 1;
 }
+
+/* Loading Component */
+.loading-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* Allow container to fit parent, usually for centering in a page/div */
+  padding: 20px;
+}
+
+.loading-spinner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 16px solid #E9F2FF;
+  border-top-color: #1E62B3;
+  animation: spin 1s linear infinite;
+  box-sizing: border-box;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,423 @@
+/* Duplicate Check Styles */
+
+/* Hero Section */
+.app-check-hero {
+    background-image: url('../img/bg_application_pemol.svg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    padding: 40px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    /* Ensure it scales nicely */
+    width: 100%;
+
+}
+
+.app-check-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    font-family: 'TikTok Sans', sans-serif;
+    color: #ffffff;
+}
+
+.app-check-search {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+.app-check-search input {
+    width: 100%;
+    height: 48px;
+    border-radius: 999px;
+    border: none;
+    padding: 0 20px 0 48px;
+    font-size: 14px;
+    /* Consistent with 90% scale */
+    outline: none;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-check-search input::placeholder {
+    color: #A9A9A9;
+}
+
+.app-check-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #999;
+    /* Use svg code or img */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Tabs */
+.app-check-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.app-check-tab {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    /* Consistent scale */
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    font-family: 'TikTok Sans', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-check-tab.active {
+    background-color: #1E62B3;
+    color: #fff;
+}
+
+.app-check-tab.inactive {
+    background-color: #E9F2FF;
+    color: #1E62B3;
+}
+
+.app-check-tab:hover {
+    opacity: 0.9;
+}
+
+/* Table Card generic wrapper if not using card-rsm directly */
+.app-check-card {
+    border-radius: 24px;
+    /* Updated to 24px per request */
+    border: 1px solid #D9D9D9;
+    overflow: hidden;
+    padding: 0;
+    /* Table fills it */
+}
+
+/* Override for usage of .card-rsm in this page context */
+.card-rsm {
+    border-radius: 24px !important;
+    overflow: hidden !important;
+}
+
+/* Pagination container matches merchant table style */
+.app-check-footer {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* =======================================================================
+   SPECIFIC OVERRIDES FOR APPLICATION CHECK TABLE
+   ======================================================================= */
+/* The user requested ALL font sizes in the table/footer to be 18px */
+#duplicate-check-table-container .rsm-table thead th {
+    font-size: 18px !important;
+}
+
+#duplicate-check-table-container .rsm-table tbody td {
+    font-size: 18px !important;
+}
+
+#duplicate-check-table-container .rsm-pagination-info,
+#duplicate-check-table-container .rsm-pagination-show,
+#duplicate-check-table-container .rsm-page-active,
+#duplicate-check-table-container .rsm-show-dropdown span {
+    font-size: 18px !important;
+}
+
+/* Specific Override for Search Component in Application Check Hero */
+.app-check-hero .rsm-search-component-container .asm-search {
+    width: 900px !important;
+    max-width: 100%;
+}
+
+/* =======================================================================
+   DUPLICATE CHECK INFO BOX & SEGMENTED CONTROLS
+   ======================================================================= */
+
+/* Segmented Control Overrides */
+.app-check-segmented {
+    margin-top: 20px;
+    margin-bottom: 32px;
+}
+
+.app-check-seg-item {
+    height: 32px;
+    white-space: nowrap;
+}
+
+/* Info Box Container */
+.dup-check-info-box {
+    width: 100%;
+    padding: 12px 24px;
+    background: #1e62b3;
+    border-radius: 16px;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+}
+
+/* Info Content (Left Side) */
+.dup-check-info-content {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.dup-check-info-row {
+    display: inline-flex;
+    align-self: stretch;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Icons */
+.dup-check-icon-bg {
+    width: 24px;
+    height: 24px;
+    background: #d9d9d9;
+}
+
+.dup-check-icon-fg {
+    width: 20px;
+    height: 20px;
+    background: white;
+}
+
+/* Info Text */
+.dup-check-info-text {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+/* Dismiss Button (Right Side) */
+.dup-check-dismiss-btn {
+    padding: 8px 32px;
+    background: white;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.dup-check-dismiss-text {
+    text-align: center;
+    color: #1e62b3;
+    font-size: 18px;
+    font-family: 'TikTok Sans', sans-serif;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+/* =======================================================================
+   DUPLICATE CHECK FORM COMPONENT
+   ======================================================================= */
+
+.dup-check-container {
+    width: 100%;
+    padding: 36px;
+    background: white;
+    box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 32px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 32px;
+    box-sizing: border-box;
+    margin-bottom: 32px;
+}
+
+.dup-check-inner {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+/* FORM SIDE */
+.dup-check-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dup-check-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dup-check-label {
+    color: #29415C;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+.dup-check-input-wrapper {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #D9D9D9;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.dup-check-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #29415C;
+    font-size: 18px;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+.dup-check-input::placeholder {
+    color: #A9A9A9;
+    font-weight: 400;
+}
+
+.dup-check-date-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    /* Placeholder for actual icon, can be replaced with SVG or img */
+    background: #e0e0e0;
+    border-radius: 4px;
+}
+
+.dup-check-search-btn {
+    width: 240px;
+    padding: 14px 24px;
+    background: #1E62B3;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+/* DIVIDER */
+.dup-check-divider {
+    width: 1px;
+    background: #D9D9D9;
+    align-self: stretch;
+}
+
+/* RESULT SIDE */
+.dup-check-result {
+    width: 703px;
+    border-radius: 24px;
+    border: 1px solid #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.dup-check-result-header {
+    height: 60px;
+    background: #1E62B3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+.dup-check-result-body {
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dup-check-result-row {
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dup-check-result-label {
+    width: 80px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #29415C;
+}
+
+.dup-check-result-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #29415C;
+}
+
+.dup-check-status-footer {
+    width: 100%;
+    height: 40px;
+    padding: 8px 24px;
+    background: #FF4C4C;
+    /* Red warning */
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .dup-check-inner {
+        flex-direction: column;
+    }
+
+    .dup-check-result {
+        width: 100%;
+    }
+
+    .dup-check-divider {
+        width: 100%;
+        height: 1px;
+    }
+
+    .dup-check-container {
+        padding: 20px;
+    }
+}

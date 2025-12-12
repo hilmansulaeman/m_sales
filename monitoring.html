@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Monitoring</title>
+
+    <!-- 1. Reset & Consistency -->
+    <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
+    <link rel="stylesheet" href="assets/css/browser-consistency.css" />
+
+    <!-- 2. Base & Layout -->
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+
+    <!-- 3. Components -->
+    <link rel="stylesheet" href="assets/css/sidebar.css" />
+    <link rel="stylesheet" href="assets/css/navbar.css" />
+    <link rel="stylesheet" href="assets/css/components.css" />
+
+    <!-- 4. Widgets / Pages -->
+    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="stylesheet" href="assets/css/cc-card.css" />
+
+    <style></style>
+  </head>
+
+  <body>
+    <!-- Sidebar (loaded from partial) -->
+    <div
+      id="ms-sidebar-container"
+      aria-hidden="false"
+      style="display: contents"
+    ></div>
+
+    <script>
+      (function () {
+        var container = document.getElementById("ms-sidebar-container");
+        if (!container) return;
+        fetch("assets/partials/sidebar.html")
+          .then(function (resp) {
+            if (!resp.ok) throw new Error("Network error");
+            return resp.text();
+          })
+          .then(function (html) {
+            container.innerHTML = html;
+
+            // Initialize sidebar dropdowns (submenu toggles)
+            try {
+              var sidebar = container;
+              var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
+              toggles.forEach(function (a) {
+                a.addEventListener("click", function (e) {
+                  e.preventDefault();
+                  var submenu = a.nextElementSibling;
+                  if (!submenu || !submenu.classList.contains("ms-submenu"))
+                    return;
+                  var expanded = a.getAttribute("aria-expanded") === "true";
+                  // close other open sibling submenus (accordion behavior)
+                  var siblings = sidebar.querySelectorAll(
+                    ".ms-item--has-submenu"
+                  );
+                  siblings.forEach(function (s) {
+                    if (s !== a) {
+                      s.setAttribute("aria-expanded", "false");
+                      var sibSub = s.nextElementSibling;
+                      if (sibSub && sibSub.classList.contains("ms-submenu")) {
+                        sibSub.style.display = "none";
+                        sibSub.setAttribute("aria-hidden", "true");
+                        s.classList.remove("ms-item--open");
+                      }
+                    }
+                  });
+
+                  if (!expanded) {
+                    submenu.style.display = "block";
+                    submenu.setAttribute("aria-hidden", "false");
+                    a.setAttribute("aria-expanded", "true");
+                    a.classList.add("ms-item--open");
+                  } else {
+                    submenu.style.display = "none";
+                    submenu.setAttribute("aria-hidden", "true");
+                    a.setAttribute("aria-expanded", "false");
+                    a.classList.remove("ms-item--open");
+                  }
+                });
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          })
+          .catch(function (err) {
+            console.error("Failed to load sidebar partial:", err);
+            container.innerHTML = "<!-- Sidebar failed to load -->";
+          });
+      })();
+    </script>
+
+    <!-- KONTEN KANAN -->
+    <div class="page-content">
+      <!-- NAVBAR ATAS -->
+      <header class="ms-navbar">
+        <button class="ms-navbar-toggle">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="ms-title">Monitoring</div>
+      </header>
+
+      <script>
+        // Sidebar Toggle Script
+        document.addEventListener("DOMContentLoaded", function () {
+          var toggle = document.querySelector(".ms-navbar-toggle");
+          if (toggle) {
+            toggle.addEventListener("click", function () {
+              var sidebar = document.querySelector(".ms-sidebar");
+              if (sidebar) {
+                sidebar.classList.toggle("open");
+              }
+              // Also toggle overlay if we implement one
+            });
+          }
+
+          // Close sidebar when clicking outside (simple version)
+          document.addEventListener("click", function (e) {
+            var sidebar = document.querySelector(".ms-sidebar");
+            var toggle = document.querySelector(".ms-navbar-toggle");
+            if (
+              sidebar &&
+              sidebar.classList.contains("open") &&
+              !sidebar.contains(e.target) &&
+              !toggle.contains(e.target)
+            ) {
+              sidebar.classList.remove("open");
+            }
+          });
+        });
+      </script>
+
+      <main class="page-main">
+        <!-- Container for the Table Partial -->
+        <div id="my-performance-table-container"></div>
+
+        <script>
+          (function () {
+            var container = document.getElementById(
+              "my-performance-table-container"
+            );
+            if (!container) return;
+            fetch("assets/partials/monitoring_table.html")
+              .then(function (resp) {
+                if (!resp.ok) throw new Error("Network error");
+                return resp.text();
+              })
+              .then(function (html) {
+                try {
+                  var parser = new DOMParser();
+                  var doc = parser.parseFromString(html, "text/html");
+
+                  // Copy stylesheet links from partial into the main document head (avoid duplicates)
+                  var links = doc.querySelectorAll('link[rel="stylesheet"]');
+                  links.forEach(function (link) {
+                    var href = link.getAttribute("href");
+                    if (!href) return;
+                    // If an identical href isn't already present in head, append it
+                    if (
+                      !document.head.querySelector('link[href="' + href + '"]')
+                    ) {
+                      var newLink = document.createElement("link");
+                      newLink.rel = "stylesheet";
+                      newLink.href = href;
+                      document.head.appendChild(newLink);
+                    }
+                  });
+
+                  var wrapper = doc.querySelector(".body-rsm");
+                  if (wrapper) {
+                    // Apply wrapper classes to container to get padding/bg
+                    wrapper.classList.forEach(function (c) {
+                      if (!container.classList.contains(c))
+                        container.classList.add(c);
+                    });
+                    // Inject ALL content from wrapper (not just card) to preserve layout
+                    container.innerHTML = wrapper.innerHTML;
+                  } else {
+                    // fallback
+                    container.innerHTML = doc.body.innerHTML;
+                  }
+
+                  // Manually execute scripts found in the container
+                  var scripts = container.querySelectorAll("script");
+                  scripts.forEach(function (s) {
+                    var newScript = document.createElement("script");
+                    if (s.src) {
+                      newScript.src = s.src;
+                    } else {
+                      newScript.textContent = s.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                    // optionally remove the original script tag
+                    s.remove();
+                  });
+                } catch (err) {
+                  console.error("Error parsing my performance partial:", err);
+                  container.innerHTML = "<!-- parsing error -->";
+                }
+              })
+              .catch(function (err) {
+                console.error(
+                  "Failed to load my performance table partial:",
+                  err
+                );
+                container.innerHTML =
+                  "<!-- my performance table failed to load -->";
+              });
+          })();
+        </script>
+      </main>
+    </div>
+  </body>
+</html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Application Check Corporate</title>
+    <title>Duplicate Check</title>
 
     <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
     <link rel="stylesheet" href="assets/css/browser-consistency.css" />
@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="assets/css/custom.css" />
     <link rel="stylesheet" href="assets/css/merchant-table.css" />
-    <link rel="stylesheet" href="assets/css/application-check.css" />
+    <link rel="stylesheet" href="assets/css/duplicate_check.css" />
   </head>
 
   <body>
@@ -30,42 +30,93 @@
 
     <div class="page-content">
       <header class="ms-navbar">
-        <div class="ms-title">Application Check Corporate</div>
+        <button class="ms-navbar-toggle">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="ms-title">Duplicate Check</div>
       </header>
 
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var toggle = document.querySelector(".ms-navbar-toggle");
+          if (toggle) {
+            toggle.addEventListener("click", function () {
+              var sidebar = document.querySelector(".ms-sidebar");
+              if (sidebar) sidebar.classList.toggle("open");
+            });
+            document.addEventListener("click", function (e) {
+              var sidebar = document.querySelector(".ms-sidebar");
+              if (
+                sidebar &&
+                sidebar.classList.contains("open") &&
+                !sidebar.contains(e.target) &&
+                !toggle.contains(e.target)
+              ) {
+                sidebar.classList.remove("open");
+              }
+            });
+          }
+        });
+      </script>
+
       <main class="page-main">
+        <!-- Segmented Control -->
         <div
           id="preview-seg"
-          class="segmented"
+          class="segmented app-check-segmented"
           role="tablist"
           aria-label="Data Type Selection"
-          style="margin-top: 20px; margin-bottom: 32px"
         >
           <div class="segmented-inner">
             <button
               type="button"
               role="tab"
               aria-selected="true"
-              class="seg-item active"
-              style="height: 32px; white-space: nowrap"
-              data-tab="inprocess"
+              class="seg-item active app-check-seg-item"
+              data-tab="name_dob"
             >
-              <span class="label">Data Incoming Corporate</span>
+              <span class="label">Name & DOB</span>
             </button>
             <button
               type="button"
               role="tab"
               aria-selected="false"
-              class="seg-item"
-              style="height: 32px; white-space: nowrap"
-              data-tab="duplicate"
+              class="seg-item app-check-seg-item"
+              data-tab="id_number"
             >
-              <span class="label">Data Approval Corporate</span>
+              <span class="label">ID Number</span>
             </button>
           </div>
         </div>
 
-        <div id="app-check-table-container"></div>
+        <!-- Info Box -->
+        <div class="dup-check-info-box" data-property-1="INFO DOB">
+          <div class="dup-check-info-content">
+            <div class="dup-check-info-row">
+              <div class="dup-check-icon-bg"></div>
+              <div class="dup-check-icon-fg"></div>
+              <div class="dup-check-info-text">
+                Duplicate data can be verified using either Name and Date of
+                Birth or National ID Number (KTP)
+              </div>
+            </div>
+          </div>
+          <div class="dup-check-dismiss-btn">
+            <div class="dup-check-dismiss-text">Dismiss</div>
+          </div>
+        </div>
+        <div id="duplicate-check-table-container"></div>
       </main>
     </div>
 
@@ -73,7 +124,9 @@
       (function () {
         // Function to load table based on tab
         function loadTable(partialName) {
-          var container = document.getElementById("app-check-table-container");
+          var container = document.getElementById(
+            "duplicate-check-table-container"
+          );
           if (!container) return;
 
           // Clear current content
@@ -147,7 +200,7 @@
         }
 
         // Initial load (default tab)
-        loadTable("application_check_corporate_table.html");
+        loadTable("duplicate_check_table.html");
 
         // Tab switching logic
         var root = document.getElementById("preview-seg");
@@ -167,10 +220,11 @@
 
             // Load appropriate table based on data-tab attribute
             var tab = btn.getAttribute("data-tab");
-            if (tab === "duplicate") {
-              loadTable("application_check_corporate_table_2.html");
+            if (tab === "id_number") {
+              loadTable("duplicate_check_id_table.html");
             } else {
-              loadTable("application_check_corporate_table.html");
+              // name_dob
+              loadTable("duplicate_check_table.html");
             }
           });
         }

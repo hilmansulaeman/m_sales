@@ -33,14 +33,38 @@
 /* WRAPPER KONTEN DI BAWAH NAVBAR */
 /* .page-main handled in custom.css (Permanent Rules) */
 
+/* Toggle Button */
+.ms-navbar-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.ms-navbar-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--side-menublue-side-menu);
+}
+
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .ms-navbar {
     padding: 0 16px;
+    gap: 12px;
+  }
+
+  .ms-navbar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .ms-navbar .ms-title {
-    font-size: 40px;
+    font-size: 24px;
+    /* Reduced font size for mobile */
   }
 
   .page-main {
