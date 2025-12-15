@@ -1,0 +1,331 @@
+<?php
+$nik         = $this->session->userdata('sl_code');
+$position     = $this->session->userdata('position');
+$name         = $this->session->userdata('realname');
+$array_structure = array('BSH', 'RSM', 'ASM', 'SPV');
+?>
+<!-- MAIN CONTENT -->
+<div id="ribbon">
+    <ol class="breadcrumb">
+        <i class="fa fa-home"></i> &nbsp;
+        <li><a href="<?php echo site_url(); ?>">Home</a></li>
+        <li><i class="fa fa-cloud-upload "></i> &nbsp; Decision</li>
+        <li>Merchant</li>
+    </ol>
+</div>
+
+<div class="box box-primary">
+    <?php if ($this->session->flashdata('message')) { ?>
+        <div class="alert alert-warning fade in">
+            <button class="close" data-dismiss="alert" id="notif">
+                ×
+            </button>
+            <i class="fa-fw fa fa-check"></i>
+            <?php echo $this->session->flashdata('message'); ?>
+        </div>
+    <?php } ?>
+    <div class="box-header with-border">
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">&nbsp;</i>
+            </button>
+        </div>
+        <h3 class="box-title">Decision Merchant <?php echo $position; ?></h3><br />
+        <?php echo $this->session->flashdata('message2'); ?>
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+
+            <div class="col-sm-9">
+                <?php if (in_array($position, $array_structure)) { ?>
+                    <button onclick="view_detail_spv(`<?= $nik ?>`,`<?= $position ?>`,`<?= $name ?>`)" class="btn btn-primary">View Detail</button>
+                <?php } ?>
+                <button onclick="location.href='<?php echo site_url('decision/merchant/export_qris/'); ?>'" class="btn btn-success">Export Data QRIS</button>
+                <button onclick="location.href='<?php echo site_url('decision/merchant/export_edc/'); ?>'" class="btn btn-success">Export Data EDC</button>
+
+            </div>
+            <div class="col-sm-10">
+                <span class="pull-right">
+                    <form id="form_filter" method="post" class="smart-form" novalidate="novalidate">
+                        <table>
+                            <tr>
+                                <td>
+                                    <h6 class="txt-color-blueDark">Filter Periode &nbsp; </h6>
+                                </td>
+                                <td>
+                                    <label class="input">
+                                        <!-- <i class="icon-prepend fa fa- fa-calendar"></i> -->
+                                        <input type="text" name="group_date" value="<?php echo $this->session->userdata('groupDate'); ?>" data-dateformat='yy-mm' class="form-control date-input" autocomplete="off" required />
+
+                                    </label>
+                                </td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
+                                <td>
+                                    <button type="button" id="btn-filter" class="btn btn-success" onclick="filter_data()" style="padding:5px;"><span class="fa fa-filter"></span>
+                                        Go</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </span>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table id="data-table-customer" class="table table-hover" width="100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">No</th>
+                                <th rowspan="2">Nama Sales</th>
+                                <th colspan="2">New</th>
+                                <th colspan="2">Existing</th>
+                                <th rowspan="2">Rejected</th>
+                                <th rowspan="2">Action</th>
+                            </tr>
+                            <tr>
+                                <th>Account</th>
+                                <th>Points</th>
+                                <th>Account</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="8">Loading data from server</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-message fade" id="modalSPV">
+    <div class="modal-dialog" style="width:90%">
+        <div class="modal-content">
+            <div class="modal-header" id="headerSPV">
+                <!-- <h4 class="modal-title" id="header-name"></h4> -->
+                <input type="hidden" name="names1" id="names1" value="">
+                <input type="hidden" name="pos1" id="pos1" value="">
+                <input type="hidden" name="sales1" id="sales1" value="">
+                <input type="hidden" name="names2" id="names2" value="">
+                <input type="hidden" name="names3" id="names3" value="">
+                <p id="header-all"></p>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="frmspv" class="form-horizontal form-bordered">
+                    <div id="pop"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-message fade" id="modalActual">
+    <div class="modal-dialog" style="width:90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="header-name1"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="frmspv1" class="form-horizontal form-bordered">
+                    <div id="pop1"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+<script type="text/javascript">
+    var table;
+    $(document).ready(function() {
+        table = $("#data-table-customer").DataTable({
+            ordering: false,
+            //searching:false,
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: "<?php echo site_url('decision/merchant/get_data') ?>",
+                type: 'POST',
+                /*data: function ( data ) {
+                    data.created_date = $('#created_date').val();
+                }*/
+            },
+            initComplete: function() {
+                var input = $('#data-table-customer_filter input').unbind(),
+                    self = this.api(),
+                    searchButton = $(
+                        '<span id="btnSearch" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-search"></i></span>'
+                    )
+                    .click(function() {
+                        self.search(input.val()).draw();
+                    });
+                $(document).keypress(function(event) {
+                    if (event.which == 13) {
+                        searchButton.click();
+                    }
+                });
+                $('#data-table-customer_filter').append(searchButton);
+            }
+        });
+    });
+
+    function filter_data() {
+        var formData = new FormData($('#form_filter')[0]);
+        $.ajax({
+            url: "<?php echo site_url('decision/merchant/filter_data') ?>",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            success: function(data) {
+                //if success reload to home page
+                // table.ajax.reload();
+
+                $('#data-table-customer').DataTable().ajax.reload();
+                $('#data-table-processing').DataTable().ajax.reload();
+
+            }
+        });
+    }
+
+    function view_spv(sales, pos, name) {
+        console.log(sales + '-' + pos + '-' + name);
+        $('#modalSPV').modal('show');
+        var names1 = $('#names1').val();
+        var names2 = $('#names2').val();
+        var names3 = $('#names3').val();
+
+        if (names1 == "") {
+            $('#names1').val(name);
+            $('#pos1').val(pos);
+            $('#sales1').val(sales);
+            names1 = $('#names1').val();
+            $('#header-all').html("<b>" + names1 + "</b>");
+        } else if (names2 == "") {
+            $('#names2').val(name);
+            names2 = $('#names2').val();
+            names1 = $('#names1').val();
+            pos1 = $('#pos1').val();
+            sales1 = $('#sales1').val();
+
+            // if (names2 == names1) {
+            // 	$('#names2').val("");
+            // 	$('#header-all').html("<b>"+names1+"</b>");
+            // }else{
+            // }
+
+            $('#header-all').html("<b><a href='javascript:void(0);' onclick='view_spv_click(\"" + sales1 + "\",\"" + pos1 +
+                "\",\"" + names1 + "\")'>" + names1 + "</a></b> -> " + names2);
+        } else {
+            $('#names3').val(name);
+            names3 = $('#names3').val();
+            names1 = $('#names1').val();
+            names2 = $('#names2').val();
+
+            pos1 = $('#pos1').val();
+            sales1 = $('#sales1').val();
+
+            // if (names3 == names1) {
+            // 	$('#names3').val("");
+            // 	$('#header-all').html("<b>"+names1+"</b>");
+            // }else if(names3 == names2) {
+            // 	$('#names2').val("");
+            // 	$('#names3').val("");
+            // 	$('#header-all').html("<b>"+names1+"</b>");
+            // }else{
+            // }
+            $('#header-all').html("<b><a href='javascript:void(0);' onclick='view_spv_click(\"" + sales1 + "\",\"" + pos1 +
+                "\",\"" + names1 + "\")'>" + names1 + "</a></b> -> " + names2 + " -> " + names3);
+        }
+
+        // var inpBaru = document.createElement('a');
+        // var teksInpBaru = document.createTextNode('item baru');
+        // inpBaru.appendChild(teksInpBaru);
+        // divSPV.appendChild(inpBaru);
+        $.ajax({
+            url: "<?php echo site_url('decision/merchant/detailSPV'); ?>/" + sales + "/" + pos,
+            type: "POST",
+            data: $("#frmspv").serialize(),
+            success: function(data) {
+                $("#pop").html('');
+                $("#pop").append(data);
+            }
+        });
+    }
+
+    $('#modalSPV').on('hidden.bs.modal', function() {
+        $('#names1').val(name);
+        $('#names2').val(name);
+        $('#names3').val(name);
+
+        $('#pos1').val(name);
+        $('#sales1').val(name);
+    });
+
+    function view_spv_click(sales, pos, names) {
+        // console.log(sales);
+        // console.log(pos);
+        $('#modalSPV').modal('show');
+        $('#header-all').html("<b>" + names + "</b>");
+        $('#names2').val("");
+        $('#names3').val("");
+
+        $.ajax({
+            url: "<?php echo site_url('decision/merchant/detailSPV'); ?>/" + sales + "/" + pos,
+            type: "POST",
+            data: $("#frmspv").serialize(),
+            success: function(data) {
+                $("#pop").html('');
+                $("#pop").append(data);
+            }
+        });
+    }
+
+    function view_detail(sales, varr, name) {
+        $('#modalActual').modal('show');
+        $.ajax({
+            url: "<?php echo site_url('decision/merchant/detailActual'); ?>/" + sales + "/" + varr,
+            type: "POST",
+            data: $("#frmspv1").serialize(),
+            success: function(data) {
+                $("#pop1").html('');
+                $("#pop1").append(data);
+                $("#header-name1").html(name);
+            }
+        });
+    }
+
+    function view_detail_spv(sales, varr, name) {
+        $('#modalActual').modal('show');
+        $.ajax({
+            url: "<?php echo site_url('decision/merchant/detailActual'); ?>/" + sales + "/" + varr,
+            type: "POST",
+            data: $("#frmspv1").serialize(),
+            success: function(data) {
+                $("#pop1").html('');
+                $("#pop1").append(data);
+                $("#header-name1").html(name);
+            }
+        });
+    }
+
+    // function view_detail_link(sales, pos)
+    // {
+    // 	window.location.href = '<?php echo site_url('decision/merchant/detailActualLink'); ?>/' + sales + '/' + pos;
+    // }
+</script>

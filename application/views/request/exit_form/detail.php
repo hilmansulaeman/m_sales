@@ -1,0 +1,249 @@
+<?php
+$uri3 = $this->uri->segment(3);
+$request_id = $this->uri->segment(4);
+?>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        <?= "FORM " . strtoupper($category) ?>
+        <?php echo $this->session->flashdata('message'); ?>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Form Exit</li>
+    </ol>
+</section>
+
+
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+        <form method="POST" action="<?php echo site_url(); ?>request/exit_form/save_request_exit/<?= $uri3 ?>/<?= $request_id ?>">
+
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tanggal Efektif (yyyy-mm-dd)<span style="color: red">*</span></label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" name="efective_date2" class="form-control pull-right tanggal" value="<?php echo $db->Efective_Date; ?>" disabled>
+                                    <input type="hidden" name="efective_date" value="<?php echo $db->Efective_Date; ?>">
+                                    <input type="hidden" name="category_id" value="<?php echo $category_id; ?>">
+                                    <input type="hidden" name="category" value="<?= $category ?>" class="form-control">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>DSR Code <span style="color:red">*</span></label>
+
+                                <?php
+                                    if ($cekDetail > 0) {
+                                        $class = 'disabled';
+                                        $class2 = 'readonly';
+                                    } else {
+                                        $class = 'required';
+                                        $class2 = 'required';
+                                    }
+                                ?>
+
+                                <select class="form-control select2" id="data_employee_id" name="data_employee_id" <?= $class ?>>
+                                    <option value="">-- Pilih --</option>
+                                    <?php
+                                    foreach ($sales as $s) {
+                                        $product = $s->Product;
+                                        if ($product == 'CC') {
+                                            $level = $s->Level;
+                                        } else {
+                                            $level = '';
+                                        }
+                                    ?>
+                                        <option value="<?= $s->Employee_ID.'|'.$s->Regno_ID.'|'.$s->DSR_Code.'|'.$s->Name.'|'.$s->Position.'|'.$s->Level.'|'.$s->Product;?>">
+                                            <?= $s->DSR_Code.' - '.$s->Name.' - '.$s->Position.' - '.$s->Product; ?>
+                                          </option>
+                                    <?php } ?>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Exit Reason <span style="color:red">*</span></label>
+                                <select class="form-control select2" name="exit_reason" <?= $class ?>>
+                                    <option value="">-- Pilih --</option>
+                                    <?php
+                                    foreach ($exit_reason->result() as $s) {
+                                    ?>
+                                        <option value="<?php echo $s->Exit_Reason;?>"><?php echo $s->Exit_Reason;?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea class="form-control" rows="4" name="reason" <?= $class2 ?>></textarea>
+                            </div>
+
+                            <div class="box-footer">
+                                <?php
+                                if ($cekDetail > 0) {
+                                ?>
+                                    &nbsp;
+                                <?php } else { ?>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="col-md-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Permintaan Form <?= strtoupper($category); ?></h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    
+                    <div class="table-responsive">
+                        <table id="data-request" class="table table-responsive table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th>Kode Sales</th>
+                                    <th>Nama</th>
+                                    <th>Posisi</th>
+                                    <th>Level</th>
+                                    <th>Exit Reason</th>
+                                    <th>Keterangan</th>
+                                    <th>Dibuat Oleh</th>
+                                    <th width="10%">Status</th>
+                                </tr>
+                            </thead>
+
+                            <?php echo form_open('request/exit_form/send/' . $request_id); ?>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($request_user->result() as $r) {
+                                    $request_user_id = $r->Request_User_ID;
+                                    // var_dump($request_user_id);
+                                    // die;
+                                    $hit_code = $r->Hit_Code;
+                                    $hrd_checker_name = $r->HRD_Checker_Name;
+
+                                    if ($hit_code == '1010') {
+                                        $class = 'btn-danger';
+                                        $status = "Ditolak Oleh ";
+                                        $by = $hrd_checker_name;
+                                        $hrd_note = '*'.$r->HRD_Note;
+                                    } elseif ($hit_code == '1009') {
+                                        $class = 'btn-info';
+                                        $status = "Pending HRD";
+                                        $by = '';
+                                        $hrd_note = '';
+                                    } else {
+                                        $class = 'btn-success';
+                                        $status = "Approve By ";
+                                        $by = "$hrd_checker_name";
+                                        $hrd_note = '';
+                                        
+                                    }
+
+                                ?>
+                                    <tr>
+                                        <td><?php echo $no++; ?></td>
+                                        <td><?php echo $r->Sales_Code; ?>
+                                            <input type="hidden" name="request_user_id[]" value="<?php echo $r->Request_User_ID; ?>">
+                                        </td>
+                                        <td><?php echo $r->Sales_Name; ?></td>
+                                        <td><?php echo $r->Position; ?></td>
+                                        <td><?php echo $r->Level; ?></td>
+                                        <td><?php echo $r->Exit_Reason; ?></td>
+                                        <td><?php echo $r->Reason; ?></td>
+                                        <td>
+                                            <?php
+                                                echo $r->Created_Name; 
+                                            ?>
+                                            <!-- <input type="hidden" name="employee_id[]" value="<?php //echo $r->Employee_ID; ?>"> -->
+                                            <input type="hidden" name="regnoID[]" value="<?php echo $r->Regno_ID; ?>">
+                                            <input type="hidden" name="sales_code[]" value="<?php echo $r->Sales_Code; ?>">
+                                            <input type="hidden" name="name[]" value="<?php echo $r->Sales_Name; ?>">
+                                            <input type="hidden" name="reason[]" value="<?php echo $r->Reason; ?>">
+                                            <input type="hidden" name="new_status[]" value="<?php echo $r->Exit_Status; ?>">
+                                            <input type="hidden" name="exit_reason[]" value="<?php echo $r->Exit_Reason; ?>">
+
+                                            <input type="hidden" name="category" value="<?php echo $db->Category; ?>">
+                                            <input type="hidden" name="resign_date[]" value="<?php echo $db->Efective_Date; ?>">
+
+                                        </td>
+                                        <?php
+                                        if ($hit_code == '1000') {
+                                        ?>
+                                            <td>
+                                                <a href="<?php echo site_url(); ?>request/exit_form/delete_detail/<?php echo $request_id; ?>/<?php echo $r->Request_User_ID; ?>/<?php echo $category_id; ?>" onclick="return confirm('Yakin Hapus?')"><span class="btn btn-xs btn-danger"><i class="fa fa-md fa-trash" title="Delete Data"></i></span></a>
+                                            </td>
+                                        <?php } else { ?>
+                                            <td>
+                                                <label class="btn btn-xs <?= $class ?>"><?= $status . $by.'<br>'.$hrd_note ?></label>
+                                            </td>
+                                        <?php } ?>
+                                    </tr>
+                                    <!-- end foreach-->
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <?php $query = $this->db->get_where('data_request_user', array('Request_ID' => $request_id, 'Hit_Code' => '1000'));
+                    $row = $query->num_rows();
+
+                    if ($row == 0) { ?>
+                        <p></p>
+                    <?php } else { ?>
+                        <input formaction="<?php echo site_url(); ?>request/exit_form/send/<?= $request_id ?>" type="submit" class="btn btn-info" name="simpan" value="Kirim Permintaan >>" float="right" onclick="return confirm('Yakin kirim permintaan?')">
+                    <?php } ?>
+
+
+
+                    <?php echo form_close(); ?>
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+
+
+        </div>
+        <!-- /.col -->
+
+    </div>
+    <!-- /.row -->
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#ed').on('change', function() {
+            var ed = $(this).val();
+
+            $('#tgl_efective_date').val(ed);
+        });
+
+    });
+</script>
