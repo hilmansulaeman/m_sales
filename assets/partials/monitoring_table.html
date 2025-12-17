@@ -15,6 +15,7 @@
     <!-- Modal CSS -->
     <link rel="stylesheet" href="assets/css/merchant-modal.css" />
     <link rel="stylesheet" href="assets/css/pemol-modal.css" />
+    <link rel="stylesheet" href="assets/css/monitoring-modal.css" />
   </head>
 
   <body class="body-rsm">
@@ -38,7 +39,6 @@
               <td class="text-start">Summary RSM</td>
               <td class="text-center">0</td>
               <td class="text-center">
-                <span style="
                 <span
                   style="
                     background-color: #1e62b3;
@@ -52,7 +52,10 @@
               </td>
               <td class="text-center">0</td>
               <td class="text-center">
-                <button class="btn-merchant-action">
+                <button
+                  class="btn-merchant-action"
+                  onclick="openActualDataModal()"
+                >
                   <svg
                     width="24"
                     height="24"
@@ -249,5 +252,107 @@
         </table>
       </div>
     </div>
+
+    <!-- Actual Data Summary RSM Modal -->
+    <div id="actualDataModal" class="merchant-modal-backdrop">
+      <div class="actual-data-modal">
+        <div class="actual-data-header">
+          <h2 class="actual-data-title">Actual Data Summary RSM</h2>
+          <button class="actual-data-close" onclick="closeActualDataModal()">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="actual-data-table-container">
+          <table class="actual-data-table">
+            <thead>
+              <tr>
+                <th rowspan="2">No</th>
+                <th rowspan="2">ASM Name</th>
+                <th rowspan="2">MOB</th>
+                <th rowspan="2">SPV</th>
+                <th colspan="6">Agustus 2025</th>
+                <th colspan="6">September 2025</th>
+              </tr>
+              <tr>
+                <!-- August Subcols -->
+                <th>INC</th>
+                <th>RTS</th>
+                <th>NOA</th>
+                <th>DEC</th>
+                <th>A/R</th>
+                <th>Rating</th>
+                <!-- September Subcols -->
+                <th>INC</th>
+                <th>RTS</th>
+                <th>NOA</th>
+                <th>DEC</th>
+                <th>A/R</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td class="col-asm-name">Ramaldo Oktama</td>
+                <td>33</td>
+                <td>50</td>
+                <!-- Aug -->
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0%</td>
+                <td>
+                  <span class="rating-badge zero-account">Zero Account</span>
+                </td>
+                <!-- Sept -->
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0%</td>
+                <td>
+                  <span class="rating-badge zero-account">Zero Account</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function openActualDataModal() {
+        document.getElementById("actualDataModal").classList.add("is-open");
+      }
+      function closeActualDataModal() {
+        document.getElementById("actualDataModal").classList.remove("is-open");
+      }
+
+      // Close when clicking backdrop
+      document
+        .getElementById("actualDataModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeActualDataModal();
+          }
+        });
+
+      // Make sure the functions are globally available if this script is inside a module or partial loading
+      window.openActualDataModal = openActualDataModal;
+      window.closeActualDataModal = closeActualDataModal;
+    </script>
   </body>
 </html>

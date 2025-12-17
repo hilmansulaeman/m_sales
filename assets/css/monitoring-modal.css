@@ -1,0 +1,133 @@
+/* assets/css/monitoring-modal.css */
+
+.actual-data-modal {
+    width: 1400px;
+    /* Wide modal for the table */
+    max-width: 95%;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    font-family: 'TikTok Sans', Inter, system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    max-height: 90vh;
+    /* Scrollable if too height */
+}
+
+.actual-data-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actual-data-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #29415C;
+    margin: 0;
+}
+
+.actual-data-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #55586B;
+    line-height: 1;
+}
+
+/* Table container to handle overflow */
+.actual-data-table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #1E62B3;
+    /* Blue border as per image header/container style seems implied or just header bg */
+}
+
+.actual-data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'TikTok Sans', sans-serif;
+}
+
+.actual-data-table thead th {
+    background: #1E62B3;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    white-space: nowrap;
+}
+
+.actual-data-table thead th:last-child {
+    border-right: none;
+}
+
+.actual-data-table tbody td {
+    padding: 12px 8px;
+    font-size: 16px;
+    color: #29415C;
+    text-align: center;
+    border-bottom: 1px solid #E6E9EF;
+    border-right: 1px solid #E6E9EF;
+    white-space: nowrap;
+}
+
+.actual-data-table tbody td:last-child {
+    border-right: none;
+}
+
+.actual-data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Column specific alignment */
+.col-asm-name {
+    text-align: left !important;
+    padding-left: 16px !important;
+}
+
+/* Badge for Rating */
+.rating-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.rating-badge.zero-account {
+    background-color: #F8D7DA;
+    /* Light red/pinkish */
+    color: #721C24;
+    /* Dark red */
+    /* Adjusting to match image more closely - it looks like a soft pink/salmon bg with dark red text */
+    background-color: #F2D4D1;
+    color: #8C2B24;
+}
+
+/* Scrollbar styling for table container */
+.actual-data-table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.actual-data-table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.actual-data-table-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.actual-data-table-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
