@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white flex flex-col">
+
+    <!-- Desktop Header -->
+    <div class="hidden lg:block p-8">
+        <!-- Logo Placeholder -->
+        <img src="https://placehold.co/150x40?text=M-Sales+Logo" alt="M-Sales" class="h-10">
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex items-center justify-center lg:px-8">
+        <div class="w-full max-w-6xl grid lg:grid-cols-2 gap-12 items-center">
+            
+            <!-- Mobile View Container -->
+            <div class="lg:hidden relative min-h-screen w-full flex flex-col">
+                 <!-- Background Image -->
+                <div class="absolute inset-0 z-0">
+                    <img
+                      src="https://placehold.co/800x1200?text=Background"
+                      alt="Professional"
+                      class="w-full h-full object-cover"
+                    />
+                </div>
+                
+                <!-- White Card Overlay -->
+                <div class="relative z-10 mt-auto bg-white rounded-t-[32px] px-6 py-8">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-[#3B6EC2]">M-Sales</h2>
+                    </div>
+                    
+                    <!-- Login Form (Mobile) -->
+                    <div id="login-form-mobile"></div>
+                </div>
+            </div>
+
+            <!-- Desktop View Container -->
+            <div class="hidden lg:block max-w-md mx-auto lg:mx-0 w-full">
+                <!-- Login Form (Desktop) -->
+                <div id="login-form-desktop"></div>
+            </div>
+
+            <!-- Right Side - Image (Desktop Only) -->
+            <div class="hidden lg:block">
+                <img
+                  src="https://placehold.co/600x600?text=Professional+Growth"
+                  alt="Professional Growth"
+                  class="w-full h-auto rounded-2xl shadow-lg"
+                />
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Logic -->
+    <script>
+        // Form Component render function to avoid duplication
+        function renderLoginForm(containerId, isMobile) {
+            const container = document.getElementById(containerId);
+            const formHtml = `
+                <div class="${isMobile ? 'text-center' : ''}">
+                    <div class="mb-6 lg:mb-8">
+                        <h1 class="text-2xl lg:text-3xl font-semibold text-[#3B6EC2] mb-2">
+                            Login to your account
+                        </h1>
+                        <p class="text-gray-600 text-sm">
+                            Enter your Sales code and password to login
+                        </p>
+                    </div>
+
+                    <form onsubmit="handleLogin(event)" class="space-y-5 text-left">
+                        <div>
+                            <input
+                                type="text"
+                                id="salesCode-${containerId}"
+                                placeholder="Enter sales code"
+                                class="w-full px-4 py-3 border border-gray-300 ${isMobile ? 'rounded-xl' : 'rounded-lg'} text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            />
+                        </div>
+
+                        <div class="space-y-2">
+                            <div class="relative">
+                                <input
+                                    type="password"
+                                    id="password-${containerId}"
+                                    placeholder="Enter password"
+                                    class="w-full px-4 py-3 border border-gray-300 ${isMobile ? 'rounded-xl' : 'rounded-lg'} text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12"
+                                />
+                                <button
+                                    type="button"
+                                    onclick="togglePasswordVisibility('${containerId}')"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                                >
+                                    <i data-lucide="eye" id="eye-icon-${containerId}" class="w-5 h-5"></i>
+                                    <i data-lucide="eye-off" id="eye-off-icon-${containerId}" class="w-5 h-5 hidden"></i>
+                                </button>
+                            </div>
+                            <div class="text-right">
+                                <a href="forgot_password.html" class="text-sm text-[#3B6EC2] hover:underline">
+                                    Forgot password?
+                                </a>
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="w-full bg-[#3B6EC2] text-white py-3 ${isMobile ? 'rounded-xl' : 'rounded-lg'} font-medium hover:bg-[#2F5BA8] transition-colors"
+                        >
+                            Continue
+                        </button>
+
+                        <div class="text-center text-sm text-gray-600 pt-2">
+                            Having trouble logging in? Please contact your ASM<br />
+                            or contact HaloDIKA 
+                            <a href="tel:0811-8886-325" class="text-[#3B6EC2] hover:underline inline-flex items-center gap-1">
+                                <i data-lucide="phone" class="w-3 h-3"></i>
+                                0811-8886-325
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            `;
+            container.innerHTML = formHtml;
+        }
+
+        // Render forms
+        renderLoginForm('login-form-mobile', true);
+        renderLoginForm('login-form-desktop', false);
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // State & Handlers
+        function togglePasswordVisibility(containerId) {
+            const passwordInput = document.getElementById(`password-${containerId}`);
+            const eyeIcon = document.getElementById(`eye-icon-${containerId}`);
+            const eyeOffIcon = document.getElementById(`eye-off-icon-${containerId}`);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.add('hidden');
+                eyeOffIcon.classList.remove('hidden');
+            } else {
+                passwordInput.type = 'password';
+                eyeOffIcon.classList.add('hidden');
+                eyeIcon.classList.remove('hidden');
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            // In a real scenario, you'd get the values relative to the form submitted
+            // For simplicity, we just redirect to dashboard
+             window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>

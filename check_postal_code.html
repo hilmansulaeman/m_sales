@@ -1,255 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Check Postal Code</title>
 
-    <!-- 1. Reset & Consistency -->
-    <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
-    <link rel="stylesheet" href="assets/css/browser-consistency.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Postal Code - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
 
-    <!-- 2. Base & Layout -->
-    <link rel="stylesheet" href="assets/css/base.css" />
-    <link rel="stylesheet" href="assets/css/layout.css" />
-
-    <!-- 3. Components -->
-    <link rel="stylesheet" href="assets/css/sidebar.css" />
-    <link rel="stylesheet" href="assets/css/navbar.css" />
-    <link rel="stylesheet" href="assets/css/components.css" />
-
-    <!-- 4. Widgets / Pages -->
-    <link rel="stylesheet" href="assets/css/custom.css" />
-    <link rel="stylesheet" href="assets/css/check_postal_code.css" />
-
-    <style></style>
-  </head>
-
-  <body>
-    <!-- Sidebar (loaded from partial) -->
-    <div
-      id="ms-sidebar-container"
-      aria-hidden="false"
-      style="display: contents"
-    ></div>
+<body>
+    <div id="app"></div>
 
     <script>
-      (function () {
-        var container = document.getElementById("ms-sidebar-container");
-        if (!container) return;
-        fetch("assets/partials/sidebar.html")
-          .then(function (resp) {
-            if (!resp.ok) throw new Error("Network error");
-            return resp.text();
-          })
-          .then(function (html) {
-            container.innerHTML = html;
+        initLayout('Check Postal Code');
 
-            // --- Highlight Active Link Logic ---
-            try {
-              var path = window.location.pathname;
-              var page = path.split("/").pop();
-              var links = container.querySelectorAll("a.ms-subitem, a.ms-item");
-              links.forEach(function (link) {
-                var href = link.getAttribute("href");
-                var dataPage = link.getAttribute("data-page");
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
 
-                if (
-                  (href && href === page) ||
-                  (dataPage && page.includes(dataPage))
-                ) {
-                  if (link.classList.contains("ms-subitem")) {
-                    link.classList.add("ms-subitem--active");
-                    var submenu = link.parentElement;
-                    if (submenu && submenu.classList.contains("ms-submenu")) {
-                      submenu.style.display = "block";
-                      submenu.setAttribute("aria-hidden", "false");
-                      var parentItem = submenu.previousElementSibling;
-                      if (
-                        parentItem &&
-                        parentItem.classList.contains("ms-item")
-                      ) {
-                        parentItem.classList.add("ms-item--open");
-                        parentItem.setAttribute("aria-expanded", "true");
-                      }
-                    }
-                  } else if (link.classList.contains("ms-item")) {
-                    link.classList.add("ms-item--active");
-                  }
-                }
-              });
-            } catch (e) {
-              console.error("Sidebar active highlight error:", e);
-            }
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">Check Postal Code</h1>
+            </div>
 
-            try {
-              var sidebar = container;
-              var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
-              toggles.forEach(function (a) {
-                a.addEventListener("click", function (e) {
-                  e.preventDefault();
-                  var submenu = a.nextElementSibling;
-                  if (!submenu || !submenu.classList.contains("ms-submenu"))
-                    return;
-                  var expanded = a.getAttribute("aria-expanded") === "true";
-                  var siblings = sidebar.querySelectorAll(
-                    ".ms-item--has-submenu"
-                  );
-                  siblings.forEach(function (s) {
-                    if (s !== a) {
-                      s.setAttribute("aria-expanded", "false");
-                      var sibSub = s.nextElementSibling;
-                      if (sibSub && sibSub.classList.contains("ms-submenu")) {
-                        sibSub.style.display = "none";
-                        sibSub.setAttribute("aria-hidden", "true");
-                        s.classList.remove("ms-item--open");
-                      }
-                    }
-                  });
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <div class="bg-white rounded-lg shadow-sm">
+                    <!-- Search Bar -->
+                    <div class="p-4 border-b border-gray-200">
+                        <div class="relative max-w-md">
+                             <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                id="searchInput"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
 
-                  if (!expanded) {
-                    submenu.style.display = "block";
-                    submenu.setAttribute("aria-hidden", "false");
-                    a.setAttribute("aria-expanded", "true");
-                    a.classList.add("ms-item--open");
-                  } else {
-                    submenu.style.display = "none";
-                    submenu.setAttribute("aria-hidden", "true");
-                    a.setAttribute("aria-expanded", "false");
-                    a.classList.remove("ms-item--open");
-                  }
-                });
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          })
-          .catch(function (err) {
-            console.error("Failed to load sidebar partial:", err);
-            container.innerHTML = "<!-- Sidebar failed to load -->";
-          });
-      })();
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-[#3B6EC2] text-white">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">Postal Code</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">Province</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">City</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">District</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">Sub-District</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold">Urban</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
+                        <div class="text-sm text-gray-600">
+                            Showing 1 to 10 of 15
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
+                                </button>
+                                
+                                <div class="flex items-center gap-1">
+                                    <button class="w-8 h-8 rounded text-sm bg-[#3B6EC2] text-white">1</button>
+                                    <button class="w-8 h-8 rounded text-sm text-gray-600 hover:bg-gray-100">2</button>
+                                </div>
+                                
+                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-gray-600">Show</span>
+                                <select class="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        const postalCodeData = [
+            { id: 1, postalCode: '10110', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Gambir', subDistrict: 'Gambir', urban: 'Gambir' },
+            { id: 2, postalCode: '10120', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Gambir', subDistrict: 'Cideng', urban: 'Cideng' },
+            { id: 3, postalCode: '10130', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Gambir', subDistrict: 'Petojo Utara', urban: 'Petojo Utara' },
+            { id: 4, postalCode: '10140', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Gambir', subDistrict: 'Petojo Selatan', urban: 'Petojo Selatan' },
+            { id: 5, postalCode: '10150', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Gambir', subDistrict: 'Kebon Kelapa', urban: 'Kebon Kelapa' },
+            { id: 6, postalCode: '10160', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Tanah Abang', subDistrict: 'Karet Tengsin', urban: 'Karet Tengsin' },
+            { id: 7, postalCode: '10170', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Tanah Abang', subDistrict: 'Bendungan Hilir', urban: 'Bendungan Hilir' },
+            { id: 8, postalCode: '10210', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Johar Baru', subDistrict: 'Johar Baru', urban: 'Johar Baru' },
+            { id: 9, postalCode: '10220', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Johar Baru', subDistrict: 'Kampung Rawa', urban: 'Kampung Rawa' },
+            { id: 10, postalCode: '10230', province: 'DKI Jakarta', city: 'Jakarta Pusat', district: 'Johar Baru', subDistrict: 'Galur', urban: 'Galur' }
+        ];
+
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = postalCodeData.map((data, index) => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm text-gray-700">${index + 1}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 font-medium">${data.postalCode}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${data.province}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${data.city}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${data.district}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${data.subDistrict}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${data.urban}</td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
     </script>
+</body>
 
-    <!-- CONTENT -->
-    <div class="page-content">
-      <!-- NAVBAR -->
-      <header class="ms-navbar">
-        <button class="ms-navbar-toggle">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <div class="ms-title">Check Postal Code</div>
-      </header>
-
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          var toggle = document.querySelector(".ms-navbar-toggle");
-          if (toggle) {
-            toggle.addEventListener("click", function () {
-              var sidebar = document.querySelector(".ms-sidebar");
-              if (sidebar) sidebar.classList.toggle("open");
-            });
-            document.addEventListener("click", function (e) {
-              var sidebar = document.querySelector(".ms-sidebar");
-              if (
-                sidebar &&
-                sidebar.classList.contains("open") &&
-                !sidebar.contains(e.target) &&
-                !toggle.contains(e.target)
-              ) {
-                sidebar.classList.remove("open");
-              }
-            });
-          }
-        });
-      </script>
-
-      <main class="page-main">
-        <!-- Container for the Table Partial -->
-        <div id="check-postal-code-table-container"></div>
-
-        <script>
-          (function () {
-            var container = document.getElementById(
-              "check-postal-code-table-container"
-            );
-            if (!container) return;
-            fetch("assets/partials/check_postal_code_table.html")
-              .then(function (resp) {
-                if (!resp.ok) throw new Error("Network error");
-                return resp.text();
-              })
-              .then(function (html) {
-                try {
-                  var parser = new DOMParser();
-                  var doc = parser.parseFromString(html, "text/html");
-
-                  var links = doc.querySelectorAll('link[rel="stylesheet"]');
-                  links.forEach(function (link) {
-                    var href = link.getAttribute("href");
-                    if (!href) return;
-                    if (
-                      !document.head.querySelector('link[href="' + href + '"]')
-                    ) {
-                      var newLink = document.createElement("link");
-                      newLink.rel = "stylesheet";
-                      newLink.href = href;
-                      document.head.appendChild(newLink);
-                    }
-                  });
-
-                  var wrapper = doc.querySelector(".body-rsm");
-                  if (wrapper) {
-                    wrapper.classList.forEach(function (c) {
-                      if (!container.classList.contains(c))
-                        container.classList.add(c);
-                    });
-                    container.innerHTML = wrapper.innerHTML;
-                  } else {
-                    container.innerHTML = doc.body.innerHTML;
-                  }
-
-                  var scripts = container.querySelectorAll("script");
-                  scripts.forEach(function (s) {
-                    var newScript = document.createElement("script");
-                    if (s.src) {
-                      newScript.src = s.src;
-                    } else {
-                      newScript.textContent = s.textContent;
-                    }
-                    document.body.appendChild(newScript);
-                    s.remove();
-                  });
-                } catch (err) {
-                  console.error(
-                    "Error parsing check postal code table partial:",
-                    err
-                  );
-                  container.innerHTML = "<!-- parsing error -->";
-                }
-              })
-              .catch(function (err) {
-                console.error(
-                  "Failed to load check postal code table partial:",
-                  err
-                );
-                container.innerHTML =
-                  "<!-- check postal code table failed to load -->";
-              });
-          })();
-        </script>
-      </main>
-    </div>
-  </body>
 </html>

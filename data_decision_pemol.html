@@ -1,198 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Data Decision PEMOL</title>
-
-    <!-- Bootstrap 5 (Core Framework) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- 1. Reset & Consistency -->
-    <link rel="stylesheet" href="assets/css/cross-browser-reset.css">
-    <link rel="stylesheet" href="assets/css/browser-consistency.css">
-
-    <!-- 2. Base & Layout -->
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-
-    <!-- 3. Components -->
-    <link rel="stylesheet" href="assets/css/sidebar.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-
-    <!-- 4. Widgets / Pages -->
-    <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/cc-card.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Decision PEMOL - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Sidebar (loaded from partial) -->
-    <div id="ms-sidebar-container" aria-hidden="false" style="display: contents;"></div>
+    <div id="app"></div>
 
     <script>
-        (function () {
-            var container = document.getElementById('ms-sidebar-container');
-            if (!container) return;
-            fetch('assets/partials/sidebar.html')
-                .then(function (resp) { if (!resp.ok) throw new Error('Network error'); return resp.text(); })
-                .then(function (html) {
-                    container.innerHTML = html;
+        initLayout('Data Decision');
 
-                    // Initialize sidebar dropdowns (submenu toggles)
-                    try {
-                        var sidebar = container;
-                        var toggles = sidebar.querySelectorAll('.ms-item--has-submenu');
-                        toggles.forEach(function (a) {
-                            a.addEventListener('click', function (e) {
-                                e.preventDefault();
-                                var submenu = a.nextElementSibling;
-                                if (!submenu || !submenu.classList.contains('ms-submenu')) return;
-                                var expanded = a.getAttribute('aria-expanded') === 'true';
-                                // close other open sibling submenus (accordion behavior)
-                                var siblings = sidebar.querySelectorAll('.ms-item--has-submenu');
-                                siblings.forEach(function (s) {
-                                    if (s !== a) {
-                                        s.setAttribute('aria-expanded', 'false');
-                                        var sibSub = s.nextElementSibling;
-                                        if (sibSub && sibSub.classList.contains('ms-submenu')) {
-                                            sibSub.style.display = 'none';
-                                            sibSub.setAttribute('aria-hidden', 'true');
-                                            s.classList.remove('ms-item--open');
-                                        }
-                                    }
-                                });
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
 
-                                if (!expanded) {
-                                    submenu.style.display = 'block';
-                                    submenu.setAttribute('aria-hidden', 'false');
-                                    a.setAttribute('aria-expanded', 'true');
-                                    a.classList.add('ms-item--open');
-                                } else {
-                                    submenu.style.display = 'none';
-                                    submenu.setAttribute('aria-hidden', 'true');
-                                    a.setAttribute('aria-expanded', 'false');
-                                    a.classList.remove('ms-item--open');
-                                }
-                            });
-                        });
-                    } catch (err) { console.error(err); }
-                })
-                .catch(function (err) {
-                    console.error('Failed to load sidebar partial:', err);
-                    container.innerHTML = '<!-- Sidebar failed to load -->';
-                });
-        })();
+        // Main Page Content
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">Data Decision PEMOL</h1>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                 <!-- Search and Filters -->
+                <div class="bg-white rounded-lg p-4 mb-6 shadow-sm">
+                    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+                        <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto">
+                            <!-- Search -->
+                            <div class="relative flex-1 sm:max-w-xs">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                            </div>
+
+                            <!-- Date Range Picker -->
+                            <div class="relative flex-1 sm:max-w-xs">
+                                <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Select date range" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                            </div>
+                        </div>
+
+                        <!-- Export Button -->
+                        <button class="w-full sm:w-auto bg-[#3B6EC2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2F5BA8] transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Export data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#3B6EC2] text-white">
+                                    <th class="px-4 py-3 text-left text-sm font-medium">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">RSM Name</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">NIK Sales</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium" colspan="2">Open Account</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">NE</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">SK</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">KTB</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Total</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Action</th>
+                                </tr>
+                                <tr class="bg-[#3B6EC2] text-white text-xs">
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/20">My BCA</th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">Mobile BCA</th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="mainTableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-sm text-gray-600">Showing 1 to 10 of 12</div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm text-gray-600">Show</span>
+                                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
+                                </button>
+                                <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm">1</span>
+                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pemol Detail Modal -->
+            <div id="detailModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
+                <!-- Backdrop -->
+                <div class="fixed inset-0 bg-black/50 transition-opacity" onclick="closeDetailModal()"></div>
+
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:w-full sm:max-w-6xl flex flex-col max-h-[90vh]">
+                            
+                            <!-- Header -->
+                            <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white sticky top-0 z-10">
+                                <h2 class="text-xl font-semibold text-gray-800" id="modalTitle">Ramaldo Oktarna</h2>
+                                <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+
+                            <!-- Modal Filters -->
+                            <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                                <div class="flex flex-col md:flex-row gap-4">
+                                     <div class="flex-1 relative">
+                                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                                        <input type="text" placeholder="Search ASM Name or NIK..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3B6EC2]"/>
+                                    </div>
+                                     <div class="flex items-center gap-2 bg-white border border-gray-300 rounded-lg px-4 py-2">
+                                        <i data-lucide="calendar" class="w-5 h-5 text-gray-400"></i>
+                                        <span class="text-sm text-gray-600">1 Jan, 2025 - 2 Feb, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Modal Table -->
+                            <div class="flex-1 overflow-auto">
+                                <table class="w-full">
+                                    <thead class="bg-[#3B6EC2] text-white sticky top-0 z-10">
+                                        <tr>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold w-16">No</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold">ASM Name</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold">NIK Sales</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30" colspan="2">Open Account</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30">NE</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30">SK</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30">KTB</th>
+                                            <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30">Total</th>
+                                        </tr>
+                                        <tr class="bg-[#3B6EC2]">
+                                            <th colspan="3"></th>
+                                            <th class="px-4 py-2 text-center text-xs font-medium border-l border-r border-white/30">My BCA</th>
+                                            <th class="px-4 py-2 text-center text-xs font-medium border-r border-white/30">Mobile BCA</th>
+                                            <th colspan="4"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="modalTableBody" class="bg-white divide-y divide-gray-200">
+                                        <!-- Populated via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Modal Footer -->
+                            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
+                                <div class="text-sm text-gray-600">Showing 1 to 5 of 5 entries</div>
+                                <div class="flex items-center gap-2">
+                                    <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50">
+                                        <i data-lucide="chevron-left" class="w-4 h-4 text-gray-600"></i>
+                                    </button>
+                                     <span class="text-sm text-gray-600">Page 1 of 1</span>
+                                    <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50">
+                                        <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        // Data
+        const mainData = [
+            { no: 1, rsmName: "Ramaldo Oktarna", nikSales: "KT104148", myBCA: 5, mobileBCA: 7, ne: 1, sk: 3, ktb: 2, total: 3 }
+        ];
+
+        const asmData = [
+            { id: 1, asmName: "Anggi Nugraha", nikSales: "KT104148", myBCA: 5, mobileBCA: 3, ne: 2, sk: 1, ktb: 4, total: 15 },
+            { id: 2, asmName: "Budi Santoso", nikSales: "KT104149", myBCA: 8, mobileBCA: 6, ne: 4, sk: 2, ktb: 5, total: 25 },
+            { id: 3, asmName: "Citra Dewi", nikSales: "KT104150", myBCA: 4, mobileBCA: 2, ne: 1, sk: 0, ktb: 3, total: 10 },
+            { id: 4, asmName: "Dedi Pratama", nikSales: "KT104151", myBCA: 7, mobileBCA: 5, ne: 3, sk: 2, ktb: 6, total: 23 },
+            { id: 5, asmName: "Eka Putri", nikSales: "KT104152", myBCA: 6, mobileBCA: 4, ne: 2, sk: 1, ktb: 4, total: 17 }
+        ];
+
+        // Render Main Table
+        const mainTbody = document.getElementById('mainTableBody');
+        mainTbody.innerHTML = mainData.map(row => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm text-gray-700">${row.no}</td>
+                <td class="px-4 py-3 text-sm text-gray-900 font-medium">${row.rsmName}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${row.nikSales}</td>
+                <td class="px-4 py-3 text-sm text-center text-gray-700">${row.myBCA}</td>
+                <td class="px-4 py-3 text-sm text-center text-gray-700">${row.mobileBCA}</td>
+                <td class="px-4 py-3 text-sm text-center text-gray-700">${row.ne}</td>
+                <td class="px-4 py-3 text-sm text-center text-gray-700">${row.sk}</td>
+                <td class="px-4 py-3 text-sm text-center text-gray-700">${row.ktb}</td>
+                <td class="px-4 py-3 text-sm text-center text-gray-900 font-semibold">${row.total}</td>
+                <td class="px-4 py-3 text-center">
+                    <button onclick="openDetailModal('${row.rsmName}')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors inline-flex items-center justify-center">
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Modal Logic
+        window.openDetailModal = function (rsmName) {
+            document.getElementById('modalTitle').innerText = rsmName;
+            document.getElementById('detailModal').classList.remove('hidden');
+            renderModalTable();
+            lucide.createIcons(); // Re-init icons inside modal
+        }
+
+        window.closeDetailModal = function () {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        function renderModalTable() {
+            const modalTbody = document.getElementById('modalTableBody');
+            modalTbody.innerHTML = asmData.map((item, index) => `
+                <tr class="border-b border-gray-200 hover:bg-gray-50">
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${index + 1}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center font-medium">${item.asmName}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.nikSales}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.myBCA}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.mobileBCA}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.ne}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.sk}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.ktb}</td>
+                    <td class="px-4 py-3 text-sm font-semibold text-gray-900 text-center border-l border-gray-200">${item.total}</td>
+                </tr>
+            `).join('');
+        }
+
+        lucide.createIcons();
     </script>
-
-    <!-- KONTEN KANAN -->
-    <div class="page-content">
-        <!-- NAVBAR ATAS -->
-        <header class="ms-navbar">
-            <div class="ms-title">Data Decision PEMOL</div>
-        </header>
-
-        <main class="page-main">
-
-            <div id="data-decision-pemol-table-container"></div>
-
-            <script>
-                (function () {
-                    var container = document.getElementById('data-decision-pemol-table-container');
-                    if (!container) return;
-                    fetch('assets/partials/data_decision_pemol_table.html')
-                        .then(function (resp) { if (!resp.ok) throw new Error('Network error'); return resp.text(); })
-                        .then(function (html) {
-                            try {
-                                var parser = new DOMParser();
-                                var doc = parser.parseFromString(html, 'text/html');
-
-                                // Copy stylesheet links from partial into the main document head (avoid duplicates)
-                                var links = doc.querySelectorAll('link[rel="stylesheet"]');
-                                links.forEach(function (link) {
-                                    var href = link.getAttribute('href');
-                                    if (!href) return;
-                                    // If an identical href isn't already present in head, append it
-                                    if (!document.head.querySelector('link[href="' + href + '"]')) {
-                                        var newLink = document.createElement('link');
-                                        newLink.rel = 'stylesheet';
-                                        newLink.href = href;
-                                        document.head.appendChild(newLink);
-                                    }
-                                });
-
-                                var wrapper = doc.querySelector('.body-rsm');
-                                if (wrapper) {
-                                    // copy class list (except accidental global body class)
-                                    wrapper.classList.forEach(function (c) { if (!container.classList.contains(c)) container.classList.add(c); });
-                                    // copy inline style if present
-                                    if (wrapper.getAttribute('style')) container.setAttribute('style', wrapper.getAttribute('style'));
-                                }
-
-                                // Prefer to inject the main card container if present
-                                var card = doc.querySelector('.card-rsm');
-                                if (card) {
-                                    container.innerHTML = '';
-                                    container.appendChild(card);
-                                } else {
-                                    // fallback: inject the body of the partial
-                                    container.innerHTML = doc.body.innerHTML;
-                                }
-
-                                // Manually execute scripts found in the container
-                                var scripts = container.querySelectorAll('script');
-                                scripts.forEach(function (s) {
-                                    var newScript = document.createElement('script');
-                                    if (s.src) {
-                                        newScript.src = s.src;
-                                    } else {
-                                        newScript.textContent = s.textContent;
-                                    }
-                                    document.body.appendChild(newScript);
-                                    // optionally remove the original script tag
-                                    s.remove();
-                                });
-
-                            } catch (err) {
-                                console.error('Error parsing pemol partial:', err);
-                                container.innerHTML = '<!-- parsing error -->';
-                            }
-                        })
-                        .catch(function (err) {
-                            console.error('Failed to load pemol table partial:', err);
-                            container.innerHTML = '<!-- pemol table failed to load -->';
-                        });
-                })();
-            </script>
-
-            <!-- script toggle -->
-            <script>
-                (function () {
-                    var root = document.getElementById('preview-seg');
-                    if (!root) return;
-                    root.addEventListener('click', function (e) {
-                        var btn = e.target.closest('.seg-item');
-                        if (!btn) return;
-                        var items = root.querySelectorAll('.seg-item');
-                        items.forEach(function (it) {
-                            it.classList.remove('active');
-                            it.setAttribute('aria-selected', 'false');
-                        });
-                        btn.classList.add('active');
-                        btn.setAttribute('aria-selected', 'true');
-                    });
-                })();
-            </script>
-
-
-        </main>
-    </div>
-    <!-- Cross Browser JS Helper -->
-    <script src="assets/js/safari-helper.js"></script>
 </body>
 
 </html>

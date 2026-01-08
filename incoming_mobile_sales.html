@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incoming Mobile Sales - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        initLayout('Incoming - Mobile Sales');
+
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('main');
+        main.className = "flex-1 p-4 lg:p-6";
+
+        main.innerHTML = `
+            <div class="mb-6">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">Incoming Mobile Sales</h1>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="bg-white rounded-lg p-4 mb-6">
+                <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+                    <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto">
+                        <!-- Search -->
+                        <div class="relative flex-1 sm:max-w-xs">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+
+                        <!-- Date Range Picker -->
+                        <div class="relative flex-1 sm:max-w-xs">
+                            <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Select date range"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Export Button -->
+                    <button class="w-full sm:w-auto bg-[#3B6EC2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2F5BA8] transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        Export data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-[#3B6EC2] text-white">
+                                <th class="px-4 py-3 text-left text-sm font-medium">No</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium">RSM Name</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium">NIK Sales</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium">Branch</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium">Total DSR Active</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium">Submit BCA</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                     <div class="text-sm text-gray-600">
+                        Showing 1 to 3 of 3
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600">Show</span>
+                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            </button>
+                            <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm">1</span>
+                            <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        // Mock Data
+        const data = [
+            { no: 1, rsmName: 'Ramaldo Oktarna', nikSales: 'KT104148', branch: 'Jakarta Pusat', totalDSRActive: 15, submitBCA: 8 },
+            { no: 2, rsmName: 'Siti Nurhaliza', nikSales: 'KT104149', branch: 'Jakarta Selatan', totalDSRActive: 12, submitBCA: 6 },
+            { no: 3, rsmName: 'Ahmad Fauzi', nikSales: 'KT104150', branch: 'Jakarta Timur', totalDSRActive: 18, submitBCA: 10 },
+        ];
+
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = data.map(row => `
+            <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="px-4 py-3 text-sm">${row.no}</td>
+                <td class="px-4 py-3 text-sm">${row.rsmName}</td>
+                <td class="px-4 py-3 text-sm">${row.nikSales}</td>
+                <td class="px-4 py-3 text-sm">${row.branch}</td>
+                <td class="px-4 py-3 text-sm text-center">${row.totalDSRActive}</td>
+                <td class="px-4 py-3 text-sm text-center">${row.submitBCA}</td>
+                <td class="px-4 py-3 text-sm text-center">
+                    <button class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors">
+                        <i data-lucide="eye" class="w-5 h-5 mx-auto"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

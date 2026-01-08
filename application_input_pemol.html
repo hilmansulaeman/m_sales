@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Input PEMOL - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        initLayout('Application Input - Pemol');
+
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50";
+
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-gray-800">
+                    Application Input PEMOL
+                </h1>
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+                <div class="bg-white rounded-lg shadow-sm">
+                    <!-- Search and Filters -->
+                    <div class="p-4 border-b border-gray-200 flex items-center gap-4">
+                        <div class="relative flex-1 max-w-xs">
+                             <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+
+                        <div class="relative">
+                            <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Select date range"
+                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer"
+                                readonly
+                            />
+                        </div>
+
+                        <div class="ml-auto">
+                            <button class="flex items-center gap-2 px-4 py-2 bg-[#3B6EC2] text-white rounded-lg text-sm hover:bg-[#2f5a9f] transition-colors">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                Export data
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#3B6EC2] text-white">
+                                    <th class="px-4 py-3 text-left text-sm font-medium">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">RSM Name</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">NIK Sales</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">Branch</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20" colspan="2">Total DSR</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20" colspan="2">Input</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20">Total</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20">Action</th>
+                                </tr>
+                                <tr class="bg-[#3B6EC2] text-white">
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2 text-center text-xs font-medium border-l border-white/20">Active</th>
+                                    <th class="px-4 py-2 text-center text-xs font-medium">Input</th>
+                                    <th class="px-4 py-2 text-center text-xs font-medium border-l border-white/20">BCA Mobile</th>
+                                    <th class="px-4 py-2 text-center text-xs font-medium">My BCA</th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+                        <div class="text-sm text-gray-600">Showing 1 to 3 of 3</div>
+
+                        <div class="flex items-center gap-2">
+                             <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            </button>
+                            <button class="w-8 h-8 flex items-center justify-center bg-[#3B6EC2] rounded-lg text-white rounded font-medium text-sm">1</button>
+                             <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+
+                         <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600">Show</span>
+                            <select class="border border-gray-300 px-3 py-1.5 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        const data = [
+            { id: 1, rsmName: "Ramaldo Oktama", nikSales: "K1104148", branch: "Jakarta", totalDsrActive: 46, totalDsrInput: 44, bcaMobile: 26, myBca: 935, total: 961 },
+            { id: 2, rsmName: "Asep Syaefudin Nugraha", nikSales: "K1200215", branch: "Bandung", totalDsrActive: 144, totalDsrInput: 0, bcaMobile: 0, myBca: 0, total: 0 },
+            { id: 3, rsmName: "Kiwamudin", nikSales: "K1102242", branch: "Bandung", totalDsrActive: 185, totalDsrInput: 0, bcaMobile: 0, myBca: 0, total: 0 },
+        ];
+
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = data.map((item, index) => `
+             <tr class="border-b border-gray-200 hover:bg-gray-50 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}">
+                <td class="px-4 py-3 text-sm text-gray-700">${item.id}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${item.rsmName}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${item.nikSales}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${item.branch}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.totalDsrActive}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.totalDsrInput}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.bcaMobile}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.myBca}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.total}</td>
+                <td class="px-4 py-3 text-center border-l border-gray-200 relative">
+                     <button onclick="toggleDropdown(${item.id})" class="text-gray-400 hover:text-gray-600">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                    <div id="dropdown-${item.id}" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 text-left">
+                         <div class="py-1">
+                            <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">View downline</button>
+                            <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">View detail</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        window.toggleDropdown = function (id) {
+            // Close all first
+            document.querySelectorAll('[id^=dropdown-]').forEach(el => {
+                if (el.id !== `dropdown-${id}`) el.classList.add('hidden');
+            });
+            const dropdown = document.getElementById(`dropdown-${id}`);
+            dropdown.classList.toggle('hidden');
+        };
+
+        // Close dropdowns on click outside
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('td.relative')) {
+                document.querySelectorAll('[id^=dropdown-]').forEach(el => el.classList.add('hidden'));
+            }
+        });
+
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

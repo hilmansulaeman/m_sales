@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Input Merchant - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        initLayout('Application Input - Merchant');
+
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
+
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">
+                    Application Input Merchant
+                </h1>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <!-- Search and Filters -->
+                <div class="bg-white rounded-lg p-4 mb-6 shadow-sm">
+                    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+                         <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto">
+                            <!-- Search -->
+                            <div class="relative flex-1 sm:max-w-xs">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                            </div>
+
+                             <!-- Product Filter -->
+                            <div class="relative min-w-[150px]">
+                                <select class="w-full pl-4 pr-10 py-2 border border-blue-500 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#3B6EC2] text-white appearance-none cursor-pointer font-medium">
+                                    <option value="all">All product</option>
+                                    <option value="bca">BCA</option>
+                                    <option value="mobile">Mobile</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white w-4 h-4 pointer-events-none"></i>
+                            </div>
+
+                            <!-- Date Range Picker -->
+                            <div class="relative flex-1 sm:max-w-xs">
+                                <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Select date range" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"/>
+                            </div>
+                        </div>
+
+                         <!-- Export Button -->
+                         <button class="w-full sm:w-auto bg-[#3B6EC2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2F5BA8] transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            Export data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white rounded-lg overflow-visible shadow-sm">
+                    <div class="overflow-x-auto overflow-y-visible">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#3B6EC2] text-white">
+                                    <th class="px-4 py-3 text-center text-sm font-medium">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">RSM Name</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">NIK Sales</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium">Branch</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Total<br>DSR Active</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Input<br>by System</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Received<br>by APP</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Inprocess</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">RTS</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20" colspan="3">Send</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20">Action</th>
+                                </tr>
+                                <tr class="bg-[#3B6EC2] text-white text-xs">
+                                    <th class="px-4 py-2" colspan="9"></th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/20">BCA</th>
+                                    <th class="px-4 py-2 text-center font-medium">Pending</th>
+                                    <th class="px-4 py-2 text-center font-medium">Cancel</th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                         <div class="text-sm text-gray-600">Showing 1 to 1 of 1</div>
+                        <div class="flex items-center gap-4">
+                             <div class="flex items-center gap-2">
+                                <span class="text-sm text-gray-600">Show</span>
+                                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
+                                </button>
+                                <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm">1</span>
+                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Downline Modal (Complex) -->
+           <div id="downlineModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeDownlineModal()"></div>
+                
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-[60] w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4">
+                        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl flex flex-col relative overflow-hidden">
+                            
+                            <!-- Header -->
+                            <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white sticky top-0 md:static z-10">
+                                <h2 class="text-xl font-semibold text-gray-800" id="modalRsmName">Detail Downline</h2>
+                                <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+
+                            <!-- Tabs -->
+                             <div class="px-6 pt-4 bg-white">
+                                <div class="flex gap-3">
+                                    <button onclick="switchTab('data-input')" id="tab-data-input" class="px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white">
+                                        Data Input
+                                    </button>
+                                    <button onclick="switchTab('app-processing')" id="tab-app-processing" class="px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200">
+                                        App Processing
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="modalContent">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                             <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end">
+                                <button onclick="closeDownlineModal()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium text-sm">
+                                    Close
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        const data = [
+            { id: 1, rsmName: "Kiwamudin", nikSales: "K1104148", branch: "Bandung", totalDsrActive: 145, inputBySystem: 974, receivedByApp: 958, inprocess: 13, rts: 46, sendBca: 75, sendPending: 6, sendCancel: 0 },
+        ];
+
+        // Render Table
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = data.map((item, index) => `
+             <tr class="hover:bg-gray-50 bg-white">
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.id}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 font-medium">${item.rsmName}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${item.nikSales}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${item.branch}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.totalDsrActive}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inputBySystem}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.receivedByApp}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inprocess}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.rts}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.sendBca}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendPending}</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendCancel}</td>
+                <td class="px-4 py-3 text-center border-l border-gray-200 relative">
+                     <button onclick="toggleDropdown(event, ${item.id})" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
+                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="dropdown-${item.id}" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-10 text-left animate-in fade-in zoom-in duration-100">
+                         <div class="py-1">
+                            <button onclick="openDownlineModal('${item.rsmName}', '${item.nikSales}')" class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#3B6EC2] transition-colors flex items-center gap-2">
+                                <i data-lucide="users" class="w-4 h-4"></i> View downline
+                            </button>
+                            <button class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#3B6EC2] transition-colors flex items-center gap-2">
+                                <i data-lucide="file-text" class="w-4 h-4"></i> View detail
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        // Dropdown Logic
+        window.toggleDropdown = function (event, id) {
+            event.stopPropagation();
+            document.querySelectorAll('[id^=dropdown-]').forEach(el => {
+                if (el.id !== `dropdown-${id}`) el.classList.add('hidden');
+            });
+            const dropdown = document.getElementById(`dropdown-${id}`);
+            dropdown.classList.toggle('hidden');
+            lucide.createIcons();
+        };
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', function (event) {
+            if (!event.target.closest('td.relative')) {
+                document.querySelectorAll('[id^=dropdown-]').forEach(el => el.classList.add('hidden'));
+            }
+        });
+
+        // --- Downline Modal Logic (Complex Version) ---
+        const dataInputStats = {
+            edc: { totalInput: 3, pendingSubmit: 1 },
+            qris: { totalInput: 5, pendingSubmit: 3 },
+            edcQris: { totalInput: 8, pendingSubmit: 4 },
+        };
+
+        const appProcessingStats = {
+            edc: { received: 354, inprocess: 6, rts: 25, send: 323, pending: 0, cancel: 0 },
+            qris: { received: 1533, inprocess: 9, rts: 38, send: 1485, pending: 1, cancel: 0 },
+            edcQris: { received: 134, inprocess: 20, rts: 31, send: 77, pending: 6, cancel: 0 },
+        };
+
+        let activeTab = 'data-input';
+
+        function renderModalContent() {
+            const container = document.getElementById('modalContent');
+            const data = activeTab === 'data-input' ? dataInputStats : appProcessingStats;
+
+            const cards = [
+                { title: 'EDC', type: 'edc' },
+                { title: 'QRIS', type: 'qris' },
+                { title: 'EDC + QRIS', type: 'edcQris' }
+            ];
+
+            container.innerHTML = cards.map(card => {
+                const stats = data[card.type];
+                let contentHTML = '';
+
+                if (activeTab === 'data-input') {
+                    contentHTML = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center pb-3 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">Total Input</span>
+                                <span class="text-xl font-semibold text-gray-800">${stats.totalInput}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Pending Submit</span>
+                                <span class="text-xl font-semibold text-gray-800">${stats.pendingSubmit}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    contentHTML = `
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">Received</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.received}</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">Inprocess</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.inprocess}</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">RTS</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.rts}</span>
+                            </div>
+                             <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">Send</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.send}</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">Pending</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.pending}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Cancel</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.cancel}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-[#3B6EC2] px-4 py-3 text-center">
+                            <h3 class="text-base font-semibold text-white">${card.title}</h3>
+                        </div>
+                        <div class="p-6">
+                            ${contentHTML}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.switchTab = function (tab) {
+            activeTab = tab;
+            const tabDataInput = document.getElementById('tab-data-input');
+            const tabAppProcessing = document.getElementById('tab-app-processing');
+
+            if (tab === 'data-input') {
+                tabDataInput.className = 'px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm';
+                tabAppProcessing.className = 'px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200';
+            } else {
+                tabAppProcessing.className = 'px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm';
+                tabDataInput.className = 'px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200';
+            }
+            renderModalContent();
+        }
+
+        window.openDownlineModal = function (rsmName, nikSales) {
+            document.getElementById('modalRsmName').innerText = rsmName; // + ' - ' + nikSales;
+            document.getElementById('downlineModal').classList.remove('hidden');
+
+            // Reset to default tab
+            activeTab = 'data-input';
+            switchTab('data-input');
+
+            // Close dropdowns
+            document.querySelectorAll('[id^=dropdown-]').forEach(el => el.classList.add('hidden'));
+        };
+
+        window.closeDownlineModal = function () {
+            document.getElementById('downlineModal').classList.add('hidden');
+        };
+
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

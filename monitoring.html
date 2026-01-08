@@ -1,231 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Monitoring</title>
 
-    <!-- 1. Reset & Consistency -->
-    <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
-    <link rel="stylesheet" href="assets/css/browser-consistency.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
 
-    <!-- 2. Base & Layout -->
-    <link rel="stylesheet" href="assets/css/base.css" />
-    <link rel="stylesheet" href="assets/css/layout.css" />
-
-    <!-- 3. Components -->
-    <link rel="stylesheet" href="assets/css/sidebar.css" />
-    <link rel="stylesheet" href="assets/css/navbar.css" />
-    <link rel="stylesheet" href="assets/css/components.css" />
-
-    <!-- 4. Widgets / Pages -->
-    <link rel="stylesheet" href="assets/css/custom.css" />
-    <link rel="stylesheet" href="assets/css/cc-card.css" />
-
-    <style></style>
-  </head>
-
-  <body>
-    <!-- Sidebar (loaded from partial) -->
-    <div
-      id="ms-sidebar-container"
-      aria-hidden="false"
-      style="display: contents"
-    ></div>
+<body>
+    <div id="app"></div>
 
     <script>
-      (function () {
-        var container = document.getElementById("ms-sidebar-container");
-        if (!container) return;
-        fetch("assets/partials/sidebar.html")
-          .then(function (resp) {
-            if (!resp.ok) throw new Error("Network error");
-            return resp.text();
-          })
-          .then(function (html) {
-            container.innerHTML = html;
+        initLayout('Monitoring');
 
-            // Initialize sidebar dropdowns (submenu toggles)
-            try {
-              var sidebar = container;
-              var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
-              toggles.forEach(function (a) {
-                a.addEventListener("click", function (e) {
-                  e.preventDefault();
-                  var submenu = a.nextElementSibling;
-                  if (!submenu || !submenu.classList.contains("ms-submenu"))
-                    return;
-                  var expanded = a.getAttribute("aria-expanded") === "true";
-                  // close other open sibling submenus (accordion behavior)
-                  var siblings = sidebar.querySelectorAll(
-                    ".ms-item--has-submenu"
-                  );
-                  siblings.forEach(function (s) {
-                    if (s !== a) {
-                      s.setAttribute("aria-expanded", "false");
-                      var sibSub = s.nextElementSibling;
-                      if (sibSub && sibSub.classList.contains("ms-submenu")) {
-                        sibSub.style.display = "none";
-                        sibSub.setAttribute("aria-hidden", "true");
-                        s.classList.remove("ms-item--open");
-                      }
-                    }
-                  });
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
 
-                  if (!expanded) {
-                    submenu.style.display = "block";
-                    submenu.setAttribute("aria-hidden", "false");
-                    a.setAttribute("aria-expanded", "true");
-                    a.classList.add("ms-item--open");
-                  } else {
-                    submenu.style.display = "none";
-                    submenu.setAttribute("aria-hidden", "true");
-                    a.setAttribute("aria-expanded", "false");
-                    a.classList.remove("ms-item--open");
-                  }
-                });
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          })
-          .catch(function (err) {
-            console.error("Failed to load sidebar partial:", err);
-            container.innerHTML = "<!-- Sidebar failed to load -->";
-          });
-      })();
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">Monitoring</h1>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <div class="bg-white rounded-lg shadow-sm">
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-[#3B6EC2]">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-white text-sm font-semibold"></th>
+                                    <th class="px-6 py-3 text-left text-white text-sm font-semibold">Target</th>
+                                    <th class="px-6 py-3 text-left text-white text-sm font-semibold">Actual</th>
+                                    <th class="px-6 py-3 text-left text-white text-sm font-semibold">Difference</th>
+                                    <th class="px-6 py-3 text-left text-white text-sm font-semibold">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        const monitoringData = [
+            { id: 1, label: "Summary RSM", target: 150, actual: 142, difference: -8 },
+            { id: 2, label: "Summary ASM", target: 280, actual: 265, difference: -15 },
+            { id: 3, label: "Application", target: 450, actual: 438, difference: -12 },
+            { id: 4, label: "Account", target: 320, actual: 315, difference: -5 },
+            { id: 5, label: "RTS", target: 95, actual: 88, difference: -7 },
+            { id: 6, label: "Under Performance", target: 25, actual: 32, difference: 7 },
+            { id: 7, label: "Approval Rate", target: 85, actual: 82, difference: -3 }
+        ];
+
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = monitoringData.map((data) => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">${data.label}</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${data.target}</td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#3B6EC2] text-white text-sm font-medium">
+                        ${data.actual}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="font-medium ${data.difference < 0 ? 'text-red-600' : 'text-green-600'}">
+                        ${data.difference > 0 ? '+' : ''}${data.difference}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <button class="flex items-center gap-2 px-4 py-2 bg-[#3B6EC2] text-white rounded-lg text-sm hover:bg-[#2F5BA8] transition-colors">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        lucide.createIcons();
     </script>
+</body>
 
-    <!-- KONTEN KANAN -->
-    <div class="page-content">
-      <!-- NAVBAR ATAS -->
-      <header class="ms-navbar">
-        <button class="ms-navbar-toggle">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <div class="ms-title">Monitoring</div>
-      </header>
-
-      <script>
-        // Sidebar Toggle Script
-        document.addEventListener("DOMContentLoaded", function () {
-          var toggle = document.querySelector(".ms-navbar-toggle");
-          if (toggle) {
-            toggle.addEventListener("click", function () {
-              var sidebar = document.querySelector(".ms-sidebar");
-              if (sidebar) {
-                sidebar.classList.toggle("open");
-              }
-              // Also toggle overlay if we implement one
-            });
-          }
-
-          // Close sidebar when clicking outside (simple version)
-          document.addEventListener("click", function (e) {
-            var sidebar = document.querySelector(".ms-sidebar");
-            var toggle = document.querySelector(".ms-navbar-toggle");
-            if (
-              sidebar &&
-              sidebar.classList.contains("open") &&
-              !sidebar.contains(e.target) &&
-              !toggle.contains(e.target)
-            ) {
-              sidebar.classList.remove("open");
-            }
-          });
-        });
-      </script>
-
-      <main class="page-main">
-        <!-- Container for the Table Partial -->
-        <div id="my-performance-table-container"></div>
-
-        <script>
-          (function () {
-            var container = document.getElementById(
-              "my-performance-table-container"
-            );
-            if (!container) return;
-            fetch("assets/partials/monitoring_table.html")
-              .then(function (resp) {
-                if (!resp.ok) throw new Error("Network error");
-                return resp.text();
-              })
-              .then(function (html) {
-                try {
-                  var parser = new DOMParser();
-                  var doc = parser.parseFromString(html, "text/html");
-
-                  // Copy stylesheet links from partial into the main document head (avoid duplicates)
-                  var links = doc.querySelectorAll('link[rel="stylesheet"]');
-                  links.forEach(function (link) {
-                    var href = link.getAttribute("href");
-                    if (!href) return;
-                    // If an identical href isn't already present in head, append it
-                    if (
-                      !document.head.querySelector('link[href="' + href + '"]')
-                    ) {
-                      var newLink = document.createElement("link");
-                      newLink.rel = "stylesheet";
-                      newLink.href = href;
-                      document.head.appendChild(newLink);
-                    }
-                  });
-
-                  var wrapper = doc.querySelector(".body-rsm");
-                  if (wrapper) {
-                    // Apply wrapper classes to container to get padding/bg
-                    wrapper.classList.forEach(function (c) {
-                      if (!container.classList.contains(c))
-                        container.classList.add(c);
-                    });
-                    // Inject ALL content from wrapper (not just card) to preserve layout
-                    container.innerHTML = wrapper.innerHTML;
-                  } else {
-                    // fallback
-                    container.innerHTML = doc.body.innerHTML;
-                  }
-
-                  // Manually execute scripts found in the container
-                  var scripts = container.querySelectorAll("script");
-                  scripts.forEach(function (s) {
-                    var newScript = document.createElement("script");
-                    if (s.src) {
-                      newScript.src = s.src;
-                    } else {
-                      newScript.textContent = s.textContent;
-                    }
-                    document.body.appendChild(newScript);
-                    // optionally remove the original script tag
-                    s.remove();
-                  });
-                } catch (err) {
-                  console.error("Error parsing my performance partial:", err);
-                  container.innerHTML = "<!-- parsing error -->";
-                }
-              })
-              .catch(function (err) {
-                console.error(
-                  "Failed to load my performance table partial:",
-                  err
-                );
-                container.innerHTML =
-                  "<!-- my performance table failed to load -->";
-              });
-          })();
-        </script>
-      </main>
-    </div>
-  </body>
 </html>

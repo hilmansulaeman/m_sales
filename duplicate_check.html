@@ -1,316 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Duplicate Check</title>
 
-    <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
-    <link rel="stylesheet" href="assets/css/browser-consistency.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Check - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
 
-    <link rel="stylesheet" href="assets/css/base.css" />
-    <link rel="stylesheet" href="assets/css/layout.css" />
+<body>
+    <div id="app"></div>
 
-    <link rel="stylesheet" href="assets/css/sidebar.css" />
-    <link rel="stylesheet" href="assets/css/navbar.css" />
-    <link rel="stylesheet" href="assets/css/components.css" />
-    <link rel="stylesheet" href="assets/css/pemol-modal.css" />
+    <script>
+        initLayout('Duplicate Check');
 
-    <link rel="stylesheet" href="assets/css/custom.css" />
-    <link rel="stylesheet" href="assets/css/merchant-table.css" />
-    <link rel="stylesheet" href="assets/css/duplicate_check.css" />
-  </head>
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
 
-  <body>
-    <div
-      id="ms-sidebar-container"
-      aria-hidden="false"
-      style="display: contents"
-    ></div>
+        let activeTab = 'name';
+        let showBanner = true;
 
-    <div class="page-content">
-      <header class="ms-navbar">
-        <button class="ms-navbar-toggle">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <div class="ms-title">Duplicate Check</div>
-      </header>
-
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          var toggle = document.querySelector(".ms-navbar-toggle");
-          if (toggle) {
-            toggle.addEventListener("click", function () {
-              var sidebar = document.querySelector(".ms-sidebar");
-              if (sidebar) sidebar.classList.toggle("open");
-            });
-            document.addEventListener("click", function (e) {
-              var sidebar = document.querySelector(".ms-sidebar");
-              if (
-                sidebar &&
-                sidebar.classList.contains("open") &&
-                !sidebar.contains(e.target) &&
-                !toggle.contains(e.target)
-              ) {
-                sidebar.classList.remove("open");
-              }
-            });
-          }
-        });
-      </script>
-
-      <main class="page-main">
-        <!-- Segmented Control -->
-        <div
-          id="preview-seg"
-          class="segmented app-check-segmented"
-          role="tablist"
-          aria-label="Data Type Selection"
-        >
-          <div class="segmented-inner">
-            <button
-              type="button"
-              role="tab"
-              aria-selected="true"
-              class="seg-item active app-check-seg-item"
-              data-tab="name_dob"
-            >
-              <span class="label">Name & DOB</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              class="seg-item app-check-seg-item"
-              data-tab="id_number"
-            >
-              <span class="label">ID Number</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Info Box -->
-        <div class="dup-check-info-box" data-property-1="INFO DOB">
-          <div class="dup-check-info-content">
-            <div class="dup-check-info-row">
-              <div class="dup-check-icon-bg"></div>
-              <div class="dup-check-icon-fg"></div>
-              <div class="dup-check-info-text">
-                Duplicate data can be verified using either Name and Date of
-                Birth or National ID Number (KTP)
-              </div>
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">Duplicate Check</h1>
             </div>
-          </div>
-          <div class="dup-check-dismiss-btn">
-            <div class="dup-check-dismiss-text">Dismiss</div>
-          </div>
-        </div>
-        <div id="duplicate-check-table-container"></div>
-      </main>
-    </div>
 
-    <script>
-      (function () {
-        // Function to load table based on tab
-        function loadTable(partialName) {
-          var container = document.getElementById(
-            "duplicate-check-table-container"
-          );
-          if (!container) return;
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <!-- Tabs -->
+                <div class="flex gap-2 mb-6">
+                    <button onclick="switchDuplicateTab('name')" id="tab-name" class="px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-[#3B6EC2] text-white">
+                        Name & DOB
+                    </button>
+                    <button onclick="switchDuplicateTab('id')" id="tab-id" class="px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-white text-gray-700 hover:bg-gray-100">
+                        ID Number
+                    </button>
+                </div>
 
-          // Clear current content
-          container.innerHTML = "Loading...";
+                <!-- Info Banner -->
+                <div id="infoBanner" class="bg-[#3B6EC2] text-white rounded-lg p-4 mb-6 flex items-start gap-3">
+                     <i data-lucide="info" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                    <p class="flex-1 text-sm">
+                        Duplicate data can be verified using either Name and Date of Birth or National ID Number (KTP)
+                    </p>
+                    <button onclick="document.getElementById('infoBanner').style.display='none'" class="px-4 py-1.5 bg-white text-[#3B6EC2] rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
+                        Dismiss
+                    </button>
+                </div>
 
-          fetch("assets/partials/" + partialName)
-            .then(function (resp) {
-              if (!resp.ok) throw new Error("Network error");
-              return resp.text();
-            })
-            .then(function (html) {
-              try {
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(html, "text/html");
+                <!-- Main Content -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Left Side - Form -->
+                    <div class="bg-white rounded-lg shadow-sm p-6" id="formContainer">
+                        <!-- Populated by JS -->
+                    </div>
 
-                // A. Inject CSS from Partial Header
-                var links = doc.querySelectorAll('link[rel="stylesheet"]');
-                links.forEach(function (link) {
-                  var href = link.getAttribute("href");
-                  if (!href) return;
-                  // Prevent duplicate CSS loading
-                  if (
-                    !document.head.querySelector('link[href="' + href + '"]')
-                  ) {
-                    var newLink = document.createElement("link");
-                    newLink.rel = "stylesheet";
-                    newLink.href = href;
-                    document.head.appendChild(newLink);
-                  }
-                });
+                    <!-- Right Side - Status Duplicate -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="bg-[#3B6EC2] text-white px-6 py-3 rounded-t-lg">
+                            <h2 class="font-semibold">Status Duplicate</h2>
+                        </div>
+                        <div class="p-6" id="statusResult">
+                            <div class="text-center py-12 text-gray-400">
+                                <i data-lucide="info" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+                                <p class="text-sm">Enter search criteria and click Search</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
 
-                // B. Copy Classes & Styles from Partial Body
-                var wrapper = doc.querySelector(".body-rsm"); // Looks for the class in the partial
-                if (wrapper) {
-                  wrapper.classList.forEach(function (c) {
-                    if (!container.classList.contains(c))
-                      container.classList.add(c);
-                  });
-                  if (wrapper.getAttribute("style")) {
-                    container.setAttribute(
-                      "style",
-                      wrapper.getAttribute("style")
-                    );
-                  }
-                }
+        appContainer.appendChild(main);
 
-                // C. Inject HTML Content
-                container.innerHTML = doc.body.innerHTML;
-
-                // D. Execute Scripts from Partial
-                var scripts = container.querySelectorAll("script");
-                scripts.forEach(function (s) {
-                  var newScript = document.createElement("script");
-                  if (s.src) {
-                    newScript.src = s.src;
-                  } else {
-                    newScript.textContent = s.textContent;
-                  }
-                  document.body.appendChild(newScript);
-                  s.remove(); // Clean up old script tag
-                });
-              } catch (err) {
-                console.error("Error parsing partial:", err);
-                container.innerHTML = "Error loading table";
-              }
-            })
-            .catch(function (err) {
-              console.error("Failed to load table partial:", err);
-              container.innerHTML = "Failed to load table";
-            });
-        }
-
-        // Initial load (default tab)
-        loadTable("duplicate_check_table.html");
-
-        // Tab switching logic
-        var root = document.getElementById("preview-seg");
-        if (root) {
-          root.addEventListener("click", function (e) {
-            var btn = e.target.closest(".seg-item");
-            if (!btn) return;
-
-            var items = root.querySelectorAll(".seg-item");
-            items.forEach(function (it) {
-              it.classList.remove("active");
-              it.setAttribute("aria-selected", "false");
-            });
-
-            btn.classList.add("active");
-            btn.setAttribute("aria-selected", "true");
-
-            // Load appropriate table based on data-tab attribute
-            var tab = btn.getAttribute("data-tab");
-            if (tab === "id_number") {
-              loadTable("duplicate_check_id_table.html");
+        function renderForm() {
+            const container = document.getElementById('formContainer');
+            if (activeTab === 'name') {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" id="inputName" placeholder="Add name" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">DOB</label>
+                            <div class="relative">
+                                <input type="date" id="inputDob" placeholder="Add DOB" class="w-full px-4 py-2.5 pr-10 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <i data-lucide="calendar" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        <button onclick="performCheck()" class="w-full bg-[#3B6EC2] text-white py-2.5 rounded-lg font-medium hover:bg-[#2F5BA8] transition-colors">
+                            Search
+                        </button>
+                    </div>
+                `;
             } else {
-              // name_dob
-              loadTable("duplicate_check_table.html");
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ID Number (KTP)</label>
+                            <input type="text" id="inputId" placeholder="Add ID Number" maxlength="16" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <p class="text-xs text-gray-500 mt-1">Enter 16-digit ID number</p>
+                        </div>
+                        <button onclick="performCheck()" class="w-full bg-[#3B6EC2] text-white py-2.5 rounded-lg font-medium hover:bg-[#2F5BA8] transition-colors">
+                            Search
+                        </button>
+                    </div>
+                `;
             }
-          });
+            lucide.createIcons();
         }
-      })();
-    </script>
 
-    <script>
-      (function () {
-        var container = document.getElementById("ms-sidebar-container");
-        if (!container) return;
+        window.switchDuplicateTab = function (tab) {
+            activeTab = tab;
+            const tabName = document.getElementById('tab-name');
+            const tabId = document.getElementById('tab-id');
 
-        fetch("assets/partials/sidebar.html")
-          .then(function (resp) {
-            if (!resp.ok) throw new Error("Network error");
-            return resp.text();
-          })
-          .then(function (html) {
-            container.innerHTML = html;
-
-            // Initialize sidebar dropdowns
-            try {
-              var sidebar = container;
-              var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
-
-              toggles.forEach(function (a) {
-                a.addEventListener("click", function (e) {
-                  e.preventDefault();
-                  var submenu = a.nextElementSibling;
-                  if (!submenu || !submenu.classList.contains("ms-submenu"))
-                    return;
-
-                  var expanded = a.getAttribute("aria-expanded") === "true";
-
-                  // Close siblings (Accordion effect)
-                  var siblings = sidebar.querySelectorAll(
-                    ".ms-item--has-submenu"
-                  );
-                  siblings.forEach(function (s) {
-                    if (s !== a) {
-                      s.setAttribute("aria-expanded", "false");
-                      var sibSub = s.nextElementSibling;
-                      if (sibSub && sibSub.classList.contains("ms-submenu")) {
-                        sibSub.style.display = "none";
-                        sibSub.setAttribute("aria-hidden", "true");
-                        s.classList.remove("ms-item--open");
-                      }
-                    }
-                  });
-
-                  // Toggle current
-                  if (!expanded) {
-                    submenu.style.display = "block";
-                    submenu.setAttribute("aria-hidden", "false");
-                    a.setAttribute("aria-expanded", "true");
-                    a.classList.add("ms-item--open");
-                  } else {
-                    submenu.style.display = "none";
-                    submenu.setAttribute("aria-hidden", "true");
-                    a.setAttribute("aria-expanded", "false");
-                    a.classList.remove("ms-item--open");
-                  }
-                });
-              });
-            } catch (err) {
-              console.error(err);
+            if (tab === 'name') {
+                tabName.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-[#3B6EC2] text-white';
+                tabId.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-white text-gray-700 hover:bg-gray-100';
+            } else {
+                tabId.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-[#3B6EC2] text-white';
+                tabName.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-white text-gray-700 hover:bg-gray-100';
             }
-          })
-          .catch(function (err) {
-            console.error("Failed to load sidebar:", err);
-            container.innerHTML = "";
-          });
-      })();
+            renderForm();
+            // Reset result
+            document.getElementById('statusResult').innerHTML = `
+                <div class="text-center py-12 text-gray-400">
+                    <i data-lucide="info" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+                    <p class="text-sm">Enter search criteria and click Search</p>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        window.performCheck = function () {
+            const resultContainer = document.getElementById('statusResult');
+            let isDuplicate = true; // Simulating duplicate found
+
+            let details = '';
+            if (activeTab === 'name') {
+                const name = document.getElementById('inputName').value;
+                if (!name) return;
+                details = `
+                    <div class="border-b border-gray-200 py-4 flex items-center">
+                        <p class="text-gray-700 w-32">Name</p>
+                        <p class="font-semibold text-gray-900">${name}</p>
+                    </div>
+                    <div class="border-b border-gray-200 py-4 flex items-center">
+                        <p class="text-gray-700 w-32">DOB</p>
+                        <p class="font-semibold text-gray-900">${document.getElementById('inputDob').value || '1990-01-01'}</p>
+                    </div>
+                `;
+            } else {
+                const idNum = document.getElementById('inputId').value;
+                if (!idNum) return;
+                details = `
+                     <div class="border-b border-gray-200 py-4 flex items-center">
+                        <p class="text-gray-700 w-32">ID Number</p>
+                        <p class="font-semibold text-gray-900">${idNum}</p>
+                    </div>
+                `;
+            }
+
+            resultContainer.innerHTML = `
+                <div class="space-y-0">
+                    ${details}
+                    <div class="bg-[#E74C3C] text-white px-4 py-3 mt-4 rounded-lg flex items-center justify-center gap-2">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                        <p class="font-semibold">Info: DUPLICATE DIKA</p>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        renderForm();
+        lucide.createIcons();
     </script>
-    <script>
-      // Load Search Component
-      fetch("assets/partials/components/search.html")
-        .then((response) => response.text())
-        .then((html) => {
-          document
-            .querySelectorAll(".rsm-search-component-container")
-            .forEach((container) => {
-              if (container.innerHTML.trim() === "") {
-                container.innerHTML = html;
-              }
-            });
-        });
-    </script>
-  </body>
+</body>
+
 </html>

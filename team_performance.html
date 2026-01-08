@@ -2,338 +2,150 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Application Check Personal Loan</title>
-
-  <link rel="stylesheet" href="assets/css/cross-browser-reset.css" />
-  <link rel="stylesheet" href="assets/css/browser-consistency.css" />
-
-  <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/layout.css" />
-
-  <link rel="stylesheet" href="assets/css/sidebar.css" />
-  <link rel="stylesheet" href="assets/css/navbar.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-  <link rel="stylesheet" href="assets/css/pemol-modal.css" />
-
-  <link rel="stylesheet" href="assets/css/custom.css" />
-  <link rel="stylesheet" href="assets/css/merchant-table.css" />
-  <link rel="stylesheet" href="assets/css/application-check.css" />
-  <link rel="stylesheet" href="assets/css/perf-table.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Performance - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="ms-sidebar-container" aria-hidden="false" style="display: contents"></div>
+    <div id="app"></div>
 
-  <div class="page-content">
-    <header class="ms-navbar">
-      <div class="ms-title">Application Check Personal Loan</div>
-    </header>
+    <script>
+        initLayout('Team Performance');
 
-    <main class="page-main">
-      <div class="app-check-hero">
-        <h2 class="app-check-title" style="color: #ffffff">
-          Please enter your Name / ID Card Number in the field below
-        </h2>
-        <div class="sales-select-btn">
-          <div class="sales-select-label">Select Sales</div>
-        </div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-        <div class="rsm-search-component-container team-perf-search"></div>
-        <div id="app-check-table-container"></div>
-      </div>
-      <style>
-        .team-perf-search .asm-search {
-          width: 864px !important;
-          max-width: 100%;
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
+
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#3B6EC2]">Team Performance</h1>
+            </div>
+
+            <!-- Blue Banner -->
+            <div class="bg-[#3B6EC2] px-6 py-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <p class="text-white text-lg mb-4">
+                        To check sales performance, press Select Sales, then tap View to see the data
+                    </p>
+                    <button 
+                        id="toggleSalesBtn"
+                        onclick="toggleSales()"
+                        class="bg-white text-[#3B6EC2] px-8 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                    >
+                        Select Sales
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content Area - Initially Hidden or Empty -->
+            <div id="contentArea" class="flex-1 bg-gray-50 hidden">
+                 <div class="p-6">
+                     <div class="bg-white rounded-lg shadow-sm">
+                        <!-- Search and Sort Bar -->
+                        <div class="p-4 border-b border-gray-200 flex items-center gap-4">
+                            <div class="relative flex-1 max-w-md">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input
+                                    type="text"
+                                    id="searchRSM"
+                                    placeholder="Search RSM..."
+                                    onkeyup="filterRSM()"
+                                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                            </div>
+                            <button class="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i data-lucide="arrow-up-down" class="w-4 h-4"></i>
+                                Sort
+                            </button>
+                        </div>
+                        
+                        <!-- RSM Cards -->
+                        <div class="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="rsmGrid">
+                             <!-- Populated via JS -->
+                        </div>
+                     </div>
+                 </div>
+            </div>
+             
+             <!-- Empty State for spacing -->
+             <div id="emptyState" class="flex-1 bg-gray-50"></div>
+        `;
+
+        appContainer.appendChild(main);
+
+        const rsmData = [
+            { id: 1, name: 'Ahmad Fadli', totalBSH: 15, achieved: 12 },
+            { id: 2, name: 'Budi Santoso', totalBSH: 18, achieved: 14 },
+            { id: 3, name: 'Citra Dewi', totalBSH: 12, achieved: 10 },
+            { id: 4, name: 'Denny Kurniawan', totalBSH: 20, achieved: 16 },
+            { id: 5, name: 'Eka Putri', totalBSH: 16, achieved: 13 },
+            { id: 6, name: 'Fahmi Rahman', totalBSH: 14, achieved: 11 },
+        ];
+
+        function renderRSM(data) {
+            const grid = document.getElementById('rsmGrid');
+            grid.innerHTML = data.map(rsm => `
+                <div class="bg-[#3B6EC2] rounded-xl overflow-hidden shadow-sm">
+                    <div class="flex items-center justify-between p-5 pb-4">
+                        <h3 class="text-lg font-semibold text-white">RSM ${rsm.name}</h3>
+                        <button class="bg-white text-[#3B6EC2] px-6 py-2 rounded-full text-sm font-semibold hover:bg-gray-100 transition-colors">View</button>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <div class="relative">
+                            <select class="w-full bg-white text-gray-500 px-4 py-2.5 rounded-lg text-sm appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300 border-0" defaultValue="">
+                                <option value="" disabled selected>Choose ASM</option>
+                                <option value="asm1" class="text-gray-800">ASM 1</option>
+                                <option value="asm2" class="text-gray-800">ASM 2</option>
+                                <option value="asm3" class="text-gray-800">ASM 3</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none"></i>
+                        </div>
+                    </div>
+                </div>
+             `).join('');
+            lucide.createIcons();
         }
 
-        @media (max-width: 900px) {
-          .team-perf-search .asm-search {
-            margin-top: 24px;
-          }
+        renderRSM(rsmData);
+
+        // Filter Logic
+        window.filterRSM = function () {
+            const query = document.getElementById('searchRSM').value.toLowerCase();
+            const filtered = rsmData.filter(rsm => rsm.name.toLowerCase().includes(query));
+            renderRSM(filtered);
         }
-      </style>
-    </main>
-  </div>
 
-  <script>
-    (function () {
-      // Function to load table based on tab
-      function loadTable(partialName) {
-        var container = document.getElementById("app-check-table-container");
-        if (!container) return;
+        // Toggle Logic
+        window.toggleSales = function () {
+            const content = document.getElementById('contentArea');
+            const empty = document.getElementById('emptyState');
+            const btn = document.getElementById('toggleSalesBtn');
+            const isHidden = content.classList.contains('hidden');
 
-        // Clear current content
-        container.innerHTML = "Loading...";
-
-        fetch("assets/partials/" + partialName)
-          .then(function (resp) {
-            if (!resp.ok) throw new Error("Network error");
-            return resp.text();
-          })
-          .then(function (html) {
-            try {
-              var parser = new DOMParser();
-              var doc = parser.parseFromString(html, "text/html");
-
-              // A. Inject CSS from Partial Header
-              var links = doc.querySelectorAll('link[rel="stylesheet"]');
-              links.forEach(function (link) {
-                var href = link.getAttribute("href");
-                if (!href) return;
-                // Prevent duplicate CSS loading
-                if (
-                  !document.head.querySelector('link[href="' + href + '"]')
-                ) {
-                  var newLink = document.createElement("link");
-                  newLink.rel = "stylesheet";
-                  newLink.href = href;
-                  document.head.appendChild(newLink);
-                }
-              });
-
-              // B. Copy Classes & Styles from Partial Body
-              var wrapper = doc.querySelector(".body-rsm"); // Looks for the class in the partial
-              if (wrapper) {
-                wrapper.classList.forEach(function (c) {
-                  if (!container.classList.contains(c))
-                    container.classList.add(c);
-                });
-                if (wrapper.getAttribute("style")) {
-                  container.setAttribute(
-                    "style",
-                    wrapper.getAttribute("style")
-                  );
-                }
-              }
-
-              // C. Inject HTML Content
-              container.innerHTML = doc.body.innerHTML;
-
-              // D. Execute Scripts from Partial
-              var scripts = container.querySelectorAll("script");
-              scripts.forEach(function (s) {
-                var newScript = document.createElement("script");
-                if (s.src) {
-                  newScript.src = s.src;
-                } else {
-                  newScript.textContent = s.textContent;
-                }
-                document.body.appendChild(newScript);
-                s.remove(); // Clean up old script tag
-              });
-            } catch (err) {
-              console.error("Error parsing partial:", err);
-              container.innerHTML = "Error loading table";
+            if (isHidden) {
+                content.classList.remove('hidden');
+                empty.classList.add('hidden');
+                btn.innerText = 'Hide Sales';
+            } else {
+                content.classList.add('hidden');
+                empty.classList.remove('hidden');
+                btn.innerText = 'Select Sales';
             }
-          })
-          .catch(function (err) {
-            console.error("Failed to load table partial:", err);
-            container.innerHTML = "Failed to load table";
-          });
-      }
-
-      // Initial load (default tab)
-      loadTable("team_performance_table.html");
-
-      // Tab switching logic
-      var root = document.getElementById("preview-seg");
-      if (root) {
-        root.addEventListener("click", function (e) {
-          var btn = e.target.closest(".seg-item");
-          if (!btn) return;
-
-          var items = root.querySelectorAll(".seg-item");
-          items.forEach(function (it) {
-            it.classList.remove("active");
-            it.setAttribute("aria-selected", "false");
-          });
-
-          btn.classList.add("active");
-          btn.setAttribute("aria-selected", "true");
-
-          // Load appropriate table based on data-tab attribute
-          var tab = btn.getAttribute("data-tab");
-          if (tab === "duplicate") {
-            loadTable("application_check_pl_table_2.html");
-          } else {
-            loadTable("application_check_pl_table.html");
-          }
-        });
-      }
-    })();
-  </script>
-
-  <script>
-    (function () {
-      var container = document.getElementById("ms-sidebar-container");
-      if (!container) return;
-
-      fetch("assets/partials/sidebar.html")
-        .then(function (resp) {
-          if (!resp.ok) throw new Error("Network error");
-          return resp.text();
-        })
-        .then(function (html) {
-          container.innerHTML = html;
-
-          // A. Initialize sidebar dropdowns
-          try {
-            var sidebar = container.querySelector(".ms-sidebar"); // Ensure we select inside container
-            if (!sidebar) sidebar = container; // Fallback
-
-            var toggles = sidebar.querySelectorAll(".ms-item--has-submenu");
-
-            toggles.forEach(function (a) {
-              a.addEventListener("click", function (e) {
-                e.preventDefault();
-                var submenu = a.nextElementSibling;
-                if (!submenu || !submenu.classList.contains("ms-submenu"))
-                  return;
-
-                var expanded = a.getAttribute("aria-expanded") === "true";
-
-                // Close siblings (Accordion effect)
-                var siblings = sidebar.querySelectorAll(
-                  ".ms-item--has-submenu"
-                );
-                siblings.forEach(function (s) {
-                  if (s !== a) {
-                    s.setAttribute("aria-expanded", "false");
-                    var sibSub = s.nextElementSibling;
-                    if (sibSub && sibSub.classList.contains("ms-submenu")) {
-                      sibSub.style.display = "none";
-                      sibSub.setAttribute("aria-hidden", "true");
-                      s.classList.remove("ms-item--open");
-                    }
-                  }
-                });
-
-                // Toggle current
-                if (!expanded) {
-                  submenu.style.display = "block";
-                  submenu.setAttribute("aria-hidden", "false");
-                  a.setAttribute("aria-expanded", "true");
-                  a.classList.add("ms-item--open");
-                } else {
-                  submenu.style.display = "none";
-                  submenu.setAttribute("aria-hidden", "true");
-                  a.setAttribute("aria-expanded", "false");
-                  a.classList.remove("ms-item--open");
-                }
-              });
-            });
-          } catch (err) {
-            console.error(err);
-          }
-
-          // B. Initialize Mobile Toggle (Hamburger)
-          try {
-            var mobileToggle = container.querySelector(".ms-mobile-toggle");
-            var sidebarEl = container.querySelector(".ms-sidebar");
-
-            if (mobileToggle && sidebarEl) {
-              mobileToggle.addEventListener("click", function () {
-                sidebarEl.classList.toggle("open");
-              });
-
-              // Close sidebar when clicking outside on mobile
-              document.addEventListener("click", function (e) {
-                if (window.innerWidth > 992) return; // Only mobile
-                if (
-                  !sidebarEl.contains(e.target) &&
-                  !mobileToggle.contains(e.target) &&
-                  sidebarEl.classList.contains("open")
-                ) {
-                  sidebarEl.classList.remove("open");
-                }
-              });
-            }
-          } catch (err) {
-            console.error("Mobile toggle init error:", err);
-          }
-        })
-        .catch(function (err) {
-          console.error("Failed to load sidebar:", err);
-          container.innerHTML = "";
-        });
-    })();
-  </script>
-  <script>
-    // Load Search Component
-    fetch("assets/partials/components/search.html")
-      .then((response) => response.text())
-      .then((html) => {
-        document
-          .querySelectorAll(".rsm-search-component-container")
-          .forEach((container) => {
-            if (container.innerHTML.trim() === "") {
-              container.innerHTML = html;
-            }
-          });
-      });
-  </script>
-  <div id="rsm-modal-container"></div>
-  <script>
-    // Global Modal Functions
-    window.openRsmModal = function () {
-      var modal = document.getElementById("rsmModalPemol");
-      if (modal) {
-        modal.classList.add("is-open");
-      } else {
-        console.error("Modal element 'rsmModalPemol' not found!");
-      }
-    };
-
-    window.closeRsmModal = function () {
-      var modal = document.getElementById("rsmModalPemol");
-      if (modal) {
-        modal.classList.remove("is-open");
-      }
-    };
-
-    // Global Event Delegation for Modal Closing
-    document.addEventListener("click", function (e) {
-      // Close button
-      if (
-        e.target.closest("#closeRsmModalBtn") ||
-        e.target.closest(".asm-modal-close")
-      ) {
-        window.closeRsmModal();
-      }
-      // Backdrop click
-      if (e.target.id === "rsmModalPemol") {
-        window.closeRsmModal();
-      }
-    });
-
-    // Load Team Performance Modal
-    fetch("assets/partials/team_performance_modal.html")
-      .then((response) => response.text())
-      .then((html) => {
-        const container = document.getElementById("rsm-modal-container");
-        if (container) {
-          container.innerHTML = html;
         }
-      })
-      .catch((err) => console.error("Failed to load modal:", err));
-  </script>
 
-  <script>
-    // Load Search Component
-    fetch('assets/partials/components/search.html')
-      .then(response => response.text())
-      .then(html => {
-        document.querySelectorAll('.rsm-search-component-container').forEach(container => {
-          if (container.innerHTML.trim() === '') {
-            container.innerHTML = html;
-          }
-        });
-      });
-  </script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>
