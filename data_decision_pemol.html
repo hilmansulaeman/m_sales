@@ -38,24 +38,24 @@
             <!-- Content -->
             <div class="flex-1 p-6">
                  <!-- Search and Filters -->
-                <div class="bg-white rounded-lg p-4 mb-6 shadow-sm">
-                    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-                        <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto">
+                <div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-gray-100">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
                             <!-- Search -->
-                            <div class="relative flex-1 sm:max-w-xs">
-                                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>
                             </div>
 
                             <!-- Date Range Picker -->
-                            <div class="relative flex-1 sm:max-w-xs">
+                            <div class="relative w-full sm:w-72">
                                  <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
-                                    <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer"/>
+                                    <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer placeholder-gray-400"/>
                                 </div>
 
                                 <!-- Date Range Dropdown -->
-                                <div id="dateRangePicker" class="hidden absolute top-full right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
+                                <div id="dateRangePicker" class="hidden absolute top-full left-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
                                     <div class="flex flex-col md:flex-row gap-6 md:gap-8">
                                         <!-- Left Calendar (Jan 2025) -->
                                         <div class="flex-1">
@@ -122,7 +122,7 @@
                                             <div class="flex items-center justify-between mb-4">
                                                 <div class="w-6"></div>
                                                 <span class="font-semibold text-gray-800 text-sm">February 2025</span>
-                                                                                            <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
                                             </div>
                                             <div class="grid grid-cols-7 text-center mb-2">
                                                 <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
@@ -179,8 +179,8 @@
                         </div>
 
                         <!-- Export Button -->
-                        <button class="w-full sm:w-auto bg-[#3B6EC2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2F5BA8] transition-colors flex items-center justify-center gap-2">
-                            <i data-lucide="download" class="w-4 h-4"></i>
+                        <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="share" class="w-4 h-4"></i>
                             Export data
                         </button>
                     </div>
@@ -191,28 +191,28 @@
                     <div class="overflow-x-auto">
                         <table class="w-full">
                             <thead>
-                                <tr class="bg-[#3B6EC2] text-white">
-                                    <th class="px-4 py-3 text-left text-sm font-medium">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium">RSM Name</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium">NIK Sales</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium" colspan="2">Open Account</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">NE</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">SK</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">KTB</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Total</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Action</th>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-3 text-center w-12 font-semibold">No</th>
+                                    <th class="px-4 py-3 text-left font-semibold border-l border-white/20">RSM Name</th>
+                                    <th class="px-4 py-3 text-left font-semibold border-l border-white/20">NIK Sales</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-l border-white/20" colspan="2">Open Account</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-l border-white/20">NE</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-l border-white/20">SK</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-l border-white/20">KTB</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-l border-white/20">Total</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-l border-white/20">Action</th>
                                 </tr>
-                                <tr class="bg-[#3B6EC2] text-white text-xs">
+                                <tr class="bg-[#1E5BA8] text-white text-xs">
                                     <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2 text-center font-medium border-l border-white/20">My BCA</th>
-                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">Mobile BCA</th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
-                                    <th class="px-4 py-2"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/20 border-t border-white/20">My BCA</th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/20 border-t border-white/20">BCA Mobile</th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
+                                    <th class="px-4 py-2 border-l border-white/20"></th>
                                 </tr>
                             </thead>
                             <tbody id="mainTableBody" class="divide-y divide-gray-200">
@@ -222,24 +222,29 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="text-sm text-gray-600">Showing 1 to 10 of 12</div>
-                        <div class="flex items-center gap-4">
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm text-gray-600">Show</span>
-                                <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                        <div>Showing 1 to 1 of 1</div>
+                        
+                        <div class="flex items-center gap-2">
+                            <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                            </button>
+                            <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
+                            <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option>10</option>
+                                    <option>25</option>
+                                    <option>50</option>
                                 </select>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                                    <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
-                                </button>
-                                <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm">1</span>
-                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
-                                </button>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
                             </div>
                         </div>
                     </div>
@@ -281,7 +286,7 @@
                             <!-- Modal Table -->
                             <div class="flex-1 overflow-auto">
                                 <table class="w-full">
-                                    <thead class="bg-[#3B6EC2] text-white sticky top-0 z-10">
+                                    <thead class="bg-[#1E5BA8] text-white sticky top-0 z-10">
                                         <tr>
                                             <th class="px-4 py-3 text-center text-sm font-semibold w-16">No</th>
                                             <th class="px-4 py-3 text-center text-sm font-semibold">ASM Name</th>
@@ -292,11 +297,11 @@
                                             <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30">KTB</th>
                                             <th class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30">Total</th>
                                         </tr>
-                                        <tr class="bg-[#3B6EC2]">
+                                        <tr class="bg-[#1E5BA8]">
                                             <th colspan="3"></th>
-                                            <th class="px-4 py-2 text-center text-xs font-medium border-l border-r border-white/30">My BCA</th>
-                                            <th class="px-4 py-2 text-center text-xs font-medium border-r border-white/30">Mobile BCA</th>
-                                            <th colspan="4"></th>
+                                            <th class="px-4 py-2 text-center text-xs font-medium border-l border-r border-white/30 border-t border-white/30">My BCA</th>
+                                            <th class="px-4 py-2 text-center text-xs font-medium border-r border-white/30 border-t border-white/30">BCA Mobile</th>
+                                            <th colspan="4" class="border-t border-white/30"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="modalTableBody" class="bg-white divide-y divide-gray-200">
@@ -306,15 +311,16 @@
                             </div>
 
                             <!-- Modal Footer -->
-                            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
-                                <div class="text-sm text-gray-600">Showing 1 to 5 of 5 entries</div>
+                            <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                                <div>Showing 1 to 5 of 5 entries</div>
+
                                 <div class="flex items-center gap-2">
-                                    <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50">
-                                        <i data-lucide="chevron-left" class="w-4 h-4 text-gray-600"></i>
+                                    <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
                                     </button>
-                                     <span class="text-sm text-gray-600">Page 1 of 1</span>
-                                    <button class="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50">
-                                        <i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i>
+                                    <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
+                                    <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
                                     </button>
                                 </div>
                             </div>
