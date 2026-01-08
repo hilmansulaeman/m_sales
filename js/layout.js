@@ -156,8 +156,7 @@ function initLayout(activeItem) {
     wrapper.appendChild(sidebar);
 
     // Header is top of main content
-    const header = renderHeader();
-    mainContent.insertBefore(header, mainContent.firstChild);
+
 
     wrapper.appendChild(mainContent);
 
