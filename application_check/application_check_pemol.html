@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Application Check Pemol - M-Sales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="../js/layout.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app"></div>
 
     <script>
-        // Initialize Layout
-        initLayout('Application Check', 'Pemol');
+      // Initialize Layout
+      initLayout("Application Check", "Pemol");
 
-        // Render Page Content
-        const appContainer = document.querySelector('#app > div > div'); // Main content wrapper
-        const main = document.createElement('main');
-        main.className = "flex-1 p-4 lg:p-6";
+      // Render Page Content
+      const appContainer = document.querySelector("#app > div > div"); // Main content wrapper
+      const main = document.createElement("main");
+      main.className = "flex-1 p-4 lg:p-6";
 
-        main.innerHTML = `
+      main.innerHTML = `
             <!-- Blue Info Section -->
             <div class="bg-[#3B6EC2] rounded-lg p-8 mb-6">
                 <p class="text-white text-center text-lg mb-6">
@@ -58,14 +60,14 @@
                     <button
                         onclick="switchLocalTab('incoming')"
                         id="tab-incoming"
-                        class="px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm"
+                        class="px-6 py-2 text-sm font-medium rounded-full transition-all bg-[#1E5BA8] text-white shadow-sm"
                     >
                         Data Incoming PEMOL
                     </button>
                     <button
                         onclick="switchLocalTab('approval')"
                         id="tab-approval"
-                        class="px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50"
+                        class="px-6 py-2 text-sm font-medium rounded-full transition-all text-[#3B6EC2] hover:bg-white/50"
                     >
                         Data Approval PEMOL
                     </button>
@@ -73,8 +75,7 @@
 
                 <!-- Table Container -->
                 <div class="bg-white rounded-lg shadow">
-                    <div class="overflow-x-auto">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto  rounded-lg">
                         <table class="w-full" id="dataTable">
                             <thead id="tableHead">
                                 <!-- Populated by JS -->
@@ -83,7 +84,6 @@
                                 <!-- Populated by JS -->
                             </tbody>
                         </table>
-                    </div>
                     </div>
 
                     <!-- Pagination -->
@@ -111,213 +111,296 @@
             </div>
         `;
 
-        appContainer.appendChild(main);
-        lucide.createIcons();
+      appContainer.appendChild(main);
+      lucide.createIcons();
 
-        // Logic
-        // Data Configuration
-        const tableData = {
-            incoming: {
-                headers: [
-                    { label: 'No', width: 'w-16', align: 'text-center' },
-                    { label: 'Account Number', align: 'text-left' },
-                    { label: 'Sales Code', align: 'text-center' },
-                    { label: 'Input Date', align: 'text-center' }
-                ],
-                rows: [
-                    { no: 1, accountNumber: "1234567890", salesCode: "SC001", inputDate: "06-Aug-2024 | 21:04:36" },
-                    { no: 2, accountNumber: "1234567891", salesCode: "SC002", inputDate: "07-Aug-2024 | 10:00:00" },
-                    { no: 3, accountNumber: "1234567892", salesCode: "SC003", inputDate: "07-Aug-2024 | 11:30:00" },
-                    { no: 4, accountNumber: "1234567893", salesCode: "SC004", inputDate: "08-Aug-2024 | 09:15:00" },
-                    { no: 5, accountNumber: "1234567894", salesCode: "SC005", inputDate: "09-Aug-2024 | 14:20:00" },
-                    { no: 6, accountNumber: "1234567895", salesCode: "SC006", inputDate: "10-Aug-2024 | 16:45:00" }
-                ]
+      // Logic
+      // Data Configuration
+      const tableData = {
+        incoming: {
+          headers: [
+            { label: "No", width: "w-16", align: "text-center" },
+            { label: "Account Number", align: "text-left" },
+            { label: "Sales Code", align: "text-center" },
+            { label: "Input Date", align: "text-center" },
+          ],
+          rows: [
+            {
+              no: 1,
+              accountNumber: "1234567890",
+              salesCode: "SC001",
+              inputDate: "06-Aug-2024 | 21:04:36",
             },
-            approval: {
-                headers: [
-                    { label: 'No', width: 'w-16', align: 'text-center' },
-                    { label: 'Account Number', align: 'text-left' },
-                    { label: 'Sales Code', align: 'text-center' },
-                    { label: 'Status', align: 'text-center' },
-                    { label: 'Date OA', align: 'text-center' }
-                ],
-                rows: [
-                    { no: 1, accountNumber: "8660485911", salesCode: "K1104148", status: "OA", dateOA: "06-Aug-2024" }
-                ]
-            }
-        };
+            {
+              no: 2,
+              accountNumber: "1234567891",
+              salesCode: "SC002",
+              inputDate: "07-Aug-2024 | 10:00:00",
+            },
+            {
+              no: 3,
+              accountNumber: "1234567892",
+              salesCode: "SC003",
+              inputDate: "07-Aug-2024 | 11:30:00",
+            },
+            {
+              no: 4,
+              accountNumber: "1234567893",
+              salesCode: "SC004",
+              inputDate: "08-Aug-2024 | 09:15:00",
+            },
+            {
+              no: 5,
+              accountNumber: "1234567894",
+              salesCode: "SC005",
+              inputDate: "09-Aug-2024 | 14:20:00",
+            },
+            {
+              no: 6,
+              accountNumber: "1234567895",
+              salesCode: "SC006",
+              inputDate: "10-Aug-2024 | 16:45:00",
+            },
+          ],
+        },
+        approval: {
+          headers: [
+            { label: "No", width: "w-16", align: "text-center" },
+            { label: "Account Number", align: "text-left" },
+            { label: "Sales Code", align: "text-center" },
+            { label: "Status", align: "text-center" },
+            { label: "Date OA", align: "text-center" },
+          ],
+          rows: [
+            {
+              no: 1,
+              accountNumber: "8660485911",
+              salesCode: "K1104148",
+              status: "OA",
+              dateOA: "06-Aug-2024",
+            },
+          ],
+        },
+      };
 
-        let currentTab = 'incoming';
-        let currentPage = 1;
-        let rowsPerPage = 5;
-        let filteredData = [...tableData.incoming.rows];
-        let searchQuery = "";
+      let currentTab = "incoming";
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...tableData.incoming.rows];
+      let searchQuery = "";
 
-        // Initial Render
-        renderTable();
-        renderPagination();
+      // Initial Render
+      renderTable();
+      renderPagination();
 
-        function handleSearchKey(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
+      function handleSearchKey(e) {
+        if (e.key === "Enter") {
+          performSearch();
         }
+      }
 
-        function performSearch() {
-            const input = document.getElementById('accountNumberInput').value;
-            if (input.trim()) {
-                document.getElementById('searchResults').classList.remove('hidden');
-                searchQuery = input.toLowerCase();
+      function performSearch() {
+        const input = document.getElementById("accountNumberInput").value;
+        if (input.trim()) {
+          document.getElementById("searchResults").classList.remove("hidden");
+          searchQuery = input.toLowerCase();
 
-                // Search in current Tab data
-                const currentRows = tableData[currentTab].rows;
-                filteredData = currentRows.filter(item => item.accountNumber.includes(searchQuery));
+          // Search in current Tab data
+          const currentRows = tableData[currentTab].rows;
+          filteredData = currentRows.filter((item) =>
+            item.accountNumber.includes(searchQuery)
+          );
 
-                currentPage = 1;
-                renderTable();
-                renderPagination();
-            } else {
-                document.getElementById('searchResults').classList.add('hidden');
-            }
+          currentPage = 1;
+          renderTable();
+          renderPagination();
+        } else {
+          document.getElementById("searchResults").classList.add("hidden");
         }
+      }
 
-        function renderTable() {
-            const thead = document.getElementById("tableHead");
-            const tbody = document.getElementById("tableBody");
+      function renderTable() {
+        const thead = document.getElementById("tableHead");
+        const tbody = document.getElementById("tableBody");
 
-            // Render Headers
-            const currentHeaders = tableData[currentTab].headers;
-            thead.innerHTML = `
+        // Render Headers
+        const currentHeaders = tableData[currentTab].headers;
+        thead.innerHTML = `
                 <tr class="bg-[#1E5BA8]">
-                    ${currentHeaders.map((h, i) => `
-                        <th class="px-6 py-3 ${h.align} text-sm font-medium text-white border-r border-white/20 ${h.width || ''}">${h.label}</th>
-                    `).join('')}
+                    ${currentHeaders
+                      .map(
+                        (h, i) => `
+                        <th class="px-6 py-3 ${
+                          h.align
+                        } text-sm font-medium text-white border-r border-white/20 ${
+                          h.width || ""
+                        }">${h.label}</th>
+                    `
+                      )
+                      .join("")}
                 </tr>
             `;
 
-            // Render Body
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedData = filteredData.slice(start, end);
+        // Render Body
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
 
-            tbody.innerHTML = paginatedData.map((item, index) => {
-                if (currentTab === 'incoming') {
-                    return `
+        tbody.innerHTML = paginatedData
+          .map((item, index) => {
+            if (currentTab === "incoming") {
+              return `
                         <tr class="hover:bg-gray-50 bg-white transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${start + index + 1}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left font-medium">${item.accountNumber}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${item.salesCode}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">${item.inputDate}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              start + index + 1
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left font-medium">${
+                              item.accountNumber
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              item.salesCode
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">${
+                              item.inputDate
+                            }</td>
                         </tr>
                     `;
-                } else {
-                    return `
+            } else {
+              return `
                         <tr class="hover:bg-gray-50 bg-white transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${start + index + 1}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left font-medium">${item.accountNumber}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${item.salesCode}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${item.status}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">${item.dateOA}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              start + index + 1
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left font-medium">${
+                              item.accountNumber
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              item.salesCode
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              item.status
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">${
+                              item.dateOA
+                            }</td>
                         </tr>
                     `;
-                }
-            }).join("");
-
-            if (paginatedData.length === 0) {
-                const colSpan = currentHeaders.length;
-                tbody.innerHTML = `<tr><td colspan="${colSpan}" class="text-center py-8 text-gray-500">No data found</td></tr>`;
             }
-            lucide.createIcons();
+          })
+          .join("");
+
+        if (paginatedData.length === 0) {
+          const colSpan = currentHeaders.length;
+          tbody.innerHTML = `<tr><td colspan="${colSpan}" class="text-center py-8 text-gray-500">No data found</td></tr>`;
         }
+        lucide.createIcons();
+      }
 
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            const showingInfo = document.getElementById("showingInfo");
-            const paginationControls = document.getElementById("paginationControls");
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
 
-            const start = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-            showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
 
-            let controlsHtml = `
-                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
             `;
 
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === currentPage) {
-                    controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
-                } else {
-                    controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
-                }
-            }
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
 
-            controlsHtml += `
-                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
             `;
-            paginationControls.innerHTML = controlsHtml;
-            lucide.createIcons();
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      window.switchLocalTab = function (tabName) {
+        currentTab = tabName;
+
+        // Update styles
+        const tabIncoming = document.getElementById("tab-incoming");
+        const tabApproval = document.getElementById("tab-approval");
+
+        if (tabName === "incoming") {
+          tabIncoming.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm";
+          tabApproval.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50";
+        } else {
+          tabApproval.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm";
+          tabIncoming.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50";
         }
 
-        window.changePage = function (page) {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderTable();
-            renderPagination();
+        // Update data
+        // In a real app, this might fetch new data or filter. Here we swap the dataset.
+        // If there's an active search, re-apply it?
+        // For simplicity, let's reset to full list of that tab, OR filtering by current search input
+        const input = document.getElementById("accountNumberInput").value;
+        // If we are showing results (i.e. search performed), we should update the table
+        // BUT, the requirement is usually that clicking tabs switches the view.
+        // If search input is present, we filter the NEW tab's data by that input.
+
+        if (input.trim()) {
+          searchQuery = input.toLowerCase();
+          filteredData = tableData[currentTab].rows.filter((item) =>
+            item.accountNumber.includes(searchQuery)
+          );
+        } else {
+          filteredData = [...tableData[currentTab].rows]; // Should show all if no search? Or stay hidden?
+          // Original logic hid results if no search. Let's keep it simple: if hidden, stay hidden (but update data for when shown).
+          // Actually, switch tab usually implies showing data. But this page hides data until search.
+          // So if search is empty, maybe we don't show anything?
+          // The "Data Incoming" and "Data Approval" buttons are inside "searchResults" div which is hidden by default.
+          // So if these buttons are visible, it means we ARE searching.
         }
 
-        window.handleRowsPerPageChange = function (value) {
-            rowsPerPage = parseInt(value);
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-        }
-
-        window.switchLocalTab = function (tabName) {
-            currentTab = tabName;
-
-            // Update styles
-            const tabIncoming = document.getElementById('tab-incoming');
-            const tabApproval = document.getElementById('tab-approval');
-
-            if (tabName === 'incoming') {
-                tabIncoming.className = "px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm";
-                tabApproval.className = "px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50";
-            } else {
-                tabApproval.className = "px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm";
-                tabIncoming.className = "px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50";
-            }
-
-            // Update data
-            // In a real app, this might fetch new data or filter. Here we swap the dataset.
-            // If there's an active search, re-apply it?
-            // For simplicity, let's reset to full list of that tab, OR filtering by current search input
-            const input = document.getElementById('accountNumberInput').value;
-            // If we are showing results (i.e. search performed), we should update the table
-            // BUT, the requirement is usually that clicking tabs switches the view.
-            // If search input is present, we filter the NEW tab's data by that input.
-
-            if (input.trim()) {
-                searchQuery = input.toLowerCase();
-                filteredData = tableData[currentTab].rows.filter(item => item.accountNumber.includes(searchQuery));
-            } else {
-                filteredData = [...tableData[currentTab].rows]; // Should show all if no search? Or stay hidden?
-                // Original logic hid results if no search. Let's keep it simple: if hidden, stay hidden (but update data for when shown).
-                // Actually, switch tab usually implies showing data. But this page hides data until search.
-                // So if search is empty, maybe we don't show anything?
-                // The "Data Incoming" and "Data Approval" buttons are inside "searchResults" div which is hidden by default.
-                // So if these buttons are visible, it means we ARE searching.
-            }
-
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-        }
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
     </script>
-</body>
-
+  </body>
 </html>

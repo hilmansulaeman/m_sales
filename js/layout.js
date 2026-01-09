@@ -61,9 +61,9 @@ const menuItems = [
         label: 'Candidate Info',
         hasSubmenu: true,
         submenu: [
-            { label: 'Candidate Details', url: '#' },
-            { label: 'Approval', url: '#' },
-            { label: 'History', url: '#' }
+            { label: 'Candidate Details', url: 'candidate_info/candidate_details.html' },
+            { label: 'Approval', url: 'candidate_info/approval.html' },
+            { label: 'History', url: 'candidate_info/history.html' }
         ]
     },
     {
@@ -71,10 +71,10 @@ const menuItems = [
         label: 'Request to HRD',
         hasSubmenu: true,
         submenu: [
-            { label: 'Exit', url: '#' },
-            { label: 'Restruct', url: '#' },
-            { label: 'Level', url: '#' },
-            { label: 'Reaktif', url: '#' }
+            { label: 'Exit', url: 'request_to_hrd/request_to_hrd.html' },
+            { label: 'Restruct', url: 'request_to_hrd/request_to_hrd_restruct.html' },
+            { label: 'Level', url: 'request_to_hrd/request_to_hrd_level.html' },
+            { label: 'Reaktif', url: 'request_to_hrd/request_to_hrd_reactive.html' }
         ]
     },
     {
@@ -82,9 +82,9 @@ const menuItems = [
         label: 'Approval',
         hasSubmenu: true,
         submenu: [
-            { label: 'Restruct', url: '#' },
-            { label: 'Reaktif', url: '#' },
-            { label: 'Promotion', url: '#' }
+            { label: 'Restruct', url: 'Approval/approval_restruct.html' },
+            { label: 'Reaktif', url: 'Approval/approval_reaktif.html' },
+            { label: 'Promotion', url: 'Approval/approval_promotion.html' }
         ]
     },
     { icon: 'map-pin', label: 'Check Postal Code', hasSubmenu: false, url: 'check_postal_code/check_postal_code.html' },
