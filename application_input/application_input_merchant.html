@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Application Input Merchant - M-Sales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="js/layout.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <script src="../js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <style>
-      body {
-        font-family: "Inter", sans-serif;
-      }
+        body {
+            font-family: "Inter", sans-serif;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div id="app"></div>
 
     <script>
-      initLayout("Application Input - Merchant");
+        initLayout("Application Input - Merchant");
 
-      const appContainer = document.querySelector("#app > div > div");
-      const main = document.createElement("div");
-      main.className = "flex-1 bg-gray-50 flex flex-col";
+        const appContainer = document.querySelector("#app > div > div");
+        const main = document.createElement("div");
+        main.className = "flex-1 bg-gray-50 flex flex-col";
 
-      main.innerHTML = `
+        main.innerHTML = `
             <!-- Header -->
             <div class="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4">
                 <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700 transition-colors">
@@ -42,21 +41,21 @@
             <!-- Content -->
             <div class="flex-1 p-6">
                 <!-- Search and Filters -->
-                <div class="bg-white rounded-lg p-4 mb-6 shadow-sm">
-                    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-                         <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto">
+                <div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-gray-100">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                         <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto items-center">
                             <!-- Search -->
-                            <div class="relative flex-1 sm:max-w-xs">
-                                <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" id="searchInput" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" oninput="handleSearch(this.value)"/>
                             </div>
 
                              <!-- Product Filter (Custom) -->
                             <div class="relative">
-                                <button onclick="toggleSourceMenu(event)" class="flex items-center border border-gray-300 rounded-full overflow-hidden hover:border-blue-500 transition-colors group bg-white shadow-sm">
-                                    <div class="bg-[#3B6EC2] text-white px-6 py-2 text-sm font-medium">Source</div>
-                                    <div class="flex items-center justify-between gap-3 px-5 py-2 min-w-[140px]">
-                                        <span class="text-sm text-gray-500 font-medium">All product</span>
+                                <button onclick="toggleSourceMenu(event)" class="flex items-center border border-gray-200 rounded-full overflow-hidden hover:border-blue-500 transition-colors group bg-white shadow-sm h-[42px]">
+                                    <div class="bg-[#1E5BA8] text-white px-5 h-full flex items-center text-sm font-medium">Source</div>
+                                    <div class="flex items-center justify-between gap-3 px-4 h-full min-w-[120px]">
+                                        <span class="text-sm text-gray-600 font-medium">All product</span>
                                         <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors"></i>
                                     </div>
                                 </button>
@@ -73,10 +72,10 @@
 
                             <!-- Date Range Picker -->
                             <!-- Date Range Picker -->
-                            <div class="relative flex-1 sm:max-w-xs">
+                            <div class="relative w-full sm:w-72">
                                 <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
-                                    <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer"/>
+                                    <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer placeholder-gray-400"/>
                                 </div>
 
                                 <!-- Date Range Dropdown -->
@@ -204,19 +203,19 @@
                         </div>
 
                          <!-- Export Button -->
-                         <button class="w-full sm:w-auto bg-[#3B6EC2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#2F5BA8] transition-colors flex items-center justify-center gap-2">
-                            <i data-lucide="download" class="w-4 h-4"></i>
+                         <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="share" class="w-4 h-4"></i>
                             Export data
                         </button>
                     </div>
                 </div>
 
                 <!-- Table -->
-                <div class="bg-white rounded-lg overflow-visible shadow-sm">
+                <div class="bg-white rounded-lg overflow-visible shadow-sm border border-gray-200">
                     <div class="overflow-x-auto overflow-y-visible">
                         <table class="w-full">
                             <thead>
-                                <tr class="bg-[#3B6EC2] text-white">
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
                                     <th class="px-4 py-3 text-center text-sm font-medium">No</th>
                                     <th class="px-4 py-3 text-left text-sm font-medium">RSM Name</th>
                                     <th class="px-4 py-3 text-left text-sm font-medium">NIK Sales</th>
@@ -229,7 +228,7 @@
                                     <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20" colspan="3">Send</th>
                                     <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20">Action</th>
                                 </tr>
-                                <tr class="bg-[#3B6EC2] text-white text-xs">
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
                                     <th class="px-4 py-2" colspan="9"></th>
                                     <th class="px-4 py-2 text-center font-medium border-l border-white/20">BCA</th>
                                     <th class="px-4 py-2 text-center font-medium">Pending</th>
@@ -244,28 +243,25 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="px-4 py-3 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4">
-                         <!-- Info -->
-                         <div class="text-sm text-gray-600">Showing 1 to 1 of 1</div>
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                         <div id="showingInfo">Showing 0 to 0 of 0</div>
                          
-                         <!-- Center: Pagination Controls -->
-                         <div class="flex items-center gap-2">
-                            <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                                <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
-                            </button>
-                            <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm">1</span>
-                            <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
-                            </button>
+                         <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
                         </div>
 
-                        <!-- Right: Page Size -->
                         <div class="flex items-center gap-2">
-                            <span class="text-sm text-gray-600">Show</span>
-                            <select class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                            </select>
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -332,197 +328,261 @@
             </div>
         `;
 
-      appContainer.appendChild(main);
+        appContainer.appendChild(main);
 
-      const data = [
-        {
-          id: 1,
-          rsmName: "Kiwamudin",
-          nikSales: "K1104148",
-          branch: "Bandung",
-          totalDsrActive: 145,
-          inputBySystem: 974,
-          receivedByApp: 958,
-          inprocess: 13,
-          rts: 46,
-          sendBca: 75,
-          sendPending: 6,
-          sendCancel: 0,
-        },
-      ];
-
-      // Render Table
-      const tbody = document.getElementById("tableBody");
-      tbody.innerHTML = data
-        .map(
-          (item, index) => `
-             <tr class="hover:bg-gray-50 bg-white">
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.id}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 font-medium">${item.rsmName}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${item.nikSales}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${item.branch}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.totalDsrActive}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inputBySystem}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.receivedByApp}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inprocess}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.rts}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.sendBca}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendPending}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendCancel}</td>
-                <td class="px-4 py-3 text-center border-l border-gray-200 relative">
-                     <button onclick="toggleGlobalDropdown(event, ${item.id}, '${item.rsmName}', '${item.nikSales}')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
-                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                    </button>
-                </td>
-            </tr>
-        `
-        )
-        .join("");
-
-      // Dropdown Logic
-      // Global Dropdown Logic
-      window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
-        event.stopPropagation();
-        const menu = document.getElementById("globalActionDropdown");
-
-        // Toggle off if same
-        if (
-          !menu.classList.contains("hidden") &&
-          menu.dataset.triggerId === String(id)
-        ) {
-          menu.classList.add("hidden");
-          return;
-        }
-
-        // Update Action
-        document.getElementById("globalViewDownlineBtn").onclick = function () {
-          openDownlineModal(rsmName, nikSales);
-          menu.classList.add("hidden");
-        };
-
-        document.getElementById("globalViewDetailBtn").onclick = function () {
-          openDetailModal(rsmName);
-          menu.classList.add("hidden");
-        };
-
-        // Position (Align Right)
-        const rect = event.currentTarget.getBoundingClientRect();
-        menu.style.top = rect.bottom + 5 + "px";
-        menu.style.left = rect.right - 192 + "px";
-
-        menu.dataset.triggerId = String(id);
-        menu.classList.remove("hidden");
-      };
-
-      // Source Menu Logic
-      window.toggleSourceMenu = function (event) {
-        event.stopPropagation();
-        const menu = document.getElementById("sourceMenu");
-        menu.classList.toggle("hidden");
-      };
-
-      // Date Range Picker Logic
-      window.toggleDateRangePicker = function (event) {
-        if (event) event.stopPropagation();
-        const picker = document.getElementById("dateRangePicker");
-        picker.classList.toggle("hidden");
-      };
-
-      // Close dropdowns on outside click
-      document.addEventListener("click", function (event) {
-        // Close Global Action Dropdown
-        const globalMenu = document.getElementById("globalActionDropdown");
-        if (
-          globalMenu &&
-          !globalMenu.classList.contains("hidden") &&
-          !globalMenu.contains(event.target)
-        ) {
-          globalMenu.classList.add("hidden");
-        }
-
-        // Close Source Menu
-        const sourceMenu = document.getElementById("sourceMenu");
-        const sourceBtn = event.target.closest(
-          'button[onclick*="toggleSourceMenu"]'
-        );
-        if (
-          sourceMenu &&
-          !sourceMenu.classList.contains("hidden") &&
-          !sourceMenu.contains(event.target) &&
-          !sourceBtn
-        ) {
-          sourceMenu.classList.add("hidden");
-        }
-
-        // Close Date Range Picker
-        const datePicker = document.getElementById("dateRangePicker");
-        const dateInput = event.target.closest(
-          '[onclick*="toggleDateRangePicker"]'
-        );
-        if (
-          datePicker &&
-          !datePicker.classList.contains("hidden") &&
-          !datePicker.contains(event.target) &&
-          !dateInput
-        ) {
-          datePicker.classList.add("hidden");
-        }
-      });
-
-      // --- Downline Modal Logic (Complex Version) ---
-      const dataInputStats = {
-        edc: { totalInput: 3, pendingSubmit: 1 },
-        qris: { totalInput: 5, pendingSubmit: 3 },
-        edcQris: { totalInput: 8, pendingSubmit: 4 },
-      };
-
-      const appProcessingStats = {
-        edc: {
-          received: 354,
-          inprocess: 6,
-          rts: 25,
-          send: 323,
-          pending: 0,
-          cancel: 0,
-        },
-        qris: {
-          received: 1533,
-          inprocess: 9,
-          rts: 38,
-          send: 1485,
-          pending: 1,
-          cancel: 0,
-        },
-        edcQris: {
-          received: 134,
-          inprocess: 20,
-          rts: 31,
-          send: 77,
-          pending: 6,
-          cancel: 0,
-        },
-      };
-
-      let activeTab = "data-input";
-
-      function renderModalContent() {
-        const container = document.getElementById("modalContent");
-        const data =
-          activeTab === "data-input" ? dataInputStats : appProcessingStats;
-
-        const cards = [
-          { title: "EDC", type: "edc" },
-          { title: "QRIS", type: "qris" },
-          { title: "EDC + QRIS", type: "edcQris" },
+        const mainData = [
+            { id: 1, rsmName: "Kiwamudin", nikSales: "K1104148", branch: "Bandung", totalDsrActive: 145, inputBySystem: 974, receivedByApp: 958, inprocess: 13, rts: 46, sendBca: 75, sendPending: 6, sendCancel: 0 },
+            { id: 2, rsmName: "Budi Santoso", nikSales: "K1104149", branch: "Jakarta", totalDsrActive: 120, inputBySystem: 800, receivedByApp: 780, inprocess: 10, rts: 10, sendBca: 50, sendPending: 5, sendCancel: 1 },
+            { id: 3, rsmName: "Siti Aminah", nikSales: "K1104150", branch: "Surabaya", totalDsrActive: 150, inputBySystem: 900, receivedByApp: 890, inprocess: 5, rts: 12, sendBca: 80, sendPending: 2, sendCancel: 0 },
+            { id: 4, rsmName: "Agus Prasetyo", nikSales: "K1104151", branch: "Medan", totalDsrActive: 110, inputBySystem: 700, receivedByApp: 680, inprocess: 15, rts: 20, sendBca: 60, sendPending: 4, sendCancel: 0 },
+            { id: 5, rsmName: "Dewi Lestari", nikSales: "K1104152", branch: "Semarang", totalDsrActive: 130, inputBySystem: 850, receivedByApp: 840, inprocess: 8, rts: 15, sendBca: 70, sendPending: 3, sendCancel: 0 },
         ];
 
-        container.innerHTML = cards
-          .map((card) => {
-            const stats = data[card.type];
-            let contentHTML = "";
+        let currentPage = 1;
+        let rowsPerPage = 5;
+        let filteredData = [...mainData];
+        let searchQuery = "";
 
-            if (activeTab === "data-input") {
-              contentHTML = `
+        // Initial Render
+        renderTable();
+        renderPagination();
+
+        function renderTable() {
+            const tbody = document.getElementById("tableBody");
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = filteredData.slice(start, end);
+
+            tbody.innerHTML = paginatedData.map((item, index) => `
+                <tr class="hover:bg-gray-50 bg-white transition-colors">
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${start + index + 1}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 font-medium">${item.rsmName}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">${item.nikSales}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">${item.branch}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.totalDsrActive}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inputBySystem}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.receivedByApp}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inprocess}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.rts}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.sendBca}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendPending}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendCancel}</td>
+                    <td class="px-4 py-3 text-center border-l border-gray-200 relative">
+                         <button onclick="toggleGlobalDropdown(event, ${item.id}, '${item.rsmName}', '${item.nikSales}')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
+                            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+
+            if (paginatedData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+            }
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            const showingInfo = document.getElementById("showingInfo");
+            const paginationControls = document.getElementById("paginationControls");
+
+            const start = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+            showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+            let controlsHtml = `
+                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+                } else {
+                    controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+                }
+            }
+
+            controlsHtml += `
+                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+            paginationControls.innerHTML = controlsHtml;
+            lucide.createIcons();
+        }
+
+        window.handleSearch = function (query) {
+            searchQuery = query.toLowerCase();
+            filteredData = mainData.filter(item =>
+                item.rsmName.toLowerCase().includes(searchQuery) ||
+                item.nikSales.toLowerCase().includes(searchQuery)
+            );
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        window.changePage = function (page) {
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        }
+
+        window.handleRowsPerPageChange = function (value) {
+            rowsPerPage = parseInt(value);
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        // Dropdown Logic
+        // Global Dropdown Logic
+        window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
+            event.stopPropagation();
+            const menu = document.getElementById("globalActionDropdown");
+
+            // Toggle off if same
+            if (
+                !menu.classList.contains("hidden") &&
+                menu.dataset.triggerId === String(id)
+            ) {
+                menu.classList.add("hidden");
+                return;
+            }
+
+            // Update Action
+            document.getElementById("globalViewDownlineBtn").onclick = function () {
+                openDownlineModal(rsmName, nikSales);
+                menu.classList.add("hidden");
+            };
+
+            document.getElementById("globalViewDetailBtn").onclick = function () {
+                openDetailModal(rsmName);
+                menu.classList.add("hidden");
+            };
+
+            // Position (Align Right)
+            const rect = event.currentTarget.getBoundingClientRect();
+            menu.style.top = rect.bottom + 5 + "px";
+            menu.style.left = rect.right - 192 + "px";
+
+            menu.dataset.triggerId = String(id);
+            menu.classList.remove("hidden");
+        };
+
+        // Source Menu Logic
+        window.toggleSourceMenu = function (event) {
+            event.stopPropagation();
+            const menu = document.getElementById("sourceMenu");
+            menu.classList.toggle("hidden");
+        };
+
+        // Date Range Picker Logic
+        window.toggleDateRangePicker = function (event) {
+            if (event) event.stopPropagation();
+            const picker = document.getElementById("dateRangePicker");
+            picker.classList.toggle("hidden");
+        };
+
+        // Close dropdowns on outside click
+        document.addEventListener("click", function (event) {
+            // Close Global Action Dropdown
+            const globalMenu = document.getElementById("globalActionDropdown");
+            if (
+                globalMenu &&
+                !globalMenu.classList.contains("hidden") &&
+                !globalMenu.contains(event.target)
+            ) {
+                globalMenu.classList.add("hidden");
+            }
+
+            // Close Source Menu
+            const sourceMenu = document.getElementById("sourceMenu");
+            const sourceBtn = event.target.closest(
+                'button[onclick*="toggleSourceMenu"]'
+            );
+            if (
+                sourceMenu &&
+                !sourceMenu.classList.contains("hidden") &&
+                !sourceMenu.contains(event.target) &&
+                !sourceBtn
+            ) {
+                sourceMenu.classList.add("hidden");
+            }
+
+            // Close Date Range Picker
+            const datePicker = document.getElementById("dateRangePicker");
+            const dateInput = event.target.closest(
+                '[onclick*="toggleDateRangePicker"]'
+            );
+            if (
+                datePicker &&
+                !datePicker.classList.contains("hidden") &&
+                !datePicker.contains(event.target) &&
+                !dateInput
+            ) {
+                datePicker.classList.add("hidden");
+            }
+        });
+
+        // --- Downline Modal Logic (Complex Version) ---
+        const dataInputStats = {
+            edc: { totalInput: 3, pendingSubmit: 1 },
+            qris: { totalInput: 5, pendingSubmit: 3 },
+            edcQris: { totalInput: 8, pendingSubmit: 4 },
+        };
+
+        const appProcessingStats = {
+            edc: {
+                received: 354,
+                inprocess: 6,
+                rts: 25,
+                send: 323,
+                pending: 0,
+                cancel: 0,
+            },
+            qris: {
+                received: 1533,
+                inprocess: 9,
+                rts: 38,
+                send: 1485,
+                pending: 1,
+                cancel: 0,
+            },
+            edcQris: {
+                received: 134,
+                inprocess: 20,
+                rts: 31,
+                send: 77,
+                pending: 6,
+                cancel: 0,
+            },
+        };
+
+        let activeTab = "data-input";
+
+        function renderModalContent() {
+            const container = document.getElementById("modalContent");
+            const data =
+                activeTab === "data-input" ? dataInputStats : appProcessingStats;
+
+            const cards = [
+                { title: "EDC", type: "edc" },
+                { title: "QRIS", type: "qris" },
+                { title: "EDC + QRIS", type: "edcQris" },
+            ];
+
+            container.innerHTML = cards
+                .map((card) => {
+                    const stats = data[card.type];
+                    let contentHTML = "";
+
+                    if (activeTab === "data-input") {
+                        contentHTML = `
                         <div class="space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Total Input')">
                                 <span class="text-sm text-gray-600">Total Input</span>
@@ -534,8 +594,8 @@
                             </div>
                         </div>
                     `;
-            } else {
-              contentHTML = `
+                    } else {
+                        contentHTML = `
                         <div class="space-y-3">
                             <div class="flex justify-between items-center pb-2 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Received')">
                                 <span class="text-sm text-gray-600">Received</span>
@@ -563,9 +623,9 @@
                             </div>
                         </div>
                     `;
-            }
+                    }
 
-            return `
+                    return `
                     <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                         <div class="bg-[#3B6EC2] px-4 py-3 text-center">
                             <h3 class="text-base font-semibold text-white">${card.title}</h3>
@@ -575,49 +635,49 @@
                         </div>
                     </div>
                 `;
-          })
-          .join("");
-      }
-
-      window.switchTab = function (tab) {
-        activeTab = tab;
-        const tabDataInput = document.getElementById("tab-data-input");
-        const tabAppProcessing = document.getElementById("tab-app-processing");
-
-        if (tab === "data-input") {
-          tabDataInput.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
-          tabAppProcessing.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
-        } else {
-          tabAppProcessing.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
-          tabDataInput.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
+                })
+                .join("");
         }
-        renderModalContent();
-      };
 
-      window.openDownlineModal = function (rsmName, nikSales) {
-        document.getElementById("modalRsmName").innerText = rsmName; // + ' - ' + nikSales;
-        document.getElementById("downlineModal").classList.remove("hidden");
+        window.switchTab = function (tab) {
+            activeTab = tab;
+            const tabDataInput = document.getElementById("tab-data-input");
+            const tabAppProcessing = document.getElementById("tab-app-processing");
 
-        // Reset to default tab
-        activeTab = "data-input";
-        switchTab("data-input");
+            if (tab === "data-input") {
+                tabDataInput.className =
+                    "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
+                tabAppProcessing.className =
+                    "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
+            } else {
+                tabAppProcessing.className =
+                    "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
+                tabDataInput.className =
+                    "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
+            }
+            renderModalContent();
+        };
 
-        // Close dropdowns
-        document
-          .getElementById("globalActionDropdown")
-          ?.classList.add("hidden");
-      };
+        window.openDownlineModal = function (rsmName, nikSales) {
+            document.getElementById("modalRsmName").innerText = rsmName; // + ' - ' + nikSales;
+            document.getElementById("downlineModal").classList.remove("hidden");
 
-      window.closeDownlineModal = function () {
-        document.getElementById("downlineModal").classList.add("hidden");
-      };
+            // Reset to default tab
+            activeTab = "data-input";
+            switchTab("data-input");
 
-      // Total Input Modal Logic
-      const totalInputModalHTML = `
+            // Close dropdowns
+            document
+                .getElementById("globalActionDropdown")
+                ?.classList.add("hidden");
+        };
+
+        window.closeDownlineModal = function () {
+            document.getElementById("downlineModal").classList.add("hidden");
+        };
+
+        // Total Input Modal Logic
+        const totalInputModalHTML = `
         <div id="totalInputModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center animate-in fade-in duration-200">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 flex flex-col max-h-[90vh]">
                 <!-- Header -->
@@ -700,25 +760,25 @@
             </div>
         </div>
       `;
-      document.body.insertAdjacentHTML("beforeend", totalInputModalHTML);
+        document.body.insertAdjacentHTML("beforeend", totalInputModalHTML);
 
-      window.openTotalInputModal = function (title, subtitle) {
-        document.getElementById("totalInputModalTitle").innerText =
-          title + " - " + subtitle;
-        const modal = document.getElementById("totalInputModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-        lucide.createIcons();
-      };
+        window.openTotalInputModal = function (title, subtitle) {
+            document.getElementById("totalInputModalTitle").innerText =
+                title + " - " + subtitle;
+            const modal = document.getElementById("totalInputModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            lucide.createIcons();
+        };
 
-      window.closeTotalInputModal = function () {
-        const modal = document.getElementById("totalInputModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      };
+        window.closeTotalInputModal = function () {
+            const modal = document.getElementById("totalInputModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        };
 
-      // Detail Modal Logic
-      const detailModalHTML = `
+        // Detail Modal Logic
+        const detailModalHTML = `
         <div id="detailModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center animate-in fade-in duration-200">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-6xl mx-4 flex flex-col max-h-[90vh]">
                 <!-- Header -->
@@ -841,24 +901,24 @@
             </div>
         </div>
       `;
-      document.body.insertAdjacentHTML("beforeend", detailModalHTML);
+        document.body.insertAdjacentHTML("beforeend", detailModalHTML);
 
-      window.openDetailModal = function (title) {
-        document.getElementById("detailModalTitle").innerText = title;
-        const modal = document.getElementById("detailModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-        lucide.createIcons();
-      };
+        window.openDetailModal = function (title) {
+            document.getElementById("detailModalTitle").innerText = title;
+            const modal = document.getElementById("detailModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            lucide.createIcons();
+        };
 
-      window.closeDetailModal = function () {
-        const modal = document.getElementById("detailModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      };
+        window.closeDetailModal = function () {
+            const modal = document.getElementById("detailModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        };
 
-      // Sales Detail Modal Logic
-      const salesDetailModalHTML = `
+        // Sales Detail Modal Logic
+        const salesDetailModalHTML = `
         <div id="salesDetailModal" class="fixed inset-0 bg-black/50 z-[70] hidden items-center justify-center animate-in fade-in duration-200">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 flex flex-col max-h-[90vh]">
                 <!-- Header -->
@@ -934,23 +994,24 @@
             </div>
         </div>
       `;
-      document.body.insertAdjacentHTML("beforeend", salesDetailModalHTML);
+        document.body.insertAdjacentHTML("beforeend", salesDetailModalHTML);
 
-      window.openSalesDetailModal = function (title) {
-        document.getElementById("salesDetailModalTitle").innerText = title;
-        const modal = document.getElementById("salesDetailModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
+        window.openSalesDetailModal = function (title) {
+            document.getElementById("salesDetailModalTitle").innerText = title;
+            const modal = document.getElementById("salesDetailModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            lucide.createIcons();
+        };
+
+        window.closeSalesDetailModal = function () {
+            const modal = document.getElementById("salesDetailModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        };
+
         lucide.createIcons();
-      };
-
-      window.closeSalesDetailModal = function () {
-        const modal = document.getElementById("salesDetailModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      };
-
-      lucide.createIcons();
     </script>
-  </body>
+</body>
+
 </html>

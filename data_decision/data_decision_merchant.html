@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Decision Merchant - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // Initialize layout with the active parent menu "Data Decision" and submenu "Merchant"
+        initLayout("Data Decision", "Merchant");
+
+        const appContainer = document.querySelector("#app > div > div");
+        const main = document.createElement("div");
+        main.className = "flex-1 bg-gray-50 flex flex-col";
+
+        // Main Page Content
+        main.innerHTML = `
+            <!-- Header -->
+            <div class="bg-white border-b border-gray-200 px-6 py-4">
+                <h1 class="text-2xl font-semibold text-[#1E5BA8]">Data Decision Merchant</h1>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                 <!-- Search and Filters -->
+                <div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-gray-100">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
+                            <!-- Search -->
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" id="searchInput" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" oninput="handleSearch(this.value)"/>
+                            </div>
+
+                            <!-- Date Range Picker -->
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Select date range" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white placeholder-gray-400"/>
+                            </div>
+                        </div>
+
+                        <!-- Export Button -->
+                        <div class="relative">
+                             <button onclick="toggleExportMenu()" class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                                <i data-lucide="share" class="w-4 h-4"></i>
+                                Export data
+                                <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                            </button>
+                            <!-- Export Dropdown -->
+                            <div id="exportMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                                <div class="py-1">
+                                    <button class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1E5BA8] font-medium transition-colors">
+                                        EDC
+                                    </button>
+                                    <button class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1E5BA8] font-medium transition-colors">
+                                        QRIS
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-3 text-center border-r border-white/20 w-16 align-middle" rowspan="2">No</th>
+                                    <th class="px-4 py-3 text-left border-r border-white/20 align-middle" rowspan="2">RSM Name</th>
+                                    <th class="px-4 py-3 text-left border-r border-white/20 align-middle" rowspan="2">NIK Sales</th>
+                                    <th class="px-4 py-2 text-center border-r border-white/20 border-b border-white/20 font-semibold" colspan="2">New</th>
+                                    <th class="px-4 py-2 text-center border-r border-white/20 border-b border-white/20 font-semibold" colspan="2">Existing</th>
+                                    <th class="px-4 py-3 text-center border-r border-white/20 align-middle" rowspan="2">Rejected</th>
+                                    <th class="px-4 py-3 text-center align-middle" rowspan="2">Action</th>
+                                </tr>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-2 text-center border-r border-white/20">Account</th>
+                                    <th class="px-4 py-2 text-center border-r border-white/20">NEW</th>
+                                    <th class="px-4 py-2 text-center border-r border-white/20">Account</th>
+                                    <th class="px-4 py-2 text-center border-r border-white/20">EDC NEW</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mainTableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                        <div id="showingInfo">Showing 0 to 0 of 0</div>
+                        
+                        <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        // Data
+        const mainData = [
+            { no: 1, rsmName: "Ramaldo Oktama", nikSales: "K1104148", newAccount: 3, newNew: 1, existingAccount: 0, existingEdcNew: 0, rejected: 0 },
+            { no: 2, rsmName: "Budi Santoso", nikSales: "K1104149", newAccount: 2, newNew: 2, existingAccount: 1, existingEdcNew: 0, rejected: 1 },
+            { no: 3, rsmName: "Siti Aminah", nikSales: "K1104150", newAccount: 5, newNew: 0, existingAccount: 0, existingEdcNew: 1, rejected: 0 },
+            { no: 4, rsmName: "Agus Prasetyo", nikSales: "K1104151", newAccount: 1, newNew: 3, existingAccount: 2, existingEdcNew: 0, rejected: 0 },
+            { no: 5, rsmName: "Dewi Lestari", nikSales: "K1104152", newAccount: 4, newNew: 1, existingAccount: 0, existingEdcNew: 0, rejected: 1 },
+            { no: 6, rsmName: "Eko Kurniawan", nikSales: "K1104153", newAccount: 2, newNew: 0, existingAccount: 3, existingEdcNew: 1, rejected: 0 },
+            { no: 7, rsmName: "Fajar Nugraha", nikSales: "K1104154", newAccount: 3, newNew: 2, existingAccount: 1, existingEdcNew: 0, rejected: 1 },
+            { no: 8, rsmName: "Gita Persada", nikSales: "K1104155", newAccount: 0, newNew: 4, existingAccount: 0, existingEdcNew: 2, rejected: 0 },
+            { no: 9, rsmName: "Hendra Wijaya", nikSales: "K1104156", newAccount: 2, newNew: 1, existingAccount: 0, existingEdcNew: 0, rejected: 2 },
+            { no: 10, rsmName: "Indah Permata", nikSales: "K1104157", newAccount: 1, newNew: 3, existingAccount: 2, existingEdcNew: 1, rejected: 1 },
+        ];
+
+        let currentPage = 1;
+        let rowsPerPage = 5;
+        let filteredData = [...mainData];
+        let searchQuery = "";
+
+        // Initial Render
+        renderTable();
+        renderPagination();
+
+        function renderTable() {
+            const tbody = document.getElementById("mainTableBody");
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedData = filteredData.slice(start, end);
+
+            tbody.innerHTML = paginatedData.map((row, index) => `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${start + index + 1}</td>
+                    <td class="px-4 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${row.rsmName}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${row.nikSales}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.newAccount}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.newNew}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.existingAccount}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.existingEdcNew}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.rejected}</td>
+                    <td class="px-4 py-4 text-center">
+                        <button onclick="toggleActionMenu(event, ${row.no})" class="action-btn-${row.no} text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100">
+                            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+
+            if (paginatedData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+            }
+            lucide.createIcons();
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            const showingInfo = document.getElementById("showingInfo");
+            const paginationControls = document.getElementById("paginationControls");
+
+            const start = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+            showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+            let controlsHtml = `
+                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+                } else {
+                    controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+                }
+            }
+
+            controlsHtml += `
+                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+            paginationControls.innerHTML = controlsHtml;
+            lucide.createIcons();
+        }
+
+        window.handleSearch = function (query) {
+            searchQuery = query.toLowerCase();
+            filteredData = mainData.filter(item =>
+                item.rsmName.toLowerCase().includes(searchQuery) ||
+                item.nikSales.toLowerCase().includes(searchQuery)
+            );
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        window.changePage = function (page) {
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        }
+
+        window.handleRowsPerPageChange = function (value) {
+            rowsPerPage = parseInt(value);
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        }
+
+        // Add Global Action Menu to DOM
+        const menuHTML = `
+            <div id="globalActionMenu" class="hidden fixed bg-white rounded-xl shadow-xl border border-gray-100 z-[9999] overflow-hidden text-left animate-in fade-in zoom-in-95 duration-200 w-40">
+                 <div class="py-1">
+                    <button onclick="openDownlineModal()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1E5BA8] font-medium transition-colors">
+                        View Downline
+                    </button>
+                    <button onclick="openViewDetailModal('Ramaldo Oktama')" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1E5BA8] font-medium transition-colors">
+                        View Detail
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', menuHTML);
+
+        // View Detail Modal (for the "View Detail" action)
+        const viewDetailModalHTML = `
+            <div id="viewDetailModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
+                <!-- Backdrop -->
+                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeViewDetailModal()"></div>
+
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all w-full max-w-6xl p-6 sm:p-8">
+                            
+                            <!-- Header -->
+                            <div class="flex items-center justify-between mb-8">
+                                <h2 class="text-2xl font-semibold text-[#1E293B]" id="viewDetailModalTitle">Ramaldo Oktama</h2>
+                                <button onclick="closeViewDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Filter & Search -->
+                            <!-- Filter & Search -->
+                             <div class="mb-6">
+                                <div class="flex flex-col sm:flex-row justify-between gap-4">
+                                     <!-- Search -->
+                                    <div class="relative w-full">
+                                        <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                                        <input type="text" placeholder="Search" class="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all text-gray-600 placeholder-gray-400 font-medium shadow-sm">
+                                    </div>
+                                </div>
+                                
+                                <!-- Table -->
+                                <div class="mt-6 overflow-x-auto rounded-xl border border-gray-100">
+                                    <table class="w-full text-sm">
+                                        <thead>
+                                            <tr class="bg-[#1E5BA8] text-white">
+                                                <th rowspan="2" class="px-4 py-3 text-center border-r border-white/20 w-16">No</th>
+                                                <th rowspan="2" class="px-4 py-3 text-left border-r border-white/20">ASM Name</th>
+                                                <th rowspan="2" class="px-4 py-3 text-left border-r border-white/20">NIK Sales</th>
+                                                <th colspan="2" class="px-4 py-3 text-center border-r border-white/20 border-b border-white/20">New</th>
+                                                <th colspan="2" class="px-4 py-3 text-center border-r border-white/20 border-b border-white/20">Existing</th>
+                                                <th rowspan="2" class="px-4 py-3 text-center border-r border-white/20">Rejected</th>
+                                                <th rowspan="2" class="px-4 py-3 text-center">Action</th>
+                                            </tr>
+                                            <tr class="bg-[#1E5BA8] text-white">
+                                                <!-- New Subheaders -->
+                                                <th class="px-4 py-2 text-center border-r border-white/20">Account</th>
+                                                <th class="px-4 py-2 text-center border-r border-white/20">Point</th>
+                                                 <!-- Existing Subheaders -->
+                                                <th class="px-4 py-2 text-center border-r border-white/20">Account</th>
+                                                <th class="px-4 py-2 text-center border-r border-white/20">Point</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200">
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">1</td>
+                                                <td class="px-4 py-3 text-gray-900 border-r border-gray-100 font-medium">Anggi Nugraha</td>
+                                                <td class="px-4 py-3 text-gray-600 border-r border-gray-100">K1104148</td>
+                                                <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">3</td>
+                                                <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">1</td>
+                                                <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">0</td>
+                                                <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">0</td>
+                                                <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">0</td>
+                                                <td class="px-4 py-3 text-center">
+                                                    <button onclick="openSubDownlineModal('Anggi Nugraha')" class="text-[#1E5BA8] hover:text-blue-700 transition-colors">
+                                                        <i data-lucide="eye" class="w-5 h-5"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <!-- Pagination -->
+                                <div class="flex items-center justify-between text-sm text-gray-500 pt-4">
+                                    <div class="flex-1 text-left">Showing 1 to 1 of 1</div>
+                                    
+                                    <div class="flex items-center justify-center gap-2 flex-1">
+                                        <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                        </button>
+                                        <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
+                                        <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="flex items-center justify-end gap-2 flex-1">
+                                        <span>Show</span>
+                                            <div class="relative">
+                                                <select class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                                <option>10</option>
+                                                <option>25</option>
+                                                <option>50</option>
+                                            </select>
+                                            <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', viewDetailModalHTML);
+
+
+        // Add Downline Modal to DOM
+        const downlineModalHTML = `
+           <div id="downlineModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
+                <!-- Backdrop -->
+                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDownlineModal()"></div>
+
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all w-full max-w-4xl p-6 sm:p-8">
+                            
+                            <!-- Header -->
+                            <div class="flex items-center justify-between mb-8">
+                                <h2 class="text-2xl font-semibold text-[#1E293B]" id="downlineModalTitle">Ramaldo Oktama</h2>
+                                <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+
+                            <!-- Tabs -->
+                            <div class="bg-gray-100 p-1 rounded-lg inline-flex mb-8">
+                                <button id="tabButton-new" onclick="switchDownlineTab('new')" class="px-6 py-2 rounded-md bg-[#1E5BA8] text-white text-sm font-medium shadow-sm transition-all">New</button>
+                                <button id="tabButton-existing" onclick="switchDownlineTab('existing')" class="px-6 py-2 rounded-md text-gray-500 text-sm font-medium hover:text-gray-700 transition-all">Existing</button>
+                            </div>
+
+                            <!-- Content: New -->
+                            <div id="tabContent-new" class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in duration-300">
+                                <!-- Card 1: EDC -->
+                                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                    <div class="bg-[#1E5BA8] px-4 py-3 text-white font-semibold text-center">EDC</div>
+                                    <div class="p-4 bg-white">
+                                        <div class="space-y-4">
+                                            <div onclick="openDetailModal('EDC - Credit')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Credit</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Credit Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Credit Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Non Credit')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Non Credit</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Non Credit Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Non Credit Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 2: QRIS -->
+                                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                    <div class="bg-[#1E5BA8] px-4 py-3 text-white font-semibold text-center">QRIS</div>
+                                    <div class="p-4 bg-white">
+                                        <div class="space-y-4">
+                                            <div onclick="openDetailModal('QRIS - QRD')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">QRD</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('QRIS - QSD')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">QSD</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('QRIS - Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 3: EDC + QRIS -->
+                                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                     <div class="bg-[#1E5BA8] px-4 py-3 text-white font-semibold text-center">EDC + QRIS</div>
+                                    <div class="p-4 bg-white">
+                                        <div class="space-y-4">
+                                            <div onclick="openDetailModal('EDC + QRIS - Credit')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Credit</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Credit Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Credit Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Non Credit')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Non Credit</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Non Credit Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Non Credit Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content: Existing -->
+                            <div id="tabContent-existing" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 animate-in fade-in duration-300">
+                                <!-- Card 1: EDC -->
+                                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                    <div class="bg-[#1E5BA8] px-4 py-3 text-white font-semibold text-center">EDC</div>
+                                    <div class="p-4 bg-white">
+                                        <div class="space-y-4">
+                                            <div onclick="openDetailModal('EDC - Additional Branch')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Additional Branch</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Additional Terminal')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Additional Terminal</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Change Facilities')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Change Facilities</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Re Agreement')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Re Agreement</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC - Rejected')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Rejected</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 2: QRIS -->
+                                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                    <div class="bg-[#1E5BA8] px-4 py-3 text-white font-semibold text-center">QRIS</div>
+                                    <div class="p-4 bg-white">
+                                        <div class="space-y-4">
+                                            <div onclick="openDetailModal('QRIS - QRD')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">QRD</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('QRIS - QSD')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">QSD</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('QRIS - Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('QRIS - Rejected')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Rejected</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 3: EDC + QRIS -->
+                                <div class="border border-gray-200 rounded-xl overflow-hidden">
+                                     <div class="bg-[#1E5BA8] px-4 py-3 text-white font-semibold text-center">EDC + QRIS</div>
+                                    <div class="p-4 bg-white">
+                                        <div class="space-y-4">
+                                            <div onclick="openDetailModal('EDC + QRIS - Additional Branch')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Additional Branch</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Additional Terminal')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Additional Terminal</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Change Facilities')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Change Facilities</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Re Agreement')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Re Agreement</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Point')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Point</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                            <div onclick="openDetailModal('EDC + QRIS - Rejected')" class="cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors flex justify-between items-center pb-3 border-b border-gray-100 last:border-0 last:pb-0"><span class="text-gray-600 font-medium text-sm">Rejected</span><span class="text-gray-900 font-bold text-sm">1</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', downlineModalHTML);
+
+        // Add Detail Modal to DOM
+        const detailModalHTML = `
+           <div id="detailModal" class="hidden fixed inset-0 z-[110]" role="dialog" aria-modal="true">
+                <!-- Backdrop -->
+                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDetailModal()"></div>
+
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all w-full max-w-5xl p-6 sm:p-8">
+                            
+                            <!-- Header -->
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-bold text-[#1E293B]" id="detailModalTitle">EDC - Credit</h2>
+                                <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+
+                             <!-- Search -->
+                            <div class="relative w-full mb-6">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white rounded-lg overflow-hidden border border-gray-200 mb-4">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full">
+                                        <thead>
+                                            <tr class="bg-[#1E5BA8] text-white text-sm">
+                                                <th class="px-4 py-3 text-center border-r border-white/20 w-16">No</th>
+                                                <th class="px-4 py-3 text-left border-r border-white/20 relative group cursor-pointer">
+                                                    <div class="flex items-center justify-between">
+                                                        Merchant Name
+                                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                                    </div>
+                                                </th>
+                                                <th class="px-4 py-3 text-left border-r border-white/20 relative group cursor-pointer">
+                                                     <div class="flex items-center justify-between">
+                                                        Owner Name
+                                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                                    </div>
+                                                </th>
+                                                <th class="px-4 py-3 text-left border-r border-white/20 relative group cursor-pointer">
+                                                     <div class="flex items-center justify-between">
+                                                        Sales Code
+                                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                                    </div>
+                                                </th>
+                                                <th class="px-4 py-3 text-left relative group cursor-pointer">
+                                                     <div class="flex items-center justify-between">
+                                                        Sales Name
+                                                         <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200" id="detailModalTableBody">
+                                            <!-- Dummy Data -->
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="px-4 py-3 text-center text-sm text-gray-600 border-r border-gray-100">1</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100 font-medium">AGMA FA*****</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100">Agus Sri Mulyadi</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100">K1403894</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600">M Arif Nur Wicaksono</td>
+                                            </tr>
+                                            <tr class="hover:bg-gray-50">
+                                                <td class="px-4 py-3 text-center text-sm text-gray-600 border-r border-gray-100">2</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100 font-medium">AGUNG PH*******</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100">Agung Budi Styawan</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100">K1304781</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600">Chandra Kusumawati</td>
+                                            </tr>
+                                             <tr class="hover:bg-gray-50">
+                                                <td class="px-4 py-3 text-center text-sm text-gray-600 border-r border-gray-100">3</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100 font-medium">AISY CO*********</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100">Moch Jonny</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600 border-r border-gray-100">K2300249</td>
+                                                <td class="px-4 py-3 text-sm text-gray-600">Pratama Kesuma Faisal</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- Pagination -->
+                            <!-- Pagination -->
+                            <div class="flex items-center justify-between text-sm text-gray-500 pt-4">
+                                <div class="flex-1 text-left">Showing 1 to 3 of 3</div>
+                                
+                                <div class="flex items-center justify-center gap-2 flex-1">
+                                    <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                    </button>
+                                    <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
+                                    <button class="p-1 hover:text-gray-700 text-gray-400 transition-colors">
+                                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center justify-end gap-2 flex-1">
+                                    <span>Show</span>
+                                     <div class="relative">
+                                         <select class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                            <option>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', detailModalHTML);
+
+
+        lucide.createIcons();
+
+        // Export Menu Logic
+        window.toggleExportMenu = function (event) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById("exportMenu");
+            menu.classList.toggle("hidden");
+        }
+
+        // Action Menu Logic
+        window.toggleActionMenu = function (event, id) {
+            if (event) event.stopPropagation();
+            const menu = document.getElementById("globalActionMenu");
+            const button = event.currentTarget;
+
+            // If clicking the same button and menu is open, close it
+            if (!menu.classList.contains('hidden') && menu.dataset.activeId === id.toString()) {
+                menu.classList.add('hidden');
+                return;
+            }
+
+            // Position the menu
+            const rect = button.getBoundingClientRect();
+            const scrollY = window.scrollY;
+
+            // Position to the left of the button by default (right aligned)
+            // rect.right - menuWidth
+            menu.style.top = `${rect.bottom + 5}px`; // 5px gap
+            menu.style.left = `${rect.right - 128}px`; // 128 is w-32 (32 * 4px)
+
+            menu.dataset.activeId = id;
+            menu.classList.remove('hidden');
+        }
+
+        document.addEventListener("click", function (event) {
+            // Export Menu
+            const exportMenu = document.getElementById("exportMenu");
+            const exportBtn = event.target.closest('[onclick*="toggleExportMenu"]');
+
+            if (exportMenu && !exportMenu.classList.contains("hidden") && !exportMenu.contains(event.target) && !exportBtn) {
+                exportMenu.classList.add("hidden");
+            }
+
+            // Global Action Menu
+            const actionMenu = document.getElementById("globalActionMenu");
+            const actionBtn = event.target.closest('[onclick*="toggleActionMenu"]');
+
+            if (actionMenu && !actionMenu.classList.contains("hidden") && !actionMenu.contains(event.target) && !actionBtn) {
+                actionMenu.classList.add("hidden");
+            }
+        });
+
+        // Downline Modal Logic
+        window.openDownlineModal = function () {
+            // Close the action menu first
+            document.getElementById("globalActionMenu").classList.add("hidden");
+
+            // Open the modal
+            document.getElementById("downlineModal").classList.remove("hidden");
+
+            // Reset to first tab
+            switchDownlineTab('new');
+
+            // Re-render icons if needed (though static html usually is fine)
+            lucide.createIcons();
+        }
+
+        window.closeDownlineModal = function () {
+            document.getElementById("downlineModal").classList.add("hidden");
+        }
+
+        window.switchDownlineTab = function (tabName) {
+            // Content
+            document.getElementById('tabContent-new').classList.add('hidden');
+            document.getElementById('tabContent-existing').classList.add('hidden');
+            document.getElementById(`tabContent-${tabName}`).classList.remove('hidden');
+
+            // Buttons
+            const btnNew = document.getElementById('tabButton-new');
+            const btnExisting = document.getElementById('tabButton-existing');
+
+            // Base classes for active/inactive
+            const activeClass = "bg-[#1E5BA8] text-white shadow-sm";
+            const inactiveClass = "text-gray-500 hover:text-gray-700";
+
+            // Reset classes (removing specific classes to be safe)
+            btnNew.className = "px-6 py-2 rounded-md text-sm font-medium transition-all " + (tabName === 'new' ? activeClass : inactiveClass);
+            btnExisting.className = "px-6 py-2 rounded-md text-sm font-medium transition-all " + (tabName === 'existing' ? activeClass : inactiveClass);
+        }
+
+        // Detail Modal Logic
+        window.openDetailModal = function (title) {
+            // Set title
+            document.getElementById('detailModalTitle').textContent = title;
+
+            // Open modal
+            document.getElementById('detailModal').classList.remove('hidden');
+
+            // Re-render icons if needed
+            lucide.createIcons();
+        }
+
+        window.closeDetailModal = function () {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        // View Detail Modal Logic (Action Menu)
+        window.openViewDetailModal = function (title) {
+            // Close action menu
+            document.getElementById("globalActionMenu").classList.add("hidden");
+
+            // Set title
+            document.getElementById('viewDetailModalTitle').textContent = title;
+
+            // Open modal
+            document.getElementById('viewDetailModal').classList.remove('hidden');
+
+            lucide.createIcons();
+        }
+
+        window.closeViewDetailModal = function () {
+            document.getElementById('viewDetailModal').classList.add('hidden');
+        }
+
+        // Sub Downline Modal (Opened from View Detail)
+        window.openSubDownlineModal = function (title) {
+            const modal = document.getElementById('downlineModal');
+            const titleEl = document.getElementById('downlineModalTitle');
+
+            if (titleEl) titleEl.textContent = title;
+
+            // Ensure this modal sits on top of the View Detail modal
+            modal.classList.remove('z-[100]');
+            modal.classList.add('z-[110]');
+
+            modal.classList.remove('hidden');
+        }
+
+        // Standard Downline Modal (updated to accept title and handle z-index)
+        window.openDownlineModal = function (title) {
+            const menu = document.getElementById("globalActionMenu");
+            if (menu) menu.classList.add("hidden");
+
+            const modal = document.getElementById('downlineModal');
+            const titleEl = document.getElementById('downlineModalTitle');
+
+            // Reset z-index to default
+            modal.classList.remove('z-[110]');
+            modal.classList.add('z-[100]');
+
+            if (title && titleEl) titleEl.textContent = title;
+
+            modal.classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>
