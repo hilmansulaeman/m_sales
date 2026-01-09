@@ -11,8 +11,8 @@ const menuItems = [
             { label: 'CC Reguler', url: 'application_input/application_input_cc_reguler.html' },
             { label: 'Mobile Sales', url: 'application_input/application_input_cc_ms.html' },
             { label: 'Corporate', url: 'application_input/application_input_corporate.html' },
-            { label: 'Smart Cash (SC)', url: '#' },
-            { label: 'Personal Loan (PL)', url: '#' }
+            { label: 'Smart Cash (SC)', url: 'application_input/application_input_sc.html' },
+            { label: 'Personal Loan (PL)', url: 'application_input/application_input_pl.html' }
         ]
     },
     {
