@@ -46,16 +46,16 @@ const menuItems = [
         submenu: [
             { label: 'Pemol', url: 'application_check/application_check_pemol.html' },
             { label: 'Merchant', url: 'application_check/application_check_merchant.html' },
-            { label: 'Credit Card (CC)', url: '#' },
-            { label: 'Corporate', url: '#' },
-            { label: 'Smart Cash (SC)', url: '#' },
-            { label: 'Personal Loan (PL)', url: '#' }
+            { label: 'Credit Card (CC)', url: 'application_check/application_check_cc.html' },
+            { label: 'Corporate', url: 'application_check/application_check_corporate.html' },
+            { label: 'Smart Cash (SC)', url: 'application_check/application_check_sc.html' },
+            { label: 'Personal Loan (PL)', url: 'application_check/application_check_pl.html' }
         ]
     },
-    { icon: 'trending-up', label: 'My Performance', hasSubmenu: false, url: '#' },
+    { icon: 'trending-up', label: 'My Performance', hasSubmenu: false, url: 'my_performance/my_performance.html' },
     { icon: 'file-plus', label: 'Data Addendum', hasSubmenu: false, url: '#' },
-    { icon: 'users', label: 'Team Performance', hasSubmenu: false, url: '#' },
-    { icon: 'info', label: 'Sales Information', hasSubmenu: false, url: '#' },
+    { icon: 'users', label: 'Team Performance', hasSubmenu: false, url: 'team_performance/team_performance.html' },
+    { icon: 'info', label: 'Sales Information', hasSubmenu: false, url: 'sales_information/sales_information.html' },
     {
         icon: 'user-circle',
         label: 'Candidate Info',
@@ -87,9 +87,9 @@ const menuItems = [
             { label: 'Promotion', url: '#' }
         ]
     },
-    { icon: 'map-pin', label: 'Check Postal Code', hasSubmenu: false, url: '#' },
-    { icon: 'copy', label: 'Duplicate Check', hasSubmenu: false, url: '#' },
-    { icon: 'monitor', label: 'Monitoring', hasSubmenu: false, url: '#' },
+    { icon: 'map-pin', label: 'Check Postal Code', hasSubmenu: false, url: 'check_postal_code/check_postal_code.html' },
+    { icon: 'copy', label: 'Duplicate Check', hasSubmenu: false, url: 'duplicate_check/duplicate_check.html' },
+    { icon: 'monitor', label: 'Monitoring', hasSubmenu: false, url: 'monitoring/monitoring.html' },
 ];
 
 function renderSidebar(activeParentInput = '', activeSubmenuInput = '') {

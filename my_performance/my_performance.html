@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Performance - M-Sales</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="js/layout.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div id="app"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Performance - M-Sales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../js/layout.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
 
-    <script>
-      initLayout("My Performance");
+<body>
+  <div id="app"></div>
 
-      const appContainer = document.querySelector("#app > div > div");
-      const main = document.createElement("div");
-      main.className = "flex-1 bg-gray-50";
+  <script>
+    initLayout("My Performance");
 
-      main.innerHTML = `
+    const appContainer = document.querySelector("#app > div > div");
+    const main = document.createElement("div");
+    main.className = "flex-1 bg-gray-50";
+
+    main.innerHTML = `
             <!-- Header -->
             <div class="bg-white border-b border-gray-200 px-6 py-4">
                 <h1 class="text-2xl font-semibold text-gray-800">My Performance</h1>
@@ -247,129 +245,121 @@
             </div>
         `;
 
-      appContainer.appendChild(main);
+    appContainer.appendChild(main);
 
-      const data = [
-        {
-          id: 1,
-          salesName: "Ahmad Hidayat",
-          nik: "K1104532",
-          branch: "Jakarta Pusat",
-          cc: 45,
-          merchant: 32,
-          telemarketing: 18,
-          pemol: 24,
-          totalApp: 119,
-        },
-        {
-          id: 2,
-          salesName: "Siti Nurhaliza",
-          nik: "K1105621",
-          branch: "Bandung",
-          cc: 52,
-          merchant: 28,
-          telemarketing: 22,
-          pemol: 31,
-          totalApp: 133,
-        },
-        {
-          id: 3,
-          salesName: "Budi Santoso",
-          nik: "K1106743",
-          branch: "Surabaya",
-          cc: 38,
-          merchant: 41,
-          telemarketing: 15,
-          pemol: 19,
-          totalApp: 113,
-        },
-        {
-          id: 4,
-          salesName: "Dewi Kusuma",
-          nik: "K1107854",
-          branch: "Medan",
-          cc: 47,
-          merchant: 35,
-          telemarketing: 20,
-          pemol: 28,
-          totalApp: 130,
-        },
-        {
-          id: 5,
-          salesName: "Eko Prasetyo",
-          nik: "K1108965",
-          branch: "Semarang",
-          cc: 41,
-          merchant: 29,
-          telemarketing: 17,
-          pemol: 22,
-          totalApp: 109,
-        },
-        {
-          id: 6,
-          salesName: "Fitri Handayani",
-          nik: "K1109076",
-          branch: "Makassar",
-          cc: 55,
-          merchant: 38,
-          telemarketing: 25,
-          pemol: 33,
-          totalApp: 151,
-        },
-        {
-          id: 7,
-          salesName: "Gunawan Wijaya",
-          nik: "K1110187",
-          branch: "Palembang",
-          cc: 43,
-          merchant: 31,
-          telemarketing: 19,
-          pemol: 26,
-          totalApp: 119,
-        },
-        {
-          id: 8,
-          salesName: "Hani Rahmawati",
-          nik: "K1111298",
-          branch: "Denpasar",
-          cc: 49,
-          merchant: 36,
-          telemarketing: 21,
-          pemol: 29,
-          totalApp: 135,
-        },
-      ];
+    const data = [
+      {
+        id: 1,
+        salesName: "Ahmad Hidayat",
+        nik: "K1104532",
+        branch: "Jakarta Pusat",
+        cc: 45,
+        merchant: 32,
+        telemarketing: 18,
+        pemol: 24,
+        totalApp: 119,
+      },
+      {
+        id: 2,
+        salesName: "Siti Nurhaliza",
+        nik: "K1105621",
+        branch: "Bandung",
+        cc: 52,
+        merchant: 28,
+        telemarketing: 22,
+        pemol: 31,
+        totalApp: 133,
+      },
+      {
+        id: 3,
+        salesName: "Budi Santoso",
+        nik: "K1106743",
+        branch: "Surabaya",
+        cc: 38,
+        merchant: 41,
+        telemarketing: 15,
+        pemol: 19,
+        totalApp: 113,
+      },
+      {
+        id: 4,
+        salesName: "Dewi Kusuma",
+        nik: "K1107854",
+        branch: "Medan",
+        cc: 47,
+        merchant: 35,
+        telemarketing: 20,
+        pemol: 28,
+        totalApp: 130,
+      },
+      {
+        id: 5,
+        salesName: "Eko Prasetyo",
+        nik: "K1108965",
+        branch: "Semarang",
+        cc: 41,
+        merchant: 29,
+        telemarketing: 17,
+        pemol: 22,
+        totalApp: 109,
+      },
+      {
+        id: 6,
+        salesName: "Fitri Handayani",
+        nik: "K1109076",
+        branch: "Makassar",
+        cc: 55,
+        merchant: 38,
+        telemarketing: 25,
+        pemol: 33,
+        totalApp: 151,
+      },
+      {
+        id: 7,
+        salesName: "Gunawan Wijaya",
+        nik: "K1110187",
+        branch: "Palembang",
+        cc: 43,
+        merchant: 31,
+        telemarketing: 19,
+        pemol: 26,
+        totalApp: 119,
+      },
+      {
+        id: 8,
+        salesName: "Hani Rahmawati",
+        nik: "K1111298",
+        branch: "Denpasar",
+        cc: 49,
+        merchant: 36,
+        telemarketing: 21,
+        pemol: 29,
+        totalApp: 135,
+      },
+    ];
 
-      const tbody = document.getElementById("tableBody");
-      tbody.innerHTML = data
-        .map(
-          (item, index) => `
-            <tr class="border-b border-gray-200 hover:bg-gray-50 ${
-              index % 2 === 0 ? "bg-white" : "bg-gray-50"
-            }">
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                  item.id
-                }</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${
-                  item.salesName
-                }</td>
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = data
+      .map(
+        (item, index) => `
+            <tr class="border-b border-gray-200 hover:bg-gray-50 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
+          }">
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.id
+          }</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${item.salesName
+          }</td>
                 <td class="px-4 py-3 text-sm text-gray-700">${item.nik}</td>
                 <td class="px-4 py-3 text-sm text-gray-700">${item.branch}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                  item.cc
-                }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                  item.merchant
-                }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                  item.telemarketing
-                }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                  item.pemol
-                }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center font-semibold">${
-                  item.totalApp
-                }</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.cc
+          }</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.merchant
+          }</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.telemarketing
+          }</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.pemol
+          }</td>
+                <td class="px-4 py-3 text-sm text-gray-700 text-center font-semibold">${item.totalApp
+          }</td>
                 <td class="px-4 py-3 text-center border-l border-gray-200">
                      <button class="text-gray-400 hover:text-gray-600">
                         <i data-lucide="more-horizontal" class="w-5 h-5"></i>
@@ -377,32 +367,33 @@
                 </td>
             </tr>
         `
-        )
-        .join("");
+      )
+      .join("");
 
-      // Date Range Picker Logic
-      window.toggleDateRangePicker = function (event) {
-        if (event) event.stopPropagation();
-        const picker = document.getElementById("dateRangePicker");
-        picker.classList.toggle("hidden");
-      };
+    // Date Range Picker Logic
+    window.toggleDateRangePicker = function (event) {
+      if (event) event.stopPropagation();
+      const picker = document.getElementById("dateRangePicker");
+      picker.classList.toggle("hidden");
+    };
 
-      document.addEventListener("click", function (event) {
-        const datePicker = document.getElementById("dateRangePicker");
-        const dateInput = event.target.closest(
-          '[onclick*="toggleDateRangePicker"]'
-        );
-        if (
-          datePicker &&
-          !datePicker.classList.contains("hidden") &&
-          !datePicker.contains(event.target) &&
-          !dateInput
-        ) {
-          datePicker.classList.add("hidden");
-        }
-      });
+    document.addEventListener("click", function (event) {
+      const datePicker = document.getElementById("dateRangePicker");
+      const dateInput = event.target.closest(
+        '[onclick*="toggleDateRangePicker"]'
+      );
+      if (
+        datePicker &&
+        !datePicker.classList.contains("hidden") &&
+        !datePicker.contains(event.target) &&
+        !dateInput
+      ) {
+        datePicker.classList.add("hidden");
+      }
+    });
 
-      lucide.createIcons();
-    </script>
-  </body>
+    lucide.createIcons();
+  </script>
+</body>
+
 </html>
