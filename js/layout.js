@@ -222,11 +222,22 @@ function renderSidebar(activeParentInput = '', activeSubmenuInput = '') {
     return sidebar;
 }
 
-function renderHeader() {
+function renderHeader(activeParent, activeSubmenu) {
     const header = document.createElement('header');
-    header.className = "bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-40";
+    header.className = "bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4 sticky top-0 z-40";
+
+    let title = activeParent || '';
+    if (activeSubmenu) {
+        title += ` ${activeSubmenu}`;
+    }
+
     header.innerHTML = `
-        
+        <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700 transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+        <h1 class="text-2xl font-semibold text-[#1E5BA8]">
+            ${title}
+        </h1>
     `;
     return header;
 }
@@ -254,8 +265,48 @@ function toggleSubmenu(itemId) {
 }
 
 // Helper to inject layout
-function initLayout(activeParent, activeSubmenu) {
+function initLayout(activeParentInput = '', activeSubmenuInput = '') {
     const app = document.getElementById('app');
+
+    // --- Active Menu Detection Logic (Lifted from renderSidebar) ---
+    let activeParent = activeParentInput;
+    let activeSubmenu = activeSubmenuInput;
+
+    const currentFilename = window.location.pathname.split('/').pop();
+
+    // Helper to check if current user matches a menu URL
+    const isCurrentPage = (url) => {
+        if (!url || url === '#') return false;
+        return url.endsWith(currentFilename);
+    };
+
+    if (!activeParent) {
+        // Find matching item
+        for (const item of menuItems) {
+            if (isCurrentPage(item.url)) {
+                activeParent = item.label;
+                break;
+            }
+            if (item.hasSubmenu && item.submenu) {
+                const subMatch = item.submenu.find(sub => isCurrentPage(sub.url));
+                if (subMatch) {
+                    activeParent = item.label;
+                    activeSubmenu = subMatch.label;
+                    break;
+                }
+            }
+        }
+    } else if (activeParent && !activeSubmenu) {
+        // If parent is provided but submenu isn't, try to find matching submenu for current URL within that parent
+        const parentItem = menuItems.find(item => item.label === activeParent);
+        if (parentItem && parentItem.hasSubmenu && parentItem.submenu) {
+            const subMatch = parentItem.submenu.find(sub => isCurrentPage(sub.url));
+            if (subMatch) {
+                activeSubmenu = subMatch.label;
+            }
+        }
+    }
+    // -------------------------------------------------------------
 
     // Sidebar Overlay
     let overlay = document.getElementById('sidebar-overlay');
@@ -271,7 +322,7 @@ function initLayout(activeParent, activeSubmenu) {
     const mainContent = document.createElement('div');
     mainContent.className = "flex-1 min-w-0 flex flex-col min-h-screen";
 
-    const header = renderHeader();
+    const header = renderHeader(activeParent, activeSubmenu);
     mainContent.appendChild(header);
 
     const wrapper = document.createElement('div');

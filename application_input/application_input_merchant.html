@@ -1,43 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Application Input Merchant - M-Sales</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="../js/layout.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div id="app"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Input Merchant - M-Sales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../js/layout.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
 
-    <script>
-      initLayout("Application Input - Merchant");
+<body>
+  <div id="app"></div>
 
-      const appContainer = document.querySelector("#app > div > div");
-      const main = document.createElement("div");
-      main.className = "flex-1 bg-gray-50 flex flex-col";
+  <script>
+    initLayout("Application Input - Merchant");
 
-      main.innerHTML = `
-            <!-- Header -->
-            <div class="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4">
-                <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700 transition-colors">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-                <h1 class="text-2xl font-semibold text-[#3B6EC2]">
-                    Application Input Merchant
-                </h1>
-            </div>
+    const appContainer = document.querySelector("#app > div > div");
+    const main = document.createElement("div");
+    main.className = "flex-1 bg-gray-50 flex flex-col";
+
+    main.innerHTML = `
+           
 
             <!-- Content -->
             <div class="flex-1 p-6">
@@ -329,371 +319,353 @@
             </div>
         `;
 
-      appContainer.appendChild(main);
+    appContainer.appendChild(main);
 
-      const mainData = [
-        {
-          id: 1,
-          rsmName: "Kiwamudin",
-          nikSales: "K1104148",
-          branch: "Bandung",
-          totalDsrActive: 145,
-          inputBySystem: 974,
-          receivedByApp: 958,
-          inprocess: 13,
-          rts: 46,
-          sendBca: 75,
-          sendPending: 6,
-          sendCancel: 0,
-        },
-        {
-          id: 2,
-          rsmName: "Budi Santoso",
-          nikSales: "K1104149",
-          branch: "Jakarta",
-          totalDsrActive: 120,
-          inputBySystem: 800,
-          receivedByApp: 780,
-          inprocess: 10,
-          rts: 10,
-          sendBca: 50,
-          sendPending: 5,
-          sendCancel: 1,
-        },
-        {
-          id: 3,
-          rsmName: "Siti Aminah",
-          nikSales: "K1104150",
-          branch: "Surabaya",
-          totalDsrActive: 150,
-          inputBySystem: 900,
-          receivedByApp: 890,
-          inprocess: 5,
-          rts: 12,
-          sendBca: 80,
-          sendPending: 2,
-          sendCancel: 0,
-        },
-        {
-          id: 4,
-          rsmName: "Agus Prasetyo",
-          nikSales: "K1104151",
-          branch: "Medan",
-          totalDsrActive: 110,
-          inputBySystem: 700,
-          receivedByApp: 680,
-          inprocess: 15,
-          rts: 20,
-          sendBca: 60,
-          sendPending: 4,
-          sendCancel: 0,
-        },
-        {
-          id: 5,
-          rsmName: "Dewi Lestari",
-          nikSales: "K1104152",
-          branch: "Semarang",
-          totalDsrActive: 130,
-          inputBySystem: 850,
-          receivedByApp: 840,
-          inprocess: 8,
-          rts: 15,
-          sendBca: 70,
-          sendPending: 3,
-          sendCancel: 0,
-        },
-      ];
+    const mainData = [
+      {
+        id: 1,
+        rsmName: "Kiwamudin",
+        nikSales: "K1104148",
+        branch: "Bandung",
+        totalDsrActive: 145,
+        inputBySystem: 974,
+        receivedByApp: 958,
+        inprocess: 13,
+        rts: 46,
+        sendBca: 75,
+        sendPending: 6,
+        sendCancel: 0,
+      },
+      {
+        id: 2,
+        rsmName: "Budi Santoso",
+        nikSales: "K1104149",
+        branch: "Jakarta",
+        totalDsrActive: 120,
+        inputBySystem: 800,
+        receivedByApp: 780,
+        inprocess: 10,
+        rts: 10,
+        sendBca: 50,
+        sendPending: 5,
+        sendCancel: 1,
+      },
+      {
+        id: 3,
+        rsmName: "Siti Aminah",
+        nikSales: "K1104150",
+        branch: "Surabaya",
+        totalDsrActive: 150,
+        inputBySystem: 900,
+        receivedByApp: 890,
+        inprocess: 5,
+        rts: 12,
+        sendBca: 80,
+        sendPending: 2,
+        sendCancel: 0,
+      },
+      {
+        id: 4,
+        rsmName: "Agus Prasetyo",
+        nikSales: "K1104151",
+        branch: "Medan",
+        totalDsrActive: 110,
+        inputBySystem: 700,
+        receivedByApp: 680,
+        inprocess: 15,
+        rts: 20,
+        sendBca: 60,
+        sendPending: 4,
+        sendCancel: 0,
+      },
+      {
+        id: 5,
+        rsmName: "Dewi Lestari",
+        nikSales: "K1104152",
+        branch: "Semarang",
+        totalDsrActive: 130,
+        inputBySystem: 850,
+        receivedByApp: 840,
+        inprocess: 8,
+        rts: 15,
+        sendBca: 70,
+        sendPending: 3,
+        sendCancel: 0,
+      },
+    ];
 
-      let currentPage = 1;
-      let rowsPerPage = 5;
-      let filteredData = [...mainData];
-      let searchQuery = "";
+    let currentPage = 1;
+    let rowsPerPage = 5;
+    let filteredData = [...mainData];
+    let searchQuery = "";
 
-      // Initial Render
-      renderTable();
-      renderPagination();
+    // Initial Render
+    renderTable();
+    renderPagination();
 
-      function renderTable() {
-        const tbody = document.getElementById("tableBody");
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const paginatedData = filteredData.slice(start, end);
+    function renderTable() {
+      const tbody = document.getElementById("tableBody");
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const paginatedData = filteredData.slice(start, end);
 
-        tbody.innerHTML = paginatedData
-          .map(
-            (item, index) => `
+      tbody.innerHTML = paginatedData
+        .map(
+          (item, index) => `
                 <tr class="hover:bg-gray-50 bg-white transition-colors">
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      start + index + 1
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 font-medium">${
-                      item.rsmName
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700">${
-                      item.nikSales
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700">${
-                      item.branch
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.totalDsrActive
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.inputBySystem
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.receivedByApp
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.inprocess
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.rts
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${
-                      item.sendBca
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.sendPending
-                    }</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${
-                      item.sendCancel
-                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${start + index + 1
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 font-medium">${item.rsmName
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">${item.nikSales
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700">${item.branch
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.totalDsrActive
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inputBySystem
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.receivedByApp
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.inprocess
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.rts
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-l border-gray-200">${item.sendBca
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendPending
+            }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.sendCancel
+            }</td>
                     <td class="px-4 py-3 text-center border-l border-gray-200 relative">
-                         <button onclick="toggleGlobalDropdown(event, ${
-                           item.id
-                         }, '${item.rsmName}', '${
-              item.nikSales
+                         <button onclick="toggleGlobalDropdown(event, ${item.id
+            }, '${item.rsmName}', '${item.nikSales
             }')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
                             <i data-lucide="more-horizontal" class="w-5 h-5"></i>
                         </button>
                     </td>
                 </tr>
             `
-          )
-          .join("");
+        )
+        .join("");
 
-        if (paginatedData.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No data found</td></tr>`;
-        }
-        lucide.createIcons();
+      if (paginatedData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No data found</td></tr>`;
       }
+      lucide.createIcons();
+    }
 
-      function renderPagination() {
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        const showingInfo = document.getElementById("showingInfo");
-        const paginationControls =
-          document.getElementById("paginationControls");
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+      const showingInfo = document.getElementById("showingInfo");
+      const paginationControls =
+        document.getElementById("paginationControls");
 
-        const start =
-          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+      const start =
+        filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+      const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+      showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
 
-        let controlsHtml = `
-                <button onclick="changePage(${
-                  currentPage - 1
-                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
-          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+      let controlsHtml = `
+                <button onclick="changePage(${currentPage - 1
+        })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
         }" ${currentPage === 1 ? "disabled" : ""}>
                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
             `;
 
-        for (let i = 1; i <= totalPages; i++) {
-          if (i === currentPage) {
-            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
-          } else {
-            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
-          }
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+          controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+        } else {
+          controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
         }
+      }
 
-        controlsHtml += `
-                <button onclick="changePage(${
-                  currentPage + 1
-                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
-          currentPage === totalPages || totalPages === 0
-            ? "opacity-50 cursor-not-allowed"
-            : ""
+      controlsHtml += `
+                <button onclick="changePage(${currentPage + 1
+        })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0
+          ? "opacity-50 cursor-not-allowed"
+          : ""
         }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
             `;
-        paginationControls.innerHTML = controlsHtml;
-        lucide.createIcons();
+      paginationControls.innerHTML = controlsHtml;
+      lucide.createIcons();
+    }
+
+    window.handleSearch = function (query) {
+      searchQuery = query.toLowerCase();
+      filteredData = mainData.filter(
+        (item) =>
+          item.rsmName.toLowerCase().includes(searchQuery) ||
+          item.nikSales.toLowerCase().includes(searchQuery)
+      );
+      currentPage = 1;
+      renderTable();
+      renderPagination();
+    };
+
+    window.changePage = function (page) {
+      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderTable();
+      renderPagination();
+    };
+
+    window.handleRowsPerPageChange = function (value) {
+      rowsPerPage = parseInt(value);
+      currentPage = 1;
+      renderTable();
+      renderPagination();
+    };
+
+    // Dropdown Logic
+    // Global Dropdown Logic
+    window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
+      event.stopPropagation();
+      const menu = document.getElementById("globalActionDropdown");
+
+      // Toggle off if same
+      if (
+        !menu.classList.contains("hidden") &&
+        menu.dataset.triggerId === String(id)
+      ) {
+        menu.classList.add("hidden");
+        return;
       }
 
-      window.handleSearch = function (query) {
-        searchQuery = query.toLowerCase();
-        filteredData = mainData.filter(
-          (item) =>
-            item.rsmName.toLowerCase().includes(searchQuery) ||
-            item.nikSales.toLowerCase().includes(searchQuery)
-        );
-        currentPage = 1;
-        renderTable();
-        renderPagination();
+      // Update Action
+      document.getElementById("globalViewDownlineBtn").onclick = function () {
+        openDownlineModal(rsmName, nikSales);
+        menu.classList.add("hidden");
       };
 
-      window.changePage = function (page) {
-        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-        if (page < 1 || page > totalPages) return;
-        currentPage = page;
-        renderTable();
-        renderPagination();
+      document.getElementById("globalViewDetailBtn").onclick = function () {
+        openDetailModal(rsmName);
+        menu.classList.add("hidden");
       };
 
-      window.handleRowsPerPageChange = function (value) {
-        rowsPerPage = parseInt(value);
-        currentPage = 1;
-        renderTable();
-        renderPagination();
-      };
+      // Position (Align Right)
+      const rect = event.currentTarget.getBoundingClientRect();
+      menu.style.top = rect.bottom + 5 + "px";
+      menu.style.left = rect.right - 192 + "px";
 
-      // Dropdown Logic
-      // Global Dropdown Logic
-      window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
-        event.stopPropagation();
-        const menu = document.getElementById("globalActionDropdown");
+      menu.dataset.triggerId = String(id);
+      menu.classList.remove("hidden");
+    };
 
-        // Toggle off if same
-        if (
-          !menu.classList.contains("hidden") &&
-          menu.dataset.triggerId === String(id)
-        ) {
-          menu.classList.add("hidden");
-          return;
-        }
+    // Source Menu Logic
+    window.toggleSourceMenu = function (event) {
+      event.stopPropagation();
+      const menu = document.getElementById("sourceMenu");
+      menu.classList.toggle("hidden");
+    };
 
-        // Update Action
-        document.getElementById("globalViewDownlineBtn").onclick = function () {
-          openDownlineModal(rsmName, nikSales);
-          menu.classList.add("hidden");
-        };
+    // Date Range Picker Logic
+    window.toggleDateRangePicker = function (event) {
+      if (event) event.stopPropagation();
+      const picker = document.getElementById("dateRangePicker");
+      picker.classList.toggle("hidden");
+    };
 
-        document.getElementById("globalViewDetailBtn").onclick = function () {
-          openDetailModal(rsmName);
-          menu.classList.add("hidden");
-        };
+    // Close dropdowns on outside click
+    document.addEventListener("click", function (event) {
+      // Close Global Action Dropdown
+      const globalMenu = document.getElementById("globalActionDropdown");
+      if (
+        globalMenu &&
+        !globalMenu.classList.contains("hidden") &&
+        !globalMenu.contains(event.target)
+      ) {
+        globalMenu.classList.add("hidden");
+      }
 
-        // Position (Align Right)
-        const rect = event.currentTarget.getBoundingClientRect();
-        menu.style.top = rect.bottom + 5 + "px";
-        menu.style.left = rect.right - 192 + "px";
+      // Close Source Menu
+      const sourceMenu = document.getElementById("sourceMenu");
+      const sourceBtn = event.target.closest(
+        'button[onclick*="toggleSourceMenu"]'
+      );
+      if (
+        sourceMenu &&
+        !sourceMenu.classList.contains("hidden") &&
+        !sourceMenu.contains(event.target) &&
+        !sourceBtn
+      ) {
+        sourceMenu.classList.add("hidden");
+      }
 
-        menu.dataset.triggerId = String(id);
-        menu.classList.remove("hidden");
-      };
+      // Close Date Range Picker
+      const datePicker = document.getElementById("dateRangePicker");
+      const dateInput = event.target.closest(
+        '[onclick*="toggleDateRangePicker"]'
+      );
+      if (
+        datePicker &&
+        !datePicker.classList.contains("hidden") &&
+        !datePicker.contains(event.target) &&
+        !dateInput
+      ) {
+        datePicker.classList.add("hidden");
+      }
+    });
 
-      // Source Menu Logic
-      window.toggleSourceMenu = function (event) {
-        event.stopPropagation();
-        const menu = document.getElementById("sourceMenu");
-        menu.classList.toggle("hidden");
-      };
+    // --- Downline Modal Logic (Complex Version) ---
+    const dataInputStats = {
+      edc: { totalInput: 3, pendingSubmit: 1 },
+      qris: { totalInput: 5, pendingSubmit: 3 },
+      edcQris: { totalInput: 8, pendingSubmit: 4 },
+    };
 
-      // Date Range Picker Logic
-      window.toggleDateRangePicker = function (event) {
-        if (event) event.stopPropagation();
-        const picker = document.getElementById("dateRangePicker");
-        picker.classList.toggle("hidden");
-      };
+    const appProcessingStats = {
+      edc: {
+        received: 354,
+        inprocess: 6,
+        rts: 25,
+        send: 323,
+        pending: 0,
+        cancel: 0,
+      },
+      qris: {
+        received: 1533,
+        inprocess: 9,
+        rts: 38,
+        send: 1485,
+        pending: 1,
+        cancel: 0,
+      },
+      edcQris: {
+        received: 134,
+        inprocess: 20,
+        rts: 31,
+        send: 77,
+        pending: 6,
+        cancel: 0,
+      },
+    };
 
-      // Close dropdowns on outside click
-      document.addEventListener("click", function (event) {
-        // Close Global Action Dropdown
-        const globalMenu = document.getElementById("globalActionDropdown");
-        if (
-          globalMenu &&
-          !globalMenu.classList.contains("hidden") &&
-          !globalMenu.contains(event.target)
-        ) {
-          globalMenu.classList.add("hidden");
-        }
+    let activeTab = "data-input";
 
-        // Close Source Menu
-        const sourceMenu = document.getElementById("sourceMenu");
-        const sourceBtn = event.target.closest(
-          'button[onclick*="toggleSourceMenu"]'
-        );
-        if (
-          sourceMenu &&
-          !sourceMenu.classList.contains("hidden") &&
-          !sourceMenu.contains(event.target) &&
-          !sourceBtn
-        ) {
-          sourceMenu.classList.add("hidden");
-        }
+    function renderModalContent() {
+      const container = document.getElementById("modalContent");
+      const data =
+        activeTab === "data-input" ? dataInputStats : appProcessingStats;
 
-        // Close Date Range Picker
-        const datePicker = document.getElementById("dateRangePicker");
-        const dateInput = event.target.closest(
-          '[onclick*="toggleDateRangePicker"]'
-        );
-        if (
-          datePicker &&
-          !datePicker.classList.contains("hidden") &&
-          !datePicker.contains(event.target) &&
-          !dateInput
-        ) {
-          datePicker.classList.add("hidden");
-        }
-      });
+      const cards = [
+        { title: "EDC", type: "edc" },
+        { title: "QRIS", type: "qris" },
+        { title: "EDC + QRIS", type: "edcQris" },
+      ];
 
-      // --- Downline Modal Logic (Complex Version) ---
-      const dataInputStats = {
-        edc: { totalInput: 3, pendingSubmit: 1 },
-        qris: { totalInput: 5, pendingSubmit: 3 },
-        edcQris: { totalInput: 8, pendingSubmit: 4 },
-      };
+      container.innerHTML = cards
+        .map((card) => {
+          const stats = data[card.type];
+          let contentHTML = "";
 
-      const appProcessingStats = {
-        edc: {
-          received: 354,
-          inprocess: 6,
-          rts: 25,
-          send: 323,
-          pending: 0,
-          cancel: 0,
-        },
-        qris: {
-          received: 1533,
-          inprocess: 9,
-          rts: 38,
-          send: 1485,
-          pending: 1,
-          cancel: 0,
-        },
-        edcQris: {
-          received: 134,
-          inprocess: 20,
-          rts: 31,
-          send: 77,
-          pending: 6,
-          cancel: 0,
-        },
-      };
-
-      let activeTab = "data-input";
-
-      function renderModalContent() {
-        const container = document.getElementById("modalContent");
-        const data =
-          activeTab === "data-input" ? dataInputStats : appProcessingStats;
-
-        const cards = [
-          { title: "EDC", type: "edc" },
-          { title: "QRIS", type: "qris" },
-          { title: "EDC + QRIS", type: "edcQris" },
-        ];
-
-        container.innerHTML = cards
-          .map((card) => {
-            const stats = data[card.type];
-            let contentHTML = "";
-
-            if (activeTab === "data-input") {
-              contentHTML = `
+          if (activeTab === "data-input") {
+            contentHTML = `
                         <div class="space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Total Input')">
                                 <span class="text-sm text-gray-600">Total Input</span>
@@ -705,8 +677,8 @@
                             </div>
                         </div>
                     `;
-            } else {
-              contentHTML = `
+          } else {
+            contentHTML = `
                         <div class="space-y-3">
                             <div class="flex justify-between items-center pb-2 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Received')">
                                 <span class="text-sm text-gray-600">Received</span>
@@ -734,9 +706,9 @@
                             </div>
                         </div>
                     `;
-            }
+          }
 
-            return `
+          return `
                     <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                         <div class="bg-[#3B6EC2] px-4 py-3 text-center">
                             <h3 class="text-base font-semibold text-white">${card.title}</h3>
@@ -746,49 +718,49 @@
                         </div>
                     </div>
                 `;
-          })
-          .join("");
+        })
+        .join("");
+    }
+
+    window.switchTab = function (tab) {
+      activeTab = tab;
+      const tabDataInput = document.getElementById("tab-data-input");
+      const tabAppProcessing = document.getElementById("tab-app-processing");
+
+      if (tab === "data-input") {
+        tabDataInput.className =
+          "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
+        tabAppProcessing.className =
+          "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
+      } else {
+        tabAppProcessing.className =
+          "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
+        tabDataInput.className =
+          "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
       }
+      renderModalContent();
+    };
 
-      window.switchTab = function (tab) {
-        activeTab = tab;
-        const tabDataInput = document.getElementById("tab-data-input");
-        const tabAppProcessing = document.getElementById("tab-app-processing");
+    window.openDownlineModal = function (rsmName, nikSales) {
+      document.getElementById("modalRsmName").innerText = rsmName; // + ' - ' + nikSales;
+      document.getElementById("downlineModal").classList.remove("hidden");
 
-        if (tab === "data-input") {
-          tabDataInput.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
-          tabAppProcessing.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
-        } else {
-          tabAppProcessing.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-[#3B6EC2] text-white shadow-sm";
-          tabDataInput.className =
-            "px-4 py-2 text-sm font-medium rounded-lg transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
-        }
-        renderModalContent();
-      };
+      // Reset to default tab
+      activeTab = "data-input";
+      switchTab("data-input");
 
-      window.openDownlineModal = function (rsmName, nikSales) {
-        document.getElementById("modalRsmName").innerText = rsmName; // + ' - ' + nikSales;
-        document.getElementById("downlineModal").classList.remove("hidden");
+      // Close dropdowns
+      document
+        .getElementById("globalActionDropdown")
+        ?.classList.add("hidden");
+    };
 
-        // Reset to default tab
-        activeTab = "data-input";
-        switchTab("data-input");
+    window.closeDownlineModal = function () {
+      document.getElementById("downlineModal").classList.add("hidden");
+    };
 
-        // Close dropdowns
-        document
-          .getElementById("globalActionDropdown")
-          ?.classList.add("hidden");
-      };
-
-      window.closeDownlineModal = function () {
-        document.getElementById("downlineModal").classList.add("hidden");
-      };
-
-      // Total Input Modal Logic
-      const totalInputModalHTML = `
+    // Total Input Modal Logic
+    const totalInputModalHTML = `
         <div id="totalInputModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center animate-in fade-in duration-200">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 flex flex-col max-h-[90vh]">
                 <!-- Header -->
@@ -871,25 +843,25 @@
             </div>
         </div>
       `;
-      document.body.insertAdjacentHTML("beforeend", totalInputModalHTML);
+    document.body.insertAdjacentHTML("beforeend", totalInputModalHTML);
 
-      window.openTotalInputModal = function (title, subtitle) {
-        document.getElementById("totalInputModalTitle").innerText =
-          title + " - " + subtitle;
-        const modal = document.getElementById("totalInputModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-        lucide.createIcons();
-      };
+    window.openTotalInputModal = function (title, subtitle) {
+      document.getElementById("totalInputModalTitle").innerText =
+        title + " - " + subtitle;
+      const modal = document.getElementById("totalInputModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      lucide.createIcons();
+    };
 
-      window.closeTotalInputModal = function () {
-        const modal = document.getElementById("totalInputModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      };
+    window.closeTotalInputModal = function () {
+      const modal = document.getElementById("totalInputModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    };
 
-      // Detail Modal Logic
-      const detailModalHTML = `
+    // Detail Modal Logic
+    const detailModalHTML = `
         <div id="detailModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center animate-in fade-in duration-200">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-6xl mx-4 flex flex-col max-h-[90vh]">
                 <!-- Header -->
@@ -1012,24 +984,24 @@
             </div>
         </div>
       `;
-      document.body.insertAdjacentHTML("beforeend", detailModalHTML);
+    document.body.insertAdjacentHTML("beforeend", detailModalHTML);
 
-      window.openDetailModal = function (title) {
-        document.getElementById("detailModalTitle").innerText = title;
-        const modal = document.getElementById("detailModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-        lucide.createIcons();
-      };
+    window.openDetailModal = function (title) {
+      document.getElementById("detailModalTitle").innerText = title;
+      const modal = document.getElementById("detailModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      lucide.createIcons();
+    };
 
-      window.closeDetailModal = function () {
-        const modal = document.getElementById("detailModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      };
+    window.closeDetailModal = function () {
+      const modal = document.getElementById("detailModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    };
 
-      // Sales Detail Modal Logic
-      const salesDetailModalHTML = `
+    // Sales Detail Modal Logic
+    const salesDetailModalHTML = `
         <div id="salesDetailModal" class="fixed inset-0 bg-black/50 z-[70] hidden items-center justify-center animate-in fade-in duration-200">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 flex flex-col max-h-[90vh]">
                 <!-- Header -->
@@ -1105,23 +1077,24 @@
             </div>
         </div>
       `;
-      document.body.insertAdjacentHTML("beforeend", salesDetailModalHTML);
+    document.body.insertAdjacentHTML("beforeend", salesDetailModalHTML);
 
-      window.openSalesDetailModal = function (title) {
-        document.getElementById("salesDetailModalTitle").innerText = title;
-        const modal = document.getElementById("salesDetailModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-        lucide.createIcons();
-      };
-
-      window.closeSalesDetailModal = function () {
-        const modal = document.getElementById("salesDetailModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      };
-
+    window.openSalesDetailModal = function (title) {
+      document.getElementById("salesDetailModalTitle").innerText = title;
+      const modal = document.getElementById("salesDetailModal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
       lucide.createIcons();
-    </script>
-  </body>
+    };
+
+    window.closeSalesDetailModal = function () {
+      const modal = document.getElementById("salesDetailModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    };
+
+    lucide.createIcons();
+  </script>
+</body>
+
 </html>
