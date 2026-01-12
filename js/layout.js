@@ -92,6 +92,7 @@ const menuItems = [
     { icon: 'map-pin', label: 'Check Postal Code', hasSubmenu: false, url: 'check_postal_code/check_postal_code.html' },
     { icon: 'copy', label: 'Duplicate Check', hasSubmenu: false, url: 'duplicate_check/duplicate_check.html' },
     { icon: 'monitor', label: 'Monitoring', hasSubmenu: false, url: 'monitoring/monitoring.html' },
+    { icon: 'file-text', label: 'Slip Incentive', hasSubmenu: false, url: 'slip_incentive/slip_incentive.html' },
 ];
 
 /**
