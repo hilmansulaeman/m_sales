@@ -24,368 +24,88 @@
 
     const appContainer = document.querySelector("#app > div > div");
     const main = document.createElement("div");
-    main.className = "flex-1 bg-gray-50";
+    main.className = "flex-1 bg-gray-50 p-6";
 
     main.innerHTML = `
-           
-            <!-- Content -->
-            <div class="p-6">
-                <div class="bg-white rounded-lg shadow-sm">
-                    <!-- Search and Filters -->
-                    <div class="p-4 border-b border-gray-200 flex items-center gap-4 flex-wrap">
-                        <div class="relative flex-1 max-w-xs">
-                             <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                        </div>
-
-                        <div class="relative">
-                            <select class="pl-4 pr-10 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-700 appearance-none cursor-pointer min-w-[180px]">
-                                <option value="all">All Types</option>
-                                <option value="cc">Credit Card</option>
-                                <option value="merchant">Merchant</option>
-                                <option value="telemarketing">Telemarketing</option>
-                                <option value="pemol">PEMOL</option>
-                            </select>
-                            <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"></i>
-                        </div>
-
-                        <!-- Date Range Picker -->
-                        <div class="relative">
-                             <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
-                                <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                                <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer"/>
-                            </div>
-
-                            <!-- Date Range Dropdown -->
-                            <div id="dateRangePicker" class="hidden absolute top-full right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
-                                <div class="flex flex-col md:flex-row gap-6 md:gap-8">
-                                    <!-- Left Calendar (Jan 2025) -->
-                                    <div class="flex-1">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-                                            <span class="font-semibold text-gray-800 text-sm">January 2025</span>
-                                            <div class="w-6"></div>
-                                        </div>
-                                        <div class="grid grid-cols-7 text-center mb-2">
-                                            <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
-                                        </div>
-                                        <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
-                                            <!-- Empty -->
-                                            <span></span><span></span>
-                                            <!-- 1 (Start) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-l-full">1</button>
-                                            <!-- 2-5 (Range) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">2</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">3</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">4</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">5</button>
-                                            
-                                            <!-- 6-12 (Full Row) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">6</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">7</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">8</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">9</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">10</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">11</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">12</button>
-                                            
-                                            <!-- 13-19 (Full Row) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">13</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">14</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">15</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">16</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">17</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">18</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">19</button>
-                                            
-                                            <!-- 20-26 (Full Row) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">20</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">21</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">22</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">23</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">24</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">25</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">26</button>
-
-                                            <!-- 27-31 (Partial Row) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">27</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">28</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">29</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">30</button>
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">31</button>
-                                        </div>
-                                    </div>
-
-                                    <!-- Divider (Desktop Only) -->
-                                    <div class="hidden md:block w-px bg-gray-100"></div>
-
-                                    <!-- Right Calendar (Feb 2025) - Desktop Only -->
-                                    <div class="flex-1 hidden md:block">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <div class="w-6"></div>
-                                            <span class="font-semibold text-gray-800 text-sm">February 2025</span>
-                                                                                        <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
-                                        </div>
-                                        <div class="grid grid-cols-7 text-center mb-2">
-                                            <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
-                                        </div>
-                                        <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
-                                            <!-- Empty -->
-                                            <span></span><span></span><span></span><span></span><span></span>
-                                            <!-- 1 (Range) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">1</button>
-                                            <!-- 2 (End) -->
-                                            <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-r-full">2</button>
-                                            
-                                            <!-- 3-9 -->
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">3</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">4</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">5</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">6</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">7</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">8</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">9</button>
-                                            <!-- 10-16 -->
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">10</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">11</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">12</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">13</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">14</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">15</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">16</button>
-                                            <!-- 17-23 -->
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">17</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">18</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">19</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">20</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">21</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">22</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">23</button>
-                                            <!-- 24-28 -->
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">24</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">25</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">26</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">27</button>
-                                            <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">28</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Footer -->
-                                <div class="mt-6 flex justify-end gap-3 items-center pt-4 border-t border-gray-100">
-                                    <button class="text-[#3B6EC2] hover:text-[#2F5BA8] font-semibold text-sm transition-colors" onclick="toggleDateRangePicker(event)">Reset</button>
-                                    <button class="bg-[#3B6EC2] text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-[#2F5BA8] transition-colors" onclick="toggleDateRangePicker(event)">Apply</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ml-auto">
-                            <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
-                            <i data-lucide="share" class="w-4 h-4"></i>
-                            Export data
-                        </button>
-                        </div>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="bg-[#3B6EC2] text-white">
-                                    <th class="px-4 py-3 text-center text-sm font-medium">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium">Sales Name</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium">NIK</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium">Branch</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">CC</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Merchant</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Telemarketing</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">PEMOL</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Total App</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-l border-white/20">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <!-- JS Populated -->
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
-                        <div class="text-sm text-gray-600">Showing 1 to 8 of 8</div>
-
-                         <div class="flex items-center gap-2">
-                            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                                &lt;
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center bg-[#3B6EC2] text-white rounded font-medium text-sm">1</button>
-                            <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                                &gt;
-                            </button>
-                        </div>
-
-                         <div class="flex items-center gap-2">
-                            <span class="text-sm text-gray-600">Show</span>
-                            <select class="border border-gray-300 px-3 py-1.5 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                            </select>
-                        </div>
-                    </div>
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <!-- Header Filter Section -->
+            <div class="p-6 border-b border-gray-200 flex items-center gap-4">
+                <label class="text-[#1E5BA8] font-bold text-lg">Period</label>
+                <div class="relative">
+                    <select class="appearance-none border border-gray-300 rounded-full px-4 py-2 pr-10 bg-white text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[200px]">
+                        <option>September 2025</option>
+                        <option>August 2025</option>
+                        <option>July 2025</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"></i>
                 </div>
             </div>
-        `;
+
+            <!-- Table Section -->
+            <div class="overflow-x-auto rounded-b-lg">
+                <table class="w-full text-center border-separate border-spacing-0">
+                    <thead>
+                        <tr class="bg-[#1E5BA8] text-white">
+                            <!-- First Column (No longer sticky) -->
+                            <th class="px-6 py-4 border-r border-[#4E7CC9] border-b border-[#1E5BA8] w-48 bg-[#1E5BA8]"></th>
+                            
+                            <!-- Headers -->
+                            <th class="px-6 py-4 text-sm font-semibold border-r border-[#4E7CC9] border-b border-[#1E5BA8] last:border-r-0 whitespace-nowrap min-w-[150px]">Credit Card (CC)</th>
+                            <th class="px-6 py-4 text-sm font-semibold border-r border-[#4E7CC9] border-b border-[#1E5BA8] last:border-r-0 whitespace-nowrap min-w-[150px]">EDC</th>
+                            <th class="px-6 py-4 text-sm font-semibold border-r border-[#4E7CC9] border-b border-[#1E5BA8] last:border-r-0 whitespace-nowrap min-w-[150px]">Smart Cash (SC)</th>
+                            <th class="px-6 py-4 text-sm font-semibold border-r border-[#4E7CC9] border-b border-[#1E5BA8] last:border-r-0 whitespace-nowrap min-w-[150px]">Personal Loan (PL)</th>
+                            <th class="px-6 py-4 text-sm font-semibold border-b border-[#1E5BA8] whitespace-nowrap min-w-[150px]">Corporate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="performanceBody">
+                        <!-- Rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
 
     appContainer.appendChild(main);
 
-    const data = [
-      {
-        id: 1,
-        salesName: "Ahmad Hidayat",
-        nik: "K1104532",
-        branch: "Jakarta Pusat",
-        cc: 45,
-        merchant: 32,
-        telemarketing: 18,
-        pemol: 24,
-        totalApp: 119,
-      },
-      {
-        id: 2,
-        salesName: "Siti Nurhaliza",
-        nik: "K1105621",
-        branch: "Bandung",
-        cc: 52,
-        merchant: 28,
-        telemarketing: 22,
-        pemol: 31,
-        totalApp: 133,
-      },
-      {
-        id: 3,
-        salesName: "Budi Santoso",
-        nik: "K1106743",
-        branch: "Surabaya",
-        cc: 38,
-        merchant: 41,
-        telemarketing: 15,
-        pemol: 19,
-        totalApp: 113,
-      },
-      {
-        id: 4,
-        salesName: "Dewi Kusuma",
-        nik: "K1107854",
-        branch: "Medan",
-        cc: 47,
-        merchant: 35,
-        telemarketing: 20,
-        pemol: 28,
-        totalApp: 130,
-      },
-      {
-        id: 5,
-        salesName: "Eko Prasetyo",
-        nik: "K1108965",
-        branch: "Semarang",
-        cc: 41,
-        merchant: 29,
-        telemarketing: 17,
-        pemol: 22,
-        totalApp: 109,
-      },
-      {
-        id: 6,
-        salesName: "Fitri Handayani",
-        nik: "K1109076",
-        branch: "Makassar",
-        cc: 55,
-        merchant: 38,
-        telemarketing: 25,
-        pemol: 33,
-        totalApp: 151,
-      },
-      {
-        id: 7,
-        salesName: "Gunawan Wijaya",
-        nik: "K1110187",
-        branch: "Palembang",
-        cc: 43,
-        merchant: 31,
-        telemarketing: 19,
-        pemol: 26,
-        totalApp: 119,
-      },
-      {
-        id: 8,
-        salesName: "Hani Rahmawati",
-        nik: "K1111298",
-        branch: "Denpasar",
-        cc: 49,
-        merchant: 36,
-        telemarketing: 21,
-        pemol: 29,
-        totalApp: 135,
-      },
+    // Row Data Definition
+    const rows = [
+      { label: "Application Input", isPercent: false },
+      { label: "Incoming", isPercent: false },
+      { label: "Approved", isPercent: false },
+      { label: "Cancel", isPercent: false },
+      { label: "Decline / Reject", isPercent: false },
+      { label: "App Rate", isPercent: true },
+      { label: "Book Rate", isPercent: true },
+      { label: "Run Rate INC", isPercent: false },
+      { label: "Run Rate APP", isPercent: false }
     ];
 
-    const tbody = document.getElementById("tableBody");
-    tbody.innerHTML = data
-      .map(
-        (item, index) => `
-            <tr class="border-b border-gray-200 hover:bg-gray-50 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"
-          }">
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.id
-          }</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${item.salesName
-          }</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${item.nik}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${item.branch}</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.cc
-          }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.merchant
-          }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.telemarketing
-          }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.pemol
-          }</td>
-                <td class="px-4 py-3 text-sm text-gray-700 text-center font-semibold">${item.totalApp
-          }</td>
-                <td class="px-4 py-3 text-center border-l border-gray-200">
-                     <button class="text-gray-400 hover:text-gray-600">
-                        <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                    </button>
-                </td>
-            </tr>
-        `
-      )
-      .join("");
-
-    // Date Range Picker Logic
-    window.toggleDateRangePicker = function (event) {
-      if (event) event.stopPropagation();
-      const picker = document.getElementById("dateRangePicker");
-      picker.classList.toggle("hidden");
+    const generateRowData = (isPercentage) => {
+      // Generates 1, 2, 3, 4, 5 pattern
+      return [1, 2, 3, 4, 5].map(n => isPercentage ? `${n}%` : n);
     };
 
-    document.addEventListener("click", function (event) {
-      const datePicker = document.getElementById("dateRangePicker");
-      const dateInput = event.target.closest(
-        '[onclick*="toggleDateRangePicker"]'
-      );
-      if (
-        datePicker &&
-        !datePicker.classList.contains("hidden") &&
-        !datePicker.contains(event.target) &&
-        !dateInput
-      ) {
-        datePicker.classList.add("hidden");
-      }
+    const tbody = document.getElementById("performanceBody");
+
+    rows.forEach((row, index) => {
+      const tr = document.createElement("tr");
+      const bgClass = index % 2 === 0 ? "bg-white" : "bg-gray-50";
+
+      const cellsData = generateRowData(row.isPercent);
+
+      // First Column (No longer sticky)
+      let html = `
+            <td class="px-6 py-4 text-left text-sm text-gray-700 font-medium border-r border-gray-200 border-b border-gray-200 whitespace-nowrap ${bgClass}">${row.label}</td>
+        `;
+
+      // Data Columns
+      cellsData.forEach((val, i) => {
+        const isLast = i === cellsData.length - 1;
+        html += `<td class="px-6 py-4 text-sm text-gray-600 ${isLast ? '' : 'border-r'} border-b border-gray-200 whitespace-nowrap ${bgClass}">${val}</td>`;
+      });
+
+      tr.innerHTML = html;
+      tbody.appendChild(tr);
     });
 
     lucide.createIcons();

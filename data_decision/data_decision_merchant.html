@@ -14,6 +14,19 @@
         body {
             font-family: "Inter", sans-serif;
         }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
     </style>
 </head>
 
@@ -52,7 +65,7 @@
                         </div>
 
                         <!-- Export Button -->
-                        <div class="relative">
+                        <div class="relative w-full sm:w-auto">
                              <button onclick="toggleExportMenu()" class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
                                 <i data-lucide="share" class="w-4 h-4"></i>
                                 Export data
@@ -253,11 +266,11 @@
         `;
         document.body.insertAdjacentHTML('beforeend', menuHTML);
 
-        // View Detail Modal (for the "View Detail" action)
+        // View Detail Modal (Now Downline Modal - Table)
         const viewDetailModalHTML = `
-            <div id="viewDetailModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
+            <div id="downlineModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
                 <!-- Backdrop -->
-                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeViewDetailModal()"></div>
+                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDownlineModal()"></div>
 
                 <!-- Modal Panel -->
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -266,8 +279,8 @@
                             
                             <!-- Header -->
                             <div class="flex items-center justify-between mb-8">
-                                <h2 class="text-2xl font-semibold text-[#1E293B]" id="viewDetailModalTitle">Ramaldo Oktama</h2>
-                                <button onclick="closeViewDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+                                <h2 class="text-2xl font-semibold text-[#1E293B]" id="downlineModalTitle">Ramaldo Oktama</h2>
+                                <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
                                     <i data-lucide="x" class="w-6 h-6"></i>
                                 </button>
                             </div>
@@ -316,7 +329,7 @@
                                                 <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">0</td>
                                                 <td class="px-4 py-3 text-center text-gray-600 border-r border-gray-100">0</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSubDownlineModal('Anggi Nugraha')" class="text-[#1E5BA8] hover:text-blue-700 transition-colors">
+                                                    <button onclick="openSubDetailModal('Anggi Nugraha')" class="text-[#1E5BA8] hover:text-blue-700 transition-colors">
                                                         <i data-lucide="eye" class="w-5 h-5"></i>
                                                     </button>
                                                 </td>
@@ -360,11 +373,11 @@
         document.body.insertAdjacentHTML('beforeend', viewDetailModalHTML);
 
 
-        // Add Downline Modal to DOM
+        // Add Downline Modal to DOM (Now View Detail Modal - Tabs/Cards)
         const downlineModalHTML = `
-           <div id="downlineModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
+           <div id="viewDetailModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
                 <!-- Backdrop -->
-                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDownlineModal()"></div>
+                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeViewDetailModal()"></div>
 
                 <!-- Modal Panel -->
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -373,16 +386,16 @@
                             
                             <!-- Header -->
                             <div class="flex items-center justify-between mb-8">
-                                <h2 class="text-2xl font-semibold text-[#1E293B]" id="downlineModalTitle">Ramaldo Oktama</h2>
-                                <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+                                <h2 class="text-2xl font-semibold text-[#1E293B]" id="viewDetailModalTitle">Ramaldo Oktama</h2>
+                                <button onclick="closeViewDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
                                     <i data-lucide="x" class="w-6 h-6"></i>
                                 </button>
                             </div>
 
                             <!-- Tabs -->
-                            <div class="bg-gray-100 p-1 rounded-lg inline-flex mb-8">
-                                <button id="tabButton-new" onclick="switchDownlineTab('new')" class="px-6 py-2 rounded-md bg-[#1E5BA8] text-white text-sm font-medium shadow-sm transition-all">New</button>
-                                <button id="tabButton-existing" onclick="switchDownlineTab('existing')" class="px-6 py-2 rounded-md text-gray-500 text-sm font-medium hover:text-gray-700 transition-all">Existing</button>
+                            <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar w-full pb-2">
+                                <button id="tabButton-new" onclick="switchDetailTab('new')" class="flex-shrink-0 px-5 py-2 bg-[#3B6EC2] text-white rounded-full text-sm font-medium shadow-sm transition-all whitespace-nowrap">New</button>
+                                <button id="tabButton-existing" onclick="switchDetailTab('existing')" class="flex-shrink-0 px-5 py-2 text-gray-500 hover:bg-gray-100 rounded-full text-sm font-medium transition-colors whitespace-nowrap">Existing</button>
                             </div>
 
                             <!-- Content: New -->
@@ -649,18 +662,21 @@
             }
         });
 
-        // Downline Modal Logic
-        window.openDownlineModal = function () {
-            // Close the action menu first
-            document.getElementById("globalActionMenu").classList.add("hidden");
+        // Downline Modal Logic (Opens the ASM Table)
+        window.openDownlineModal = function (title) {
+            const menu = document.getElementById("globalActionMenu");
+            if (menu) menu.classList.add("hidden");
 
-            // Open the modal
-            document.getElementById("downlineModal").classList.remove("hidden");
+            const modal = document.getElementById('downlineModal'); // Now targeting the Table
+            const titleEl = document.getElementById('downlineModalTitle');
 
-            // Reset to first tab
-            switchDownlineTab('new');
+            if (title && titleEl) titleEl.textContent = title;
 
-            // Re-render icons if needed (though static html usually is fine)
+            // Reset Z-Index
+            modal.classList.remove('z-[110]');
+            modal.classList.add('z-[100]');
+
+            modal.classList.remove('hidden');
             lucide.createIcons();
         }
 
@@ -668,7 +684,8 @@
             document.getElementById("downlineModal").classList.add("hidden");
         }
 
-        window.switchDownlineTab = function (tabName) {
+        // Switch Logic for Detail Tabs
+        window.switchDetailTab = function (tabName) {
             // Content
             document.getElementById('tabContent-new').classList.add('hidden');
             document.getElementById('tabContent-existing').classList.add('hidden');
@@ -679,31 +696,14 @@
             const btnExisting = document.getElementById('tabButton-existing');
 
             // Base classes for active/inactive
-            const activeClass = "bg-[#1E5BA8] text-white shadow-sm";
-            const inactiveClass = "text-gray-500 hover:text-gray-700";
+            const activeClass = "bg-[#3B6EC2] text-white shadow-sm rounded-full";
+            const inactiveClass = "text-gray-500 hover:bg-gray-100 rounded-full";
 
-            // Reset classes (removing specific classes to be safe)
-            btnNew.className = "px-6 py-2 rounded-md text-sm font-medium transition-all " + (tabName === 'new' ? activeClass : inactiveClass);
-            btnExisting.className = "px-6 py-2 rounded-md text-sm font-medium transition-all " + (tabName === 'existing' ? activeClass : inactiveClass);
+            btnNew.className = "flex-shrink-0 px-5 py-2 text-sm font-medium transition-colors whitespace-nowrap " + (tabName === 'new' ? activeClass : inactiveClass);
+            btnExisting.className = "flex-shrink-0 px-5 py-2 text-sm font-medium transition-colors whitespace-nowrap " + (tabName === 'existing' ? activeClass : inactiveClass);
         }
 
-        // Detail Modal Logic
-        window.openDetailModal = function (title) {
-            // Set title
-            document.getElementById('detailModalTitle').textContent = title;
-
-            // Open modal
-            document.getElementById('detailModal').classList.remove('hidden');
-
-            // Re-render icons if needed
-            lucide.createIcons();
-        }
-
-        window.closeDetailModal = function () {
-            document.getElementById('detailModal').classList.add('hidden');
-        }
-
-        // View Detail Modal Logic (Action Menu)
+        // View Detail Modal Logic (Opens the Tabs/Cards)
         window.openViewDetailModal = function (title) {
             // Close action menu
             document.getElementById("globalActionMenu").classList.add("hidden");
@@ -714,6 +714,9 @@
             // Open modal
             document.getElementById('viewDetailModal').classList.remove('hidden');
 
+            // Reset Tab
+            switchDetailTab('new');
+
             lucide.createIcons();
         }
 
@@ -721,36 +724,26 @@
             document.getElementById('viewDetailModal').classList.add('hidden');
         }
 
-        // Sub Downline Modal (Opened from View Detail)
-        window.openSubDownlineModal = function (title) {
-            const modal = document.getElementById('downlineModal');
-            const titleEl = document.getElementById('downlineModalTitle');
+        // Sub Detail Modal (Opened from the Downline Table's Eye Icon)
+        // This opens the Detail (Tabs) modal on top of the Downline (Table) modal
+        window.openSubDetailModal = function (title) {
+            const modal = document.getElementById('viewDetailModal');
+            const titleEl = document.getElementById('viewDetailModalTitle');
 
             if (titleEl) titleEl.textContent = title;
 
-            // Ensure this modal sits on top of the View Detail modal
+            // Ensure this modal sits on top of the Table modal
             modal.classList.remove('z-[100]');
             modal.classList.add('z-[110]');
 
             modal.classList.remove('hidden');
+
+            // Reset Tab
+            switchDetailTab('new');
         }
 
-        // Standard Downline Modal (updated to accept title and handle z-index)
-        window.openDownlineModal = function (title) {
-            const menu = document.getElementById("globalActionMenu");
-            if (menu) menu.classList.add("hidden");
-
-            const modal = document.getElementById('downlineModal');
-            const titleEl = document.getElementById('downlineModalTitle');
-
-            // Reset z-index to default
-            modal.classList.remove('z-[110]');
-            modal.classList.add('z-[100]');
-
-            if (title && titleEl) titleEl.textContent = title;
-
-            modal.classList.remove('hidden');
-        }
+        // Standard Detail Modal (Deep Leaf) - No change needed to openDetailModal itself
+        // But ensure it doesn't conflict. It's separate.
     </script>
 </body>
 

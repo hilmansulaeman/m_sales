@@ -2,36 +2,47 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Application Input CC Reguler - M-Sales</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="../js/layout.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: "Inter", sans-serif;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Input CC Reguler - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/layout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
 </head>
 
 <body>
-  <div id="app"></div>
+    <div id="app"></div>
 
-  <script>
-    initLayout("Application Input");
+    <script>
+        initLayout("Application Input");
 
-    const appContainer = document.querySelector("#app > div > div");
-    const main = document.createElement("div");
-    main.className = "flex-1 bg-gray-50 flex flex-col";
+        const appContainer = document.querySelector("#app > div > div");
+        const main = document.createElement("div");
+        main.className = "flex-1 bg-gray-50 flex flex-col";
 
-    // Main Page Content
-    main.innerHTML = `
-            <!-- Header -->
-            <div class="bg-white border-b border-gray-200 px-8 py-5 flex items-center justify-between">
-                <h1 class="text-2xl font-bold text-[#1E40AF]">Application Input CC Reg</h1>
-            </div>
+        // Main Page Content
+        main.innerHTML = `
+           
 
             <!-- Content -->
             <div class="flex-1 p-8">
@@ -41,17 +52,17 @@
                         <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto items-center">
                             
                             <!-- Search -->
-                            <div class="relative flex-1 md:flex-none md:w-60">
+                            <div class="relative w-full md:w-60">
                                 <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
                                 <input type="text" placeholder="Search" class="w-full h-11 pl-12 pr-5 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600 transition-shadow"/>
                             </div>
 
                             <!-- Event Name Filter -->
-                             <div class="flex items-center flex-1 md:flex-none md:w-auto h-11 group shadow-sm rounded-full bg-white">
+                             <div class="flex items-center w-full md:w-auto h-11 group shadow-sm rounded-full bg-white">
                                 <div class="bg-[#1E5BA8] text-white px-5 h-full flex items-center rounded-l-full text-sm font-medium whitespace-nowrap">
                                     Event Name
                                 </div>
-                                <div class="relative flex-1 md:w-64 h-full">
+                                <div class="relative flex-1 min-w-0 md:w-64 h-full">
                                     <button onclick="toggleEventDropdown(event)" class="w-full h-full pl-4 pr-10 border-y border-r border-gray-300 rounded-r-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-600 text-left flex items-center truncate">
                                         <span id="selectedEvent" class="truncate">BCA Goodlife X Brightspot...</span>
                                         <i data-lucide="chevron-down" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
@@ -67,7 +78,7 @@
                             </div>
 
                             <!-- Date Range Picker -->
-                            <div class="relative flex-1 md:flex-none">
+                            <div class="relative w-full md:w-auto">
                                  <button onclick="toggleDateRangePicker(event)" class="w-full md:w-auto h-11 px-6 flex items-center gap-3 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-blue-500 hover:text-blue-600 transition-colors group focus:outline-none focus:ring-2 focus:ring-blue-100">
                                     <i data-lucide="calendar" class="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors"></i>
                                     <span>Select date range</span>
@@ -256,62 +267,62 @@
             </div>
         `;
 
-    appContainer.appendChild(main);
+        appContainer.appendChild(main);
 
-    // Data
-    const data = [
-      {
-        no: 1,
-        rsmName: "Shinta Kusuma",
-        nikSales: "K1104148",
-        branch: "Yogjakarta",
-        totalDsrActive: 126,
-        totalInput: 2108,
-        sendBca: 2097,
-        sendHc: 1,
-        inprocess: 10,
-        duplicate: 0,
-        rts: 1,
-        cancel: 0,
-        reject: 1,
-      },
-      {
-        no: 2,
-        rsmName: "Sifa Fauziah",
-        nikSales: "K1001005",
-        branch: "Jakarta",
-        totalDsrActive: 244,
-        totalInput: 2505,
-        sendBca: 2479,
-        sendHc: 8,
-        inprocess: 16,
-        duplicate: 0,
-        rts: 0,
-        cancel: 0,
-        reject: 0,
-      },
-      {
-        no: 3,
-        rsmName: "Marsha Suriawarsita",
-        nikSales: "K1400742",
-        branch: "Semarang",
-        totalDsrActive: 148,
-        totalInput: 1372,
-        sendBca: 1354,
-        sendHc: 3,
-        inprocess: 15,
-        duplicate: 0,
-        rts: 1,
-        cancel: 0,
-        reject: 1,
-      },
-    ];
+        // Data
+        const data = [
+            {
+                no: 1,
+                rsmName: "Shinta Kusuma",
+                nikSales: "K1104148",
+                branch: "Yogjakarta",
+                totalDsrActive: 126,
+                totalInput: 2108,
+                sendBca: 2097,
+                sendHc: 1,
+                inprocess: 10,
+                duplicate: 0,
+                rts: 1,
+                cancel: 0,
+                reject: 1,
+            },
+            {
+                no: 2,
+                rsmName: "Sifa Fauziah",
+                nikSales: "K1001005",
+                branch: "Jakarta",
+                totalDsrActive: 244,
+                totalInput: 2505,
+                sendBca: 2479,
+                sendHc: 8,
+                inprocess: 16,
+                duplicate: 0,
+                rts: 0,
+                cancel: 0,
+                reject: 0,
+            },
+            {
+                no: 3,
+                rsmName: "Marsha Suriawarsita",
+                nikSales: "K1400742",
+                branch: "Semarang",
+                totalDsrActive: 148,
+                totalInput: 1372,
+                sendBca: 1354,
+                sendHc: 3,
+                inprocess: 15,
+                duplicate: 0,
+                rts: 1,
+                cancel: 0,
+                reject: 1,
+            },
+        ];
 
-    // Render Table
-    const tbody = document.getElementById("tableBody");
-    tbody.innerHTML = data
-      .map(
-        (item, index) => `
+        // Render Table
+        const tbody = document.getElementById("tableBody");
+        tbody.innerHTML = data
+            .map(
+                (item, index) => `
             <tr class="hover:bg-gray-50 bg-white group">
                 <td class="px-4 py-3 text-sm text-gray-700 text-center">${item.no}</td>
                 <td class="px-4 py-3 text-sm text-gray-700">${item.rsmName}</td>
@@ -333,138 +344,144 @@
                 </td>
             </tr>
         `
-      )
-      .join("");
+            )
+            .join("");
 
-    // Date Range Picker Logic
-    window.toggleDateRangePicker = function (event) {
-      if (event) event.stopPropagation();
+        // Date Range Picker Logic
+        window.toggleDateRangePicker = function (event) {
+            if (event) event.stopPropagation();
 
-      // Close any open action dropdowns first
-      // Close global action dropdown
-      const globalDropdown = document.getElementById("globalActionDropdown");
-      if (globalDropdown) globalDropdown.classList.add("hidden");
+            // Close any open action dropdowns first
+            // Close global action dropdown
+            const globalDropdown = document.getElementById("globalActionDropdown");
+            if (globalDropdown) globalDropdown.classList.add("hidden");
 
-      const picker = document.getElementById("dateRangePicker");
-      picker.classList.toggle("hidden");
-    };
+            const picker = document.getElementById("dateRangePicker");
+            picker.classList.toggle("hidden");
+        };
 
-    // Action Dropdown Logic
-    // Action Dropdown Logic (Global)
-    window.toggleActionDropdown = function (rsmName, event) {
-      if (event) event.stopPropagation();
+        // Action Dropdown Logic
+        // Action Dropdown Logic (Global)
+        window.toggleActionDropdown = function (rsmName, event) {
+            if (event) event.stopPropagation();
 
-      // Close Date Picker
-      const datePicker = document.getElementById("dateRangePicker");
-      if (datePicker) datePicker.classList.add("hidden");
+            // Close Date Picker
+            const datePicker = document.getElementById("dateRangePicker");
+            if (datePicker) datePicker.classList.add("hidden");
 
-      const dropdown = document.getElementById("globalActionDropdown");
-      const btn = event.currentTarget;
-      const rect = btn.getBoundingClientRect();
+            const dropdown = document.getElementById("globalActionDropdown");
+            const btn = event.currentTarget;
+            const rect = btn.getBoundingClientRect();
 
-      // Position dropdown
-      dropdown.style.top = `${rect.bottom + window.scrollY + 5}px`;
-      dropdown.style.left = `${rect.right + window.scrollX - 180}px`; // Align right edge
+            // Position dropdown
+            dropdown.style.top = `${rect.bottom + window.scrollY + 5}px`;
+            dropdown.style.left = `${rect.right + window.scrollX - 180}px`; // Align right edge
 
-      // Setup handlers
-      const downlineBtn = document.getElementById("globalDownlineBtn");
-      // Remove old listeners? No, just replace onclick
-      downlineBtn.onclick = function () {
-        openDownlineModal(rsmName);
-        dropdown.classList.add("hidden");
-      };
+            // Setup handlers
+            const downlineBtn = document.getElementById("globalDownlineBtn");
+            // Remove old listeners? No, just replace onclick
+            downlineBtn.onclick = function () {
+                openDownlineModal(rsmName);
+                dropdown.classList.add("hidden");
+            };
 
-      dropdown.classList.remove("hidden");
-    };
+            const viewDataBtn = dropdown.querySelectorAll('button')[1];
+            viewDataBtn.onclick = function () {
+                openSalesDetailModal(rsmName);
+                dropdown.classList.add("hidden");
+            };
 
-    // Event Dropdown Logic
-    window.toggleEventDropdown = function (event) {
-      if (event) event.stopPropagation();
-      const dropdown = document.getElementById("eventDropdownOptions");
-      dropdown.classList.toggle("hidden");
+            dropdown.classList.remove("hidden");
+        };
 
-      // Close others
-      const datePicker = document.getElementById("dateRangePicker");
-      if (datePicker) datePicker.classList.add("hidden");
-      const globalDropdown = document.getElementById("globalActionDropdown");
-      if (globalDropdown) globalDropdown.classList.add("hidden");
-    };
+        // Event Dropdown Logic
+        window.toggleEventDropdown = function (event) {
+            if (event) event.stopPropagation();
+            const dropdown = document.getElementById("eventDropdownOptions");
+            dropdown.classList.toggle("hidden");
 
-    window.selectEvent = function (eventName) {
-      document.getElementById("selectedEvent").innerText = eventName;
-      document.getElementById("eventDropdownOptions").classList.add("hidden");
-    };
+            // Close others
+            const datePicker = document.getElementById("dateRangePicker");
+            if (datePicker) datePicker.classList.add("hidden");
+            const globalDropdown = document.getElementById("globalActionDropdown");
+            if (globalDropdown) globalDropdown.classList.add("hidden");
+        };
 
-    document.addEventListener("click", function (event) {
-      // Close Date Picker
-      const datePicker = document.getElementById("dateRangePicker");
-      const dateInput = event.target.closest(
-        '[onclick*="toggleDateRangePicker"]'
-      );
+        window.selectEvent = function (eventName) {
+            document.getElementById("selectedEvent").innerText = eventName;
+            document.getElementById("eventDropdownOptions").classList.add("hidden");
+        };
 
-      if (datePicker && !datePicker.classList.contains("hidden")) {
-        if (!datePicker.contains(event.target) && !dateInput) {
-          datePicker.classList.add("hidden");
-        }
-      }
+        document.addEventListener("click", function (event) {
+            // Close Date Picker
+            const datePicker = document.getElementById("dateRangePicker");
+            const dateInput = event.target.closest(
+                '[onclick*="toggleDateRangePicker"]'
+            );
 
-      // Close Event Dropdown
-      const eventDropdown = document.getElementById("eventDropdownOptions");
-      if (eventDropdown && !eventDropdown.classList.contains("hidden")) {
-        if (!event.target.closest('[onclick*="toggleEventDropdown"]')) {
-          eventDropdown.classList.add("hidden");
-        }
-      }
+            if (datePicker && !datePicker.classList.contains("hidden")) {
+                if (!datePicker.contains(event.target) && !dateInput) {
+                    datePicker.classList.add("hidden");
+                }
+            }
 
-      // Close Global Action Dropdown
-      const globalDropdown = document.getElementById("globalActionDropdown");
-      if (
-        globalDropdown &&
-        !globalDropdown.contains(event.target) &&
-        !event.target.closest('[onclick*="toggleActionDropdown"]')
-      ) {
-        globalDropdown.classList.add("hidden");
-      }
-    });
+            // Close Event Dropdown
+            const eventDropdown = document.getElementById("eventDropdownOptions");
+            if (eventDropdown && !eventDropdown.classList.contains("hidden")) {
+                if (!event.target.closest('[onclick*="toggleEventDropdown"]')) {
+                    eventDropdown.classList.add("hidden");
+                }
+            }
 
-    /* Downline Modal Logic */
-    window.openDownlineModal = function (name) {
-      const modal = document.getElementById("downlineModal");
-      const title = document.getElementById("downlineModalTitle");
-      const content = modal.querySelector("div"); // The inner card
+            // Close Global Action Dropdown
+            const globalDropdown = document.getElementById("globalActionDropdown");
+            if (
+                globalDropdown &&
+                !globalDropdown.contains(event.target) &&
+                !event.target.closest('[onclick*="toggleActionDropdown"]')
+            ) {
+                globalDropdown.classList.add("hidden");
+            }
+        });
 
-      title.textContent = name;
-      modal.classList.remove("hidden");
-      // Small timeout to allow display:block to apply before opacity transition
-      setTimeout(() => {
-        modal.classList.remove("opacity-0");
-        content.classList.remove("scale-95");
-        content.classList.add("scale-100");
-      }, 10);
-    };
+        /* Downline Modal Logic */
+        window.openDownlineModal = function (name) {
+            const modal = document.getElementById("downlineModal");
+            const title = document.getElementById("downlineModalTitle");
+            const content = modal.querySelector("div"); // The inner card
 
-    window.closeDownlineModal = function () {
-      const modal = document.getElementById("downlineModal");
-      const content = modal.querySelector("div");
+            title.textContent = name;
+            modal.classList.remove("hidden");
+            // Small timeout to allow display:block to apply before opacity transition
+            setTimeout(() => {
+                modal.classList.remove("opacity-0");
+                content.classList.remove("scale-95");
+                content.classList.add("scale-100");
+            }, 10);
+        };
 
-      modal.classList.add("opacity-0");
-      content.classList.remove("scale-100");
-      content.classList.add("scale-95");
+        window.closeDownlineModal = function () {
+            const modal = document.getElementById("downlineModal");
+            const content = modal.querySelector("div");
 
-      setTimeout(() => {
-        modal.classList.add("hidden");
-      }, 300); // Match transition duration
-    };
+            modal.classList.add("opacity-0");
+            content.classList.remove("scale-100");
+            content.classList.add("scale-95");
 
-    // Append Modal HTML to body
-    const modalHtml = `
-            <!-- Downline Modal -->
-            <div id="downlineModal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 300); // Match transition duration
+        };
+
+        // Append Modal HTML to body
+        const modalHtml = `
+            <!-- ASM List (Formerly Downline, Now Sales Detail) -->
+            <div id="salesDetailModal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
                 <div class="bg-white rounded-3xl w-[95%] max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300">
                     <!-- Header -->
                     <div class="px-8 py-6 flex items-center justify-between">
-                        <h2 id="downlineModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
-                        <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <h2 id="salesDetailModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
+                        <button onclick="closeSalesDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                             <i data-lucide="x" class="w-6 h-6"></i>
                         </button>
                     </div>
@@ -525,7 +542,7 @@
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">0</td>
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">1</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSalesDetailModal('Dian Krisnawati SE')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                                    <button onclick="openDownlineModal('Dian Krisnawati SE')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
                                                 </td>
                                             </tr>
                                             <!-- Mock Row 2 -->
@@ -544,7 +561,7 @@
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">0</td>
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">1</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSalesDetailModal('Ade Hardianto')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                                    <button onclick="openDownlineModal('Ade Hardianto')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
                                                 </td>
                                             </tr>
                                             <!-- Mock Row 3 -->
@@ -563,7 +580,7 @@
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">0</td>
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">1</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSalesDetailModal('Auliya Saraswati')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                                    <button onclick="openDownlineModal('Auliya Saraswati')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
                                                 </td>
                                             </tr>
                                     </tbody>
@@ -599,58 +616,58 @@
                 </div>
             </div>
       `;
-    document.body.insertAdjacentHTML("beforeend", modalHtml);
+        document.body.insertAdjacentHTML("beforeend", modalHtml);
 
-    /* Sales Detail Modal Logic */
-    window.openSalesDetailModal = function (name) {
-      const modal = document.getElementById("salesDetailModal");
-      const title = document.getElementById("salesDetailModalTitle");
-      const content = modal.querySelector("div");
+        /* Sales Detail Modal Logic */
+        window.openSalesDetailModal = function (name) {
+            const modal = document.getElementById("salesDetailModal");
+            const title = document.getElementById("salesDetailModalTitle");
+            const content = modal.querySelector("div");
 
-      title.textContent = name;
-      modal.classList.remove("hidden");
-      // Animation
-      setTimeout(() => {
-        modal.classList.remove("opacity-0");
-        content.classList.remove("scale-95");
-        content.classList.add("scale-100");
-      }, 10);
-    };
+            title.textContent = name;
+            modal.classList.remove("hidden");
+            // Animation
+            setTimeout(() => {
+                modal.classList.remove("opacity-0");
+                content.classList.remove("scale-95");
+                content.classList.add("scale-100");
+            }, 10);
+        };
 
-    window.closeSalesDetailModal = function () {
-      const modal = document.getElementById("salesDetailModal");
-      const content = modal.querySelector("div");
+        window.closeSalesDetailModal = function () {
+            const modal = document.getElementById("salesDetailModal");
+            const content = modal.querySelector("div");
 
-      modal.classList.add("opacity-0");
-      content.classList.remove("scale-100");
-      content.classList.add("scale-95");
+            modal.classList.add("opacity-0");
+            content.classList.remove("scale-100");
+            content.classList.add("scale-95");
 
-      setTimeout(() => {
-        modal.classList.add("hidden");
-      }, 300);
-    };
+            setTimeout(() => {
+                modal.classList.add("hidden");
+            }, 300);
+        };
 
-    window.switchTab = function (btn) {
-      // Reset all tabs
-      const tabs = btn.parentElement.querySelectorAll("button");
-      tabs.forEach((t) => {
-        t.classList.remove("bg-[#1E5BA8]", "text-white", "shadow-md");
-        t.classList.add("text-gray-500", "hover:bg-gray-100");
-      });
+        window.switchTab = function (btn) {
+            // Reset all tabs
+            const tabs = btn.parentElement.querySelectorAll("button");
+            tabs.forEach((t) => {
+                t.classList.remove("bg-[#3B6EC2]", "text-white", "shadow-sm", "rounded-xl", "sm:rounded-full");
+                t.classList.add("text-gray-500", "hover:bg-gray-100", "rounded-full");
+            });
 
-      // Activate clicked tab
-      btn.classList.remove("text-gray-500", "hover:bg-gray-100");
-      btn.classList.add("bg-[#1E5BA8]", "text-white", "shadow-md");
-    };
+            // Activate clicked tab
+            btn.classList.remove("text-gray-500", "hover:bg-gray-100");
+            btn.classList.add("bg-[#3B6EC2]", "text-white", "shadow-sm", "rounded-full");
+        };
 
-    const salesDetailModalHtml = `
-            <!-- Sales Detail Modal -->
-            <div id="salesDetailModal" class="hidden fixed inset-0 bg-black/50 z-[110] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
+        const salesDetailModalHtml = `
+            <!-- Customer Details (Formerly Sales Detail, Now Downline) -->
+            <div id="downlineModal" class="hidden fixed inset-0 bg-black/50 z-[110] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
                 <div class="bg-white rounded-3xl w-[95%] max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300">
                     <!-- Header -->
                     <div class="px-8 py-6 flex items-center justify-between">
-                        <h2 id="salesDetailModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
-                        <button onclick="closeSalesDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <h2 id="downlineModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
+                        <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                             <i data-lucide="x" class="w-6 h-6"></i>
                         </button>
                     </div>
@@ -659,14 +676,14 @@
                     <div class="p-8 pt-0 overflow-y-auto">
                         <!-- Tabs -->
                         <!-- Tabs -->
-                        <div class="bg-gray-50 p-2 rounded-xl flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium bg-[#1E5BA8] text-white shadow-md transition-all">Send BCA</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Send HC</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Inprocess</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Duplicate</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">RTS</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Cancel</button>
-                             <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Reject</button>
+                        <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar w-full pb-2">
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-[#3B6EC2] text-white shadow-sm transition-all whitespace-nowrap">Send BCA</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Send HC</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Inprocess</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Duplicate</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">RTS</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Cancel</button>
+                             <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Reject</button>
                         </div>
 
                         <!-- Search -->
@@ -735,22 +752,22 @@
                 </div>
             </div>
       `;
-    document.body.insertAdjacentHTML("beforeend", salesDetailModalHtml);
+        document.body.insertAdjacentHTML("beforeend", salesDetailModalHtml);
 
-    lucide.createIcons();
-  </script>
-  <!-- Global Action Dropdown -->
-  <div id="globalActionDropdown"
-    class="hidden absolute w-44 bg-white rounded-xl shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)] border border-gray-100 z-[9999] overflow-hidden py-2 animate-in fade-in zoom-in-95 duration-200">
-    <button id="globalDownlineBtn"
-      class="w-full text-left px-5 py-2.5 text-[15px] text-[#1E40AF] font-semibold hover:bg-gray-50 transition-colors">
-      View downline
-    </button>
-    <button
-      class="w-full text-left px-5 py-2.5 text-[15px] text-[#1E40AF] font-semibold hover:bg-gray-50 transition-colors">
-      View Data
-    </button>
-  </div>
+        lucide.createIcons();
+    </script>
+    <!-- Global Action Dropdown -->
+    <div id="globalActionDropdown"
+        class="hidden absolute w-44 bg-white rounded-xl shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)] border border-gray-100 z-[9999] overflow-hidden py-2 animate-in fade-in zoom-in-95 duration-200">
+        <button id="globalDownlineBtn"
+            class="w-full text-left px-5 py-2.5 text-[15px] text-[#1E40AF] font-semibold hover:bg-gray-50 transition-colors">
+            View downline
+        </button>
+        <button
+            class="w-full text-left px-5 py-2.5 text-[15px] text-[#1E40AF] font-semibold hover:bg-gray-50 transition-colors">
+            View Data
+        </button>
+    </div>
 </body>
 
 </html>

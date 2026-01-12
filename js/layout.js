@@ -1,4 +1,6 @@
-
+/**
+ * KONFIGURASI MENU
+ */
 const menuItems = [
     { icon: 'layout-dashboard', label: 'Dashboard', hasSubmenu: false, url: 'dashboard.html' },
     {
@@ -53,7 +55,7 @@ const menuItems = [
         ]
     },
     { icon: 'trending-up', label: 'My Performance', hasSubmenu: false, url: 'my_performance/my_performance.html' },
-    { icon: 'file-plus', label: 'Data Addendum', hasSubmenu: false, url: '#' },
+    { icon: 'file-plus', label: 'Data Addendum', hasSubmenu: false, url: 'data_addendum/data_addendum.html' },
     { icon: 'users', label: 'Team Performance', hasSubmenu: false, url: 'team_performance/team_performance.html' },
     { icon: 'info', label: 'Sales Information', hasSubmenu: false, url: 'sales_information/sales_information.html' },
     {
@@ -92,166 +94,36 @@ const menuItems = [
     { icon: 'monitor', label: 'Monitoring', hasSubmenu: false, url: 'monitoring/monitoring.html' },
 ];
 
-function renderSidebar(activeParentInput = '', activeSubmenuInput = '') {
-    // Try to auto-detect active items from URL if not provided
-    let activeParent = activeParentInput;
-    let activeSubmenu = activeSubmenuInput;
-
-    const currentFilename = window.location.pathname.split('/').pop();
-
-    // Helper to check if current user matches a menu URL
-    const isCurrentPage = (url) => {
-        if (!url || url === '#') return false;
-        return url.endsWith(currentFilename);
-    };
-
-    if (!activeParent) {
-        // Find matching item
-        for (const item of menuItems) {
-            if (isCurrentPage(item.url)) {
-                activeParent = item.label;
-                break;
-            }
-            if (item.hasSubmenu && item.submenu) {
-                const subMatch = item.submenu.find(sub => isCurrentPage(sub.url));
-                if (subMatch) {
-                    activeParent = item.label;
-                    activeSubmenu = subMatch.label;
-                    break;
-                }
-            }
-        }
-    } else if (activeParent && !activeSubmenu) {
-        // If parent is provided but submenu isn't, try to find matching submenu for current URL within that parent
-        const parentItem = menuItems.find(item => item.label === activeParent);
-        if (parentItem && parentItem.hasSubmenu && parentItem.submenu) {
-            const subMatch = parentItem.submenu.find(sub => isCurrentPage(sub.url));
-            if (subMatch) {
-                activeSubmenu = subMatch.label;
-            }
-        }
-    }
-
-    const sidebar = document.createElement('aside');
-    sidebar.className = `fixed lg:sticky top-0 left-0 h-screen w-[260px] bg-[#3B6EC2] text-white flex flex-col overflow-y-auto transform transition-transform duration-300 z-50 -translate-x-full lg:translate-x-0`;
-    sidebar.id = 'sidebar';
-
-    // Mobile Close Button & Header
-    sidebar.innerHTML = `
-        <div class="px-5 py-6 border-b border-white/10 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-                <div class="text-xl font-semibold">Dashboard</div>
-            </div>
-            <button onclick="toggleSidebar()" class="lg:hidden text-white hover:bg-white/10 rounded-lg p-1">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-        </div>
-        <div class="px-5 py-4 border-b border-white/10">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center overflow-hidden flex-shrink-0">
-                    <img src="https://placehold.co/100" alt="User" class="w-full h-full object-cover"/>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="font-medium text-sm truncate">Budi Dharma</p>
-                    <p class="text-xs text-white/70">BSH</p>
-                </div>
-                <i data-lucide="chevron-down" class="w-4 h-4 flex-shrink-0"></i>
-            </div>
-        </div>
-        <nav class="flex-1 py-2" id="sidebar-nav"></nav>
-    `;
-
-    const nav = sidebar.querySelector('#sidebar-nav');
-
-    // Helper to adjust URL based on current depth
-    const resolveUrl = (url) => {
-        if (!url || url === '#') return '#';
-        const path = window.location.pathname;
-        const isLevel1 = path.includes('/data_decision/') || path.includes('/application_input/') || path.includes('/incoming/') || path.includes('/application_check/');
-
-        if (isLevel1) {
-            return '../' + url;
-        }
-        return url;
-    };
-
-    menuItems.forEach(item => {
-        const div = document.createElement('div');
-        const isParentActive = activeParent === item.label;
-        const itemId = item.label.replace(/\s+/g, '-').toLowerCase();
-
-        let submenuHtml = '';
-        if (item.hasSubmenu && item.submenu) {
-            const shouldExpand = isParentActive;
-
-            submenuHtml = `
-                <div id="submenu-${itemId}" class="bg-white/5 ${shouldExpand ? '' : 'hidden'}">
-                    ${item.submenu.map(subItem => {
-                const isSubActive = activeSubmenu === subItem.label;
-                return `
-                        <a href="${resolveUrl(subItem.url)}" class="block w-full pl-14 pr-5 py-2.5 hover:bg-white/10 transition-colors text-left text-sm text-white ${isSubActive ? 'text-yellow-300 font-medium' : ''}">
-                            ${subItem.label}
-                        </a>
-                    `}).join('')}
-                </div>
-            `;
-        }
-
-        if (item.hasSubmenu) {
-            div.innerHTML = `
-                <button onclick="toggleSubmenu('${itemId}')" class="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/10 transition-colors text-left group ${isParentActive ? 'bg-white/10 border-l-4 border-white' : ''}">
-                    <i data-lucide="${item.icon}" class="w-5 h-5 flex-shrink-0"></i>
-                    <span class="flex-1 text-sm text-white">${item.label}</span>
-                    <i data-lucide="chevron-down" id="arrow-${itemId}" class="w-4 h-4 flex-shrink-0 transition-transform text-white ${isParentActive ? 'rotate-180' : ''}"></i>
-                </button>
-                ${submenuHtml}
-            `;
-        } else {
-            div.innerHTML = `
-                <a href="${resolveUrl(item.url)}" class="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/10 transition-colors text-left group ${isParentActive ? 'bg-white/10 border-l-4 border-white' : ''}">
-                    <i data-lucide="${item.icon}" class="w-5 h-5 flex-shrink-0"></i>
-                    <span class="flex-1 text-sm text-white">${item.label}</span>
-                </a>
-            `;
-        }
-
-        nav.appendChild(div);
-    });
-
-    return sidebar;
-}
-
-function renderHeader(activeParent, activeSubmenu) {
-    const header = document.createElement('header');
-    header.className = "bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4 sticky top-0 z-40";
-
-    let title = activeParent || '';
-    if (activeSubmenu) {
-        title += ` ${activeSubmenu}`;
-    }
-
-    header.innerHTML = `
-        <button onclick="toggleSidebar()" class="lg:hidden text-gray-500 hover:text-gray-700 transition-colors">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-        <h1 class="text-2xl font-semibold text-[#1E5BA8]">
-            ${title}
-        </h1>
-    `;
-    return header;
-}
-
+/**
+ * LOGIKA TOGGLE & INTERAKSI
+ */
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebar-overlay');
+    const body = document.body;
 
     if (sidebar.classList.contains('-translate-x-full')) {
+        // Buka Sidebar
         sidebar.classList.remove('-translate-x-full');
-        if (overlay) overlay.classList.remove('hidden');
+        if (overlay) {
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.add('opacity-100'), 10);
+        }
+        body.style.overflow = 'hidden'; // Lock scroll pada mobile
     } else {
+        // Tutup Sidebar
         sidebar.classList.add('-translate-x-full');
-        if (overlay) overlay.classList.add('hidden');
+        if (overlay) {
+            overlay.classList.remove('opacity-100');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+        }
+        body.style.overflow = ''; // Unlock scroll
+    }
+}
+
+function closeSidebarMobile() {
+    if (window.innerWidth < 1024) { // Jika layar di bawah ukuran desktop (lg)
+        toggleSidebar();
     }
 }
 
@@ -264,31 +136,122 @@ function toggleSubmenu(itemId) {
     }
 }
 
-// Helper to inject layout
-function initLayout(activeParentInput = '', activeSubmenuInput = '') {
-    const app = document.getElementById('app');
+/**
+ * RENDER COMPONENTS
+ */
+function renderSidebar(activeParent, activeSubmenu) {
+    const sidebar = document.createElement('aside');
+    // Penyesuaian: w-[85vw] untuk mobile, lg:w-[260px] untuk desktop
+    sidebar.className = `fixed lg:sticky top-0 left-0 h-screen w-full sm:w-[300px] lg:w-[260px] bg-[#1E5BA8] text-white flex flex-col overflow-y-auto transform transition-transform duration-300 z-50 -translate-x-full lg:translate-x-0 shadow-2xl lg:shadow-none`;
+    sidebar.id = 'sidebar';
 
-    // --- Active Menu Detection Logic (Lifted from renderSidebar) ---
-    let activeParent = activeParentInput;
-    let activeSubmenu = activeSubmenuInput;
+    sidebar.innerHTML = `
+        <div class="px-5 py-6 border-b border-white/10 flex items-center justify-between">
+            <div class="text-xl font-semibold">Dashboard</div>
+            <button onclick="toggleSidebar()" class="lg:hidden text-white/70 p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div class="px-5 py-4 border-b border-white/10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-white">
+                     <img src="https://picsum.photos/seed/budi/100/100" alt="User" class="w-full h-full object-cover"/>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="font-medium text-sm truncate">Budi Dharma</p>
+                    <p class="text-xs text-white/70">BSH</p>
+                </div>
+            </div>
+        </div>
+        <nav class="flex-1 py-2" id="sidebar-nav"></nav>
+    `;
 
-    const currentFilename = window.location.pathname.split('/').pop();
+    const nav = sidebar.querySelector('#sidebar-nav');
 
-    // Helper to check if current user matches a menu URL
-    const isCurrentPage = (url) => {
-        if (!url || url === '#') return false;
-        return url.endsWith(currentFilename);
+    // Helper URL Resolver
+    const resolveUrl = (url) => {
+        if (!url || url === '#') return '#';
+        const path = window.location.pathname;
+        const subFolders = ['/data_decision/', '/application_input/', '/incoming/', '/application_check/', '/candidate_info/', '/request_to_hrd/', '/Approval/'];
+        const isInSubfolder = subFolders.some(folder => path.includes(folder));
+        return isInSubfolder ? '../' + url : url;
     };
 
+    menuItems.forEach(item => {
+        const div = document.createElement('div');
+        const isParentActive = activeParent === item.label;
+        const itemId = item.label.replace(/\s+/g, '-').toLowerCase();
+
+        if (item.hasSubmenu) {
+            const shouldExpand = isParentActive;
+            div.innerHTML = `
+                <button onclick="toggleSubmenu('${itemId}')" class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg transition-colors text-left w-[calc(100%-16px)] ${isParentActive ? 'bg-white text-[#1E5BA8] font-medium shadow-sm' : 'text-white hover:bg-white/10'}">
+                    <i data-lucide="${item.icon}" class="w-5 h-5 flex-shrink-0 ${isParentActive ? 'text-[#1E5BA8]' : ''}"></i>
+                    <span class="flex-1 text-sm font-medium">${item.label}</span>
+                    <i data-lucide="chevron-down" id="arrow-${itemId}" class="w-4 h-4 transition-transform ${shouldExpand ? 'rotate-180' : ''} ${isParentActive ? 'text-[#1E5BA8]' : ''}"></i>
+                </button>
+                <div id="submenu-${itemId}" class="${shouldExpand ? '' : 'hidden'} ml-7 pl-4 border-l border-white/20 my-2 space-y-1">
+                    ${item.submenu.map(subItem => {
+                const isSubActive = activeSubmenu === subItem.label;
+                return `
+                        <a href="${resolveUrl(subItem.url)}" onclick="closeSidebarMobile()" class="block w-full px-4 py-2 rounded-lg transition-colors text-left text-sm ${isSubActive ? 'bg-transparent text-white font-bold' : 'text-white/80 hover:text-white hover:bg-white/5'}">
+                            ${subItem.label}
+                        </a>`;
+            }).join('')}
+                </div>
+            `;
+        } else {
+            const isActive = isParentActive;
+            div.innerHTML = `
+                <a href="${resolveUrl(item.url)}" onclick="closeSidebarMobile()" class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg transition-colors text-left ${isActive ? 'bg-white text-[#1E5BA8] font-medium shadow-sm' : 'text-white hover:bg-white/10'}">
+                    <i data-lucide="${item.icon}" class="w-5 h-5 flex-shrink-0 ${isActive ? 'text-[#1E5BA8]' : ''}"></i>
+                    <span class="flex-1 text-sm font-medium">${item.label}</span>
+                </a>
+            `;
+        }
+        nav.appendChild(div);
+    });
+
+    return sidebar;
+}
+
+function renderHeader(activeParent, activeSubmenu) {
+    const header = document.createElement('header');
+    header.className = "bg-white border-b border-gray-200 px-4 lg:px-6 h-16 flex items-center gap-3 sticky top-0 z-40";
+
+    const displayTitle = activeSubmenu || activeParent || 'Dashboard';
+
+    header.innerHTML = `
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+        <h1 class="text-lg lg:text-2xl font-semibold text-[#1E5BA8] truncate">
+            ${displayTitle}
+        </h1>
+    `;
+    return header;
+}
+
+/**
+ * INITIALIZATION
+ */
+function initLayout(activeParentInput = '', activeSubmenuInput = '') {
+    const app = document.getElementById('app');
+    if (!app) return;
+
+    // Detect Active Page
+    let activeParent = activeParentInput;
+    let activeSubmenu = activeSubmenuInput;
+    const currentFilename = window.location.pathname.split('/').pop();
+
     if (!activeParent) {
-        // Find matching item
         for (const item of menuItems) {
-            if (isCurrentPage(item.url)) {
+            if (item.url && item.url.endsWith(currentFilename)) {
                 activeParent = item.label;
                 break;
             }
             if (item.hasSubmenu && item.submenu) {
-                const subMatch = item.submenu.find(sub => isCurrentPage(sub.url));
+                const subMatch = item.submenu.find(sub => sub.url.endsWith(currentFilename));
                 if (subMatch) {
                     activeParent = item.label;
                     activeSubmenu = subMatch.label;
@@ -296,38 +259,38 @@ function initLayout(activeParentInput = '', activeSubmenuInput = '') {
                 }
             }
         }
-    } else if (activeParent && !activeSubmenu) {
-        // If parent is provided but submenu isn't, try to find matching submenu for current URL within that parent
-        const parentItem = menuItems.find(item => item.label === activeParent);
-        if (parentItem && parentItem.hasSubmenu && parentItem.submenu) {
-            const subMatch = parentItem.submenu.find(sub => isCurrentPage(sub.url));
-            if (subMatch) {
-                activeSubmenu = subMatch.label;
-            }
-        }
     }
-    // -------------------------------------------------------------
 
     // Sidebar Overlay
     let overlay = document.getElementById('sidebar-overlay');
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.id = 'sidebar-overlay';
-        overlay.className = 'fixed inset-0 bg-black/50 z-40 hidden lg:hidden transition-opacity duration-300';
+        overlay.className = 'fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300 lg:hidden';
         overlay.onclick = toggleSidebar;
         document.body.appendChild(overlay);
     }
 
+    // Compose Layout
     const sidebar = renderSidebar(activeParent, activeSubmenu);
+    const header = renderHeader(activeParent, activeSubmenu);
+
     const mainContent = document.createElement('div');
     mainContent.className = "flex-1 min-w-0 flex flex-col min-h-screen";
-
-    const header = renderHeader(activeParent, activeSubmenu);
     mainContent.appendChild(header);
+
+    // Placeholder for page content - Only create if there's initial content to preserve
+    const hasInitialContent = app.firstChild;
+    if (hasInitialContent) {
+        const contentBody = document.createElement('main');
+        contentBody.id = 'content-body';
+        contentBody.className = 'p-4 lg:p-8';
+        while (app.firstChild) contentBody.appendChild(app.firstChild);
+        mainContent.appendChild(contentBody);
+    }
 
     const wrapper = document.createElement('div');
     wrapper.className = "flex min-h-screen bg-gray-50";
-
     wrapper.appendChild(sidebar);
     wrapper.appendChild(mainContent);
 

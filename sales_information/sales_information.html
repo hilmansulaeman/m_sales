@@ -217,34 +217,23 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between">
-                        <div class="text-sm text-gray-600" id="showingText">
-                            Showing 1 to 2 of 2
+                   <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                        <div id="showingInfo">Showing 0 to 0 of 0</div>
+                        
+                        <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
                         </div>
 
-                        <div class="flex items-center gap-4">
-                            <div class="flex items-center gap-2">
-                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                                    <i data-lucide="chevron-left" class="w-5 h-5 text-gray-600"></i>
-                                </button>
-
-                                <div class="flex items-center gap-1">
-                                    <button class="w-8 h-8 rounded text-sm bg-[#3B6EC2] text-white">1</button>
-                                </div>
-
-                                <button class="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-600"></i>
-                                </button>
-                            </div>
-
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm text-gray-600">Show</span>
-                                <select class="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
                                     <option value="10">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
-                                    <option value="100">100</option>
                                 </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
                             </div>
                         </div>
                     </div>
@@ -285,42 +274,95 @@
             },
         ];
 
-        const tbody = document.getElementById("tableBody");
-        tbody.innerHTML = salesData
-            .map(
-                (sales, index) => `
-            <tr class="hover:bg-gray-50">
-                <td class="px-4 py-3 text-sm text-gray-700">${index + 1}</td>
+
+        let currentPage = 1;
+        let rowsPerPage = 10;
+
+        function renderTable() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedItems = salesData.slice(start, end);
+            const tbody = document.getElementById("tableBody");
+
+            if (paginatedItems.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="11" class="text-center py-4 text-gray-500">No data found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = paginatedItems.map((sales, index) => `
+            <tr class="hover:bg-gray-50 border-b border-gray-100">
+                <td class="px-4 py-3 text-sm text-gray-700">${start + index + 1}</td>
                 <td class="px-4 py-3">
-                    <img src="${sales.photo}" alt="${sales.salesName
-                    }" class="w-10 h-10 rounded-full object-cover"/>
+                    <img src="${sales.photo}" alt="${sales.salesName}" class="w-10 h-10 rounded-full object-cover"/>
                 </td>
-                <td class="px-4 py-3 text-sm text-gray-700">${sales.salesName
-                    }</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${sales.salesCode
-                    }</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${sales.salesName}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${sales.salesCode}</td>
                 <td class="px-4 py-3 text-sm text-gray-700">${sales.branch}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${sales.position
-                    }</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${sales.product
-                    }</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${sales.channel
-                    }</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${sales.position}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${sales.product}</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${sales.channel}</td>
                 <td class="px-4 py-3 text-sm text-gray-700">${sales.level}</td>
-                <td class="px-4 py-3 text-sm text-gray-700">${sales.spvName
-                    }</td>
+                <td class="px-4 py-3 text-sm text-gray-700">${sales.spvName}</td>
                 <td class="px-4 py-3">
-                    <span class="inline-block px-3 py-1 rounded-full text-xs font-medium ${sales.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
-                    }">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-medium ${sales.status === "Active" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}">
                         ${sales.status}
                     </span>
                 </td>
             </tr>
-        `
-            )
-            .join("");
+            `).join("");
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(salesData.length / rowsPerPage);
+            const showingInfo = document.getElementById("showingInfo");
+            const paginationControls = document.getElementById("paginationControls");
+
+            const start = salesData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, salesData.length);
+            showingInfo.textContent = `Showing ${start} to ${end} of ${salesData.length}`;
+
+            let controlsHtml = `
+                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""}" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+                } else {
+                    controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+                }
+            }
+
+            controlsHtml += `
+                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? "opacity-50 cursor-not-allowed" : ""}" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+
+            paginationControls.innerHTML = controlsHtml;
+            lucide.createIcons();
+        }
+
+        window.changePage = function (page) {
+            const totalPages = Math.ceil(salesData.length / rowsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+            renderPagination();
+        };
+
+        window.handleRowsPerPageChange = function (value) {
+            rowsPerPage = parseInt(value);
+            currentPage = 1;
+            renderTable();
+            renderPagination();
+        };
+
+        // Initial Render
+        renderTable();
+        renderPagination();
 
         lucide.createIcons();
 

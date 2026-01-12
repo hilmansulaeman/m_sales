@@ -14,6 +14,19 @@
         body {
             font-family: "Inter", sans-serif;
         }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
     </style>
 </head>
 
@@ -377,6 +390,12 @@
                 dropdown.classList.add("hidden");
             };
 
+            const viewDataBtn = dropdown.querySelectorAll('button')[1];
+            viewDataBtn.onclick = function () {
+                openSalesDetailModal(rsmName);
+                dropdown.classList.add("hidden");
+            };
+
             dropdown.classList.remove("hidden");
         };
 
@@ -435,13 +454,13 @@
 
         // Append Modal HTML to body
         const modalHtml = `
-            <!-- Downline Modal -->
-            <div id="downlineModal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
+            <!-- ASM List (Now Sales Detail Modal) -->
+            <div id="salesDetailModal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
                 <div class="bg-white rounded-3xl w-[95%] max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300">
                     <!-- Header -->
                     <div class="px-8 py-6 flex items-center justify-between">
-                        <h2 id="downlineModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
-                        <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <h2 id="salesDetailModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
+                        <button onclick="closeSalesDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                             <i data-lucide="x" class="w-6 h-6"></i>
                         </button>
                     </div>
@@ -500,7 +519,7 @@
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">0</td>
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">1</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSalesDetailModal('Dian Krisnawati SE')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                                    <button onclick="openDownlineModal('Dian Krisnawati SE')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
                                                 </td>
                                             </tr>
                                             <!-- Mock Row 2 -->
@@ -518,7 +537,7 @@
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">0</td>
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">1</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSalesDetailModal('Ade Hardianto')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                                    <button onclick="openDownlineModal('Ade Hardianto')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
                                                 </td>
                                             </tr>
                                             <!-- Mock Row 3 -->
@@ -536,7 +555,7 @@
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">0</td>
                                                 <td class="px-4 py-3 text-sm text-gray-700 text-center">1</td>
                                                 <td class="px-4 py-3 text-center">
-                                                    <button onclick="openSalesDetailModal('Auliya Saraswati')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
+                                                    <button onclick="openDownlineModal('Auliya Saraswati')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors"><i data-lucide="eye" class="w-5 h-5"></i></button>
                                                 </td>
                                             </tr>
                                     </tbody>
@@ -607,23 +626,23 @@
             // Reset all tabs
             const tabs = btn.parentElement.querySelectorAll("button");
             tabs.forEach((t) => {
-                t.classList.remove("bg-[#1E5BA8]", "text-white", "shadow-md");
-                t.classList.add("text-gray-500", "hover:bg-gray-100");
+                t.classList.remove("bg-[#3B6EC2]", "text-white", "shadow-sm", "rounded-full");
+                t.classList.add("text-gray-500", "hover:bg-gray-100", "rounded-full");
             });
 
             // Activate clicked tab
             btn.classList.remove("text-gray-500", "hover:bg-gray-100");
-            btn.classList.add("bg-[#1E5BA8]", "text-white", "shadow-md");
+            btn.classList.add("bg-[#3B6EC2]", "text-white", "shadow-sm", "rounded-full");
         };
 
         const salesDetailModalHtml = `
-            <!-- Sales Detail Modal -->
-            <div id="salesDetailModal" class="hidden fixed inset-0 bg-black/50 z-[110] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
+            <!-- Customer Details (Now Downline Modal) -->
+            <div id="downlineModal" class="hidden fixed inset-0 bg-black/50 z-[110] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm">
                 <div class="bg-white rounded-3xl w-[95%] max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300">
                     <!-- Header -->
                     <div class="px-8 py-6 flex items-center justify-between">
-                        <h2 id="salesDetailModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
-                        <button onclick="closeSalesDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <h2 id="downlineModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
+                        <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
                             <i data-lucide="x" class="w-6 h-6"></i>
                         </button>
                     </div>
@@ -632,13 +651,13 @@
                     <div class="p-8 pt-0 overflow-y-auto">
                         <!-- Tabs -->
                         <!-- Tabs -->
-                        <div class="bg-gray-50 p-2 rounded-xl flex flex-wrap gap-2 mb-8 justify-center sm:justify-start">
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium bg-[#1E5BA8] text-white shadow-md transition-all">Send BCA</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Inprocess</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Duplicate</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">RTS</button>
-                            <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Cancel</button>
-                             <button onclick="switchTab(this)" class="px-6 py-2 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-100 transition-all">Reject</button>
+                        <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar w-full pb-2">
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-[#3B6EC2] text-white shadow-sm transition-all whitespace-nowrap">Send BCA</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Inprocess</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Duplicate</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">RTS</button>
+                            <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Cancel</button>
+                             <button onclick="switchTab(this)" class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Reject</button>
                         </div>
 
                         <!-- Search -->

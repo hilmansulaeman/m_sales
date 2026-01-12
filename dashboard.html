@@ -219,16 +219,16 @@
     // Tabs & Compare Button
     const tabsHtml = `
              <div class="flex flex-col lg:flex-row gap-4 lg:gap-0 lg:items-center lg:justify-between">
-                <div class="flex gap-2">
-                  <button onclick="switchTab('my')" class="px-6 py-2 rounded-full font-medium transition-colors bg-[#1E5BA8] text-white" id="tab-my">
+                <div class="bg-[#EFF6FF] p-[3px] rounded-full flex inline-flex border border-[#BFDBFE]">
+                  <button onclick="switchTab('my')" id="tab-my" class="px-6 py-2 rounded-full font-semibold text-sm transition-all shadow-sm bg-[#1E5BA8] text-white">
                     My Performance
                   </button>
-                  <button onclick="switchTab('team')" class="px-6 py-2 rounded-full font-medium transition-colors bg-white text-gray-600 border border-gray-300" id="tab-team">
+                  <button onclick="switchTab('team')" id="tab-team" class="px-6 py-2 rounded-full font-medium text-sm transition-all text-[#1E5BA8] hover:text-[#154a8a]">
                     Team Performance
                   </button>
                 </div>
                 
-                <button onclick="openCompareModal()" class="flex items-center gap-2 border-2 border-[#1E5BA8] text-[#1E5BA8] px-6 py-2 rounded-full font-medium hover:bg-blue-50 transition-colors">
+                <button onclick="openCompareModal()" class="flex items-center gap-2 border border-[#1E5BA8] text-[#1E5BA8] px-6 py-2 rounded-full font-medium hover:bg-blue-50 transition-colors">
                   <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
                   Compare Performance
                 </button>
@@ -564,18 +564,17 @@
       const grid = document.getElementById("dashboard-grid");
       const team = document.getElementById("team-performance");
 
+      const activeClass = "px-6 py-2 rounded-full font-semibold text-sm transition-all shadow-sm bg-[#1E5BA8] text-white";
+      const inactiveClass = "px-6 py-2 rounded-full font-medium text-sm transition-all text-[#1E5BA8] hover:text-[#154a8a]";
+
       if (tab === "my") {
-        tabMy.className =
-          "px-6 py-2 rounded-full font-medium transition-colors bg-[#1E5BA8] text-white";
-        tabTeam.className =
-          "px-6 py-2 rounded-full font-medium transition-colors bg-white text-gray-600 border border-gray-300";
+        tabMy.className = activeClass;
+        tabTeam.className = inactiveClass;
         grid.classList.remove("hidden");
         team.classList.add("hidden");
       } else {
-        tabTeam.className =
-          "px-6 py-2 rounded-full font-medium transition-colors bg-[#1E5BA8] text-white";
-        tabMy.className =
-          "px-6 py-2 rounded-full font-medium transition-colors bg-white text-gray-600 border border-gray-300";
+        tabTeam.className = activeClass;
+        tabMy.className = inactiveClass;
         grid.classList.add("hidden");
         team.classList.remove("hidden");
       }
