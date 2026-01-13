@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Decision Merchant - M-Sales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="../js/layout.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: "Inter", sans-serif;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+      }
 
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
 
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app"></div>
 
     <script>
-        // Initialize layout with the active parent menu "Data Decision" and submenu "Merchant"
-        initLayout("Data Decision", "Merchant");
+      // Initialize layout with the active parent menu "Data Decision" and submenu "Merchant"
+      initLayout("Data Decision", "Merchant");
 
-        const appContainer = document.querySelector("#app > div > div");
-        const main = document.createElement("div");
-        main.className = "flex-1 bg-gray-50 flex flex-col";
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
 
-        // Main Page Content
-        main.innerHTML = `
+      // Main Page Content
+      main.innerHTML = `
             
 
-            <!-- Content -->
+           <!-- Content -->
             <div class="flex-1 p-6">
-                 <!-- Search and Filters -->
-                <div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-gray-100">
+                <!-- Main Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <!-- Search and Filters -->
+                <div class=" rounded-2xl p-4 mb-6">
                     <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
                         <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
                             <!-- Search -->
@@ -138,121 +141,248 @@
             </div>
         `;
 
-        appContainer.appendChild(main);
+      appContainer.appendChild(main);
 
-        // Data
-        const mainData = [
-            { no: 1, rsmName: "Ramaldo Oktama", nikSales: "K1104148", newAccount: 3, newNew: 1, existingAccount: 0, existingEdcNew: 0, rejected: 0 },
-            { no: 2, rsmName: "Budi Santoso", nikSales: "K1104149", newAccount: 2, newNew: 2, existingAccount: 1, existingEdcNew: 0, rejected: 1 },
-            { no: 3, rsmName: "Siti Aminah", nikSales: "K1104150", newAccount: 5, newNew: 0, existingAccount: 0, existingEdcNew: 1, rejected: 0 },
-            { no: 4, rsmName: "Agus Prasetyo", nikSales: "K1104151", newAccount: 1, newNew: 3, existingAccount: 2, existingEdcNew: 0, rejected: 0 },
-            { no: 5, rsmName: "Dewi Lestari", nikSales: "K1104152", newAccount: 4, newNew: 1, existingAccount: 0, existingEdcNew: 0, rejected: 1 },
-            { no: 6, rsmName: "Eko Kurniawan", nikSales: "K1104153", newAccount: 2, newNew: 0, existingAccount: 3, existingEdcNew: 1, rejected: 0 },
-            { no: 7, rsmName: "Fajar Nugraha", nikSales: "K1104154", newAccount: 3, newNew: 2, existingAccount: 1, existingEdcNew: 0, rejected: 1 },
-            { no: 8, rsmName: "Gita Persada", nikSales: "K1104155", newAccount: 0, newNew: 4, existingAccount: 0, existingEdcNew: 2, rejected: 0 },
-            { no: 9, rsmName: "Hendra Wijaya", nikSales: "K1104156", newAccount: 2, newNew: 1, existingAccount: 0, existingEdcNew: 0, rejected: 2 },
-            { no: 10, rsmName: "Indah Permata", nikSales: "K1104157", newAccount: 1, newNew: 3, existingAccount: 2, existingEdcNew: 1, rejected: 1 },
-        ];
+      // Data
+      const mainData = [
+        {
+          no: 1,
+          rsmName: "Ramaldo Oktama",
+          nikSales: "K1104148",
+          newAccount: 3,
+          newNew: 1,
+          existingAccount: 0,
+          existingEdcNew: 0,
+          rejected: 0,
+        },
+        {
+          no: 2,
+          rsmName: "Budi Santoso",
+          nikSales: "K1104149",
+          newAccount: 2,
+          newNew: 2,
+          existingAccount: 1,
+          existingEdcNew: 0,
+          rejected: 1,
+        },
+        {
+          no: 3,
+          rsmName: "Siti Aminah",
+          nikSales: "K1104150",
+          newAccount: 5,
+          newNew: 0,
+          existingAccount: 0,
+          existingEdcNew: 1,
+          rejected: 0,
+        },
+        {
+          no: 4,
+          rsmName: "Agus Prasetyo",
+          nikSales: "K1104151",
+          newAccount: 1,
+          newNew: 3,
+          existingAccount: 2,
+          existingEdcNew: 0,
+          rejected: 0,
+        },
+        {
+          no: 5,
+          rsmName: "Dewi Lestari",
+          nikSales: "K1104152",
+          newAccount: 4,
+          newNew: 1,
+          existingAccount: 0,
+          existingEdcNew: 0,
+          rejected: 1,
+        },
+        {
+          no: 6,
+          rsmName: "Eko Kurniawan",
+          nikSales: "K1104153",
+          newAccount: 2,
+          newNew: 0,
+          existingAccount: 3,
+          existingEdcNew: 1,
+          rejected: 0,
+        },
+        {
+          no: 7,
+          rsmName: "Fajar Nugraha",
+          nikSales: "K1104154",
+          newAccount: 3,
+          newNew: 2,
+          existingAccount: 1,
+          existingEdcNew: 0,
+          rejected: 1,
+        },
+        {
+          no: 8,
+          rsmName: "Gita Persada",
+          nikSales: "K1104155",
+          newAccount: 0,
+          newNew: 4,
+          existingAccount: 0,
+          existingEdcNew: 2,
+          rejected: 0,
+        },
+        {
+          no: 9,
+          rsmName: "Hendra Wijaya",
+          nikSales: "K1104156",
+          newAccount: 2,
+          newNew: 1,
+          existingAccount: 0,
+          existingEdcNew: 0,
+          rejected: 2,
+        },
+        {
+          no: 10,
+          rsmName: "Indah Permata",
+          nikSales: "K1104157",
+          newAccount: 1,
+          newNew: 3,
+          existingAccount: 2,
+          existingEdcNew: 1,
+          rejected: 1,
+        },
+      ];
 
-        let currentPage = 1;
-        let rowsPerPage = 5;
-        let filteredData = [...mainData];
-        let searchQuery = "";
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
 
-        // Initial Render
-        renderTable();
-        renderPagination();
+      // Initial Render
+      renderTable();
+      renderPagination();
 
-        function renderTable() {
-            const tbody = document.getElementById("mainTableBody");
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedData = filteredData.slice(start, end);
+      function renderTable() {
+        const tbody = document.getElementById("mainTableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
 
-            tbody.innerHTML = paginatedData.map((row, index) => `
+        tbody.innerHTML = paginatedData
+          .map(
+            (row, index) => `
                 <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${start + index + 1}</td>
-                    <td class="px-4 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${row.rsmName}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${row.nikSales}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.newAccount}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.newNew}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.existingAccount}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.existingEdcNew}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${row.rejected}</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${
+                      row.rsmName
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${
+                      row.nikSales
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      row.newAccount
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      row.newNew
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      row.existingAccount
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      row.existingEdcNew
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      row.rejected
+                    }</td>
                     <td class="px-4 py-4 text-center">
-                        <button onclick="toggleActionMenu(event, ${row.no})" class="action-btn-${row.no} text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100">
+                        <button onclick="toggleActionMenu(event, ${
+                          row.no
+                        })" class="action-btn-${
+              row.no
+            } text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-gray-100">
                             <i data-lucide="more-horizontal" class="w-5 h-5"></i>
                         </button>
                     </td>
                 </tr>
-            `).join("");
+            `
+          )
+          .join("");
 
-            if (paginatedData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-gray-500">No data found</td></tr>`;
-            }
-            lucide.createIcons();
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-gray-500">No data found</td></tr>`;
         }
+        lucide.createIcons();
+      }
 
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            const showingInfo = document.getElementById("showingInfo");
-            const paginationControls = document.getElementById("paginationControls");
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
 
-            const start = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-            showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
 
-            let controlsHtml = `
-                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
             `;
 
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === currentPage) {
-                    controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
-                } else {
-                    controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
-                }
-            }
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
 
-            controlsHtml += `
-                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
             `;
-            paginationControls.innerHTML = controlsHtml;
-            lucide.createIcons();
-        }
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
 
-        window.handleSearch = function (query) {
-            searchQuery = query.toLowerCase();
-            filteredData = mainData.filter(item =>
-                item.rsmName.toLowerCase().includes(searchQuery) ||
-                item.nikSales.toLowerCase().includes(searchQuery)
-            );
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-        }
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.rsmName.toLowerCase().includes(searchQuery) ||
+            item.nikSales.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
 
-        window.changePage = function (page) {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderTable();
-            renderPagination();
-        }
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
 
-        window.handleRowsPerPageChange = function (value) {
-            rowsPerPage = parseInt(value);
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-        }
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
 
-        // Add Global Action Menu to DOM
-        const menuHTML = `
+      // Add Global Action Menu to DOM
+      const menuHTML = `
             <div id="globalActionMenu" class="hidden fixed bg-white rounded-xl shadow-xl border border-gray-100 z-[9999] overflow-hidden text-left animate-in fade-in zoom-in-95 duration-200 w-40">
                  <div class="py-1">
                     <button onclick="openDownlineModal()" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1E5BA8] font-medium transition-colors">
@@ -264,10 +394,10 @@
                 </div>
             </div>
         `;
-        document.body.insertAdjacentHTML('beforeend', menuHTML);
+      document.body.insertAdjacentHTML("beforeend", menuHTML);
 
-        // View Detail Modal (Now Downline Modal - Table)
-        const viewDetailModalHTML = `
+      // View Detail Modal (Now Downline Modal - Table)
+      const viewDetailModalHTML = `
             <div id="downlineModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
                 <!-- Backdrop -->
                 <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDownlineModal()"></div>
@@ -370,11 +500,10 @@
                 </div>
             </div>
         `;
-        document.body.insertAdjacentHTML('beforeend', viewDetailModalHTML);
+      document.body.insertAdjacentHTML("beforeend", viewDetailModalHTML);
 
-
-        // Add Downline Modal to DOM (Now View Detail Modal - Tabs/Cards)
-        const downlineModalHTML = `
+      // Add Downline Modal to DOM (Now View Detail Modal - Tabs/Cards)
+      const downlineModalHTML = `
            <div id="viewDetailModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
                 <!-- Backdrop -->
                 <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeViewDetailModal()"></div>
@@ -486,10 +615,10 @@
                 </div>
             </div>
         `;
-        document.body.insertAdjacentHTML('beforeend', downlineModalHTML);
+      document.body.insertAdjacentHTML("beforeend", downlineModalHTML);
 
-        // Add Detail Modal to DOM
-        const detailModalHTML = `
+      // Add Detail Modal to DOM
+      const detailModalHTML = `
            <div id="detailModal" class="hidden fixed inset-0 z-[110]" role="dialog" aria-modal="true">
                 <!-- Backdrop -->
                 <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDetailModal()"></div>
@@ -607,144 +736,161 @@
                 </div>
             </div>
         `;
-        document.body.insertAdjacentHTML('beforeend', detailModalHTML);
+      document.body.insertAdjacentHTML("beforeend", detailModalHTML);
 
+      lucide.createIcons();
+
+      // Export Menu Logic
+      window.toggleExportMenu = function (event) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById("exportMenu");
+        menu.classList.toggle("hidden");
+      };
+
+      // Action Menu Logic
+      window.toggleActionMenu = function (event, id) {
+        if (event) event.stopPropagation();
+        const menu = document.getElementById("globalActionMenu");
+        const button = event.currentTarget;
+
+        // If clicking the same button and menu is open, close it
+        if (
+          !menu.classList.contains("hidden") &&
+          menu.dataset.activeId === id.toString()
+        ) {
+          menu.classList.add("hidden");
+          return;
+        }
+
+        // Position the menu
+        const rect = button.getBoundingClientRect();
+        const scrollY = window.scrollY;
+
+        // Position to the left of the button by default (right aligned)
+        // rect.right - menuWidth
+        menu.style.top = `${rect.bottom + 5}px`; // 5px gap
+        menu.style.left = `${rect.right - 128}px`; // 128 is w-32 (32 * 4px)
+
+        menu.dataset.activeId = id;
+        menu.classList.remove("hidden");
+      };
+
+      document.addEventListener("click", function (event) {
+        // Export Menu
+        const exportMenu = document.getElementById("exportMenu");
+        const exportBtn = event.target.closest('[onclick*="toggleExportMenu"]');
+
+        if (
+          exportMenu &&
+          !exportMenu.classList.contains("hidden") &&
+          !exportMenu.contains(event.target) &&
+          !exportBtn
+        ) {
+          exportMenu.classList.add("hidden");
+        }
+
+        // Global Action Menu
+        const actionMenu = document.getElementById("globalActionMenu");
+        const actionBtn = event.target.closest('[onclick*="toggleActionMenu"]');
+
+        if (
+          actionMenu &&
+          !actionMenu.classList.contains("hidden") &&
+          !actionMenu.contains(event.target) &&
+          !actionBtn
+        ) {
+          actionMenu.classList.add("hidden");
+        }
+      });
+
+      // Downline Modal Logic (Opens the ASM Table)
+      window.openDownlineModal = function (title) {
+        const menu = document.getElementById("globalActionMenu");
+        if (menu) menu.classList.add("hidden");
+
+        const modal = document.getElementById("downlineModal"); // Now targeting the Table
+        const titleEl = document.getElementById("downlineModalTitle");
+
+        if (title && titleEl) titleEl.textContent = title;
+
+        // Reset Z-Index
+        modal.classList.remove("z-[110]");
+        modal.classList.add("z-[100]");
+
+        modal.classList.remove("hidden");
+        lucide.createIcons();
+      };
+
+      window.closeDownlineModal = function () {
+        document.getElementById("downlineModal").classList.add("hidden");
+      };
+
+      // Switch Logic for Detail Tabs
+      window.switchDetailTab = function (tabName) {
+        // Content
+        document.getElementById("tabContent-new").classList.add("hidden");
+        document.getElementById("tabContent-existing").classList.add("hidden");
+        document
+          .getElementById(`tabContent-${tabName}`)
+          .classList.remove("hidden");
+
+        // Buttons
+        const btnNew = document.getElementById("tabButton-new");
+        const btnExisting = document.getElementById("tabButton-existing");
+
+        // Base classes for active/inactive
+        const activeClass = "bg-[#3B6EC2] text-white shadow-sm rounded-full";
+        const inactiveClass = "text-gray-500 hover:bg-gray-100 rounded-full";
+
+        btnNew.className =
+          "flex-shrink-0 px-5 py-2 text-sm font-medium transition-colors whitespace-nowrap " +
+          (tabName === "new" ? activeClass : inactiveClass);
+        btnExisting.className =
+          "flex-shrink-0 px-5 py-2 text-sm font-medium transition-colors whitespace-nowrap " +
+          (tabName === "existing" ? activeClass : inactiveClass);
+      };
+
+      // View Detail Modal Logic (Opens the Tabs/Cards)
+      window.openViewDetailModal = function (title) {
+        // Close action menu
+        document.getElementById("globalActionMenu").classList.add("hidden");
+
+        // Set title
+        document.getElementById("viewDetailModalTitle").textContent = title;
+
+        // Open modal
+        document.getElementById("viewDetailModal").classList.remove("hidden");
+
+        // Reset Tab
+        switchDetailTab("new");
 
         lucide.createIcons();
+      };
 
-        // Export Menu Logic
-        window.toggleExportMenu = function (event) {
-            if (event) event.stopPropagation();
-            const menu = document.getElementById("exportMenu");
-            menu.classList.toggle("hidden");
-        }
+      window.closeViewDetailModal = function () {
+        document.getElementById("viewDetailModal").classList.add("hidden");
+      };
 
-        // Action Menu Logic
-        window.toggleActionMenu = function (event, id) {
-            if (event) event.stopPropagation();
-            const menu = document.getElementById("globalActionMenu");
-            const button = event.currentTarget;
+      // Sub Detail Modal (Opened from the Downline Table's Eye Icon)
+      // This opens the Detail (Tabs) modal on top of the Downline (Table) modal
+      window.openSubDetailModal = function (title) {
+        const modal = document.getElementById("viewDetailModal");
+        const titleEl = document.getElementById("viewDetailModalTitle");
 
-            // If clicking the same button and menu is open, close it
-            if (!menu.classList.contains('hidden') && menu.dataset.activeId === id.toString()) {
-                menu.classList.add('hidden');
-                return;
-            }
+        if (titleEl) titleEl.textContent = title;
 
-            // Position the menu
-            const rect = button.getBoundingClientRect();
-            const scrollY = window.scrollY;
+        // Ensure this modal sits on top of the Table modal
+        modal.classList.remove("z-[100]");
+        modal.classList.add("z-[110]");
 
-            // Position to the left of the button by default (right aligned)
-            // rect.right - menuWidth
-            menu.style.top = `${rect.bottom + 5}px`; // 5px gap
-            menu.style.left = `${rect.right - 128}px`; // 128 is w-32 (32 * 4px)
+        modal.classList.remove("hidden");
 
-            menu.dataset.activeId = id;
-            menu.classList.remove('hidden');
-        }
+        // Reset Tab
+        switchDetailTab("new");
+      };
 
-        document.addEventListener("click", function (event) {
-            // Export Menu
-            const exportMenu = document.getElementById("exportMenu");
-            const exportBtn = event.target.closest('[onclick*="toggleExportMenu"]');
-
-            if (exportMenu && !exportMenu.classList.contains("hidden") && !exportMenu.contains(event.target) && !exportBtn) {
-                exportMenu.classList.add("hidden");
-            }
-
-            // Global Action Menu
-            const actionMenu = document.getElementById("globalActionMenu");
-            const actionBtn = event.target.closest('[onclick*="toggleActionMenu"]');
-
-            if (actionMenu && !actionMenu.classList.contains("hidden") && !actionMenu.contains(event.target) && !actionBtn) {
-                actionMenu.classList.add("hidden");
-            }
-        });
-
-        // Downline Modal Logic (Opens the ASM Table)
-        window.openDownlineModal = function (title) {
-            const menu = document.getElementById("globalActionMenu");
-            if (menu) menu.classList.add("hidden");
-
-            const modal = document.getElementById('downlineModal'); // Now targeting the Table
-            const titleEl = document.getElementById('downlineModalTitle');
-
-            if (title && titleEl) titleEl.textContent = title;
-
-            // Reset Z-Index
-            modal.classList.remove('z-[110]');
-            modal.classList.add('z-[100]');
-
-            modal.classList.remove('hidden');
-            lucide.createIcons();
-        }
-
-        window.closeDownlineModal = function () {
-            document.getElementById("downlineModal").classList.add("hidden");
-        }
-
-        // Switch Logic for Detail Tabs
-        window.switchDetailTab = function (tabName) {
-            // Content
-            document.getElementById('tabContent-new').classList.add('hidden');
-            document.getElementById('tabContent-existing').classList.add('hidden');
-            document.getElementById(`tabContent-${tabName}`).classList.remove('hidden');
-
-            // Buttons
-            const btnNew = document.getElementById('tabButton-new');
-            const btnExisting = document.getElementById('tabButton-existing');
-
-            // Base classes for active/inactive
-            const activeClass = "bg-[#3B6EC2] text-white shadow-sm rounded-full";
-            const inactiveClass = "text-gray-500 hover:bg-gray-100 rounded-full";
-
-            btnNew.className = "flex-shrink-0 px-5 py-2 text-sm font-medium transition-colors whitespace-nowrap " + (tabName === 'new' ? activeClass : inactiveClass);
-            btnExisting.className = "flex-shrink-0 px-5 py-2 text-sm font-medium transition-colors whitespace-nowrap " + (tabName === 'existing' ? activeClass : inactiveClass);
-        }
-
-        // View Detail Modal Logic (Opens the Tabs/Cards)
-        window.openViewDetailModal = function (title) {
-            // Close action menu
-            document.getElementById("globalActionMenu").classList.add("hidden");
-
-            // Set title
-            document.getElementById('viewDetailModalTitle').textContent = title;
-
-            // Open modal
-            document.getElementById('viewDetailModal').classList.remove('hidden');
-
-            // Reset Tab
-            switchDetailTab('new');
-
-            lucide.createIcons();
-        }
-
-        window.closeViewDetailModal = function () {
-            document.getElementById('viewDetailModal').classList.add('hidden');
-        }
-
-        // Sub Detail Modal (Opened from the Downline Table's Eye Icon)
-        // This opens the Detail (Tabs) modal on top of the Downline (Table) modal
-        window.openSubDetailModal = function (title) {
-            const modal = document.getElementById('viewDetailModal');
-            const titleEl = document.getElementById('viewDetailModalTitle');
-
-            if (titleEl) titleEl.textContent = title;
-
-            // Ensure this modal sits on top of the Table modal
-            modal.classList.remove('z-[100]');
-            modal.classList.add('z-[110]');
-
-            modal.classList.remove('hidden');
-
-            // Reset Tab
-            switchDetailTab('new');
-        }
-
-        // Standard Detail Modal (Deep Leaf) - No change needed to openDetailModal itself
-        // But ensure it doesn't conflict. It's separate.
+      // Standard Detail Modal (Deep Leaf) - No change needed to openDetailModal itself
+      // But ensure it doesn't conflict. It's separate.
     </script>
-</body>
-
+  </body>
 </html>

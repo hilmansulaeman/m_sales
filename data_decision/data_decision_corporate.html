@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Decision Corporate - M-Sales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="../js/layout.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: "Inter", sans-serif;
-        }
+      body {
+        font-family: "Inter", sans-serif;
+      }
 
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
 
-        /* Hide scrollbar for IE, Edge and Firefox */
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app"></div>
 
     <script>
-        // Initialize layout
-        initLayout("Data Decision", "Corporate");
+      // Initialize layout
+      initLayout("Data Decision", "Corporate");
 
-        const appContainer = document.querySelector("#app > div > div");
-        const main = document.createElement("div");
-        main.className = "flex-1 bg-gray-50 flex flex-col";
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
 
-        // Main Content
-        main.innerHTML = `
+      // Main Content
+      main.innerHTML = `
           
             <!-- Content -->
             <div class="flex-1 p-6">
-                 <!-- Search and Filters -->
-                <div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-gray-100">
+                <!-- Main Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <div class=" rounded-2xl p-4 mb-6">
                     <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
                         <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
                             <!-- Search -->
@@ -159,282 +161,374 @@
             </div>
         `;
 
-        appContainer.appendChild(main);
+      appContainer.appendChild(main);
 
-        // Data Initialization
-        const mainData = [
-            { id: 1, name: "Ramaldo Oktama", nik: "K1104148", approve: 1, cancel: 2, decline: 3 },
-            { id: 2, name: "Budi Santoso", nik: "K1104149", approve: 2, cancel: 0, decline: 1 },
-            { id: 3, name: "Siti Aminah", nik: "K1104150", approve: 5, cancel: 1, decline: 0 },
-            { id: 4, name: "Agus Prasetyo", nik: "K1104151", approve: 0, cancel: 0, decline: 0 },
-            { id: 5, name: "Dewi Lestari", nik: "K1104152", approve: 3, cancel: 0, decline: 1 },
-        ];
+      // Data Initialization
+      const mainData = [
+        {
+          id: 1,
+          name: "Ramaldo Oktama",
+          nik: "K1104148",
+          approve: 1,
+          cancel: 2,
+          decline: 3,
+        },
+        {
+          id: 2,
+          name: "Budi Santoso",
+          nik: "K1104149",
+          approve: 2,
+          cancel: 0,
+          decline: 1,
+        },
+        {
+          id: 3,
+          name: "Siti Aminah",
+          nik: "K1104150",
+          approve: 5,
+          cancel: 1,
+          decline: 0,
+        },
+        {
+          id: 4,
+          name: "Agus Prasetyo",
+          nik: "K1104151",
+          approve: 0,
+          cancel: 0,
+          decline: 0,
+        },
+        {
+          id: 5,
+          name: "Dewi Lestari",
+          nik: "K1104152",
+          approve: 3,
+          cancel: 0,
+          decline: 1,
+        },
+      ];
 
-        let currentPage = 1;
-        let rowsPerPage = 5;
-        let filteredData = [...mainData];
-        let searchQuery = "";
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
 
-        // Initial Render
-        renderTable();
-        renderPagination();
+      // Initial Render
+      renderTable();
+      renderPagination();
 
-        // Functions
-        function renderTable() {
-            const tbody = document.getElementById("tableBody");
-            const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            const paginatedData = filteredData.slice(start, end);
+      // Functions
+      function renderTable() {
+        const tbody = document.getElementById("tableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
 
-            tbody.innerHTML = paginatedData.map((item, index) => `
+        tbody.innerHTML = paginatedData
+          .map(
+            (item, index) => `
                 <tr class="hover:bg-gray-50 group transition-colors">
-                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${start + index + 1}</td>
-                    <td class="px-4 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${item.name}</td>
-                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${item.nik}</td>
-                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${item.approve}</td>
-                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${item.cancel}</td>
-                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${item.decline}</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${
+                      item.name
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${
+                      item.nik
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.approve
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.cancel
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.decline
+                    }</td>
                     <td class="px-4 py-4 text-center">
-                        <button onclick="toggleActionDropdown('${item.name}', event)" class="text-blue-500 hover:text-blue-700 transition-colors p-1.5 rounded-full hover:bg-blue-50">
+                        <button onclick="toggleActionDropdown('${
+                          item.name
+                        }', event)" class="text-blue-500 hover:text-blue-700 transition-colors p-1.5 rounded-full hover:bg-blue-50">
                             <i data-lucide="more-horizontal" class="w-5 h-5"></i>
                         </button>
                     </td>
                 </tr>
-            `).join("");
+            `
+          )
+          .join("");
 
-            if (paginatedData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-gray-500">No data found</td></tr>`;
-            }
-
-            lucide.createIcons();
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-gray-500">No data found</td></tr>`;
         }
 
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            const showingInfo = document.getElementById("showingInfo");
-            const paginationControls = document.getElementById("paginationControls");
+        lucide.createIcons();
+      }
 
-            // Update Info
-            const start = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-            showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
 
-            // Controls
-            let controlsHtml = `
-                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+        // Update Info
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+        // Controls
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
             `;
 
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === currentPage) {
-                    controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
-                } else {
-                    controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
-                }
-            }
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
 
-            controlsHtml += `
-                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
             `;
 
-            paginationControls.innerHTML = controlsHtml;
-            lucide.createIcons();
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchQuery) ||
+            item.nik.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1; // Reset to first page
+        renderTable();
+        renderPagination();
+      };
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      document.addEventListener("click", function (event) {
+        // Close Date Picker
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
         }
 
-        window.handleSearch = function (query) {
-            searchQuery = query.toLowerCase();
-            filteredData = mainData.filter(item =>
-                item.name.toLowerCase().includes(searchQuery) ||
-                item.nik.toLowerCase().includes(searchQuery)
-            );
-            currentPage = 1; // Reset to first page
-            renderTable();
-            renderPagination();
+        // Close Action Dropdown
+        const actionDropdown = document.getElementById("globalActionDropdown");
+        const actionBtn = event.target.closest(
+          '[onclick*="toggleActionDropdown"]'
+        );
+        if (
+          actionDropdown &&
+          !actionDropdown.classList.contains("hidden") &&
+          !actionDropdown.contains(event.target) &&
+          !actionBtn
+        ) {
+          actionDropdown.classList.add("hidden");
+        }
+      });
+
+      let selectedUserName = ""; // Store selected user for modal
+
+      // Updated Toggle with Name
+      window.toggleActionDropdown = function (name, event) {
+        event.stopPropagation();
+        selectedUserName = name; // Store it
+
+        const dropdown = document.getElementById("globalActionDropdown");
+        const btn = event.currentTarget;
+        const rect = btn.getBoundingClientRect();
+
+        // Toggle logic
+        if (
+          !dropdown.classList.contains("hidden") &&
+          Math.abs(
+            parseFloat(dropdown.style.top) - (rect.bottom + window.scrollY)
+          ) < 10
+        ) {
+          dropdown.classList.add("hidden");
+          return;
         }
 
-        window.changePage = function (page) {
-            const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            renderTable();
-            renderPagination();
-        }
+        dropdown.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        dropdown.style.left = `${rect.left + window.scrollX - 120}px`;
 
-        window.handleRowsPerPageChange = function (value) {
-            rowsPerPage = parseInt(value);
-            currentPage = 1;
-            renderTable();
-            renderPagination();
-        }
+        dropdown.classList.remove("hidden");
+        const datePicker = document.getElementById("dateRangePicker");
+        if (datePicker) datePicker.classList.add("hidden");
+      };
 
-        // Date Range Picker Logic
-        window.toggleDateRangePicker = function (event) {
-            if (event) event.stopPropagation();
-            const picker = document.getElementById("dateRangePicker");
-            picker.classList.toggle("hidden");
-        }
+      // Modal Logic
+      window.openDownlineModal = function () {
+        const modal = document.getElementById("downlineModal");
+        const title = document.getElementById("downlineModalTitle");
 
-        document.addEventListener("click", function (event) {
-            // Close Date Picker
-            const datePicker = document.getElementById("dateRangePicker");
-            const dateInput = event.target.closest('[onclick*="toggleDateRangePicker"]');
-            if (datePicker && !datePicker.classList.contains("hidden") && !datePicker.contains(event.target) && !dateInput) {
-                datePicker.classList.add("hidden");
-            }
+        title.textContent = selectedUserName; // Set name
+        modal.classList.remove("hidden");
 
-            // Close Action Dropdown
-            const actionDropdown = document.getElementById("globalActionDropdown");
-            const actionBtn = event.target.closest('[onclick*="toggleActionDropdown"]');
-            if (actionDropdown && !actionDropdown.classList.contains("hidden") && !actionDropdown.contains(event.target) && !actionBtn) {
-                actionDropdown.classList.add("hidden");
-            }
+        // Hide global dropdown
+        document.getElementById("globalActionDropdown").classList.add("hidden");
+
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modal.querySelector("div").classList.remove("scale-95");
+          modal.querySelector("div").classList.add("scale-100");
+        }, 10);
+
+        // Re-render icons inside modal if needed
+        lucide.createIcons();
+      };
+
+      window.closeDownlineModal = function () {
+        const modal = document.getElementById("downlineModal");
+        modal.classList.add("opacity-0");
+        modal.querySelector("div").classList.remove("scale-100");
+        modal.querySelector("div").classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      };
+
+      // View Data Modal Logic
+      const viewData = {
+        Approve: {
+          headers: ["No", "Costumer Name", "Company Name", "DSR", "Date"],
+          rows: [{ no: 1, name: "-", col3: "-", dsr: "-", date: "-" }],
+        },
+
+        Cancel: {
+          headers: ["No", "Costumer Name", "Company Name", "DSR", "Date"],
+          rows: [{ no: 1, name: "-", col3: "-", dsr: "-", date: "-" }],
+        },
+        Decline: {
+          headers: ["No", "Costumer Name", "Company Name", "DSR", "Date"],
+          rows: [{ no: 1, name: "-", col3: "-", dsr: "-", date: "-" }],
+        },
+      };
+
+      window.openViewDataModal = function () {
+        const modal = document.getElementById("viewDataModal");
+        const title = document.getElementById("viewDataModalTitle");
+
+        title.textContent = selectedUserName;
+        modal.classList.remove("hidden");
+        document.getElementById("globalActionDropdown").classList.add("hidden");
+
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modal.querySelector("div").classList.remove("scale-95");
+          modal.querySelector("div").classList.add("scale-100");
+        }, 10);
+
+        lucide.createIcons();
+      };
+
+      window.closeViewDataModal = function () {
+        const modal = document.getElementById("viewDataModal");
+        modal.classList.add("opacity-0");
+        modal.querySelector("div").classList.remove("scale-100");
+        modal.querySelector("div").classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      };
+
+      window.switchTab = function (btn, tabName) {
+        // UI Toggle
+        const tabs = btn.parentElement.querySelectorAll("button");
+        tabs.forEach((t) => {
+          t.classList.remove(
+            "bg-[#3B6EC2]",
+            "text-white",
+            "shadow-sm",
+            "rounded-full"
+          );
+          t.classList.add("text-gray-500", "hover:bg-gray-100", "rounded-full");
         });
 
-        let selectedUserName = ""; // Store selected user for modal
+        btn.classList.remove("text-gray-500", "hover:bg-gray-100");
+        btn.classList.add(
+          "bg-[#3B6EC2]",
+          "text-white",
+          "shadow-sm",
+          "rounded-full"
+        );
 
-        // Updated Toggle with Name
-        window.toggleActionDropdown = function (name, event) {
-            event.stopPropagation();
-            selectedUserName = name; // Store it
+        // Data Rendering
+        const data = viewData[tabName];
+        if (!data) return;
 
-            const dropdown = document.getElementById("globalActionDropdown");
-            const btn = event.currentTarget;
-            const rect = btn.getBoundingClientRect();
+        const table = document.querySelector("#viewDataModal table");
+        if (!table) return;
 
-            // Toggle logic
-            if (!dropdown.classList.contains("hidden") &&
-                Math.abs(parseFloat(dropdown.style.top) - (rect.bottom + window.scrollY)) < 10) {
-                dropdown.classList.add("hidden");
-                return;
-            }
+        // Update Headers
+        const thead = table.querySelector("thead tr");
+        thead.innerHTML = data.headers
+          .map((h, i) => {
+            let classes = "px-4 py-3 text-sm font-medium ";
+            if (i === 0) classes += "text-center border-r border-white/20 w-16";
+            else if (i === 1) classes += "text-left border-r border-white/20";
+            else if (i === data.headers.length - 1) classes += "text-center";
+            else classes += "text-center border-r border-white/20";
 
-            dropdown.style.top = `${rect.bottom + window.scrollY + 5}px`;
-            dropdown.style.left = `${rect.left + window.scrollX - 120}px`;
+            return `<th class="${classes}">${h}</th>`;
+          })
+          .join("");
 
-            dropdown.classList.remove("hidden");
-            const datePicker = document.getElementById("dateRangePicker");
-            if (datePicker) datePicker.classList.add("hidden");
-        }
-
-        // Modal Logic
-        window.openDownlineModal = function () {
-            const modal = document.getElementById("downlineModal");
-            const title = document.getElementById("downlineModalTitle");
-
-            title.textContent = selectedUserName; // Set name
-            modal.classList.remove("hidden");
-
-            // Hide global dropdown
-            document.getElementById("globalActionDropdown").classList.add("hidden");
-
-            setTimeout(() => {
-                modal.classList.remove("opacity-0");
-                modal.querySelector("div").classList.remove("scale-95");
-                modal.querySelector("div").classList.add("scale-100");
-            }, 10);
-
-            // Re-render icons inside modal if needed
-            lucide.createIcons();
-        }
-
-        window.closeDownlineModal = function () {
-            const modal = document.getElementById("downlineModal");
-            modal.classList.add("opacity-0");
-            modal.querySelector("div").classList.remove("scale-100");
-            modal.querySelector("div").classList.add("scale-95");
-
-            setTimeout(() => {
-                modal.classList.add("hidden");
-            }, 300);
-        }
-
-        // View Data Modal Logic
-        const viewData = {
-            'Approve': {
-                headers: ['No', 'Costumer Name', 'Company Name', 'DSR', 'Date'],
-                rows: [
-                    { no: 1, name: '-', col3: '-', dsr: '-', date: '-' }
-                ]
-            },
-
-            'Cancel': {
-                headers: ['No', 'Costumer Name', 'Company Name', 'DSR', 'Date'],
-                rows: [
-                    { no: 1, name: '-', col3: '-', dsr: '-', date: '-' }
-                ]
-            },
-            'Decline': {
-                headers: ['No', 'Costumer Name', 'Company Name', 'DSR', 'Date'],
-                rows: [
-                    { no: 1, name: '-', col3: '-', dsr: '-', date: '-' }
-                ]
-            }
-        };
-
-        window.openViewDataModal = function () {
-            const modal = document.getElementById("viewDataModal");
-            const title = document.getElementById("viewDataModalTitle");
-
-            title.textContent = selectedUserName;
-            modal.classList.remove("hidden");
-            document.getElementById("globalActionDropdown").classList.add("hidden");
-
-            setTimeout(() => {
-                modal.classList.remove("opacity-0");
-                modal.querySelector("div").classList.remove("scale-95");
-                modal.querySelector("div").classList.add("scale-100");
-            }, 10);
-
-            lucide.createIcons();
-        }
-
-        window.closeViewDataModal = function () {
-            const modal = document.getElementById("viewDataModal");
-            modal.classList.add("opacity-0");
-            modal.querySelector("div").classList.remove("scale-100");
-            modal.querySelector("div").classList.add("scale-95");
-
-            setTimeout(() => {
-                modal.classList.add("hidden");
-            }, 300);
-        }
-
-        window.switchTab = function (btn, tabName) {
-            // UI Toggle
-            const tabs = btn.parentElement.querySelectorAll('button');
-            tabs.forEach(t => {
-                t.classList.remove('bg-[#3B6EC2]', 'text-white', 'shadow-sm', 'rounded-full');
-                t.classList.add('text-gray-500', 'hover:bg-gray-100', 'rounded-full');
-            });
-
-            btn.classList.remove('text-gray-500', 'hover:bg-gray-100');
-            btn.classList.add('bg-[#3B6EC2]', 'text-white', 'shadow-sm', 'rounded-full');
-
-            // Data Rendering
-            const data = viewData[tabName];
-            if (!data) return;
-
-            const table = document.querySelector('#viewDataModal table');
-            if (!table) return;
-
-            // Update Headers
-            const thead = table.querySelector('thead tr');
-            thead.innerHTML = data.headers.map((h, i) => {
-                let classes = "px-4 py-3 text-sm font-medium ";
-                if (i === 0) classes += "text-center border-r border-white/20 w-16";
-                else if (i === 1) classes += "text-left border-r border-white/20";
-                else if (i === data.headers.length - 1) classes += "text-center";
-                else classes += "text-center border-r border-white/20";
-
-                return `<th class="${classes}">${h}</th>`;
-            }).join('');
-
-            // Update Body
-            const tbody = table.querySelector('tbody');
-            tbody.innerHTML = data.rows.map(row => `
+        // Update Body
+        const tbody = table.querySelector("tbody");
+        tbody.innerHTML = data.rows
+          .map(
+            (row) => `
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-4 text-center text-sm text-gray-600">${row.no}</td>
                     <td class="px-4 py-4 text-sm text-gray-700">${row.name}</td>
@@ -442,238 +536,356 @@
                     <td class="px-4 py-4 text-center text-sm text-gray-600">${row.dsr}</td>
                     <td class="px-4 py-4 text-center text-sm text-gray-600">${row.date}</td>
                 </tr>
-            `).join('');
-        }
+            `
+          )
+          .join("");
+      };
 
-        lucide.createIcons();
+      lucide.createIcons();
     </script>
 
     <!-- Action Dropdown Menu -->
-    <div id="globalActionDropdown"
-        class="hidden absolute w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-200">
-        <button onclick="openDownlineModal()"
-            class="w-full text-left px-4 py-2.5 text-sm text-[#1E3A8A] font-semibold hover:bg-gray-50 transition-colors">
-            View downline
-        </button>
-        <button onclick="openViewDataModal()"
-            class="w-full text-left px-4 py-2.5 text-sm text-[#1E3A8A] font-semibold hover:bg-gray-50 transition-colors">
-            View Data
-        </button>
+    <div
+      id="globalActionDropdown"
+      class="hidden absolute w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-200"
+    >
+      <button
+        onclick="openDownlineModal()"
+        class="w-full text-left px-4 py-2.5 text-sm text-[#1E3A8A] font-semibold hover:bg-gray-50 transition-colors"
+      >
+        View downline
+      </button>
+      <button
+        onclick="openViewDataModal()"
+        class="w-full text-left px-4 py-2.5 text-sm text-[#1E3A8A] font-semibold hover:bg-gray-50 transition-colors"
+      >
+        View Data
+      </button>
     </div>
 
     <!-- Downline Modal -->
-    <div id="downlineModal"
-        class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm px-4">
+    <div
+      id="downlineModal"
+      class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm px-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300"
+      >
+        <!-- Header -->
         <div
-            class="bg-white rounded-3xl w-full max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300">
-            <!-- Header -->
-            <div class="px-8 py-6 flex items-center justify-between border-b border-gray-100/50">
-                <h2 id="downlineModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
-                <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <!-- Content -->
-            <div class="p-8 overflow-y-auto">
-                <div class="border border-gray-200 rounded-2xl p-6">
-
-                    <!-- Filters -->
-                    <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                        <!-- Search -->
-                        <div class="relative w-full sm:w-72">
-                            <i data-lucide="search"
-                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                            <input type="text" placeholder="Search"
-                                class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
-                        </div>
-
-                        <!-- Date Picker (Static Display for now) -->
-                        <div class="relative w-full sm:w-auto">
-                            <div
-                                class="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 bg-white">
-                                <i data-lucide="calendar" class="w-4 h-4 text-gray-400"></i>
-                                <span>1 Jan, 2025 - 2 Feb, 2025</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="w-full">
-                            <thead class="bg-[#1E5BA8] text-white">
-                                <tr>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16">
-                                        No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">ASM
-                                        Name</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">NIK
-                                        Sales</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">
-                                        Approve</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">
-                                        Cancel</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">
-                                        Decline</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr class="hover:bg-gray-50 group">
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">1</td>
-                                    <td class="px-4 py-4 text-sm text-gray-700">Ade Hardianto</td>
-                                    <td class="px-4 py-4 text-sm text-gray-600">K1141935</td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">1</td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">2</td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">3</td>
-                                    <td class="px-4 py-4 text-center">
-                                        <button class="text-[#1E5BA8] hover:text-[#15468a] transition-colors p-1">
-                                            <i data-lucide="eye" class="w-5 h-5"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination for Modal -->
-                    <div
-                        class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-                        <div>Showing 1 to 1 of 1</div>
-
-                        <div class="flex items-center gap-2">
-                            <button
-                                class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed">
-                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            </button>
-                            <span
-                                class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
-                            <button
-                                class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed">
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <span>Show</span>
-                            <div class="relative">
-                                <select
-                                    class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
-                                    <option>10</option>
-                                    <option>25</option>
-                                    <option>50</option>
-                                </select>
-                                <i data-lucide="chevron-down"
-                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          class="px-8 py-6 flex items-center justify-between border-b border-gray-100/50"
+        >
+          <h2
+            id="downlineModalTitle"
+            class="text-2xl font-bold text-[#1E3A8A]"
+          ></h2>
+          <button
+            onclick="closeDownlineModal()"
+            class="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
         </div>
+
+        <!-- Content -->
+        <div class="p-8 overflow-y-auto">
+          <div class="border border-gray-200 rounded-2xl p-6">
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+              <!-- Search -->
+              <div class="relative w-full sm:w-72">
+                <i
+                  data-lucide="search"
+                  class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
+                ></i>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Date Picker (Static Display for now) -->
+              <div class="relative w-full sm:w-auto">
+                <div
+                  class="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 bg-white"
+                >
+                  <i data-lucide="calendar" class="w-4 h-4 text-gray-400"></i>
+                  <span>1 Jan, 2025 - 2 Feb, 2025</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+              <table class="w-full">
+                <thead class="bg-[#1E5BA8] text-white">
+                  <tr>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16"
+                    >
+                      No
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium border-r border-white/20"
+                    >
+                      ASM Name
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium border-r border-white/20"
+                    >
+                      NIK Sales
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Approve
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Cancel
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Decline
+                    </th>
+                    <th class="px-4 py-3 text-center text-sm font-medium">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr class="hover:bg-gray-50 group">
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      1
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-700">
+                      Ade Hardianto
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-600">K1141935</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      1
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      2
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      3
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                      <button
+                        class="text-[#1E5BA8] hover:text-[#15468a] transition-colors p-1"
+                      >
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination for Modal -->
+            <div
+              class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500"
+            >
+              <div>Showing 1 to 1 of 1</div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <span
+                  class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg"
+                  >1</span
+                >
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span>Show</span>
+                <div class="relative">
+                  <select
+                    class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+                  >
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- View Data Modal -->
-    <div id="viewDataModal"
-        class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm px-4">
-        <div
-            class="bg-white rounded-3xl w-full max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300">
-            <!-- Header -->
-            <div class="px-8 py-6 flex items-center justify-between">
-                <h2 id="viewDataModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
-                <button onclick="closeViewDataModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <div class="p-8 pt-0 overflow-y-auto">
-                <!-- Tabs -->
-                <!-- Tabs -->
-                <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar w-full pb-2">
-                    <button onclick="switchTab(this, 'Approve')"
-                        class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-[#3B6EC2] text-white shadow-sm transition-all whitespace-nowrap">Approve</button>
-                    <button onclick="switchTab(this, 'Cancel')"
-                        class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Cancel</button>
-                    <button onclick="switchTab(this, 'Decline')"
-                        class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap">Decline</button>
-                </div>
-
-                <div class="border border-gray-200 rounded-2xl p-6">
-                    <!-- Search -->
-                    <div class="mb-6">
-                        <div class="relative w-full">
-                            <i data-lucide="search"
-                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
-                            <input type="text" placeholder="Search"
-                                class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400">
-                        </div>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="overflow-x-auto rounded-lg border border-gray-200">
-                        <table class="w-full">
-                            <thead class="bg-[#1E5BA8] text-white">
-                                <tr>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16">
-                                        No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">
-                                        Costumer Name</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">
-                                        Company
-                                        Name</th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">DSR
-                                    </th>
-                                    <th class="px-4 py-3 text-center text-sm font-medium">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 bg-white">
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">1</td>
-                                    <td class="px-4 py-4 text-sm text-gray-700">-</td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">-</td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">-</td>
-                                    <td class="px-4 py-4 text-center text-sm text-gray-600">-</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div
-                        class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-                        <div>Showing 1 to 1 of 1</div>
-
-                        <div class="flex items-center gap-2">
-                            <button
-                                class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed">
-                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            </button>
-                            <span
-                                class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
-                            <button
-                                class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed">
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <span>Show</span>
-                            <div class="relative">
-                                <select
-                                    class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
-                                    <option>10</option>
-                                    <option>25</option>
-                                    <option>50</option>
-                                </select>
-                                <i data-lucide="chevron-down"
-                                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div
+      id="viewDataModal"
+      class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm px-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300"
+      >
+        <!-- Header -->
+        <div class="px-8 py-6 flex items-center justify-between">
+          <h2
+            id="viewDataModalTitle"
+            class="text-2xl font-bold text-[#1E3A8A]"
+          ></h2>
+          <button
+            onclick="closeViewDataModal()"
+            class="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
         </div>
-    </div>
-</body>
 
+        <div class="p-8 pt-0 overflow-y-auto">
+          <!-- Tabs -->
+          <!-- Tabs -->
+          <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar w-full pb-2">
+            <button
+              onclick="switchTab(this, 'Approve')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-[#3B6EC2] text-white shadow-sm transition-all whitespace-nowrap"
+            >
+              Approve
+            </button>
+            <button
+              onclick="switchTab(this, 'Cancel')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap"
+            >
+              Cancel
+            </button>
+            <button
+              onclick="switchTab(this, 'Decline')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap"
+            >
+              Decline
+            </button>
+          </div>
+
+          <div class="border border-gray-200 rounded-2xl p-6">
+            <!-- Search -->
+            <div class="mb-6">
+              <div class="relative w-full">
+                <i
+                  data-lucide="search"
+                  class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
+                ></i>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                />
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+              <table class="w-full">
+                <thead class="bg-[#1E5BA8] text-white">
+                  <tr>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16"
+                    >
+                      No
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium border-r border-white/20"
+                    >
+                      Costumer Name
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Company Name
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      DSR
+                    </th>
+                    <th class="px-4 py-3 text-center text-sm font-medium">
+                      Date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      1
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-700">-</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      -
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      -
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      -
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+              class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500"
+            >
+              <div>Showing 1 to 1 of 1</div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <span
+                  class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg"
+                  >1</span
+                >
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span>Show</span>
+                <div class="relative">
+                  <select
+                    class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+                  >
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

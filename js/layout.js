@@ -3,6 +3,7 @@
  */
 const menuItems = [
     { icon: 'layout-dashboard', label: 'Dashboard', hasSubmenu: false, url: 'dashboard.html' },
+    { icon: 'file-input', label: 'Data Entry', hasSubmenu: false, url: 'data_entry/data_entry.html' },
     {
         icon: 'file-text',
         label: 'Application Input',
@@ -14,7 +15,8 @@ const menuItems = [
             { label: 'Mobile Sales', url: 'application_input/application_input_cc_ms.html' },
             { label: 'Corporate', url: 'application_input/application_input_corporate.html' },
             { label: 'Smart Cash (SC)', url: 'application_input/application_input_sc.html' },
-            { label: 'Personal Loan (PL)', url: 'application_input/application_input_pl.html' }
+            { label: 'Personal Loan (PL)', url: 'application_input/application_input_pl.html' },
+            { label: 'Data Decision Credit Card', url: 'application_input/application_input_cc_dsr.html' }
         ]
     },
     {
@@ -137,23 +139,56 @@ function toggleSubmenu(itemId) {
     }
 }
 
+function toggleUserProfile(event) {
+    if(event) event.stopPropagation();
+    const popup = document.getElementById('user-profile-popup');
+    const arrow = document.getElementById('user-profile-arrow');
+    
+    if(popup) {
+        popup.classList.toggle('hidden');
+        if(!popup.classList.contains('hidden')) {
+            // Close other menus if needed
+        }
+    }
+    
+    if(arrow) {
+        arrow.classList.toggle('rotate-90');
+    }
+}
+
+// Close profile popup when clicking outside
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('user-profile-popup');
+    const trigger = document.querySelector('[onclick="toggleUserProfile(event)"]');
+    
+    if(popup && !popup.classList.contains('hidden')) {
+        if(!popup.contains(event.target) && (!trigger || !trigger.contains(event.target))) {
+            popup.classList.add('hidden');
+            const arrow = document.getElementById('user-profile-arrow');
+            if(arrow) arrow.classList.remove('rotate-90');
+        }
+    }
+});
+
 /**
  * RENDER COMPONENTS
  */
 function renderSidebar(activeParent, activeSubmenu) {
     const sidebar = document.createElement('aside');
-    // Penyesuaian: w-[85vw] untuk mobile, lg:w-[260px] untuk desktop
-    sidebar.className = `fixed lg:sticky top-0 left-0 h-screen w-full sm:w-[300px] lg:w-[260px] bg-[#1E5BA8] text-white flex flex-col overflow-y-auto transform transition-transform duration-300 z-50 -translate-x-full lg:translate-x-0 shadow-2xl lg:shadow-none`;
+    // Penyesuaian: Removed overflow-y-auto from container, added to nav for better popup handling
+    sidebar.className = `fixed lg:sticky top-0 left-0 h-screen w-full sm:w-[300px] lg:w-[260px] bg-[#1E5BA8] text-white flex flex-col transform transition-transform duration-300 z-50 -translate-x-full lg:translate-x-0 shadow-2xl lg:shadow-none`;
     sidebar.id = 'sidebar';
 
     sidebar.innerHTML = `
-        <div class="px-5 py-6 border-b border-white/10 flex items-center justify-between">
+        <div class="px-5 py-6 border-b border-white/10 flex items-center justify-between flex-shrink-0">
             <div class="text-xl font-semibold">Dashboard</div>
             <button onclick="toggleSidebar()" class="lg:hidden text-white/70 p-1">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
-        <div class="px-5 py-4 border-b border-white/10">
+        
+        <!-- User Profile Section -->
+        <div class="px-5 py-4 border-b border-white/10 relative flex-shrink-0">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-white">
                      <img src="https://picsum.photos/seed/budi/100/100" alt="User" class="w-full h-full object-cover"/>
@@ -162,9 +197,63 @@ function renderSidebar(activeParent, activeSubmenu) {
                     <p class="font-medium text-sm truncate">Budi Dharma</p>
                     <p class="text-xs text-white/70">BSH</p>
                 </div>
+                 <button onclick="toggleUserProfile(event)" class="text-white/70 hover:text-white transition-colors p-1">
+                    <i data-lucide="chevron-right" id="user-profile-arrow" class="w-5 h-5 transition-transform duration-200"></i>
+                </button>
+            </div>
+
+            <!-- Profile Popup Card -->
+            <div id="user-profile-popup" class="hidden absolute left-4 right-4 top-full mt-2 bg-white rounded-2xl shadow-xl p-5 z-[100] text-gray-800 animate-in fade-in zoom-in-95 duration-200 origin-top border border-blue-100">
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-20 h-20 rounded-full bg-orange-100 mb-3 overflow-hidden border-4 border-white shadow-sm ring-1 ring-gray-100">
+                         <img src="https://picsum.photos/seed/budi/200/200" alt="User" class="w-full h-full object-cover"/>
+                    </div>
+                    <h3 class="text-lg font-bold text-[#1E293B] mb-0.5">Budi Dharma</h3>
+                    <p class="text-sm text-gray-500 mb-4 tracking-wide">K1002059 <span class="mx-1 text-gray-300">|</span> BSH</p>
+                    
+                    <div class="flex items-center justify-center gap-4 w-full mb-6">
+                        <div class="flex flex-col items-center px-4">
+                             <span class="text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">RSM</span>
+                             <span class="bg-blue-50 text-[#1E5BA8] text-sm font-bold px-4 py-1 rounded-full">15</span>
+                        </div>
+                         <div class="flex flex-col items-center px-4 border-l border-gray-100">
+                             <span class="text-xs font-semibold text-gray-500 mb-1 uppercase tracking-wider">ASM</span>
+                             <span class="bg-blue-50 text-[#1E5BA8] text-sm font-bold px-4 py-1 rounded-full">105</span>
+                        </div>
+                    </div>
+
+                    <div class="w-full border-t border-gray-100 pt-4">
+                        <a href="login.html" class="flex items-center justify-center gap-2 text-[#1E5BA8] font-bold text-sm hover:underline group">
+                            Log out 
+                            <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <nav class="flex-1 py-2" id="sidebar-nav"></nav>
+        
+        <nav class="flex-1 py-2 overflow-y-auto custom-scrollbar" id="sidebar-nav"></nav>
+    <style>
+        /* Custom Scrollbar Styling to hide default bar but keep functionality */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        /* Hide scrollbar for Firefox */
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+        }
+    </style>
     `;
 
     const nav = sidebar.querySelector('#sidebar-nav');
@@ -236,16 +325,31 @@ function renderHeader(activeParent, activeSubmenu) {
 /**
  * INITIALIZATION
  */
-function initLayout(activeParentInput = '', activeSubmenuInput = '') {
+function initLayout(activeParentInput = '', activeSubmenuInput = '', customTitle = '') {
     const app = document.getElementById('app');
     if (!app) return;
+
+    // Implement "Smart Zoom" for Layout Consistency
+    // This ensures that on smaller laptop screens (1366x768, 1440x900), the content isn't too cramped (80% scale).
+    // On larger confirmed desktop monitors (1600px+), it uses standard 100% scale.
+    const zoomStyle = document.createElement('style');
+    zoomStyle.innerHTML = `
+        @media (min-width: 1024px) and (max-width: 1599px) {
+            body { zoom: 100%; }
+        }
+        @media (min-width: 1600px) {
+            body { zoom: 100%; }
+        }
+    `;
+    document.head.appendChild(zoomStyle);
 
     // Detect Active Page
     let activeParent = activeParentInput;
     let activeSubmenu = activeSubmenuInput;
     const currentFilename = window.location.pathname.split('/').pop();
-
-    if (!activeParent) {
+    
+    // Auto-detect if not provided
+    if (!activeParent && !activeSubmenu) {
         for (const item of menuItems) {
             if (item.url && item.url.endsWith(currentFilename)) {
                 activeParent = item.label;
@@ -274,7 +378,9 @@ function initLayout(activeParentInput = '', activeSubmenuInput = '') {
 
     // Compose Layout
     const sidebar = renderSidebar(activeParent, activeSubmenu);
-    const header = renderHeader(activeParent, activeSubmenu);
+    // Use customTitle if provided, otherwise fallback to submenu or parent
+    const displayTitle = customTitle || activeSubmenu || activeParent || 'Dashboard';
+    const header = renderHeader(activeParent, displayTitle);
 
     const mainContent = document.createElement('div');
     mainContent.className = "flex-1 min-w-0 flex flex-col min-h-screen";

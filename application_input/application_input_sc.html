@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Input Smart Cash (SC) - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/layout.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Application Input Smart Cash (SC) - M-Sales</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="../js/layout.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: "Inter", sans-serif;
-    }
-  </style>
-</head>
+  <body>
+    <div id="app"></div>
 
-<body>
-  <div id="app"></div>
+    <script>
+      initLayout("Application Input - Smart Cash (SC)");
 
-  <script>
-    initLayout("Application Input - Smart Cash (SC)");
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
 
-    const appContainer = document.querySelector("#app > div > div");
-    const main = document.createElement("div");
-    main.className = "flex-1 bg-gray-50 flex flex-col";
-
-    main.innerHTML = `
+      main.innerHTML = `
             
 
             <!-- Content -->
-            <div class="flex-1 p-6">
+            <div class="p-6">
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
                 <!-- Search and Filters -->
-                <div class="bg-white rounded-2xl p-4 mb-6 shadow-sm border border-gray-100">
+                <div class=" rounded-2xl p-4 mb-6">
                     <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
                          <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto items-center">
                             <!-- Search -->
@@ -234,209 +237,251 @@
             </div>
         `;
 
-    appContainer.appendChild(main);
+      appContainer.appendChild(main);
 
-    const mainData = [
-      {
-        id: 1,
-        rsmName: "Shinta Kusuma",
-        nikSales: "K1104148",
-        branch: "Yogjakarta",
-        totalDsrActive: 126,
-        totalInput: 2108,
-        sendBca: 2097,
-        inprocess: 10,
-        duplicate: 0,
-        rts: 1,
-        cancel: 0,
-        reject: 1
-      },
-      {
-        id: 2,
-        rsmName: "Sifa Fauziah",
-        nikSales: "K1001005",
-        branch: "Jakarta",
-        totalDsrActive: 244,
-        totalInput: 2505,
-        sendBca: 2479,
-        inprocess: 16,
-        duplicate: 0,
-        rts: 0,
-        cancel: 0,
-        reject: 0
-      },
-      {
-        id: 3,
-        rsmName: "Marsha Suriawarsita",
-        nikSales: "K1400742",
-        branch: "Semarang",
-        totalDsrActive: 148,
-        totalInput: 1372,
-        sendBca: 1354,
-        inprocess: 15,
-        duplicate: 0,
-        rts: 1,
-        cancel: 0,
-        reject: 1
-      }
-    ];
+      const mainData = [
+        {
+          id: 1,
+          rsmName: "Shinta Kusuma",
+          nikSales: "K1104148",
+          branch: "Yogjakarta",
+          totalDsrActive: 126,
+          totalInput: 2108,
+          sendBca: 2097,
+          inprocess: 10,
+          duplicate: 0,
+          rts: 1,
+          cancel: 0,
+          reject: 1,
+        },
+        {
+          id: 2,
+          rsmName: "Sifa Fauziah",
+          nikSales: "K1001005",
+          branch: "Jakarta",
+          totalDsrActive: 244,
+          totalInput: 2505,
+          sendBca: 2479,
+          inprocess: 16,
+          duplicate: 0,
+          rts: 0,
+          cancel: 0,
+          reject: 0,
+        },
+        {
+          id: 3,
+          rsmName: "Marsha Suriawarsita",
+          nikSales: "K1400742",
+          branch: "Semarang",
+          totalDsrActive: 148,
+          totalInput: 1372,
+          sendBca: 1354,
+          inprocess: 15,
+          duplicate: 0,
+          rts: 1,
+          cancel: 0,
+          reject: 1,
+        },
+      ];
 
-    let currentPage = 1;
-    let rowsPerPage = 5;
-    let filteredData = [...mainData];
-    let searchQuery = "";
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
 
-    // Initial Render
-    renderTable();
-    renderPagination();
+      // Initial Render
+      renderTable();
+      renderPagination();
 
-    function renderTable() {
-      const tbody = document.getElementById("tableBody");
-      const start = (currentPage - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-      const paginatedData = filteredData.slice(start, end);
+      function renderTable() {
+        const tbody = document.getElementById("tableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
 
-      tbody.innerHTML = paginatedData
-        .map(
-          (item, index) => `
+        tbody.innerHTML = paginatedData
+          .map(
+            (item, index) => `
                 <tr class="hover:bg-gray-50 bg-white transition-colors">
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${start + index + 1}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 font-medium text-left border-r border-gray-100">${item.rsmName}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-left border-r border-gray-100">${item.nikSales}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-left border-r border-gray-100">${item.branch}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.totalDsrActive}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.totalInput}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.sendBca}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.inprocess}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.duplicate}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.rts}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.cancel}</td>
-                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${item.reject}</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 font-medium text-left border-r border-gray-100">${
+                      item.rsmName
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-left border-r border-gray-100">${
+                      item.nikSales
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-left border-r border-gray-100">${
+                      item.branch
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.totalDsrActive
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.totalInput
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.sendBca
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.inprocess
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.duplicate
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.rts
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.cancel
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.reject
+                    }</td>
                     <td class="px-4 py-3 text-center border-l border-gray-200 relative">
-                         <button onclick="toggleGlobalDropdown(event, ${item.id}, '${item.rsmName}', '${item.nikSales}')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
+                         <button onclick="toggleGlobalDropdown(event, ${
+                           item.id
+                         }, '${item.rsmName}', '${
+              item.nikSales
+            }')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
                             <i data-lucide="more-horizontal" class="w-5 h-5"></i>
                         </button>
                     </td>
                 </tr>
             `
-        )
-        .join("");
+          )
+          .join("");
 
-      if (paginatedData.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        }
+        lucide.createIcons();
       }
-      lucide.createIcons();
-    }
 
-    function renderPagination() {
-      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-      const showingInfo = document.getElementById("showingInfo");
-      const paginationControls = document.getElementById("paginationControls");
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
 
-      const start = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
-      const end = Math.min(currentPage * rowsPerPage, filteredData.length);
-      showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
 
-      let controlsHtml = `
-                <button onclick="changePage(${currentPage - 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
                     <i data-lucide="chevron-left" class="w-4 h-4"></i>
                 </button>
             `;
 
-      for (let i = 1; i <= totalPages; i++) {
-        if (i === currentPage) {
-          controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
-        } else {
-          controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
         }
-      }
 
-      controlsHtml += `
-                <button onclick="changePage(${currentPage + 1})" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${currentPage === totalPages || totalPages === 0 ? 'opacity-50 cursor-not-allowed' : ''}" ${currentPage === totalPages || totalPages === 0 ? 'disabled' : ''}>
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
                     <i data-lucide="chevron-right" class="w-4 h-4"></i>
                 </button>
             `;
-      paginationControls.innerHTML = controlsHtml;
-      lucide.createIcons();
-    }
-
-    window.handleSearch = function (query) {
-      searchQuery = query.toLowerCase();
-      filteredData = mainData.filter(
-        (item) =>
-          item.rsmName.toLowerCase().includes(searchQuery) ||
-          item.nikSales.toLowerCase().includes(searchQuery)
-      );
-      currentPage = 1;
-      renderTable();
-      renderPagination();
-    };
-
-    window.changePage = function (page) {
-      const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-      if (page < 1 || page > totalPages) return;
-      currentPage = page;
-      renderTable();
-      renderPagination();
-    };
-
-    window.handleRowsPerPageChange = function (value) {
-      rowsPerPage = parseInt(value);
-      currentPage = 1;
-      renderTable();
-      renderPagination();
-    };
-
-    // Dropdown Logic
-    window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
-      event.stopPropagation();
-      const menu = document.getElementById("globalActionDropdown");
-
-      if (!menu.classList.contains("hidden") && menu.dataset.triggerId === String(id)) {
-        menu.classList.add("hidden");
-        return;
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
       }
 
-      const rect = event.currentTarget.getBoundingClientRect();
-      menu.style.top = rect.bottom + 5 + "px";
-      menu.style.left = rect.right - 192 + "px";
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.rsmName.toLowerCase().includes(searchQuery) ||
+            item.nikSales.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
 
-      menu.dataset.triggerId = String(id);
-      menu.classList.remove("hidden");
-    };
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
 
-    // Date Range Picker Logic
-    window.toggleDateRangePicker = function (event) {
-      if (event) event.stopPropagation();
-      const picker = document.getElementById("dateRangePicker");
-      picker.classList.toggle("hidden");
-    };
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
 
-    // Close dropdowns on outside click
-    document.addEventListener("click", function (event) {
-      const globalMenu = document.getElementById("globalActionDropdown");
-      if (
-        globalMenu &&
-        !globalMenu.classList.contains("hidden") &&
-        !globalMenu.contains(event.target)
-      ) {
-        globalMenu.classList.add("hidden");
-      }
+      // Dropdown Logic
+      window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
+        event.stopPropagation();
+        const menu = document.getElementById("globalActionDropdown");
 
-      const datePicker = document.getElementById("dateRangePicker");
-      const dateInput = event.target.closest(
-        '[onclick*="toggleDateRangePicker"]'
-      );
-      if (
-        datePicker &&
-        !datePicker.classList.contains("hidden") &&
-        !datePicker.contains(event.target) &&
-        !dateInput
-      ) {
-        datePicker.classList.add("hidden");
-      }
-    });
-  </script>
-</body>
+        if (
+          !menu.classList.contains("hidden") &&
+          menu.dataset.triggerId === String(id)
+        ) {
+          menu.classList.add("hidden");
+          return;
+        }
 
+        const rect = event.currentTarget.getBoundingClientRect();
+        menu.style.top = rect.bottom + 5 + "px";
+        menu.style.left = rect.right - 192 + "px";
+
+        menu.dataset.triggerId = String(id);
+        menu.classList.remove("hidden");
+      };
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      // Close dropdowns on outside click
+      document.addEventListener("click", function (event) {
+        const globalMenu = document.getElementById("globalActionDropdown");
+        if (
+          globalMenu &&
+          !globalMenu.classList.contains("hidden") &&
+          !globalMenu.contains(event.target)
+        ) {
+          globalMenu.classList.add("hidden");
+        }
+
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
 </html>
