@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - M-Sales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    window.SITE_URL = "<?php echo site_url(); ?>/";
+    window.BASE_URL = "<?php echo base_url(); ?>";
+  </script>
+  <script src="<?php echo base_url('assets/js/layout.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/js/components.js'); ?>"></script>
+  <script>
+    // Initialize Layout
+    initLayout("Dashboard");
+
+    // Data from Dashboard.tsx
+    const creditCardMetrics = [
+      { type: "circular", value: 68, label: "Achievement" },
+      { type: "circular", value: 75, label: "Approval Rate" },
+      {
+        type: "card",
+        cardValue: "92",
+        label: "Total Sales",
+        sublabel: "YTD: December 2025",
+      },
+      {
+        type: "card",
+        cardValue: "86",
+        label: "Run Rate NoA",
+        cardType: "success",
+      },
+    ];
+
+    const creditCardBars = [
+      { label: "Incoming", sublabel: "DMA", value: 68 },
+      { label: "Incoming", sublabel: "ICODE", value: 68 },
+      { label: "NoA / Approval", sublabel: "", value: 68 },
+      { label: "Cancel", sublabel: "", value: 54 },
+      { label: "Decline / Reject", sublabel: "", value: 32 },
+    ];
+
+    const merchantMetrics = [
+      { type: "circular", value: 68, label: "Achievement" },
+      { type: "circular", value: 75, label: "Approval Rate" },
+      {
+        type: "card",
+        cardValue: "92",
+        label: "Total Sales",
+        sublabel: "YTD: December 2025",
+      },
+      {
+        type: "card",
+        cardValue: "86",
+        label: "Run Rate NoA",
+        cardType: "success",
+      },
+    ];
+
+    const merchantBars = [
+      { label: "Incoming", sublabel: "", value: 68 },
+      { label: "Send to BCA", sublabel: "", value: 54 },
+      { label: "Approved", sublabel: "", value: 32 },
+      { label: "Cancel", sublabel: "", value: 22 },
+      { label: "Decline / Reject", sublabel: "", value: 47 },
+    ];
+
+    const telemarketingMetrics = [
+      { type: "circular", value: 68, label: "Achievement" },
+      { type: "circular", value: 75, label: "Pickup Rate" },
+      { type: "circular", value: 15, label: "Agree Rate" },
+      {
+        type: "card",
+        cardValue: "86",
+        label: "Total Subject",
+        sublabel: "YTD: December 2025",
+      },
+    ];
+
+    const telemarketingBars = [
+      { label: "Success", sublabel: "", value: 68 },
+      { label: "Failed Pickup", sublabel: "", value: 54 },
+      { label: "RTS", sublabel: "", value: 32 },
+      { label: "Reschedule", sublabel: "", value: 47 },
+      { label: "No Response", sublabel: "", value: 22 },
+    ];
+
+    const pemolMetrics = [
+      { type: "circular", value: 68, label: "Achievement" },
+      { type: "circular", value: 75, label: "Conversion Rate" },
+      {
+        type: "card",
+        cardValue: "92",
+        label: "Total Sales",
+        sublabel: "YTD: December 2025",
+      },
+      {
+        type: "card",
+        cardValue: "86",
+        label: "Run Rate OA",
+        cardType: "success",
+      },
+    ];
+
+    const pemolBars = [
+      { label: "Incoming", sublabel: "", value: 68 },
+      {
+        label: "Open Account",
+        sublabel: "",
+        value: 64,
+        segments: [
+          { value: 42, color: "#1E5BA8", label: "New" },
+          { value: 22, color: "#64B5F6", label: "Exist" },
+        ],
+      },
+      { label: "Not", sublabel: "Eligible", value: 32 },
+      { label: "Incorrect", sublabel: "Promo Code", value: 54 },
+      { label: "Invalid Code", sublabel: "Pickup", value: 54 },
+    ];
+
+    // Team Data
+    const teamData = [
+      {
+        id: 1,
+        name: "Ahmad",
+        achievement: 68,
+        approvalRate: 75,
+        totalSales: 92,
+        totalSalesTrend: "up",
+        runRateNoA: 86,
+        incomingDIKA: 68,
+        incomingCCMS: 68,
+        noaApproval: 68,
+        cancel: 54,
+        declineReject: 32,
+      },
+      {
+        id: 2,
+        name: "Andre Nanholy",
+        achievement: 72,
+        approvalRate: 79,
+        totalSales: 70,
+        totalSalesTrend: "down",
+        runRateNoA: 72,
+        incomingDIKA: 68,
+        incomingCCMS: 68,
+        noaApproval: 68,
+        cancel: 54,
+        declineReject: 32,
+      },
+      {
+        id: 3,
+        name: "Devi Juniyanti",
+        achievement: 61,
+        approvalRate: 71,
+        totalSales: 84,
+        totalSalesTrend: "up",
+        runRateNoA: 81,
+        incomingDIKA: 68,
+        incomingCCMS: 68,
+        noaApproval: 68,
+        cancel: 54,
+        declineReject: 32,
+      },
+    ];
+
+    // Compare Data Initial State
+    let compareRows = [
+      {
+        id: 1,
+        selectedRSM: "",
+        achievement: "0%",
+        approvalRate: "0%",
+        totalSales: 0,
+        runRateNoA: 0,
+        incomingDIKA: 0,
+        incomingCCMS: 0,
+        noaApproval: 0,
+        cancel: 0,
+        declineReject: 0,
+      },
+      {
+        id: 2,
+        selectedRSM: "",
+        achievement: "0%",
+        approvalRate: "0%",
+        totalSales: 0,
+        runRateNoA: 0,
+        incomingDIKA: 0,
+        incomingCCMS: 0,
+        noaApproval: 0,
+        cancel: 0,
+        declineReject: 0,
+      },
+    ];
+
+    // Render Dashboard Content
+    // Render Dashboard Content
+    const container = document.querySelector("#app > div > div");
+
+    // Header
+    const header = document.createElement("div");
+
+    container.appendChild(header);
+
+    const dashboardContent = document.createElement("div");
+    dashboardContent.className = "p-6 space-y-6";
+
+    // Tabs & Compare Button
+    const tabsHtml = `
+             <div class="flex flex-col lg:flex-row gap-4 lg:gap-0 lg:items-center lg:justify-between">
+                <div class="bg-[#EFF6FF] p-[3px] rounded-full flex inline-flex border border-[#BFDBFE]">
+                  <button onclick="switchTab('my')" id="tab-my" class="px-6 py-2 rounded-full font-semibold text-sm transition-all shadow-sm bg-[#1E5BA8] text-white">
+                    My Performance
+                  </button>
+                  <button onclick="switchTab('team')" id="tab-team" class="px-6 py-2 rounded-full font-medium text-sm transition-all text-[#1E5BA8] hover:text-[#154a8a]">
+                    Team Performance
+                  </button>
+                </div>
+                
+                <button onclick="openCompareModal()" class="flex items-center gap-2 border border-[#1E5BA8] text-[#1E5BA8] px-6 py-2 rounded-full font-medium hover:bg-blue-50 transition-colors">
+                  <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                  Compare Performance
+                </button>
+              </div>
+        `;
+
+    // Grid Content
+    const gridHtml = `
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="dashboard-grid">
+                ${renderPerformanceSection(
+      "Credit Card",
+      creditCardMetrics,
+      creditCardBars,
+      "#1E5BA8"
+    )}
+                ${renderPerformanceSection(
+      "Merchant",
+      merchantMetrics,
+      merchantBars,
+      "#1E5BA8"
+    )}
+                ${renderPerformanceSection(
+      "Telemarketing",
+      telemarketingMetrics,
+      telemarketingBars,
+      "#1E5BA8"
+    )}
+                ${renderPerformanceSection(
+      "PEMOL",
+      pemolMetrics,
+      pemolBars,
+      "#1E5BA8"
+    )}
+            </div>
+        `;
+
+    // Team Performance Content
+    const teamPerformanceHtml = `
+            <div id="team-performance" class="hidden space-y-4">
+                <!-- Filters -->
+                <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="relative w-full lg:w-64">
+                         <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                         <input type="text" placeholder="Search" onkeyup="filterTeamTable(this.value)" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 items-center w-full lg:w-auto">
+                        <div class="relative">
+                            <button onclick="toggleProductFilterMenu()" class="flex items-center border border-gray-300 rounded-lg overflow-hidden hover:border-blue-500 transition-colors group bg-white">
+                                <div class="bg-[#3B6EC2] text-white px-4 py-2 text-sm font-medium">Product</div>
+                                <div class="flex items-center justify-between gap-2 px-4 py-2 min-w-[140px]">
+                                    <span class="text-sm text-gray-700">Credit Card</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 group-hover:text-gray-600"></i>
+                                </div>
+                            </button>
+
+                            <!-- Dropdown -->
+                            <div id="productFilterMenu" class="hidden absolute top-full left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 p-5 animate-in fade-in zoom-in-95 duration-200">
+                                <div class="space-y-1">
+                                    <button class="w-full text-left px-3 py-2 text-sm text-[#1E5BA8] bg-blue-50 rounded-lg font-medium">Credit Card</button>
+                                    <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg font-medium transition-colors">Merchant</button>
+                                    <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg font-medium transition-colors">PEMOL</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <button onclick="toggleDateMenu()" class="flex items-center gap-2 border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 bg-white min-w-[160px] justify-between">
+                                <span class="text-gray-700">December 2025</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                            </button>
+                            
+                            <!-- Date Dropdown -->
+                            <div id="dateMenu" class="hidden absolute top-full left-0 mt-2 w-full bg-white rounded-xl shadow-xl border border-gray-100 z-50 p-2 animate-in fade-in zoom-in-95 duration-200">
+                                <div class="space-y-1">
+                                    <button class="w-full text-left px-3 py-2 text-sm text-[#1E5BA8] bg-blue-50 rounded-lg font-medium">December 2025</button>
+                                    <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg font-medium transition-colors">November 2025</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <button onclick="toggleSortMenu()" class="flex items-center gap-2 border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 bg-white">
+                                <i data-lucide="arrow-up-down" class="w-4 h-4"></i> Sort
+                            </button>
+                            
+                            <!-- Sort Dropdown -->
+                            <div id="sortMenu" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 p-5 animate-in fade-in zoom-in-95 duration-200">
+                                <h3 class="text-gray-500 font-medium mb-4 text-base">Sort by</h3>
+                                <div class="space-y-3">
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="radio" name="sort_team" class="peer hidden" checked>
+                                        <div class="w-5 h-5 rounded-full border-[1.5px] border-gray-400 peer-checked:border-[#1E5BA8] peer-checked:bg-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                            <div class="w-2.5 h-2.5 rounded-full bg-[#1E5BA8] hidden peer-checked:block"></div>
+                                        </div>
+                                        <span class="text-gray-700 font-medium group-hover:text-gray-900 text-[15px]">All Performance</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="radio" name="sort_team" class="peer hidden">
+                                        <div class="w-5 h-5 rounded-full border-[1.5px] border-gray-400 peer-checked:border-[#1E5BA8] peer-checked:bg-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                            <div class="w-2.5 h-2.5 rounded-full bg-[#1E5BA8] hidden peer-checked:block"></div>
+                                        </div>
+                                        <span class="text-gray-700 font-medium group-hover:text-gray-900 text-[15px]">Best Performance</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 cursor-pointer group">
+                                        <input type="radio" name="sort_team" class="peer hidden">
+                                        <div class="w-5 h-5 rounded-full border-[1.5px] border-gray-400 peer-checked:border-[#1E5BA8] peer-checked:bg-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                            <div class="w-2.5 h-2.5 rounded-full bg-[#1E5BA8] hidden peer-checked:block"></div>
+                                        </div>
+                                        <span class="text-gray-700 font-medium group-hover:text-gray-900 text-[15px]">Low Performance</span>
+                                    </label>
+                                </div>
+                                <div class="mt-5 pt-4 border-t border-gray-100">
+                                    <button onclick="toggleSortMenu()" class="text-[#1E5BA8] font-semibold hover:underline text-[15px]">Remove Sort</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#3B6EC2] text-white">
+                                    <th class="px-4 py-3 text-center text-sm font-semibold w-16">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold min-w-[150px]">RSM Name</th>
+                                    <th class="px-4 py-3 text-center text-sm font-semibold min-w-[110px]">Achievement</th>
+                                    <th class="px-4 py-3 text-center text-sm font-semibold min-w-[110px]">Approval<br>Rate</th>
+                                    <th class="px-4 py-3 text-center text-sm font-semibold min-w-[100px]">Total<br>Sales</th>
+                                    <th class="px-4 py-3 text-center text-sm font-semibold min-w-[110px]">Run Rate<br>NoA</th>
+                                    <th colspan="5" class="px-4 py-3 text-center text-sm font-semibold border-l border-white/30 relative z-40">
+                                        <button onclick="toggleProductMenu(event)" class="inline-flex items-center justify-center gap-2 hover:text-white/80 transition-colors">
+                                            Credit Card
+                                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                        </button>
+                                        <!-- Product Dropdown -->
+                                        <div id="productMenu" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 p-5 text-left cursor-default animate-in fade-in zoom-in-95 duration-200">
+                                            <h3 class="text-gray-500 font-medium mb-4 text-base">Select Product</h3>
+                                            <div class="space-y-3">
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="radio" name="product_select" class="peer hidden" checked>
+                                                    <div class="w-5 h-5 rounded-full border-[1.5px] border-gray-400 peer-checked:border-[#1E5BA8] peer-checked:bg-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                                        <div class="w-2.5 h-2.5 rounded-full bg-[#1E5BA8] hidden peer-checked:block"></div>
+                                                    </div>
+                                                    <span class="text-gray-700 font-medium group-hover:text-gray-900 text-[15px]">Credit Card</span>
+                                                </label>
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="radio" name="product_select" class="peer hidden">
+                                                    <div class="w-5 h-5 rounded-full border-[1.5px] border-gray-400 peer-checked:border-[#1E5BA8] peer-checked:bg-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                                        <div class="w-2.5 h-2.5 rounded-full bg-[#1E5BA8] hidden peer-checked:block"></div>
+                                                    </div>
+                                                    <span class="text-gray-700 font-medium group-hover:text-gray-900 text-[15px]">Merchant</span>
+                                                </label>
+                                                <label class="flex items-center gap-3 cursor-pointer group">
+                                                    <input type="radio" name="product_select" class="peer hidden">
+                                                    <div class="w-5 h-5 rounded-full border-[1.5px] border-gray-400 peer-checked:border-[#1E5BA8] peer-checked:bg-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                                        <div class="w-2.5 h-2.5 rounded-full bg-[#1E5BA8] hidden peer-checked:block"></div>
+                                                    </div>
+                                                    <span class="text-gray-700 font-medium group-hover:text-gray-900 text-[15px]">PEMOL</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th class="px-4 py-3 text-center text-sm font-semibold w-20">Action</th>
+                                </tr>
+                                <tr class="bg-[#3B6EC2] text-white text-xs">
+                                    <th class="px-4 py-2" colspan="6"></th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/30">Incomming<br>DIKA</th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/30">Incomming<br>CCMS</th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/30">NoA /<br>Approval</th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/30">Cancel</th>
+                                    <th class="px-4 py-2 text-center font-medium border-l border-white/30">Decline/<br>Reject</th>
+                                    <th class="px-4 py-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="teamTableBody" class="bg-white">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="px-4 py-3 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+                        <div class="text-sm text-gray-600">Showing 1 to ${teamData.length} of ${teamData.length}</div>
+                        <div class="flex items-center gap-2">
+                             <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                            </button>
+                            <button class="w-8 h-8 flex items-center justify-center bg-[#3B6EC2] text-white rounded font-medium text-sm">1</button>
+                             <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-gray-600">Show</span>
+                            <select class="border border-gray-300 px-3 py-1.5 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                <option value="10">10</option><option value="25">25</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+    // Compare Modal HTML
+    const compareModalHtml = `
+            <div id="compareModal" class="hidden fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+                <div class="bg-white rounded-2xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col relative animate-in fade-in zoom-in duration-200">
+                     <!-- Header -->
+                    <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-800">Compare Performance RSM</h2>
+                        <button onclick="closeCompareModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+
+                    <!-- Table Container -->
+                    <div class="flex-1 overflow-auto p-6">
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-left rounded-tl-lg border-r border-white/20 w-16">No</th>
+                                        <th rowspan="2" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-left min-w-[200px] border-r border-white/20">RSM Name</th>
+                                        <th rowspan="2" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-center border-r border-white/20">Achievement</th>
+                                        <th rowspan="2" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-center border-r border-white/20">Approval<br>Rate</th>
+                                        <th rowspan="2" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-center border-r border-white/20">Total<br>Sales</th>
+                                        <th rowspan="2" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-center border-r border-white/20">Run Rate<br>NoA</th>
+                                        <th colspan="5" class="bg-[#3B6EC2] text-white px-4 py-3 text-sm font-semibold text-center rounded-tr-lg">Credit Card</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-[#3B6EC2] text-white px-4 py-2 text-xs font-medium text-center border-l border-white/20">Incomming<br>DIKA</th>
+                                        <th class="bg-[#3B6EC2] text-white px-4 py-2 text-xs font-medium text-center border-l border-white/20">Incomming<br>CCMS</th>
+                                        <th class="bg-[#3B6EC2] text-white px-4 py-2 text-xs font-medium text-center border-l border-white/20">NoA /<br>Approval</th>
+                                        <th class="bg-[#3B6EC2] text-white px-4 py-2 text-xs font-medium text-center border-l border-white/20">Cancel</th>
+                                        <th class="bg-[#3B6EC2] text-white px-4 py-2 text-xs font-medium text-center border-l border-white/20">Decline/<br>Reject</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="compareBody" class="bg-gray-50">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-4 flex justify-center">
+                            <button onclick="addCompareRow()" class="flex items-center gap-2 text-[#3B6EC2] hover:text-[#2d5aa8] font-medium text-sm transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                                Add Compare Performance
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+    dashboardContent.innerHTML =
+      tabsHtml + gridHtml + teamPerformanceHtml + compareModalHtml;
+    container.appendChild(dashboardContent);
+
+    // Move modal to body to ensure it overlays everything correctly
+    const compareModalElement = document.getElementById("compareModal");
+    if (compareModalElement) {
+      document.body.appendChild(compareModalElement);
+    }
+
+    // Populate Search Logic and Table
+    function renderTeamTable(data) {
+      const tbody = document.getElementById("teamTableBody");
+      tbody.innerHTML = data
+        .map(
+          (member, index) => `
+                <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center">${member.id
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-900 font-medium">${member.name
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center">${member.achievement
+            }%</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center">${member.approvalRate
+            }%</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <span>${member.totalSales}</span>
+                            <span class="${member.totalSalesTrend === "up"
+              ? "text-green-600"
+              : "text-red-600"
+            }">
+                                ${member.totalSalesTrend === "up" ? "▲" : "▼"}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center">${member.runRateNoA
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center border-l border-gray-200">${member.incomingDIKA
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center border-l border-gray-200">${member.incomingCCMS
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center border-l border-gray-200">${member.noaApproval
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center border-l border-gray-200">${member.cancel
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center border-l border-gray-200">${member.declineReject
+            }</td>
+                     <td class="px-4 py-4 text-center">
+                        <button class="text-[#3B6EC2] hover:text-[#2d5aa8] transition-colors inline-flex items-center justify-center">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+             `
+        )
+        .join("");
+      lucide.createIcons();
+    }
+
+    renderTeamTable(teamData);
+
+    window.filterTeamTable = function (query) {
+      const filtered = teamData.filter((item) =>
+        item.name.toLowerCase().includes(query.toLowerCase())
+      );
+      renderTeamTable(filtered);
+    };
+
+    lucide.createIcons();
+
+    // Scripts for Tabs
+    window.switchTab = function (tab) {
+      const tabMy = document.getElementById("tab-my");
+      const tabTeam = document.getElementById("tab-team");
+      const grid = document.getElementById("dashboard-grid");
+      const team = document.getElementById("team-performance");
+
+      const activeClass = "px-6 py-2 rounded-full font-semibold text-sm transition-all shadow-sm bg-[#1E5BA8] text-white";
+      const inactiveClass = "px-6 py-2 rounded-full font-medium text-sm transition-all text-[#1E5BA8] hover:text-[#154a8a]";
+
+      if (tab === "my") {
+        tabMy.className = activeClass;
+        tabTeam.className = inactiveClass;
+        grid.classList.remove("hidden");
+        team.classList.add("hidden");
+      } else {
+        tabTeam.className = activeClass;
+        tabMy.className = inactiveClass;
+        grid.classList.add("hidden");
+        team.classList.remove("hidden");
+      }
+    };
+
+    // --- Compare Modal Logic ---
+    function renderCompareRows() {
+      // Ensure global menu exists
+      if (!document.getElementById("globalRSMMenu")) {
+        const menuHtml = `
+                <div id="globalRSMMenu" class="hidden fixed bg-white rounded-lg shadow-xl border border-gray-100 z-[9999] p-1 animate-in fade-in zoom-in-95 duration-200">
+                    <div class="space-y-0.5 max-h-48 overflow-y-auto">
+                        <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">Ahmad</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">Andre Nanholy</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">Devi Juniyanti</button>
+                    </div>
+                </div>
+              `;
+        document.body.insertAdjacentHTML("beforeend", menuHtml);
+      }
+
+      const tbody = document.getElementById("compareBody");
+      tbody.innerHTML = compareRows
+        .map(
+          (row, index) => `
+                <tr class="border-b border-gray-200">
+                    <td class="px-4 py-4 text-sm text-gray-700 text-center">${index + 1
+            }</td>
+                    <td class="px-4 py-4">
+                        <div class="relative">
+                            <button onclick="toggleRSMMenu(event, '${row.id
+            }')" class="w-full flex items-center justify-between bg-white border border-gray-300 rounded px-3 py-2 text-sm text-gray-500 hover:border-blue-500 transition-colors">
+                                <span>Select RSM Name</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center">${row.achievement
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center">${row.approvalRate
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center">${row.totalSales
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center">${row.runRateNoA
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center border-l border-gray-200">${row.incomingDIKA
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center border-l border-gray-200">${row.incomingCCMS
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center border-l border-gray-200">${row.noaApproval
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center border-l border-gray-200">${row.cancel
+            }</td>
+                    <td class="px-4 py-4 text-sm text-gray-500 text-center border-l border-gray-200">${row.declineReject
+            }</td>
+                </tr>
+            `
+        )
+        .join("");
+      lucide.createIcons();
+    }
+
+    window.openCompareModal = function () {
+      document.getElementById("compareModal").classList.remove("hidden");
+      renderCompareRows();
+    };
+
+    window.closeCompareModal = function () {
+      document.getElementById("compareModal").classList.add("hidden");
+    };
+
+    window.addCompareRow = function () {
+      const newId = compareRows.length + 1;
+      compareRows.push({
+        id: newId,
+        selectedRSM: "",
+        achievement: "0%",
+        approvalRate: "0%",
+        totalSales: 0,
+        runRateNoA: 0,
+        incomingDIKA: 0,
+        incomingCCMS: 0,
+        noaApproval: 0,
+        cancel: 0,
+        declineReject: 0,
+      });
+      renderCompareRows();
+    };
+
+    function closeAllMenus(exceptId) {
+      const ids = [
+        "sortMenu",
+        "productMenu",
+        "productFilterMenu",
+        "dateMenu",
+        "globalRSMMenu",
+      ];
+      ids.forEach((id) => {
+        if (id !== exceptId)
+          document.getElementById(id)?.classList.add("hidden");
+      });
+    }
+
+    window.toggleRSMMenu = function (event, id) {
+      event.stopPropagation();
+      const menu = document.getElementById("globalRSMMenu");
+      if (!menu) return;
+
+      // If clicking the same button that opened it, close it
+      if (
+        !menu.classList.contains("hidden") &&
+        menu.dataset.triggerId === String(id)
+      ) {
+        menu.classList.add("hidden");
+        return;
+      }
+
+      // Close others
+      closeAllMenus("globalRSMMenu");
+
+      // Position and Show
+      const button = event.currentTarget;
+      const rect = button.getBoundingClientRect();
+
+      menu.style.top = rect.bottom + 4 + "px";
+      menu.style.left = rect.left + "px";
+      menu.style.width = rect.width + "px";
+      menu.dataset.triggerId = String(id);
+      menu.classList.remove("hidden");
+    };
+
+    window.toggleSortMenu = function () {
+      closeAllMenus("sortMenu");
+      document.getElementById("sortMenu").classList.toggle("hidden");
+    };
+
+    window.toggleProductMenu = function (e) {
+      if (e) e.stopPropagation();
+      closeAllMenus("productMenu");
+      document.getElementById("productMenu").classList.toggle("hidden");
+    };
+
+    window.toggleProductFilterMenu = function () {
+      closeAllMenus("productFilterMenu");
+      document.getElementById("productFilterMenu").classList.toggle("hidden");
+    };
+
+    window.toggleDateMenu = function () {
+      closeAllMenus("dateMenu");
+      document.getElementById("dateMenu").classList.toggle("hidden");
+    };
+
+    // Close menus when clicking outside
+    document.addEventListener("click", function (event) {
+      const menus = [
+        "sortMenu",
+        "productMenu",
+        "productFilterMenu",
+        "dateMenu",
+        "globalRSMMenu",
+      ];
+
+      menus.forEach((menuId) => {
+        const menu = document.getElementById(menuId);
+        const button = event.target.closest("button");
+
+        // Check trigger for globalRSMMenu specifically
+        let isTrigger = false;
+        if (menuId === "globalRSMMenu") {
+          isTrigger =
+            button &&
+            button.getAttribute("onclick")?.includes("toggleRSMMenu");
+        } else {
+          const toggleFnName =
+            "toggle" + menuId.charAt(0).toUpperCase() + menuId.slice(1);
+          isTrigger =
+            button && button.getAttribute("onclick")?.includes(toggleFnName);
+        }
+
+        if (menu && !menu.classList.contains("hidden")) {
+          if (!menu.contains(event.target) && !isTrigger) {
+            menu.classList.add("hidden");
+          }
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
+```

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Password - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      @media (min-width: 1024px) {
+        body {
+          zoom: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="min-h-screen bg-white flex flex-col">
+    <!-- Desktop Header -->
+    <div class="hidden lg:block p-8">
+      <img
+        src="<?php echo base_url('assets/img/logo.png'); ?>"
+        alt="M-Sales"
+        class="h-10"
+      />
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex items-center justify-center lg:px-8 py-0 lg:py-8">
+      <div
+        class="w-full max-w-6xl grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+      >
+        <!-- Left Side - Forgot Password Form -->
+        <div class="w-full">
+          <!-- Mobile View -->
+          <div class="lg:hidden relative min-h-screen flex flex-col">
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0">
+              <img
+                src="<?php echo base_url('assets/img/bg_login.png'); ?>"
+                alt="Professional"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- White Card Overlay -->
+            <div
+              class="relative z-10 mt-auto bg-white rounded-t-[32px] px-6 py-8"
+            >
+              <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-[#3B6EC2]">M-Sales</h2>
+              </div>
+
+              <a
+                href="<?php echo site_url('auth'); ?>"
+                class="flex items-center gap-2 text-sm text-[#3B6EC2] hover:underline mb-6 inline-flex"
+              >
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Back to login
+              </a>
+
+              <div class="mb-6">
+                <h1
+                  class="text-2xl font-semibold text-[#3B6EC2] mb-2 text-center"
+                >
+                  Forgot Password
+                </h1>
+                <p class="text-gray-600 text-sm text-center">
+                  Enter the email used to apply at PT. DIKA
+                </p>
+              </div>
+
+              <form onsubmit="handleSubmit(event)" class="space-y-5">
+                <div>
+                  <input
+                    type="email"
+                    id="email-mobile"
+                    placeholder="Enter email"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-[#3B6EC2] text-white py-3 rounded-xl font-medium hover:bg-[#2F5BA8] transition-colors"
+                >
+                  Continue
+                </button>
+                <div class="text-center text-sm text-gray-600 pt-2">
+                  Having trouble logging in? Please contact your ASM<br />
+                  or contact HaloDIKA
+                  <a
+                    href="tel:0811-8886-325"
+                    class="text-[#3B6EC2] hover:underline inline-flex items-center gap-1"
+                  >
+                    <i data-lucide="phone" class="w-3 h-3"></i>
+                    0811-8886-325
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Desktop View -->
+          <div class="hidden lg:block max-w-md mx-auto lg:mx-0">
+            <a
+              href="<?php echo site_url('auth'); ?>"
+              class="flex items-center gap-2 text-sm text-[#3B6EC2] hover:underline mb-8 inline-flex"
+            >
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              Back to login
+            </a>
+
+            <div class="mb-8">
+              <h1 class="text-3xl font-semibold text-[#3B6EC2] mb-3">
+                Forgot Password
+              </h1>
+              <p class="text-gray-600 text-sm">
+                Enter the email used to apply at PT. DIKA
+              </p>
+            </div>
+
+            <form onsubmit="handleSubmit(event)" class="space-y-5">
+              <div>
+                <input
+                  type="email"
+                  id="email-desktop"
+                  placeholder="Enter email"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-[#3B6EC2] text-white py-3 rounded-lg font-medium hover:bg-[#2F5BA8] transition-colors"
+              >
+                Continue
+              </button>
+              <div class="text-center text-sm text-gray-600 pt-2">
+                Having trouble logging in? Please contact your ASM<br />
+                or contact HaloDIKA
+                <a
+                  href="tel:0811-8886-325"
+                  class="text-[#3B6EC2] hover:underline inline-flex items-center gap-1"
+                >
+                  <i data-lucide="phone" class="w-3 h-3"></i>
+                  0811-8886-325
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Side - Image (Desktop Only) -->
+        <div class="hidden lg:block">
+          <img
+            src="<?php echo base_url('assets/img/bg_login.png'); ?>"
+            alt="Professional Growth"
+            class="w-full h-auto"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      function handleSubmit(e) {
+        e.preventDefault();
+        // Mock logic
+        const emailDesktop = document.getElementById("email-desktop").value;
+        const emailMobile = document.getElementById("email-mobile").value;
+        const email = emailDesktop || emailMobile;
+
+        if (email) {
+          alert("Password reset link has been sent to your email");
+        } else {
+          alert("Please enter your email");
+        }
+      }
+    </script>
+  </body>
+</html>

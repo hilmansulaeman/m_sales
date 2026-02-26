@@ -29,7 +29,8 @@ const menuItems = [
             { label: 'Credit Card (CC)', url: 'data_decision/data_decision_cc.html' },
             { label: 'Corporate', url: 'data_decision/data_decision_corporate.html' },
             { label: 'Smart Cash (SC)', url: 'data_decision/data_decision_sc.html' },
-            { label: 'Personal Loan (PL)', url: 'data_decision/data_decision_pl.html' }
+            { label: 'Personal Loan (PL)', url: 'data_decision/data_decision_pl.html' },
+            { label: 'Pemol_DSR', url:'data_decision/data_decision_pemol_dsr.html'}
         ]
     },
     {
@@ -223,7 +224,7 @@ function renderSidebar(activeParent, activeSubmenu) {
                     </div>
 
                     <div class="w-full border-t border-gray-100 pt-4">
-                        <a href="login.html" class="flex items-center justify-center gap-2 text-[#1E5BA8] font-bold text-sm hover:underline group">
+                        <a href="#" onclick="window.location.href=(window.SITE_URL || '') + 'auth'" class="flex items-center justify-center gap-2 text-[#1E5BA8] font-bold text-sm hover:underline group">
                             Log out 
                             <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                         </a>
@@ -261,10 +262,8 @@ function renderSidebar(activeParent, activeSubmenu) {
     // Helper URL Resolver
     const resolveUrl = (url) => {
         if (!url || url === '#') return '#';
-        const path = window.location.pathname;
-        const subFolders = ['/data_decision/', '/application_input/', '/incoming/', '/application_check/', '/candidate_info/', '/request_to_hrd/', '/Approval/'];
-        const isInSubfolder = subFolders.some(folder => path.includes(folder));
-        return isInSubfolder ? '../' + url : url;
+        let ciUrl = url.replace('.html', '');
+        return (window.SITE_URL || '') + ciUrl;
     };
 
     menuItems.forEach(item => {
@@ -343,27 +342,41 @@ function initLayout(activeParentInput = '', activeSubmenuInput = '', customTitle
     `;
     document.head.appendChild(zoomStyle);
 
-    // Detect Active Page
-    let activeParent = activeParentInput;
-    let activeSubmenu = activeSubmenuInput;
+    // Detect Active Page based on URL (Priority for Sidebar Highlighting)
+    let detectedParent = '';
+    let detectedSubmenu = '';
     const currentFilename = window.location.pathname.split('/').pop();
-    
-    // Auto-detect if not provided
-    if (!activeParent && !activeSubmenu) {
-        for (const item of menuItems) {
-            if (item.url && item.url.endsWith(currentFilename)) {
-                activeParent = item.label;
+
+    for (const item of menuItems) {
+        if (item.url && item.url.endsWith(currentFilename)) {
+            detectedParent = item.label;
+            break;
+        }
+        if (item.hasSubmenu && item.submenu) {
+            const subMatch = item.submenu.find(sub => sub.url.endsWith(currentFilename));
+            if (subMatch) {
+                detectedParent = item.label;
+                detectedSubmenu = subMatch.label;
                 break;
             }
-            if (item.hasSubmenu && item.submenu) {
-                const subMatch = item.submenu.find(sub => sub.url.endsWith(currentFilename));
-                if (subMatch) {
-                    activeParent = item.label;
-                    activeSubmenu = subMatch.label;
-                    break;
-                }
-            }
         }
+    }
+
+    // Determine final active state for Sidebar
+    // (Prefer detected URL-based state to ensure side menu is correct)
+    const activeParent = detectedParent || activeParentInput;
+    const activeSubmenu = detectedSubmenu || activeSubmenuInput;
+
+    // Determine Header Title
+    // Priority: customTitle > detectedSubmenu > activeSubmenuInput > detectedParent > activeParentInput > 'Dashboard'
+    // If URL detection found a submenu, we usually want that as the header title.
+    let displayTitle = customTitle;
+    if (!displayTitle) {
+        if (detectedSubmenu) displayTitle = detectedSubmenu;
+        else if (activeSubmenuInput) displayTitle = activeSubmenuInput;
+        else if (detectedParent) displayTitle = detectedParent;
+        else if (activeParentInput) displayTitle = activeParentInput;
+        else displayTitle = 'Dashboard';
     }
 
     // Sidebar Overlay
@@ -378,8 +391,6 @@ function initLayout(activeParentInput = '', activeSubmenuInput = '', customTitle
 
     // Compose Layout
     const sidebar = renderSidebar(activeParent, activeSubmenu);
-    // Use customTitle if provided, otherwise fallback to submenu or parent
-    const displayTitle = customTitle || activeSubmenu || activeParent || 'Dashboard';
     const header = renderHeader(activeParent, displayTitle);
 
     const mainContent = document.createElement('div');
