@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Check Personal Loan (PL) - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      // Initialize Layout
+      initLayout("Application Check", "Personal Loan (PL)");
+
+      // Render Page Content
+      const appContainer = document.querySelector("#app > div > div"); // Main content wrapper
+      const main = document.createElement("main");
+      main.className = "flex-1 p-4 lg:p-6";
+
+      main.innerHTML = `
+            <!-- Blue Info Section -->
+            <div class="bg-[#3B6EC2] rounded-lg p-8 mb-6 relative overflow-hidden">
+                 <!-- Background Pattern (Optional) -->
+                <p class="text-white text-center text-lg mb-6 font-medium relative z-10">
+                    Please enter your Name / CH ID Card / ACCO Number / Reference Number in the field below
+                </p>
+
+                <!-- Search Input -->
+                <div class="max-w-3xl mx-auto relative z-10">
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search"
+                            class="w-full pl-12 pr-4 py-3 rounded-full border-0 bg-white text-base focus:outline-none focus:ring-2 focus:ring-white/50 text-black placeholder-gray-400 shadow-lg"
+                            onkeydown="handleSearchKey(event)"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Results Section (Hidden by default) -->
+            <div id="searchResults" class="hidden">
+                 <!-- Tabs -->
+                <div class="bg-[#EFF6FF] p-1.5 rounded-xl inline-flex mb-6">
+                    <button
+                        onclick="switchLocalTab('incoming')"
+                        id="tab-incoming"
+                        class="px-6 py-2 text-sm font-medium rounded-full transition-all bg-[#1E5BA8] text-white shadow-sm"
+                    >
+                        Data Incoming CC
+                    </button>
+                    <button
+                        onclick="switchLocalTab('approval')"
+                        id="tab-approval"
+                        class="px-6 py-2 text-sm font-medium rounded-full transition-all text-[#3B6EC2] hover:bg-white/50"
+                    >
+                        Data Approval CC
+                    </button>
+                </div>
+
+                <!-- Table Container -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="overflow-x-auto rounded-lg">
+                        <table class="w-full">
+                            <thead id="tableHead">
+                                <!-- Populated by JS -->
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="tableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                         <div id="showingInfo">Showing 0 to 0 of 0</div>
+                         
+                         <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+      lucide.createIcons();
+
+      // Data Configuration (Mock Data - To be updated based on specific requirements)
+      const tableData = {
+        incoming: {
+          headers: [
+            { label: "No", width: "w-16", align: "text-center" },
+            { label: "Customer Name", align: "text-left" },
+            { label: "Status", align: "text-left" },
+            { label: "Sales Code", align: "text-center" },
+            { label: "Input Date", align: "text-center" },
+          ],
+          rows: [
+            {
+              no: 1,
+              name: "Budi Santoso",
+              idCard: "3201234567890001",
+              salesCode: "SC001",
+              inputDate: "06-Aug-2024 | 10:00",
+            },
+            {
+              no: 2,
+              name: "Siti Aminah",
+              idCard: "3201234567890002",
+              salesCode: "SC002",
+              inputDate: "07-Aug-2024 | 11:00",
+            },
+          ],
+        },
+        approval: {
+          headers: [
+            { label: "No", width: "w-16", align: "text-center" },
+            { label: "Customer Name", align: "text-left" },
+            { label: "Status", align: "text-left" },
+            { label: "Sales Code", align: "text-center" },
+            { label: "Date Result", align: "text-center" },
+          ],
+          rows: [
+            {
+              no: 1,
+              name: "Andi Wijaya",
+              idCard: "3201234567890003",
+              status: "Approved",
+              dateResult: "05-Aug-2024",
+            },
+          ],
+        },
+      };
+
+      let currentTab = "incoming";
+      let currentPage = 1;
+      let rowsPerPage = 10;
+      let filteredData = [...tableData.incoming.rows];
+      let searchQuery = "";
+
+      // Initial Render
+      // renderTable();
+      // renderPagination();
+
+      function handleSearchKey(e) {
+        if (e.key === "Enter") {
+          performSearch();
+        }
+      }
+
+      function performSearch() {
+        const input = document.getElementById("searchInput").value;
+        if (input.trim()) {
+          document.getElementById("searchResults").classList.remove("hidden");
+          searchQuery = input.toLowerCase();
+
+          // Search in current Tab data
+          const currentRows = tableData[currentTab].rows;
+          filteredData = currentRows.filter(
+            (item) =>
+              item.name.toLowerCase().includes(searchQuery) ||
+              item.idCard.includes(searchQuery)
+          );
+
+          currentPage = 1;
+          renderTable();
+          renderPagination();
+        } else {
+          document.getElementById("searchResults").classList.add("hidden");
+        }
+      }
+
+      function renderTable() {
+        const thead = document.getElementById("tableHead");
+        const tbody = document.getElementById("tableBody");
+
+        // Render Headers
+        const currentHeaders = tableData[currentTab].headers;
+        thead.innerHTML = `
+                <tr class="bg-[#1E5BA8]">
+                    ${currentHeaders
+                      .map(
+                        (h, i) => `
+                        <th class="px-6 py-3 ${
+                          h.align
+                        } text-sm font-medium text-white border-r border-white/20 ${
+                          h.width || ""
+                        }">${h.label}</th>
+                    `
+                      )
+                      .join("")}
+                </tr>
+            `;
+
+        // Render Body
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
+
+        tbody.innerHTML = paginatedData
+          .map((item, index) => {
+            if (currentTab === "incoming") {
+              return `
+                        <tr class="hover:bg-gray-50 bg-white transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              start + index + 1
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left font-medium">${
+                              item.name
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left">${
+                              item.idCard
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              item.salesCode
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">${
+                              item.inputDate
+                            }</td>
+                        </tr>
+                    `;
+            } else {
+              return `
+                        <tr class="hover:bg-gray-50 bg-white transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              start + index + 1
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left font-medium">${
+                              item.name
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-left">${
+                              item.idCard
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-100 text-center">${
+                              item.status
+                            }</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">${
+                              item.dateResult
+                            }</td>
+                        </tr>
+                    `;
+            }
+          })
+          .join("");
+
+        if (paginatedData.length === 0) {
+          const colSpan = currentHeaders.length;
+          tbody.innerHTML = `<tr><td colspan="${colSpan}" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        }
+        lucide.createIcons();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      window.switchLocalTab = function (tabName) {
+        currentTab = tabName;
+
+        // Update styles
+        const tabIncoming = document.getElementById("tab-incoming");
+        const tabApproval = document.getElementById("tab-approval");
+
+        if (tabName === "incoming") {
+          tabIncoming.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm";
+          tabApproval.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50";
+        } else {
+          tabApproval.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all bg-[#1E5BA8] text-white shadow-sm";
+          tabIncoming.className =
+            "px-6 py-2 text-sm font-medium rounded-lg transition-all text-[#3B6EC2] hover:bg-white/50";
+        }
+
+        // Re-apply search or reset
+        const input = document.getElementById("searchInput").value;
+        if (input.trim()) {
+          searchQuery = input.toLowerCase();
+          // Adapt search fields to generic 'item name' etc
+          filteredData = tableData[currentTab].rows.filter(
+            (item) =>
+              item.name.toLowerCase().includes(searchQuery) ||
+              item.idCard.includes(searchQuery)
+          );
+        } else {
+          filteredData = [...tableData[currentTab].rows];
+        }
+
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Input Personal Loan (PL) - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      initLayout("Application Input", "Personal Loan (PL)");
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      main.innerHTML = `
+            
+            <!-- Content -->
+            <div class="p-6">
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <!-- Search and Filters -->
+                <div class=" rounded-2xl p-4 mb-6">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                         <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto items-center">
+                            <!-- Search -->
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" id="searchInput" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" oninput="handleSearch(this.value)"/>
+                            </div>
+
+                            <!-- Date Range Picker -->
+                            <div class="relative w-full sm:w-72">
+                                <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
+                                    <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer placeholder-gray-400"/>
+                                </div>
+
+                                <!-- Date Range Dropdown -->
+                                <div id="dateRangePicker" class="hidden absolute top-full right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
+                                    <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                                        <!-- Left Calendar (Jan 2025) -->
+                                        <div class="flex-1">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                                                <span class="font-semibold text-gray-800 text-sm">January 2025</span>
+                                                <div class="w-6"></div>
+                                            </div>
+                                            <div class="grid grid-cols-7 text-center mb-2">
+                                                <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                <!-- Empty -->
+                                                <span></span><span></span>
+                                                <!-- 1 (Start) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-l-full">1</button>
+                                                <!-- 2-5 (Range) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">2</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">3</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">4</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">5</button>
+                                                
+                                                <!-- 6-12 (Full Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">6</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">7</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">8</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">9</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">10</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">11</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">12</button>
+                                                
+                                                <!-- 13-19 (Full Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">13</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">14</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">15</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">16</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">17</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">18</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">19</button>
+                                                
+                                                <!-- 20-26 (Full Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">20</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">21</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">22</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">23</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">24</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">25</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">26</button>
+                                                <!-- 27-31 (Partial Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">27</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">28</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">29</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">30</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">31</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Divider (Desktop Only) -->
+                                        <div class="hidden md:block w-px bg-gray-100"></div>
+
+                                        <!-- Right Calendar (Feb 2025) - Desktop Only -->
+                                        <div class="flex-1 hidden md:block">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="w-6"></div>
+                                                <span class="font-semibold text-gray-800 text-sm">February 2025</span>
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                            </div>
+                                            <div class="grid grid-cols-7 text-center mb-2">
+                                                <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                <!-- Empty -->
+                                                <span></span><span></span><span></span><span></span><span></span>
+                                                <!-- 1 (Range) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">1</button>
+                                                <!-- 2 (End) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-r-full">2</button>
+                                                
+                                                <!-- 3-9 -->
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">3</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">4</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">5</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">6</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">7</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">8</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">9</button>
+                                                <!-- 10-16 -->
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">10</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">11</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">12</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">13</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">14</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">15</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">16</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="mt-6 flex justify-end gap-3 items-center pt-4 border-t border-gray-100">
+                                        <button class="text-[#3B6EC2] hover:text-[#2F5BA8] font-semibold text-sm transition-colors" onclick="toggleDateRangePicker(event)">Reset</button>
+                                        <button class="bg-[#3B6EC2] text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-[#2F5BA8] transition-colors" onclick="toggleDateRangePicker(event)">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Export Button -->
+                         <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="share" class="w-4 h-4"></i>
+                            Export data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white rounded-lg overflow-visible shadow-sm border border-gray-200">
+                    <div class="overflow-x-auto overflow-y-visible  rounded-lg">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">RSM Name</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">NIK Sales</th>
+                                    <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">Branch</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Total<br>DSR Active</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Total<br>Input</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Send<br>BCA</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20" colspan="5">Send</th>
+                                    <th class="px-4 py-3 text-center text-sm font-medium">Action</th>
+                                </tr>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-2 border-r border-white/20" colspan="7"></th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">Inprocess</th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">Duplicate</th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">RTS</th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">Cancel</th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">Reject</th>
+                                    <th class="px-4 py-2 text-center font-medium"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                         <div id="showingInfo">Showing 0 to 0 of 0</div>
+                         
+                         <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Action Dropdown -->
+            <div id="globalActionDropdown" class="hidden fixed bg-white border border-gray-200 rounded-lg shadow-xl z-[9999] text-left animate-in fade-in zoom-in duration-100 w-48">
+                <div class="py-1">
+                    <button class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#3B6EC2] transition-colors flex items-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4"></i> View downline
+                    </button>
+                    <button class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#3B6EC2] transition-colors flex items-center gap-2">
+                        <i data-lucide="file-text" class="w-4 h-4"></i> View detail
+                    </button>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+
+      const mainData = [
+        {
+          id: 1,
+          rsmName: "Shinta Kusuma",
+          nikSales: "K1104148",
+          branch: "Yogjakarta",
+          totalDsrActive: 126,
+          totalInput: 2108,
+          sendBca: 2097,
+          inprocess: 10,
+          duplicate: 0,
+          rts: 1,
+          cancel: 0,
+          reject: 1,
+        },
+        {
+          id: 2,
+          rsmName: "Sifa Fauziah",
+          nikSales: "K1001005",
+          branch: "Jakarta",
+          totalDsrActive: 244,
+          totalInput: 2505,
+          sendBca: 2479,
+          inprocess: 16,
+          duplicate: 0,
+          rts: 0,
+          cancel: 0,
+          reject: 0,
+        },
+        {
+          id: 3,
+          rsmName: "Marsha Suriawarsita",
+          nikSales: "K1400742",
+          branch: "Semarang",
+          totalDsrActive: 148,
+          totalInput: 1372,
+          sendBca: 1354,
+          inprocess: 15,
+          duplicate: 0,
+          rts: 1,
+          cancel: 0,
+          reject: 1,
+        },
+      ];
+
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
+
+      // Initial Render
+      renderTable();
+      renderPagination();
+
+      function renderTable() {
+        const tbody = document.getElementById("tableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
+
+        tbody.innerHTML = paginatedData
+          .map(
+            (item, index) => `
+                <tr class="hover:bg-gray-50 bg-white transition-colors">
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 font-medium text-left border-r border-gray-100">${
+                      item.rsmName
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-left border-r border-gray-100">${
+                      item.nikSales
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-left border-r border-gray-100">${
+                      item.branch
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.totalDsrActive
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.totalInput
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.sendBca
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.inprocess
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.duplicate
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.rts
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.cancel
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.reject
+                    }</td>
+                    <td class="px-4 py-3 text-center border-l border-gray-200 relative">
+                         <button onclick="toggleGlobalDropdown(event, ${
+                           item.id
+                         }, '${item.rsmName}', '${
+              item.nikSales
+            }')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
+                            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+          )
+          .join("");
+
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="13" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        }
+        lucide.createIcons();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.rsmName.toLowerCase().includes(searchQuery) ||
+            item.nikSales.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Dropdown Logic
+      window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
+        event.stopPropagation();
+        const menu = document.getElementById("globalActionDropdown");
+
+        if (
+          !menu.classList.contains("hidden") &&
+          menu.dataset.triggerId === String(id)
+        ) {
+          menu.classList.add("hidden");
+          return;
+        }
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        menu.style.top = rect.bottom + 5 + "px";
+        menu.style.left = rect.right - 192 + "px";
+
+        menu.dataset.triggerId = String(id);
+        menu.classList.remove("hidden");
+      };
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      // Close dropdowns on outside click
+      document.addEventListener("click", function (event) {
+        const globalMenu = document.getElementById("globalActionDropdown");
+        if (
+          globalMenu &&
+          !globalMenu.classList.contains("hidden") &&
+          !globalMenu.contains(event.target)
+        ) {
+          globalMenu.classList.add("hidden");
+        }
+
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

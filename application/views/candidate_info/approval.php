@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Approval - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      initLayout("Candidate Info", "Approval"); // Set parent menu and submenu active
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      main.innerHTML = `
+           
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <!-- Search Bar -->
+                    <div class="p-4">
+                        <div class="relative w-full">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Table Container -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left border-collapse">
+                            <thead>
+                                <tr class="bg-[#1E5BBC] text-white">
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400 w-16">No</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Request ID</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Name</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Product</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Area</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Position</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Level</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">SPV Name</th>
+                                    <th class="px-4 py-3 font-semibold text-center border-r border-blue-400">Status</th>
+                                    <th class="px-4 py-3 font-semibold text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white text-gray-700">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                        <div id="showingInfo">Showing 0 to 0 of 0</div>
+                        
+                        <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- View Detail Modal -->
+            <div id="detailModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden backdrop-blur-sm p-4 transition-all duration-300 opacity-0">
+                <div class="bg-white rounded-xl shadow-xl w-full max-w-6xl h-[90vh] flex flex-col transform scale-95 transition-all duration-300" id="detailModalContent">
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                        <h2 class="text-xl font-bold text-[#20406b]">View detail data</h2>
+                        <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors focus:outline-none">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+
+
+                    <!-- Modal Body (Two Independent Columns) -->
+                    <div class="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden">
+                        <!-- Left Column: Form Data -->
+                        <div class="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-8 border-r border-gray-100">
+                            <div class="space-y-8">
+                                <!-- Recruiter Section -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Recruiter</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Source Recruiter</label>
+                                            <input type="text" readonly value="Internal Reference" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Recruiter</label>
+                                            <input type="text" readonly value="D7231985" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Interviewed By</label>
+                                            <input type="text" readonly value="Agnes" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Interview Results</label>
+                                            <input type="text" readonly value="Passed the interview" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Personal Data Section -->
+                                <div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Personal Data</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Name<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Kelly Saputra" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">ID Number (KTP)<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="3275082107930024" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Birth Place<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Ambon" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Birth Date<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <i data-lucide="calendar" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                                <input type="text" readonly value="08-May-1997" class="w-full pl-10 pr-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Marital Status</label>
+                                            <input type="text" readonly value="Single" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Number of Children</label>
+                                            <input type="text" readonly value="0" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Phone Number</label>
+                                            <input type="text" readonly value="021 847-6680" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Call Phone Number<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="0812-7054-6947" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Email<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="kelly@gmail.com" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Facebook</label>
+                                            <input type="text" readonly value="None" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Twitter</label>
+                                            <input type="text" readonly value="None" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Instagram</label>
+                                            <input type="text" readonly value="None" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        
+                                        <!-- Additional Personal Data -->
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Religion<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Catholic" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Mother Name</label>
+                                            <input type="text" readonly value="Naomi" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Height (Cm)</label>
+                                            <input type="text" readonly value="171" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Weight (Kg)</label>
+                                            <input type="text" readonly value="95" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+
+                                        <!-- Registered ID Address (KTP) -->
+                                        <div class="md:col-span-4 space-y-1.5 mt-2">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Registered ID Address<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Jl. Bendungan Hilir Raya No. 31A" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-4 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Province<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="DKI Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none appearance-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">City<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Central Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">District<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Tanah Abang" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Subdistrict<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Bendungan Hilir" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">RT</label>
+                                            <input type="text" readonly value="001" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">RW</label>
+                                            <input type="text" readonly value="003" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+
+                                        <!-- Home Address -->
+                                        <div class="md:col-span-4 space-y-1.5 mt-2">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Home Address<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Jl. Bendungan Hilir Raya No. 31A" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-4 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Province<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="DKI Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none appearance-none">
+                                                 <!-- Note: appearance-none is generic, styling is from previous inputs -->
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">City<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Central Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">District<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Tanah Abang" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Subdistrict<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Bendungan Hilir" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">RT</label>
+                                            <input type="text" readonly value="001" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">RW</label>
+                                            <input type="text" readonly value="003" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                     <!-- Education Data -->
+                                <div class="mt-8">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Education Data</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Highest Education</label>
+                                            <input type="text" readonly value="Bachelor's Degree" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Educational Institution</label>
+                                            <input type="text" readonly value="ABC University" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Faculty</label>
+                                            <input type="text" readonly value="Information Systems" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Grade</label>
+                                            <input type="text" readonly value="3.72" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Other Relatives -->
+                                <div class="mt-8">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Other Relatives</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Name<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Muhammad Ali" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Relation<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Cousin" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Phone Number</label>
+                                            <input type="text" readonly value="021 847 6680" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Call Phone Number<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="0812-7054-6947" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-4 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Home Address<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Jl. Tebet Timur IX A No.2" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-4 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Province<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="DKI Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">City<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="South Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">District<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Tebet" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Subdistrict<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="East Tebet" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">RT</label>
+                                            <input type="text" readonly value="013" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-1 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">RW</label>
+                                            <input type="text" readonly value="009" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sibling -->
+                                <div class="mt-8">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Sibling</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Name<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Rosana" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Relation<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Sister" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Phone Number</label>
+                                            <input type="text" readonly value="021 847-6680" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Call Phone Number<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="0812-7054-6947" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Structure -->
+                                <div class="mt-8">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Structure</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Division<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Product<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Credit Card" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Client Name<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Project Name<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                 <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Position<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="ASM" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Channel<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Undefined" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Group Type<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Undefined" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Level<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Undefined" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Sales Mode<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="Undefined" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Structure Part 2 (Client Name, Project Name etc repeated/extended) -->
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Client Name<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Undefined" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                         <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Project Name<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Position<span class="text-red-500">*</span></label>
+                                            <div class="relative">
+                                                <input type="text" readonly value="ASM" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Channel<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Group Type<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Level<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Sales Mode<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Department<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Branch<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="Balikpapan" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Employee Type<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="-" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Payroll Data -->
+                                <div class="mt-8">
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Payroll Data</h3>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Bank Name</label>
+                                            <input type="text" readonly value="XYZ Bank" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Branch</label>
+                                            <input type="text" readonly value="East Jakarta" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">Account Number<span class="text-red-500">*</span></label>
+                                            <input type="text" readonly value="2301769284" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">NPWP Number</label>
+                                            <input type="text" readonly value="90.000.498.3-784.000" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                        <div class="md:col-span-2 space-y-1.5">
+                                            <label class="block text-sm font-semibold text-[#20406b]">NPWP Address</label>
+                                            <input type="text" readonly value="Jl. Bendungan Hilir No. 31A" class="w-full px-4 py-2.5 bg-gray-100 border border-transparent rounded-lg text-sm text-gray-600 focus:outline-none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                     <!-- Right Column: Photos -->
+                        <div class="flex-1 lg:max-w-md overflow-y-auto custom-scrollbar p-6 md:p-8">
+                            <div class="flex flex-col gap-6">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-4">
+                                        <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                                        <h3 class="text-lg font-bold text-[#20406b]">Photo & Document</h3>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-4 gap-2 mb-4">
+                                        <div class="flex flex-col items-center gap-2">
+                                            <div class="w-full aspect-square bg-gray-300 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
+                                            <span class="text-[10px] text-center font-medium text-[#20406b]">Interview Data</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2">
+                                            <div class="w-full aspect-square bg-gray-300 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
+                                            <span class="text-[10px] text-center font-medium text-[#20406b]">ID Number (KTP)</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2">
+                                            <div class="w-full aspect-square bg-gray-300 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
+                                            <span class="text-[10px] text-center font-medium text-[#20406b]">NPWP</span>
+                                        </div>
+                                        <div class="flex flex-col items-center gap-2">
+                                            <div class="w-full aspect-square bg-gray-300 rounded-lg cursor-pointer hover:opacity-80 transition-opacity"></div>
+                                            <span class="text-[10px] text-center font-medium text-[#20406b]">Family Card</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Large Preview Area -->
+                                    <div class="w-full aspect-[4/3] border border-gray-200 rounded-xl flex flex-col items-center justify-center text-gray-400 bg-white">
+                                        <p>Select Photo & Document to see the data</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- Modal Footer -->
+                   
+                </div>
+                 <div class="p-6 border-t border-gray-100 flex justify-center sticky bottom-0 bg-white rounded-b-xl">
+                        <div class="bg-[#1E5BBC] rounded-lg p-1 flex gap-1">
+                            <button class="px-6 py-2 text-white font-medium hover:bg-blue-700 rounded-md transition-colors text-sm">Verify data</button>
+                            <button class="px-6 py-2 bg-white text-[#1E5BBC] font-medium rounded-md hover:bg-gray-50 transition-colors text-sm">Select</button>
+                            <button class="px-6 py-2 bg-[#EF4444] text-white font-medium rounded-md hover:bg-red-600 transition-colors text-sm">Return</button>
+                        </div>
+                    </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+
+      // Data & Pagination Logic
+      const tableData = [
+        {
+          id: 1,
+          reqId: "419323",
+          name: "Mandra Pradipta Cahyani",
+          product: "Credit Card",
+          area: "Ambon",
+          position: "SPB",
+          level: "Sales Merchant",
+          spvName: "Rian Maulana Saputra",
+          status: "Pending",
+          statusClass: "bg-orange-100 text-orange-700 border-orange-200",
+        },
+        // Mock data
+        {
+          id: 2,
+          reqId: "419324",
+          name: "Budi Santoso",
+          product: "PEMOL",
+          area: "Jakarta",
+          position: "Sales",
+          level: "Junior",
+          spvName: "Siti Aminah",
+          status: "Approved",
+          statusClass: "bg-green-100 text-green-700 border-green-200",
+        },
+        {
+          id: 3,
+          reqId: "419325",
+          name: "Citra Lestari",
+          product: "Merchant",
+          area: "Bandung",
+          position: "Marketing",
+          level: "Senior",
+          spvName: "Agus Salim",
+          status: "Rejected",
+          statusClass: "bg-red-100 text-red-700 border-red-200",
+        },
+      ];
+
+      let currentPage = 1;
+      let rowsPerPage = 10;
+
+      function renderTable() {
+        const tbody = document.querySelector("table tbody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedItems = tableData.slice(start, end);
+
+        if (paginatedItems.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="10" class="text-center py-4 text-gray-500">No data found</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = paginatedItems
+          .map(
+            (item, index) => `
+                <tr class="hover:bg-gray-50 border-b border-gray-100">
+                    <td class="px-4 py-4 text-center">${start + index + 1}</td>
+                    <td class="px-4 py-4 text-center">${item.reqId}</td>
+                    <td class="px-4 py-4">${item.name}</td>
+                    <td class="px-4 py-4 text-center">${item.product}</td>
+                    <td class="px-4 py-4 text-center">${item.area}</td>
+                    <td class="px-4 py-4 text-center">${item.position}</td>
+                    <td class="px-4 py-4 text-center">${item.level}</td>
+                    <td class="px-4 py-4">${item.spvName}</td>
+                    <td class="px-4 py-4 text-center">
+                        <span class="inline-block px-4 py-1 rounded-full text-xs font-medium border ${
+                          item.statusClass
+                        }">
+                            ${item.status}
+                        </span>
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                        <button onclick="openDetailModal()" class="text-blue-600 hover:text-blue-800">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+          )
+          .join("");
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(tableData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const start =
+          tableData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, tableData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${tableData.length}`;
+
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(tableData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Initial Render
+      renderTable();
+      renderPagination();
+      lucide.createIcons();
+
+      // Modal Logic
+      function openDetailModal() {
+        const modal = document.getElementById("detailModal");
+        const content = document.getElementById("detailModalContent");
+
+        document.body.style.overflow = "hidden";
+        modal.classList.remove("hidden");
+
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          content.classList.remove("scale-95");
+          content.classList.add("scale-100");
+        }, 10);
+      }
+
+      function closeDetailModal() {
+        const modal = document.getElementById("detailModal");
+        const content = document.getElementById("detailModalContent");
+
+        document.body.style.overflow = "";
+        modal.classList.add("opacity-0");
+        content.classList.remove("scale-100");
+        content.classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      }
+
+      // Close on backdrop click
+      document
+        .getElementById("detailModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeDetailModal();
+          }
+        });
+    </script>
+  </body>
+</html>

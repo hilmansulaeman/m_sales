@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Input Pemol - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      initLayout("Application Input", "Pemol", "Application Input - Pemol");
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      main.innerHTML = `
+           
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <!-- Main Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                    <!-- Search and Filters -->
+                    <div class="mb-6">
+                        <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                             <div class="flex flex-col sm:flex-row gap-4 flex-1 w-full lg:w-auto items-center">
+                                <!-- Search -->
+                                <div class="relative w-full sm:w-72">
+                                    <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                    <input type="text" id="searchInput" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" oninput="handleSearch(this.value)"/>
+                                </div>
+    
+                                <!-- Date Range Picker -->
+                                <div class="relative w-full sm:w-72">
+                                    <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
+                                        <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                        <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer placeholder-gray-400"/>
+                                    </div>
+    
+                                    <!-- Date Range Dropdown -->
+                                    <div id="dateRangePicker" class="hidden absolute top-full left-0 md:left-auto mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
+                                        <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                                            <!-- Left Calendar (Jan 2025) -->
+                                            <div class="flex-1">
+                                                <div class="flex items-center justify-between mb-4">
+                                                    <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                                                    <span class="font-semibold text-gray-800 text-sm">January 2025</span>
+                                                    <div class="w-6"></div>
+                                                </div>
+                                                <div class="grid grid-cols-7 text-center mb-2">
+                                                    <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                                </div>
+                                                <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                    <!-- Empty -->
+                                                    <span></span><span></span>
+                                                    <!-- 1 (Start) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-l-full">1</button>
+                                                    <!-- 2-5 (Range) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">2</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">3</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">4</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">5</button>
+                                                    
+                                                    <!-- 6-12 (Full Row) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">6</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">7</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">8</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">9</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">10</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">11</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">12</button>
+                                                    
+                                                    <!-- 13-19 (Full Row) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">13</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">14</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">15</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">16</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">17</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">18</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">19</button>
+                                                    
+                                                    <!-- 20-26 (Full Row) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">20</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">21</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">22</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">23</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">24</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">25</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">26</button>
+                                                    
+                                                    <!-- 27-31 (Partial Row) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">27</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">28</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">29</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50">30</button>
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">31</button>
+                                                </div>
+                                            </div>
+    
+                                            <!-- Divider (Desktop Only) -->
+                                            <div class="hidden md:block w-px bg-gray-100"></div>
+    
+                                            <!-- Right Calendar (Feb 2025) - Desktop Only -->
+                                            <div class="flex-1 hidden md:block">
+                                                <div class="flex items-center justify-between mb-4">
+                                                    <div class="w-6"></div>
+                                                    <span class="font-semibold text-gray-800 text-sm">February 2025</span>
+                                                                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                                </div>
+                                                <div class="grid grid-cols-7 text-center mb-2">
+                                                    <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                                </div>
+                                                <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                    <!-- Empty -->
+                                                    <span></span><span></span><span></span><span></span><span></span>
+                                                    <!-- 1 (Range) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">1</button>
+                                                    <!-- 2 (End) -->
+                                                    <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-r-full">2</button>
+                                                    
+                                                    <!-- 3-9 -->
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">3</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">4</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">5</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">6</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">7</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">8</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">9</button>
+                                                    <!-- 10-16 -->
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">10</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">11</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">12</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">13</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">14</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">15</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">16</button>
+                                                    <!-- 17-23 -->
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">17</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">18</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">19</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">20</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">21</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">22</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">23</button>
+                                                    <!-- 24-28 -->
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">24</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">25</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">26</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">27</button>
+                                                    <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">28</button>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <!-- Footer -->
+                                        <div class="mt-6 flex justify-end gap-3 items-center pt-4 border-t border-gray-100">
+                                            <button class="text-[#3B6EC2] hover:text-[#2F5BA8] font-semibold text-sm transition-colors" onclick="toggleDateRangePicker(event)">Reset</button>
+                                            <button class="bg-[#3B6EC2] text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-[#2F5BA8] transition-colors" onclick="toggleDateRangePicker(event)">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                             <!-- Export Button -->
+                             <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                                <i data-lucide="share" class="w-4 h-4"></i>
+                                Export data
+                            </button>
+                        </div>
+                    </div>
+    
+                    <!-- Table with inner style matching image -->
+                    <div class="rounded-lg overflow-hidden border border-gray-200">
+                        <div class="overflow-x-auto overflow-y-visible">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-[#1E5BA8] text-white text-sm">
+                                        <th rowspan="2" class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 align-middle">No</th>
+                                        <th rowspan="2" class="px-4 py-3 text-left text-sm font-medium border-r border-white/20 align-middle">RSM Name</th>
+                                        <th rowspan="2" class="px-4 py-3 text-left text-sm font-medium border-r border-white/20 align-middle">NIK Sales</th>
+                                        <th rowspan="2" class="px-4 py-3 text-left text-sm font-medium border-r border-white/20 align-middle">Branch</th>
+                                        <th colspan="2" class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 border-b border-white/20">Total DSR</th>
+                                        <th colspan="3" class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 border-b border-white/20">Input</th>
+                                        <th rowspan="2" class="px-4 py-3 text-center text-sm font-medium align-middle">Action</th>
+                                    </tr>
+                                    <tr class="bg-[#1E5BA8] text-white text-sm">
+                                        <th class="px-4 py-2 text-center text-sm font-medium border-r border-white/20">Active</th>
+                                        <th class="px-4 py-2 text-center text-sm font-medium border-r border-white/20">Input</th>
+                                        <th class="px-4 py-2 text-center text-sm font-medium border-r border-white/20">BCA Mobile</th>
+                                        <th class="px-4 py-2 text-center text-sm font-medium border-r border-white/20">My BCA</th>
+                                        <th class="px-4 py-2 text-center text-sm font-medium border-r border-white/20">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody" class="divide-y divide-gray-200">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+    
+                        <!-- Pagination -->
+                        <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 w-full">
+                             <div id="showingInfo">Showing 0 to 0 of 0</div>
+                             
+                             <div class="flex items-center gap-2" id="paginationControls">
+                                <!-- Populated by JS -->
+                            </div>
+    
+                            <div class="flex items-center gap-2">
+                                <span>Show</span>
+                                 <div class="relative">
+                                     <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                    <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Downline Modal (Complex) -->
+           <div id="downlineModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+                <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeDownlineModal()"></div>
+                
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-[60] w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4">
+                        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl flex flex-col relative overflow-hidden">
+                            
+                            <!-- Header -->
+                            <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white sticky top-0 md:static z-10">
+                                <h2 class="text-xl font-semibold text-gray-800" id="modalRsmName">Detail Downline</h2>
+                                <button onclick="closeDownlineModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+
+                            <!-- Tabs -->
+                             <div class="px-6 pt-4 bg-white">
+                                <div class="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg w-fit">
+                                    <button onclick="switchTab('data-input')" id="tab-data-input" class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-[#3B6EC2] text-white">
+                                        Data Input
+                                    </button>
+                                    <button onclick="switchTab('app-processing')" id="tab-app-processing" class="px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200">
+                                        App Processing
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="modalContent">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                             <div class="px-6 py-4 border-t border-gray-200 bg-gray-50 flex justify-end">
+                                <button onclick="closeDownlineModal()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium text-sm">
+                                    Close
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Action Dropdown -->
+            <div id="globalActionDropdown" class="hidden fixed bg-white border border-gray-200 rounded-lg shadow-xl z-[9999] text-left animate-in fade-in zoom-in duration-100 w-48">
+                <div class="py-1">
+                    <button id="globalViewDownlineBtn" class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#3B6EC2] transition-colors flex items-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4"></i> View downline
+                    </button>
+                    <button id="globalViewDetailBtn" class="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#3B6EC2] transition-colors flex items-center gap-2">
+                        <i data-lucide="file-text" class="w-4 h-4"></i> View detail
+                    </button>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+
+      const mainData = [
+        {
+          id: 1,
+          rsmName: "Ramaldo Oktama",
+          nikSales: "K1104148",
+          branch: "Jakarta",
+          active: 46,
+          input: 44,
+          bcaMobile: 26,
+          myBca: 935,
+          total: 961,
+        },
+        {
+          id: 2,
+          rsmName: "Asep Syaefudin Nugraha",
+          nikSales: "K1200215",
+          branch: "Bandung",
+          active: 144,
+          input: 0,
+          bcaMobile: 0,
+          myBca: 0,
+          total: 0,
+        },
+        {
+          id: 3,
+          rsmName: "Kiwamudin",
+          nikSales: "K1102242",
+          branch: "Bandung",
+          active: 185,
+          input: 0,
+          bcaMobile: 0,
+          myBca: 0,
+          total: 0,
+        },
+      ];
+
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
+
+      // Initial Render
+      renderTable();
+      renderPagination();
+
+      function renderTable() {
+        const tbody = document.getElementById("tableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
+
+        tbody.innerHTML = paginatedData
+          .map(
+            (item, index) => `
+                <tr class="hover:bg-gray-50 bg-white transition-colors">
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 font-medium border-r border-gray-100">${
+                      item.rsmName
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 border-r border-gray-100">${
+                      item.nikSales
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 border-r border-gray-100">${
+                      item.branch
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.active
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.input
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.bcaMobile
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.myBca
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-r border-gray-100">${
+                      item.total
+                    }</td>
+                    <td class="px-4 py-3 text-center relative border-r border-gray-100">
+                         <button onclick="toggleGlobalDropdown(event, ${
+                           item.id
+                         }, '${item.rsmName}', '${
+              item.nikSales
+            }')" class="text-[#3B6EC2] hover:text-[#2F5BA8] p-1 transition-colors">
+                            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+          )
+          .join("");
+
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        }
+        lucide.createIcons();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.rsmName.toLowerCase().includes(searchQuery) ||
+            item.nikSales.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Dropdown Logic
+      // Global Dropdown Logic
+      window.toggleGlobalDropdown = function (event, id, rsmName, nikSales) {
+        event.stopPropagation();
+        const menu = document.getElementById("globalActionDropdown");
+
+        // Toggle off if same
+        if (
+          !menu.classList.contains("hidden") &&
+          menu.dataset.triggerId === String(id)
+        ) {
+          menu.classList.add("hidden");
+          return;
+        }
+
+        // Update Action
+        document.getElementById("globalViewDownlineBtn").onclick = function () {
+          openDownlineModal(rsmName, nikSales);
+          menu.classList.add("hidden");
+        };
+
+        document.getElementById("globalViewDetailBtn").onclick = function () {
+          openDetailModal(rsmName);
+          menu.classList.add("hidden");
+        };
+
+        // Position (Align Right)
+        const rect = event.currentTarget.getBoundingClientRect();
+        menu.style.top = rect.bottom + 5 + "px";
+        menu.style.left = rect.right - 192 + "px";
+
+        menu.dataset.triggerId = String(id);
+        menu.classList.remove("hidden");
+      };
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      // Close dropdowns on outside click
+      document.addEventListener("click", function (event) {
+        // Close Global Action Dropdown
+        const globalMenu = document.getElementById("globalActionDropdown");
+        if (
+          globalMenu &&
+          !globalMenu.classList.contains("hidden") &&
+          !globalMenu.contains(event.target)
+        ) {
+          globalMenu.classList.add("hidden");
+        }
+
+        // Close Date Range Picker
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
+        }
+      });
+
+      // --- Downline Modal Logic (Complex Version) ---
+      const dataInputStats = {
+        edc: { totalInput: 3, pendingSubmit: 1 },
+        qris: { totalInput: 5, pendingSubmit: 3 },
+        edcQris: { totalInput: 8, pendingSubmit: 4 },
+      };
+
+      const appProcessingStats = {
+        edc: {
+          received: 354,
+          inprocess: 6,
+          rts: 25,
+          send: 323,
+          pending: 0,
+          cancel: 0,
+        },
+        qris: {
+          received: 1533,
+          inprocess: 9,
+          rts: 38,
+          send: 1485,
+          pending: 1,
+          cancel: 0,
+        },
+        edcQris: {
+          received: 134,
+          inprocess: 20,
+          rts: 31,
+          send: 77,
+          pending: 6,
+          cancel: 0,
+        },
+      };
+
+      let activeTab = "data-input";
+
+      function renderModalContent() {
+        const container = document.getElementById("modalContent");
+        const data =
+          activeTab === "data-input" ? dataInputStats : appProcessingStats;
+
+        const cards = [
+          { title: "EDC", type: "edc" },
+          { title: "QRIS", type: "qris" },
+          { title: "EDC + QRIS", type: "edcQris" },
+        ];
+
+        container.innerHTML = cards
+          .map((card) => {
+            const stats = data[card.type];
+            let contentHTML = "";
+
+            if (activeTab === "data-input") {
+              contentHTML = `
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center pb-3 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Total Input')">
+                                <span class="text-sm text-gray-600">Total Input</span>
+                                <span class="text-xl font-semibold text-gray-800">${stats.totalInput}</span>
+                            </div>
+                            <div class="flex justify-between items-center cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Pending Submit')">
+                                <span class="text-sm text-gray-600">Pending Submit</span>
+                                <span class="text-xl font-semibold text-gray-800">${stats.pendingSubmit}</span>
+                            </div>
+                        </div>
+                    `;
+            } else {
+              contentHTML = `
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Received')">
+                                <span class="text-sm text-gray-600">Received</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.received}</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Inprocess')">
+                                <span class="text-sm text-gray-600">Inprocess</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.inprocess}</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'RTS')">
+                                <span class="text-sm text-gray-600">RTS</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.rts}</span>
+                            </div>
+                             <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                <span class="text-sm text-gray-600">Send</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.send}</span>
+                            </div>
+                            <div class="flex justify-between items-center pb-2 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Pending')">
+                                <span class="text-sm text-gray-600">Pending</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.pending}</span>
+                            </div>
+                            <div class="flex justify-between items-center cursor-pointer hover:bg-gray-50 transition-colors" onclick="openTotalInputModal('${card.title}', 'Cancel')">
+                                <span class="text-sm text-gray-600">Cancel</span>
+                                <span class="text-lg font-semibold text-gray-800">${stats.cancel}</span>
+                            </div>
+                        </div>
+                    `;
+            }
+
+            return `
+                    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-[#3B6EC2] px-4 py-3 text-center">
+                            <h3 class="text-base font-semibold text-white">${card.title}</h3>
+                        </div>
+                        <div class="p-6">
+                            ${contentHTML}
+                        </div>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      window.switchTab = function (tab) {
+        activeTab = tab;
+        const tabDataInput = document.getElementById("tab-data-input");
+        const tabAppProcessing = document.getElementById("tab-app-processing");
+
+        if (tab === "data-input") {
+          tabDataInput.className =
+            "px-4 py-2 text-sm font-medium rounded-full transition-colors bg-[#3B6EC2] text-white shadow-sm";
+          tabAppProcessing.className =
+            "px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
+        } else {
+          tabAppProcessing.className =
+            "px-4 py-2 text-sm font-medium rounded-full transition-colors bg-[#3B6EC2] text-white shadow-sm";
+          tabDataInput.className =
+            "px-4 py-2 text-sm font-medium rounded-full transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200";
+        }
+        renderModalContent();
+      };
+
+      window.openDownlineModal = function (rsmName, nikSales) {
+        document.getElementById("modalRsmName").innerText = rsmName; // + ' - ' + nikSales;
+        document.getElementById("downlineModal").classList.remove("hidden");
+
+        // Reset to default tab
+        activeTab = "data-input";
+        switchTab("data-input");
+
+        // Close dropdowns
+        document
+          .getElementById("globalActionDropdown")
+          ?.classList.add("hidden");
+      };
+
+      window.closeDownlineModal = function () {
+        document.getElementById("downlineModal").classList.add("hidden");
+      };
+
+      // Total Input Modal Logic
+      const totalInputModalHTML = `
+        <div id="totalInputModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center animate-in fade-in duration-200">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 flex flex-col max-h-[90vh]">
+                <!-- Header -->
+                <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <h3 class="text-xl font-semibold text-[#1E293B]" id="totalInputModalTitle">EDC - Total Input</h3>
+                    <button onclick="closeTotalInputModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <!-- Content -->
+                <div class="p-6 overflow-y-auto">
+                    <!-- Search -->
+                    <div class="relative mb-6">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                        <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                    </div>
+
+                    <!-- Table -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-[#1E5BA8] text-white text-sm">
+                                        <th class="px-4 py-3 text-center font-medium w-16">No</th>
+                                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Merchant Name <i data-lucide="chevron-down" class="inline w-3 h-3 ml-1"></i></th>
+                                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Owner Name <i data-lucide="chevron-down" class="inline w-3 h-3 ml-1"></i></th>
+                                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Sales Code <i data-lucide="chevron-down" class="inline w-3 h-3 ml-1"></i></th>
+                                        <th class="px-4 py-3 text-left font-medium whitespace-nowrap">Sales Name <i data-lucide="chevron-down" class="inline w-3 h-3 ml-1"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-center text-gray-500">1</td>
+                                        <td class="px-4 py-3 font-medium text-[#3B6EC2]">AGMA FA*****</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Agus Sri Mulyadi</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">K1403894</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">M Arif Nur Wicaksono</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-center text-gray-500">2</td>
+                                        <td class="px-4 py-3 font-medium text-[#3B6EC2]">AGUNG PH*******</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Agung Budi Styawan</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">K1304781</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Chandra Kusumawati</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-center text-gray-500">3</td>
+                                        <td class="px-4 py-3 font-medium text-[#3B6EC2]">AISY CO*********</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Moch Jonny</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">K2300249</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Pratama Kesuma Faisal</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <!-- Left: Info -->
+                        <div class="text-sm text-gray-500 order-2 sm:order-1">Showing 1 to 3 of 3</div>
+
+                        <!-- Center: Controls -->
+                        <div class="flex items-center gap-1 order-1 sm:order-2">
+                            <button class="p-1 rounded hover:bg-gray-100 text-gray-400 disabled:opacity-50"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                            <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm font-medium">1</span>
+                            <button class="p-1 rounded hover:bg-gray-100 text-gray-400 disabled:opacity-50"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                        </div>
+
+                        <!-- Right: Show -->
+                        <div class="flex items-center gap-2 text-sm text-gray-500 order-3">
+                            Show
+                            <select class="border border-gray-200 rounded px-2 py-1 text-xs focus:ring-blue-500 focus:outline-none">
+                                <option>10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", totalInputModalHTML);
+
+      window.openTotalInputModal = function (title, subtitle) {
+        document.getElementById("totalInputModalTitle").innerText =
+          title + " - " + subtitle;
+        const modal = document.getElementById("totalInputModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        lucide.createIcons();
+      };
+
+      window.closeTotalInputModal = function () {
+        const modal = document.getElementById("totalInputModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      };
+
+      // Detail Modal Logic
+      const detailModalHTML = `
+        <div id="detailModal" class="fixed inset-0 bg-black/50 z-[60] hidden items-center justify-center animate-in fade-in duration-200">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-6xl mx-4 flex flex-col max-h-[90vh]">
+                <!-- Header -->
+                <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <h3 class="text-xl font-semibold text-[#1E293B]" id="detailModalTitle">Detail</h3>
+                    <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <!-- Content -->
+                <div class="p-6 overflow-y-auto">
+                    <!-- Filters -->
+                    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                         <!-- Search -->
+                        <div class="relative flex-1">
+                            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                        </div>
+                        <!-- Date Picker -->
+                         <div class="relative w-full sm:w-auto">
+                           <button class="w-full sm:w-64 px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 flex items-center justify-between hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[#3B6EC2]">
+                                <span class="flex items-center gap-2">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-gray-500"></i>
+                                    <span>1 Jan, 2025 - 2 Feb, 2025</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-[#1E5BA8] text-white text-sm">
+                                        <th rowspan="2" class="px-4 py-3 text-center font-medium w-16 border-r border-[#3B6EC2] align-middle">No</th>
+                                        <th rowspan="2" class="px-4 py-3 text-left font-medium border-r border-[#3B6EC2] align-middle whitespace-nowrap">ASM Name</th>
+                                        <th rowspan="2" class="px-4 py-3 text-left font-medium border-r border-[#3B6EC2] align-middle whitespace-nowrap">NIK Sales</th>
+                                        <th rowspan="2" class="px-4 py-3 text-left font-medium border-r border-[#3B6EC2] align-middle whitespace-nowrap">Branch</th>
+                                        <th colspan="2" class="px-4 py-2 text-center font-medium border-b border-white/20 border-r border-[#3B6EC2] whitespace-nowrap">Total DSR</th>
+                                        <th colspan="3" class="px-4 py-2 text-center font-medium border-b border-white/20 border-r border-[#3B6EC2] whitespace-nowrap">Input</th>
+                                        <th rowspan="2" class="px-4 py-3 text-center font-medium align-middle whitespace-nowrap">Action</th>
+                                    </tr>
+                                    <tr class="bg-[#2F5BA8] text-white text-sm">
+                                        <th class="px-4 py-2 text-center font-medium border-r border-[#3B6EC2] whitespace-nowrap">Active</th>
+                                        <th class="px-4 py-2 text-center font-medium border-r border-[#3B6EC2] whitespace-nowrap">Input</th>
+                                        <th class="px-4 py-2 text-center font-medium border-r border-[#3B6EC2] whitespace-nowrap">BCA Mobile</th>
+                                        <th class="px-4 py-2 text-center font-medium border-r border-[#3B6EC2] whitespace-nowrap">My BCA</th>
+                                        <th class="px-4 py-2 text-center font-medium border-r border-[#3B6EC2] whitespace-nowrap">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 text-sm text-gray-700">
+                                    <!-- Row 1 -->
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-center text-gray-500">1</td>
+                                        <td class="px-4 py-3 text-[#3B6EC2] font-medium whitespace-nowrap">Albert Lambert</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">K1101285</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Jakarta</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">145</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">974</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">958</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">13</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">46</td>
+                                        <td class="px-4 py-3 text-center">
+                                            <button class="text-[#3B6EC2] hover:text-[#2F5BA8]" onclick="openSalesDetailModal('Albert Lambert')"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                                        </td>
+                                    </tr>
+                                     <!-- Row 2 -->
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-center text-gray-500">2</td>
+                                        <td class="px-4 py-3 text-[#3B6EC2] font-medium whitespace-nowrap">Angela Suriawarsita</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">K1131701</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Jakarta</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">144</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">75</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">6</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">0</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">0</td>
+                                        <td class="px-4 py-3 text-center">
+                                            <button class="text-[#3B6EC2] hover:text-[#2F5BA8]" onclick="openSalesDetailModal('Angela Suriawarsita')"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                                        </td>
+                                    </tr>
+                                     <!-- Row 3 -->
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-center text-gray-500">3</td>
+                                        <td class="px-4 py-3 text-[#3B6EC2] font-medium whitespace-nowrap">Sifa Fauziah</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">K1140414</td>
+                                        <td class="px-4 py-3 whitespace-nowrap">Jakarta</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">185</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">0</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">0</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">0</td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap">0</td>
+                                        <td class="px-4 py-3 text-center">
+                                            <button class="text-[#3B6EC2] hover:text-[#2F5BA8]" onclick="openSalesDetailModal('Sifa Fauziah')"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-sm text-gray-500 order-2 sm:order-1">Showing 1 to 3 of 3</div>
+                        <div class="flex items-center gap-1 order-1 sm:order-2">
+                            <button class="p-1 rounded hover:bg-gray-100 text-gray-400 disabled:opacity-50"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                            <span class="px-3 py-1 bg-[#3B6EC2] text-white rounded text-sm font-medium">1</span>
+                            <button class="p-1 rounded hover:bg-gray-100 text-gray-400 disabled:opacity-50"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                        </div>
+                         <div class="flex items-center gap-2 text-sm text-gray-500 order-3">
+                            Show
+                            <select class="border border-gray-200 rounded px-2 py-1 text-xs focus:ring-blue-500 focus:outline-none">
+                                <option>10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", detailModalHTML);
+
+      window.openDetailModal = function (title) {
+        document.getElementById("detailModalTitle").innerText = title;
+        const modal = document.getElementById("detailModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        lucide.createIcons();
+      };
+
+      window.closeDetailModal = function () {
+        const modal = document.getElementById("detailModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      };
+
+      // Sales Detail Modal Logic
+      const salesDetailModalHTML = `
+        <div id="salesDetailModal" class="fixed inset-0 bg-black/50 z-[70] hidden items-center justify-center animate-in fade-in duration-200">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 flex flex-col max-h-[90vh]">
+                <!-- Header -->
+                <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+                    <h3 class="text-xl font-semibold text-[#1E293B]" id="salesDetailModalTitle">Sales Detail</h3>
+                    <button onclick="closeSalesDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                
+                <!-- Content -->
+                <div class="p-6 overflow-y-auto">
+                    <!-- Tabs -->
+                    <div class="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg w-fit">
+                        <button class="px-4 py-2 bg-[#3B6EC2] text-white rounded-full text-sm font-medium shadow-sm">Data Input</button>
+                        <button class="px-4 py-2 text-gray-600 hover:bg-gray-200 rounded-full text-sm font-medium transition-colors">App Processing</button>
+                    </div>
+
+                    <!-- Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 1: EDC -->
+                        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <div class="bg-[#3B6EC2] px-4 py-3 text-center">
+                                <h3 class="text-base font-semibold text-white">EDC</h3>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                    <span class="text-sm text-gray-600">Total Input</span>
+                                    <span class="text-lg font-semibold text-gray-800">354</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Pending Submit</span>
+                                    <span class="text-lg font-semibold text-gray-800">1</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: QRIS -->
+                        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <div class="bg-[#3B6EC2] px-4 py-3 text-center">
+                                <h3 class="text-base font-semibold text-white">QRIS</h3>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                    <span class="text-sm text-gray-600">Total Input</span>
+                                    <span class="text-lg font-semibold text-gray-800">1544</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Pending Submit</span>
+                                    <span class="text-lg font-semibold text-gray-800">24</span>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Card 3: EDC + QRIS -->
+                        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <div class="bg-[#3B6EC2] px-4 py-3 text-center">
+                                <h3 class="text-base font-semibold text-white">EDC + QRIS</h3>
+                            </div>
+                            <div class="p-5 space-y-3">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                                    <span class="text-sm text-gray-600">Total Input</span>
+                                    <span class="text-lg font-semibold text-gray-800">130</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600">Pending Submit</span>
+                                    <span class="text-lg font-semibold text-gray-800">9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML("beforeend", salesDetailModalHTML);
+
+      window.openSalesDetailModal = function (title) {
+        document.getElementById("salesDetailModalTitle").innerText = title;
+        const modal = document.getElementById("salesDetailModal");
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        lucide.createIcons();
+      };
+
+      window.closeSalesDetailModal = function () {
+        const modal = document.getElementById("salesDetailModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      };
+
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

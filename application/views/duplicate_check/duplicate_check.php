@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Check - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        initLayout('Duplicate Check');
+
+        const appContainer = document.querySelector('#app > div > div');
+        const main = document.createElement('div');
+        main.className = "flex-1 bg-gray-50 flex flex-col";
+
+        let activeTab = 'name';
+        let showBanner = true;
+
+        main.innerHTML = `
+            
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <!-- Tabs -->
+                <div class="flex gap-2 mb-6">
+                    <button onclick="switchDuplicateTab('name')" id="tab-name" class="px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-[#3B6EC2] text-white">
+                        Name & DOB
+                    </button>
+                    <button onclick="switchDuplicateTab('id')" id="tab-id" class="px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-white text-gray-700 hover:bg-gray-100">
+                        ID Number
+                    </button>
+                </div>
+
+                <!-- Info Banner -->
+                <div id="infoBanner" class="bg-[#3B6EC2] text-white rounded-lg p-4 mb-6 flex items-start gap-3">
+                     <i data-lucide="info" class="w-5 h-5 flex-shrink-0 mt-0.5"></i>
+                    <p class="flex-1 text-sm">
+                        Duplicate data can be verified using either Name and Date of Birth or National ID Number (KTP)
+                    </p>
+                    <button onclick="document.getElementById('infoBanner').style.display='none'" class="px-4 py-1.5 bg-white text-[#3B6EC2] rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors">
+                        Dismiss
+                    </button>
+                </div>
+
+                <!-- Main Content -->
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <!-- Left Side - Form -->
+                    <div class="bg-white rounded-lg shadow-sm p-6" id="formContainer">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Right Side - Status Duplicate -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="bg-[#3B6EC2] text-white px-6 py-3 rounded-t-lg">
+                            <h2 class="font-semibold">Status Duplicate</h2>
+                        </div>
+                        <div class="p-6" id="statusResult">
+                            <div class="text-center py-12 text-gray-400">
+                                <i data-lucide="info" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+                                <p class="text-sm">Enter search criteria and click Search</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        appContainer.appendChild(main);
+
+        function renderForm() {
+            const container = document.getElementById('formContainer');
+            if (activeTab === 'name') {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" id="inputName" placeholder="Add name" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">DOB</label>
+                            <div class="relative">
+                                <input type="date" id="inputDob" placeholder="Add DOB" class="w-full px-4 py-2.5 pr-10 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <i data-lucide="calendar" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"></i>
+                            </div>
+                        </div>
+                        <button onclick="performCheck()" class="w-full bg-[#3B6EC2] text-white py-2.5 rounded-lg font-medium hover:bg-[#2F5BA8] transition-colors">
+                            Search
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ID Number (KTP)</label>
+                            <input type="text" id="inputId" placeholder="Add ID Number" maxlength="16" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <p class="text-xs text-gray-500 mt-1">Enter 16-digit ID number</p>
+                        </div>
+                        <button onclick="performCheck()" class="w-full bg-[#3B6EC2] text-white py-2.5 rounded-lg font-medium hover:bg-[#2F5BA8] transition-colors">
+                            Search
+                        </button>
+                    </div>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        window.switchDuplicateTab = function (tab) {
+            activeTab = tab;
+            const tabName = document.getElementById('tab-name');
+            const tabId = document.getElementById('tab-id');
+
+            if (tab === 'name') {
+                tabName.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-[#3B6EC2] text-white';
+                tabId.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-white text-gray-700 hover:bg-gray-100';
+            } else {
+                tabId.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-[#3B6EC2] text-white';
+                tabName.className = 'px-6 py-2.5 rounded-lg text-sm font-medium transition-colors bg-white text-gray-700 hover:bg-gray-100';
+            }
+            renderForm();
+            // Reset result
+            document.getElementById('statusResult').innerHTML = `
+                <div class="text-center py-12 text-gray-400">
+                    <i data-lucide="info" class="w-12 h-12 mx-auto mb-3 opacity-50"></i>
+                    <p class="text-sm">Enter search criteria and click Search</p>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        window.performCheck = function () {
+            const resultContainer = document.getElementById('statusResult');
+            let isDuplicate = true; // Simulating duplicate found
+
+            let details = '';
+            if (activeTab === 'name') {
+                const name = document.getElementById('inputName').value;
+                if (!name) return;
+                details = `
+                    <div class="border-b border-gray-200 py-4 flex items-center">
+                        <p class="text-gray-700 w-32">Name</p>
+                        <p class="font-semibold text-gray-900">${name}</p>
+                    </div>
+                    <div class="border-b border-gray-200 py-4 flex items-center">
+                        <p class="text-gray-700 w-32">DOB</p>
+                        <p class="font-semibold text-gray-900">${document.getElementById('inputDob').value || '1990-01-01'}</p>
+                    </div>
+                `;
+            } else {
+                const idNum = document.getElementById('inputId').value;
+                if (!idNum) return;
+                details = `
+                     <div class="border-b border-gray-200 py-4 flex items-center">
+                        <p class="text-gray-700 w-32">ID Number</p>
+                        <p class="font-semibold text-gray-900">${idNum}</p>
+                    </div>
+                `;
+            }
+
+            resultContainer.innerHTML = `
+                <div class="space-y-0">
+                    ${details}
+                    <div class="bg-[#E74C3C] text-white px-4 py-3 mt-4 rounded-lg flex items-center justify-center gap-2">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                        <p class="font-semibold">Info: DUPLICATE DIKA</p>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        renderForm();
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
