@@ -6,6 +6,9 @@
     <title>Application Input CC DSR - M-Sales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";
+    </script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -16,84 +19,71 @@
       }
     </style>
   </head>
-  <body class="bg-gray-50">
-    <div id="app">
-      <div
-        class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 lg:p-8 min-h-[600px]"
-      >
-        <!-- Date Filter -->
-        <div class="mb-8 max-w-sm">
-          <div class="relative">
-            <i
-              data-lucide="calendar"
-              class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-            ></i>
-            <input
-              type="text"
-              placeholder="Select date range"
-              class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
-            />
-          </div>
-        </div>
+  <body>
+    <div id="app"></div>
 
-        <!-- Summary Card -->
-        <div class="max-w-xl">
-          <div
-            class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm"
-          >
-            <!-- Card Header -->
-            <div
-              class="bg-[#1E5BA8] px-6 py-4 flex justify-between items-center text-white"
-            >
-              <h3 class="font-semibold text-[15px]">
-                Data Decision Credit Card
-              </h3>
-              <span class="text-sm font-medium">Total: 0</span>
-            </div>
-
-            <!-- Card Body -->
-            <div class="divide-y divide-gray-100">
-              <div
-                class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
-              >
-                <span class="text-gray-700 text-sm font-medium">Approved</span>
-                <span class="text-gray-900 text-sm font-semibold">0</span>
-              </div>
-              <div
-                class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
-              >
-                <span class="text-gray-700 text-sm font-medium">Add On</span>
-                <span class="text-gray-900 text-sm font-semibold">0</span>
-              </div>
-              <div
-                class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
-              >
-                <span class="text-gray-700 text-sm font-medium">Inprocess</span>
-                <span class="text-gray-900 text-sm font-semibold">0</span>
-              </div>
-              <div
-                class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
-              >
-                <span class="text-gray-700 text-sm font-medium">Cancel</span>
-                <span class="text-gray-900 text-sm font-semibold">0</span>
-              </div>
-              <div
-                class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
-              >
-                <span class="text-gray-700 text-sm font-medium">Decline</span>
-                <span class="text-gray-900 text-sm font-semibold">0</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
-    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
     <script>
-      // Initialize Layout - We use the label that will be in the menu
-      initLayout("Data Decision Credit Card");
+      initLayout("Application Input", "Data Decision Credit Card");
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      main.innerHTML = `
+        <div class="p-6">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 lg:p-8 min-h-[600px]">
+            <!-- Date Filter -->
+            <div class="mb-8 max-w-sm">
+              <div class="relative">
+                <i data-lucide="calendar" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                <input
+                  type="text"
+                  placeholder="Select date range"
+                  class="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="max-w-xl">
+              <div class="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                <!-- Card Header -->
+                <div class="bg-[#1E5BA8] px-6 py-4 flex justify-between items-center text-white">
+                  <h3 class="font-semibold text-[15px]">Data Decision Credit Card</h3>
+                  <span class="text-sm font-medium">Total: 0</span>
+                </div>
+
+                <!-- Card Body -->
+                <div class="divide-y divide-gray-100">
+                  <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <span class="text-gray-700 text-sm font-medium">Approved</span>
+                    <span class="text-gray-900 text-sm font-semibold">0</span>
+                  </div>
+                  <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <span class="text-gray-700 text-sm font-medium">Add On</span>
+                    <span class="text-gray-900 text-sm font-semibold">0</span>
+                  </div>
+                  <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <span class="text-gray-700 text-sm font-medium">Inprocess</span>
+                    <span class="text-gray-900 text-sm font-semibold">0</span>
+                  </div>
+                  <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <span class="text-gray-700 text-sm font-medium">Cancel</span>
+                    <span class="text-gray-900 text-sm font-semibold">0</span>
+                  </div>
+                  <div class="px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <span class="text-gray-700 text-sm font-medium">Decline</span>
+                    <span class="text-gray-900 text-sm font-semibold">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      appContainer.appendChild(main);
+      lucide.createIcons();
     </script>
   </body>
 </html>

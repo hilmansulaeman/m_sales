@@ -105,6 +105,12 @@ class My_performance extends MY_Controller
 		$this->template->load('template','my_performance/index', $data);
 	}
 
+	// Method baru untuk UI baru (sidebar baru)
+	function new_ui()
+	{
+		$this->load->view('my_performance/my_performance');
+	}
+
 	function index2()
 	{
 		$sales_code = $this->session->userdata('sl_code');

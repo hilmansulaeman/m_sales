@@ -14,6 +14,11 @@ class Team_performance extends MY_Controller
         $this->load->model('team_performance_model');
 	}
 
+	function index()
+	{
+		$this->load->view('team_performance/team_performance');
+	}
+
 	function pos_bsh()
 	{
 		$this->template->set('title','Team Performance');

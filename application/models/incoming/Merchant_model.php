@@ -2,10 +2,28 @@
 
 class Merchant_model extends CI_Model
 {
+    private $apiData = null;
+
 	function __construct()
 	{
 		parent::__construct();
 	}
+
+    private function getApi()
+    {
+        if ($this->apiData === null) {
+            $getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
+            $this->apiData = $getAPI->row();
+        }
+        return $this->apiData;
+    }
+
+    private function getRestApi()
+    {
+        // Khusus untuk fetchBulkMerchantSummary yang pakai 'Rest API' description
+        $getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Rest API'");
+        return $getAPI->row();
+    }
 
 	// get datatable query
 	function get_datatables($where)
@@ -60,9 +78,7 @@ class Merchant_model extends CI_Model
 			'where'		=> $where
 		);
 
-	    $getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
-		$rowAPI = $getAPI->row();
-
+	    $rowAPI = $this->getApi();
 		$apiKey = $rowAPI->api_key;
 
 		// API auth credentials
@@ -435,7 +451,8 @@ class Merchant_model extends CI_Model
 		$url = $rowAPI->url.'api/incoming_merchant/getBulkMerchantSummary?lead_code='. urlencode($lead_column) .'&sales_list='. urlencode($sales_str) .'&from='.$from.'&to='.$to.'&source='.$source;
 		
 		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-API-KEY: " . $apiKey));
@@ -453,7 +470,7 @@ class Merchant_model extends CI_Model
 	// ===============================================================================================================================================================
 	// API DSR
 
-	function getDataInput($sales, $from, $to, $section)
+	function getDataInput($sales, $from, $to, $section, $source = '')
 	{
 		$getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
 		$rowAPI = $getAPI->row();
@@ -465,7 +482,7 @@ class Merchant_model extends CI_Model
 		$apiPass = $rowAPI->Password;
 
 		// API URL
-		$url = $rowAPI->url.'api/incoming_merchant/getDataInput?sales='.$sales.'&from='.$from.'&to='.$to.'&section='.$section;
+		$url = $rowAPI->url.'api/incoming_merchant/getDataInput?sales='.$sales.'&from='.$from.'&to='.$to.'&section='.$section.'&source='.$source;
 
 		// Create a new cURL resource
 		$ch = curl_init($url);
@@ -488,7 +505,7 @@ class Merchant_model extends CI_Model
 		return $data;
 	}
 
-	function getDataProcessing($sales, $from, $to, $section)
+	function getDataProcessing($sales, $from, $to, $section, $source = '')
 	{
 		$getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
 		$rowAPI = $getAPI->row();
@@ -500,7 +517,7 @@ class Merchant_model extends CI_Model
 		$apiPass = $rowAPI->Password;
 
 		// API URL
-		$url = $rowAPI->url.'api/incoming_merchant/getDataProcessing?sales='.$sales.'&from='.$from.'&to='.$to.'&section='.$section;
+		$url = $rowAPI->url.'api/incoming_merchant/getDataProcessing?sales='.$sales.'&from='.$from.'&to='.$to.'&section='.$section.'&source='.$source;
 
 		// Create a new cURL resource
 		$ch = curl_init($url);
@@ -523,7 +540,7 @@ class Merchant_model extends CI_Model
 		return $data;
 	}
 
-	function getTotalsProcessing($sales, $from, $to, $section)
+	function getTotalsProcessing($sales, $from, $to, $section, $source = '')
 	{
 		$getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
 		$rowAPI = $getAPI->row();
@@ -535,7 +552,7 @@ class Merchant_model extends CI_Model
 		$apiPass = $rowAPI->Password;
 
 		// API URL
-		$url = $rowAPI->url.'api/incoming_merchant/getTotalsProcessing?sales='.$sales.'&from='.$from.'&to='.$to.'&section='.$section;
+		$url = $rowAPI->url.'api/incoming_merchant/getTotalsProcessing?sales='.$sales.'&from='.$from.'&to='.$to.'&section='.$section.'&source='.$source;
 
 		// Create a new cURL resource
 		$ch = curl_init($url);
@@ -558,74 +575,56 @@ class Merchant_model extends CI_Model
 		return $data;
 	}
 
-	function detBreakdownMerchantLeader($sales_code, $sales, $status, $part, $from, $to)
+	function detBreakdownMerchantLeader($sales_code, $sales, $status, $part, $from, $to, $source = '')
 	{
-		$getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
-		$rowAPI = $getAPI->row();
+		$getApi = $this->getApi();
+		if (!$getApi) return array();
 
-		$apiKey = $rowAPI->api_key;
-
-		// API auth credentials
-		$apiUser = $rowAPI->Username;
-		$apiPass = $rowAPI->Password;
+		$apiKey = $getApi->api_key;
+		$apiUser = $getApi->Username;
+		$apiPass = $getApi->Password;
 
 		// API URL
-		$url = $rowAPI->url.'api/incoming_merchant/detBreakdownMerchantLeader?sales_code='.$sales_code.'&sales='.$sales.'&status='.$status.'&part='.$part.'&from='.$from.'&to='.$to;
+		$url = $getApi->url.'api/incoming_merchant/detBreakdownMerchantLeader?sales_code='.$sales_code.'&sales='.$sales.'&status='.$status.'&part='.$part.'&from='.$from.'&to='.$to.'&source='.$source;
 
-		// Create a new cURL resource
 		$ch = curl_init($url);
-
-		//curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-API-KEY: " . $apiKey));
 		curl_setopt($ch, CURLOPT_USERPWD, "$apiUser:$apiPass");
 
 		$result = curl_exec($ch);
-
-		// Close cURL resource
 		curl_close($ch);
 
 		$dataDecode = json_decode($result);
-		$data = $dataDecode->data;
-
-		return $data;
+		return (isset($dataDecode->status) && $dataDecode->status && isset($dataDecode->data)) ? $dataDecode->data : array();
 	}
 
-	function detBreakdownMerchantDSR($sales, $status, $part, $from, $to)
+	function detBreakdownMerchantDSR($sales, $status, $part, $from, $to, $source = '')
 	{
-		$getAPI = $this->db->query("SELECT * FROM `key_api` WHERE `Description` = 'Merchant'");
-		$rowAPI = $getAPI->row();
+		$getApi = $this->getApi();
+		if (!$getApi) return array();
 
-		$apiKey = $rowAPI->api_key;
-
-		// API auth credentials
-		$apiUser = $rowAPI->Username;
-		$apiPass = $rowAPI->Password;
+		$apiKey = $getApi->api_key;
+		$apiUser = $getApi->Username;
+		$apiPass = $getApi->Password;
 
 		// API URL
-		$url = $rowAPI->url.'api/incoming_merchant/detBreakdownMerchantDSR?sales='.$sales.'&status='.$status.'&part='.$part.'&from='.$from.'&to='.$to;
+		$url = $getApi->url.'api/incoming_merchant/detBreakdownMerchantDSR?sales='.$sales.'&status='.$status.'&part='.$part.'&from='.$from.'&to='.$to.'&source='.$source;
 
-		// Create a new cURL resource
 		$ch = curl_init($url);
-
-		//curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array("X-API-KEY: " . $apiKey));
 		curl_setopt($ch, CURLOPT_USERPWD, "$apiUser:$apiPass");
 
 		$result = curl_exec($ch);
-
-		// Close cURL resource
 		curl_close($ch);
 
 		$dataDecode = json_decode($result);
-		$data = $dataDecode->data;
-
-		return $data;
+		return (isset($dataDecode->status) && $dataDecode->status && isset($dataDecode->data)) ? $dataDecode->data : array();
 	}
 
 	function getBreakdownMerchantexport($date_from, $date_to, $source = '')

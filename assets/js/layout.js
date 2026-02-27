@@ -30,7 +30,7 @@ const menuItems = [
             { label: 'Corporate', url: 'data_decision/corporate' },
             { label: 'Smart Cash (SC)', url: 'data_decision/sc' },
             { label: 'Personal Loan (PL)', url: 'data_decision/pl' },
-            { label: 'Pemol_DSR', url:'data_decision/pemol_dsr'}
+            { label: 'Pemol_DSR', url: 'data_decision/pemol_dsr' }
         ]
     },
     {
@@ -141,32 +141,32 @@ function toggleSubmenu(itemId) {
 }
 
 function toggleUserProfile(event) {
-    if(event) event.stopPropagation();
+    if (event) event.stopPropagation();
     const popup = document.getElementById('user-profile-popup');
     const arrow = document.getElementById('user-profile-arrow');
-    
-    if(popup) {
+
+    if (popup) {
         popup.classList.toggle('hidden');
-        if(!popup.classList.contains('hidden')) {
+        if (!popup.classList.contains('hidden')) {
             // Close other menus if needed
         }
     }
-    
-    if(arrow) {
+
+    if (arrow) {
         arrow.classList.toggle('rotate-90');
     }
 }
 
 // Close profile popup when clicking outside
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     const popup = document.getElementById('user-profile-popup');
     const trigger = document.querySelector('[onclick="toggleUserProfile(event)"]');
-    
-    if(popup && !popup.classList.contains('hidden')) {
-        if(!popup.contains(event.target) && (!trigger || !trigger.contains(event.target))) {
+
+    if (popup && !popup.classList.contains('hidden')) {
+        if (!popup.contains(event.target) && (!trigger || !trigger.contains(event.target))) {
             popup.classList.add('hidden');
             const arrow = document.getElementById('user-profile-arrow');
-            if(arrow) arrow.classList.remove('rotate-90');
+            if (arrow) arrow.classList.remove('rotate-90');
         }
     }
 });
@@ -328,9 +328,23 @@ function initLayout(activeParentInput = '', activeSubmenuInput = '', customTitle
     const app = document.getElementById('app');
     if (!app) return;
 
+    // Global Font Injection (TikTok Sans)
+    if (!document.getElementById('global-font-tiktok')) {
+        const fontLink = document.createElement('link');
+        fontLink.id = 'global-font-tiktok';
+        fontLink.rel = 'stylesheet';
+        fontLink.href = 'https://cdn.jsdelivr.net/npm/@fontsource-variable/tiktok-sans@latest/index.css';
+        document.head.appendChild(fontLink);
+
+        const styleFont = document.createElement('style');
+        styleFont.innerHTML = `
+            body { font-family: 'TikTok Sans Variable', 'Inter', sans-serif !important; }
+            .font-tiktok { font-family: 'TikTok Sans Variable', sans-serif; }
+        `;
+        document.head.appendChild(styleFont);
+    }
+
     // Implement "Smart Zoom" for Layout Consistency
-    // This ensures that on smaller laptop screens (1366x768, 1440x900), the content isn't too cramped (80% scale).
-    // On larger confirmed desktop monitors (1600px+), it uses standard 100% scale.
     const zoomStyle = document.createElement('style');
     zoomStyle.innerHTML = `
         @media (min-width: 1024px) and (max-width: 1599px) {

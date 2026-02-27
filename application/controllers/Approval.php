@@ -26,6 +26,21 @@ class Approval extends MY_Controller
 		$this->template->set('title','APPROVAL');
 		$this->template->load('template','approval/index', $data);
 	}
+
+	function restruct()
+	{
+		$this->load->view('approval/approval_restruct');
+	}
+
+	function reaktif()
+	{
+		$this->load->view('approval/approval_reaktif');
+	}
+
+	function promotion()
+	{
+		$this->load->view('approval/approval_promotion');
+	}
 	function listed($sales_code)
 	{
 		$position = $this->session->userdata('position');  
