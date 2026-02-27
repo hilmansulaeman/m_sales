@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Decision Credit Card (CC) - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      // Initialize layout
+      initLayout("Data Decision", "Credit Card (CC)");
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      // Main Content
+      main.innerHTML = `
+            
+            <!-- Content -->
+                <div class="flex-1 p-6">
+                   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <!-- Search and Filters -->
+                <div class=" rounded-2xl p-4 mb-6">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
+                            <!-- Search -->
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" id="searchInput" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" oninput="handleSearch(this.value)"/>
+                            </div>
+
+                            <!-- Date Range Picker -->
+                            <div class="relative w-full sm:w-72">
+                                <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
+                                    <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer placeholder-gray-400"/>
+                                </div>
+                                
+                                <!-- Date Range Dropdown (Reused) -->
+                                <div id="dateRangePicker" class="hidden absolute top-full left-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
+                                     <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                                        <!-- Left Calendar (Jan 2025) -->
+                                        <div class="flex-1">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                                                <span class="font-semibold text-gray-800 text-sm">January 2025</span>
+                                                <div class="w-6"></div>
+                                            </div>
+                                            <div class="grid grid-cols-7 text-center mb-2">
+                                                <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                <span></span><span></span>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-l-full">1</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">2</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">3</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">4</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">5</button>
+                                            </div>
+                                        </div>
+                                         <div class="hidden md:block w-px bg-gray-100"></div>
+                                         <div class="flex-1 hidden md:block">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="w-6"></div>
+                                                <span class="font-semibold text-gray-800 text-sm">February 2025</span>
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                            </div>
+                                             <div class="grid grid-cols-7 text-center mb-2">
+                                                <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                            </div>
+                                         </div>
+                                    </div>
+                                    <div class="mt-6 flex justify-end gap-3 items-center pt-4 border-t border-gray-100">
+                                        <button class="text-[#3B6EC2] hover:text-[#2F5BA8] font-semibold text-sm transition-colors" onclick="toggleDateRangePicker(event)">Reset</button>
+                                        <button class="bg-[#3B6EC2] text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-[#2F5BA8] transition-colors" onclick="toggleDateRangePicker(event)">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Export Button -->
+                        <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="share" class="w-4 h-4"></i>
+                            Export data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-3 text-center border-r border-white/20 w-16">No</th>
+                                    <th class="px-4 py-3 text-left border-r border-white/20">RSM Name</th>
+                                    <th class="px-4 py-3 text-left border-r border-white/20">NIK Sales</th>
+                                    <th class="px-4 py-3 text-center border-r border-white/20">Approve</th>
+                                    <th class="px-4 py-3 text-center border-r border-white/20">In Process</th>
+                                    <th class="px-4 py-3 text-center border-r border-white/20">Cancel</th>
+                                    <th class="px-4 py-3 text-center border-r border-white/20">Decline</th>
+                                    <th class="px-4 py-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                        <div id="showingInfo">Showing 0 to 0 of 0</div>
+                        
+                        <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+
+      // Data Initialization
+      const mainData = [
+        {
+          id: 1,
+          name: "Ramaldo Oktama",
+          nik: "K1104148",
+          approve: 1,
+          inprocess: 3,
+          cancel: 2,
+          decline: 3,
+        },
+        {
+          id: 2,
+          name: "Budi Santoso",
+          nik: "K1104149",
+          approve: 2,
+          inprocess: 1,
+          cancel: 0,
+          decline: 1,
+        },
+        {
+          id: 3,
+          name: "Siti Aminah",
+          nik: "K1104150",
+          approve: 5,
+          inprocess: 2,
+          cancel: 1,
+          decline: 0,
+        },
+        {
+          id: 4,
+          name: "Agus Prasetyo",
+          nik: "K1104151",
+          approve: 0,
+          inprocess: 5,
+          cancel: 0,
+          decline: 0,
+        },
+        {
+          id: 5,
+          name: "Dewi Lestari",
+          nik: "K1104152",
+          approve: 3,
+          inprocess: 0,
+          cancel: 0,
+          decline: 1,
+        },
+        {
+          id: 6,
+          name: "Eko Kurniawan",
+          nik: "K1104153",
+          approve: 1,
+          inprocess: 1,
+          cancel: 0,
+          decline: 0,
+        },
+        {
+          id: 7,
+          name: "Fajar Nugraha",
+          nik: "K1104154",
+          approve: 4,
+          inprocess: 2,
+          cancel: 1,
+          decline: 1,
+        },
+        {
+          id: 8,
+          name: "Gita Persada",
+          nik: "K1104155",
+          approve: 2,
+          inprocess: 0,
+          cancel: 0,
+          decline: 0,
+        },
+        {
+          id: 9,
+          name: "Hendra Wijaya",
+          nik: "K1104156",
+          approve: 1,
+          inprocess: 1,
+          cancel: 0,
+          decline: 2,
+        },
+        {
+          id: 10,
+          name: "Indah Permata",
+          nik: "K1104157",
+          approve: 3,
+          inprocess: 3,
+          cancel: 1,
+          decline: 1,
+        },
+        {
+          id: 11,
+          name: "Joko Anwar",
+          nik: "K1104158",
+          approve: 0,
+          inprocess: 1,
+          cancel: 0,
+          decline: 0,
+        },
+        {
+          id: 12,
+          name: "Kartika Sari",
+          nik: "K1104159",
+          approve: 2,
+          inprocess: 2,
+          cancel: 0,
+          decline: 0,
+        },
+      ];
+
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
+
+      // Initial Render
+      renderTable();
+      renderPagination();
+
+      // Functions
+      function renderTable() {
+        const tbody = document.getElementById("tableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
+
+        tbody.innerHTML = paginatedData
+          .map(
+            (item, index) => `
+                <tr class="hover:bg-gray-50 group transition-colors">
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${
+                      item.name
+                    }</td>
+                    <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${
+                      item.nik
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.approve
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.inprocess
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.cancel
+                    }</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                      item.decline
+                    }</td>
+                    <td class="px-4 py-4 text-center">
+                        <button onclick="toggleActionDropdown('${
+                          item.name
+                        }', event)" class="text-blue-500 hover:text-blue-700 transition-colors p-1.5 rounded-full hover:bg-blue-50">
+                            <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+          )
+          .join("");
+
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        }
+
+        lucide.createIcons();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        // Update Info
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+        // Controls
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchQuery) ||
+            item.nik.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1; // Reset to first page
+        renderTable();
+        renderPagination();
+      };
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      document.addEventListener("click", function (event) {
+        // Close Date Picker
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
+        }
+
+        // Close Action Dropdown
+        const actionDropdown = document.getElementById("globalActionDropdown");
+        const actionBtn = event.target.closest(
+          '[onclick*="toggleActionDropdown"]'
+        );
+        if (
+          actionDropdown &&
+          !actionDropdown.classList.contains("hidden") &&
+          !actionDropdown.contains(event.target) &&
+          !actionBtn
+        ) {
+          actionDropdown.classList.add("hidden");
+        }
+      });
+
+      // Action Dropdown Logic
+      window.toggleActionDropdown = function (event) {
+        event.stopPropagation();
+        const dropdown = document.getElementById("globalActionDropdown");
+        const btn = event.currentTarget;
+        const rect = btn.getBoundingClientRect();
+
+        // Toggle logic
+        if (
+          !dropdown.classList.contains("hidden") &&
+          Math.abs(
+            parseFloat(dropdown.style.top) - (rect.bottom + window.scrollY)
+          ) < 10
+        ) {
+          dropdown.classList.add("hidden");
+          return;
+        }
+
+        // Position dropdown
+        // Align right edge of dropdown with right edge of button (approx) or center
+        // Let's position it to the left of the cursor or button bottom-left
+        dropdown.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        dropdown.style.left = `${rect.left + window.scrollX - 120}px`; // Shift left to align better
+
+        dropdown.classList.remove("hidden");
+
+        // Close Date Picker if open
+        const datePicker = document.getElementById("dateRangePicker");
+        if (datePicker) datePicker.classList.add("hidden");
+
+        // Wire up the buttons in the dropdown - we need to do this here because toggle sets the state
+        // But simpler approach: Update the buttons in the DOM when dropdown opens?
+        // Or better: update the toggleActionDropdown to accept the NAME, and store it.
+      };
+
+      let selectedUserName = ""; // Store selected user for modal
+
+      // Updated Toggle with Name
+      window.toggleActionDropdown = function (name, event) {
+        event.stopPropagation();
+        selectedUserName = name; // Store it
+
+        const dropdown = document.getElementById("globalActionDropdown");
+        const btn = event.currentTarget;
+        const rect = btn.getBoundingClientRect();
+
+        // Toggle logic
+        if (
+          !dropdown.classList.contains("hidden") &&
+          Math.abs(
+            parseFloat(dropdown.style.top) - (rect.bottom + window.scrollY)
+          ) < 10
+        ) {
+          dropdown.classList.add("hidden");
+          return;
+        }
+
+        dropdown.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        dropdown.style.left = `${rect.left + window.scrollX - 120}px`;
+
+        dropdown.classList.remove("hidden");
+        const datePicker = document.getElementById("dateRangePicker");
+        if (datePicker) datePicker.classList.add("hidden");
+      };
+
+      // Modal Logic
+      window.openDownlineModal = function () {
+        const modal = document.getElementById("downlineModal");
+        const title = document.getElementById("downlineModalTitle");
+
+        title.textContent = selectedUserName; // Set name
+        modal.classList.remove("hidden");
+
+        // Hide global dropdown
+        document.getElementById("globalActionDropdown").classList.add("hidden");
+
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modal.querySelector("div").classList.remove("scale-95");
+          modal.querySelector("div").classList.add("scale-100");
+        }, 10);
+
+        // Re-render icons inside modal if needed
+        lucide.createIcons();
+      };
+
+      window.closeDownlineModal = function () {
+        const modal = document.getElementById("downlineModal");
+        modal.classList.add("opacity-0");
+        modal.querySelector("div").classList.remove("scale-100");
+        modal.querySelector("div").classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      };
+
+      // View Data Modal Logic
+      window.openViewDataModal = function () {
+        const modal = document.getElementById("viewDataModal");
+        const title = document.getElementById("viewDataModalTitle");
+
+        title.textContent = selectedUserName;
+        modal.classList.remove("hidden");
+        document.getElementById("globalActionDropdown").classList.add("hidden");
+
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modal.querySelector("div").classList.remove("scale-95");
+          modal.querySelector("div").classList.add("scale-100");
+        }, 10);
+
+        lucide.createIcons();
+      };
+
+      window.closeViewDataModal = function () {
+        const modal = document.getElementById("viewDataModal");
+        modal.classList.add("opacity-0");
+        modal.querySelector("div").classList.remove("scale-100");
+        modal.querySelector("div").classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      };
+
+      // Mock Data for View Data Modal
+      const viewData = {
+        Approve: {
+          headers: ["No", "Costumer Name", "Card Type", "DSR", "Date"],
+          rows: [{ no: 1, name: "-", col3: "-", dsr: "-", date: "-" }],
+        },
+        Inprocess: {
+          headers: ["No", "Costumer Name", "Desicion date", "DSR", "Date"],
+          rows: [
+            {
+              no: 1,
+              name: "AdeX XX*********",
+              col3: "23-Oct-2025",
+              dsr: "Sutrisna",
+              date: "23-Oct-2025",
+            },
+          ],
+        },
+        Cancel: {
+          headers: ["No", "Costumer Name", "Reason", "DSR", "Date"],
+          rows: [{ no: 1, name: "-", col3: "-", dsr: "-" }],
+        },
+        Decline: {
+          headers: ["No", "Costumer Name", "Reason", "DSR", "Date"],
+          rows: [{ no: 1, name: "-", col3: "-", dsr: "-" }],
+        },
+      };
+
+      window.switchTab = function (btn, tabName) {
+        // UI Toggle
+        const tabs = btn.parentElement.querySelectorAll("button");
+        tabs.forEach((t) => {
+          t.classList.remove(
+            "bg-[#3B6EC2]",
+            "text-white",
+            "shadow-sm",
+            "rounded-full"
+          );
+          t.classList.add("text-gray-500", "hover:bg-gray-100", "rounded-full");
+        });
+
+        btn.classList.remove("text-gray-500", "hover:bg-gray-100");
+        btn.classList.add(
+          "bg-[#3B6EC2]",
+          "text-white",
+          "shadow-sm",
+          "rounded-full"
+        );
+
+        // Data Rendering
+        const data = viewData[tabName];
+        if (!data) return;
+
+        const table = document.querySelector("#viewDataModal table");
+        if (!table) return;
+
+        // Update Headers
+        const thead = table.querySelector("thead tr");
+        thead.innerHTML = data.headers
+          .map((h, i) => {
+            let classes = "px-4 py-3 text-sm font-medium ";
+            if (i === 0) classes += "text-center border-r border-white/20 w-16";
+            else if (i === 1) classes += "text-left border-r border-white/20";
+            else if (i === data.headers.length - 1) classes += "text-center";
+            else classes += "text-center border-r border-white/20";
+
+            return `<th class="${classes}">${h}</th>`;
+          })
+          .join("");
+
+        // Update Body
+        const tbody = table.querySelector("tbody");
+        tbody.innerHTML = data.rows
+          .map(
+            (row) => `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">${row.no}</td>
+                    <td class="px-4 py-4 text-sm text-gray-700">${row.name}</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">${row.col3}</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">${row.dsr}</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">${row.date}</td>
+                </tr>
+            `
+          )
+          .join("");
+      };
+
+      lucide.createIcons();
+    </script>
+
+    <!-- Action Dropdown Menu -->
+    <div
+      id="globalActionDropdown"
+      class="hidden absolute w-48 bg-white rounded-lg shadow-xl border border-gray-100 z-50 overflow-hidden py-1 animate-in fade-in zoom-in-95 duration-200"
+    >
+      <button
+        onclick="openDownlineModal()"
+        class="w-full text-left px-4 py-2.5 text-sm text-[#1E3A8A] font-semibold hover:bg-gray-50 transition-colors"
+      >
+        View downline
+      </button>
+      <button
+        onclick="openViewDataModal()"
+        class="w-full text-left px-4 py-2.5 text-sm text-[#1E3A8A] font-semibold hover:bg-gray-50 transition-colors"
+      >
+        View Data
+      </button>
+    </div>
+
+    <!-- Downline Modal -->
+    <div
+      id="downlineModal"
+      class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm px-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300"
+      >
+        <!-- Header -->
+        <div
+          class="px-8 py-6 flex items-center justify-between border-b border-gray-100/50"
+        >
+          <h2
+            id="downlineModalTitle"
+            class="text-2xl font-bold text-[#1E3A8A]"
+          ></h2>
+          <button
+            onclick="closeDownlineModal()"
+            class="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8 overflow-y-auto">
+          <div class="border border-gray-200 rounded-2xl p-6">
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+              <!-- Search -->
+              <div class="relative w-full sm:w-72">
+                <i
+                  data-lucide="search"
+                  class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
+                ></i>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                />
+              </div>
+
+              <!-- Date Picker (Static Display for now) -->
+              <div class="relative w-full sm:w-auto">
+                <div
+                  class="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 bg-white"
+                >
+                  <i data-lucide="calendar" class="w-4 h-4 text-gray-400"></i>
+                  <span>1 Jan, 2025 - 2 Feb, 2025</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+              <table class="w-full">
+                <thead class="bg-[#1E5BA8] text-white">
+                  <tr>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16"
+                    >
+                      No
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium border-r border-white/20"
+                    >
+                      ASM Name
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium border-r border-white/20"
+                    >
+                      NIK Sales
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Approve
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      In Process
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Cancel
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Decline
+                    </th>
+                    <th class="px-4 py-3 text-center text-sm font-medium">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr class="hover:bg-gray-50 group">
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      1
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-700">
+                      Ade Hardianto
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-600">K1141935</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      1
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      3
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      2
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      3
+                    </td>
+                    <td class="px-4 py-4 text-center">
+                      <button
+                        class="text-[#1E5BA8] hover:text-[#15468a] transition-colors p-1"
+                      >
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination for Modal -->
+            <div
+              class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500"
+            >
+              <div>Showing 1 to 1 of 1</div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <span
+                  class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg"
+                  >1</span
+                >
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span>Show</span>
+                <div class="relative">
+                  <select
+                    class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+                  >
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Data Modal -->
+    <div
+      id="viewDataModal"
+      class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-all duration-300 backdrop-blur-sm px-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-[1200px] max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-all duration-300"
+      >
+        <!-- Header -->
+        <div class="px-8 py-6 flex items-center justify-between">
+          <h2
+            id="viewDataModalTitle"
+            class="text-2xl font-bold text-[#1E3A8A]"
+          ></h2>
+          <button
+            onclick="closeViewDataModal()"
+            class="text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <div class="p-8 pt-0 overflow-y-auto">
+          <!-- Tabs -->
+          <!-- Tabs -->
+          <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar w-full pb-2">
+            <button
+              onclick="switchTab(this, 'Approve')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-[#3B6EC2] text-white shadow-sm transition-all whitespace-nowrap"
+            >
+              Approve
+            </button>
+            <button
+              onclick="switchTab(this, 'Inprocess')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap"
+            >
+              Inprocess
+            </button>
+            <button
+              onclick="switchTab(this, 'Cancel')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap"
+            >
+              Cancel
+            </button>
+            <button
+              onclick="switchTab(this, 'Decline')"
+              class="flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors whitespace-nowrap"
+            >
+              Decline
+            </button>
+          </div>
+
+          <div class="border border-gray-200 rounded-2xl p-6">
+            <!-- Search -->
+            <div class="mb-6">
+              <div class="relative w-full">
+                <i
+                  data-lucide="search"
+                  class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
+                ></i>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                />
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+              <table class="w-full">
+                <thead class="bg-[#1E5BA8] text-white">
+                  <tr>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16"
+                    >
+                      No
+                    </th>
+                    <th
+                      class="px-4 py-3 text-left text-sm font-medium border-r border-white/20"
+                    >
+                      Costumer Name
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      Card Type
+                    </th>
+                    <th
+                      class="px-4 py-3 text-center text-sm font-medium border-r border-white/20"
+                    >
+                      DSR
+                    </th>
+                    <th class="px-4 py-3 text-center text-sm font-medium">
+                      Date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      1
+                    </td>
+                    <td class="px-4 py-4 text-sm text-gray-700">-</td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      -
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      -
+                    </td>
+                    <td class="px-4 py-4 text-center text-sm text-gray-600">
+                      -
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+              class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500"
+            >
+              <div>Showing 1 to 1 of 1</div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+                <span
+                  class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg"
+                  >1</span
+                >
+                <button
+                  class="p-1 hover:text-gray-700 text-gray-400 transition-colors opacity-50 cursor-not-allowed"
+                >
+                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <span>Show</span>
+                <div class="relative">
+                  <select
+                    class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+                  >
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

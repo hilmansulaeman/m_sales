@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slip Incentive - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+      initLayout("Slip Incentive"); // Title in the header
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      main.innerHTML = `
+            <div class="flex-1 p-6">
+                <!-- Alert Box -->
+                <div id="infoAlert" class="bg-[#1E5BA8] text-white rounded-lg p-4 mb-6 flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="alert-circle" class="w-5 h-5 stroke-[2]"></i>
+                        <span class="text-sm font-medium">Please select a period to display the incentive slip data</span>
+                    </div>
+                    <button onclick="document.getElementById('infoAlert').remove()" class="bg-white text-[#1E5BA8] px-6 py-1.5 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors">
+                        Dismiss
+                    </button>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-6 items-start">
+                    <!-- Left: Period Selector -->
+                    <div class="w-full lg:w-1/3 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex items-center gap-4 h-fit">
+                        <label class="text-[#1E5BA8] font-semibold text-lg whitespace-nowrap">Period</label>
+                        <div class="relative flex-1">
+                             <select class="w-full appearance-none border border-gray-200 rounded-full px-4 py-2.5 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                <option>September 2025</option>
+                                <option>August 2025</option>
+                                <option>July 2025</option>
+                            </select>
+                             <i data-lucide="chevron-down" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#1E5BA8] w-4 h-4 pointer-events-none"></i>
+                        </div>
+                    </div>
+
+                    <!-- Right: Summary Card -->
+                    <div class="w-full lg:w-2/3 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                        <div class="bg-[#1E5BA8] px-6 py-4">
+                            <h2 class="text-white font-semibold text-center">Slip Incentive Summary</h2>
+                        </div>
+                        
+                        <div class="p-6 space-y-8">
+                            <!-- Income Section -->
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="text-gray-400 text-sm font-medium">Income</h3>
+                                    <h3 class="text-gray-400 text-sm font-medium">Amount</h3>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Allowance</span>
+                                        <span>2.100.000</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Incentive</span>
+                                        <span>1.550.000</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Bonus</span>
+                                        <span>650.000</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Adjustment</span>
+                                        <span>0</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Communication Allowance</span>
+                                        <span>0</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>MP Reward</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div class="pt-3 border-t border-gray-100 flex justify-between text-[#1E293B] font-bold text-sm">
+                                        <span>Total Revenue</span>
+                                        <span>4.300.000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Deductions Section -->
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="text-gray-400 text-sm font-medium">Deductions</h3>
+                                    <h3 class="text-gray-400 text-sm font-medium">Amount</h3>
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Income Tax</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Uniform Deduction</span>
+                                        <span>0</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Punishment Deduction</span>
+                                        <span>0</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Wage Deduction</span>
+                                        <span>0</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>Other Deductions</span>
+                                        <span>0</span>
+                                    </div>
+                                     <div class="flex justify-between text-gray-700 text-sm font-medium">
+                                        <span>BPJS BPU Deduction</span>
+                                        <span>0</span>
+                                    </div>
+                                    <div class="pt-3 border-t border-gray-100 flex justify-between text-[#1E293B] font-bold text-sm">
+                                        <span>Total Deductions</span>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <!-- Grand Total -->
+                            <div class="pt-6 border-t border-gray-100 flex justify-between items-center">
+                                <span class="text-gray-700 font-bold text-lg">Grand Total</span>
+                                <span class="text-[#1E293B] font-bold text-xl">4.300.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

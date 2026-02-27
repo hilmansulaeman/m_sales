@@ -92,10 +92,19 @@
                         </p>
                     </div>
 
-                    <form onsubmit="handleLogin(event)" class="space-y-5 text-left">
+                    <!-- Login Error Message -->
+                    <?php if(isset($login_info)): ?>
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline"><?php echo $login_info; ?></span>
+                        </div>
+                    <?php endif; ?>
+                    <?php echo validation_errors('<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert"><span class="block sm:inline">', '</span></div>'); ?>
+
+                    <form method="post" action="<?php echo site_url('panel/login'); ?>" class="space-y-5 text-left">
                         <div>
                             <input
                                 type="text"
+                                name="username"
                                 id="salesCode-${containerId}"
                                 placeholder="Enter sales code"
                                 class="w-full px-4 py-3 border border-gray-300 ${
@@ -108,6 +117,7 @@
                             <div class="relative">
                                 <input
                                     type="password"
+                                    name="password"
                                     id="password-${containerId}"
                                     placeholder="Enter password"
                                     class="w-full px-4 py-3 border border-gray-300 ${
@@ -124,7 +134,7 @@
                                 </button>
                             </div>
                             <div class="text-right">
-                                <a href="<?php echo site_url('auth/forgot_password'); ?>" class="text-sm text-[#3B6EC2] hover:underline">
+                                <a href="<?php echo site_url('panel/forgot_password'); ?>" class="text-sm text-[#3B6EC2] hover:underline">
                                     Forgot password?
                                 </a>
                             </div>

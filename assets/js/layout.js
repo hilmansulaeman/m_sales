@@ -3,20 +3,20 @@
  */
 const menuItems = [
     { icon: 'layout-dashboard', label: 'Dashboard', hasSubmenu: false, url: 'dashboard.html' },
-    { icon: 'file-input', label: 'Data Entry', hasSubmenu: false, url: 'data_entry/data_entry.html' },
+    { icon: 'file-input', label: 'Data Entry', hasSubmenu: false, url: 'data_entry' },
     {
         icon: 'file-text',
         label: 'Application Input',
         hasSubmenu: true,
         submenu: [
-            { label: 'Pemol', url: 'application_input/application_input_pemol.html' },
-            { label: 'Merchant', url: 'application_input/application_input_merchant.html' },
-            { label: 'CC Reguler', url: 'application_input/application_input_cc_reguler.html' },
-            { label: 'Mobile Sales', url: 'application_input/application_input_cc_ms.html' },
-            { label: 'Corporate', url: 'application_input/application_input_corporate.html' },
-            { label: 'Smart Cash (SC)', url: 'application_input/application_input_sc.html' },
-            { label: 'Personal Loan (PL)', url: 'application_input/application_input_pl.html' },
-            { label: 'Data Decision Credit Card', url: 'application_input/application_input_cc_dsr.html' }
+            { label: 'Pemol', url: 'application_input/pemol' },
+            { label: 'Merchant', url: 'application_input/merchant' },
+            { label: 'CC Reguler', url: 'application_input/cc_reguler' },
+            { label: 'Mobile Sales', url: 'application_input/cc_ms' },
+            { label: 'Corporate', url: 'application_input/corporate' },
+            { label: 'Smart Cash (SC)', url: 'application_input/sc' },
+            { label: 'Personal Loan (PL)', url: 'application_input/pl' },
+            { label: 'Data Decision Credit Card', url: 'application_input/cc_dsr' }
         ]
     },
     {
@@ -24,13 +24,13 @@ const menuItems = [
         label: 'Data Decision',
         hasSubmenu: true,
         submenu: [
-            { label: 'PEMOL', url: 'data_decision/data_decision_pemol.html' },
-            { label: 'Merchant', url: 'data_decision/data_decision_merchant.html' },
-            { label: 'Credit Card (CC)', url: 'data_decision/data_decision_cc.html' },
-            { label: 'Corporate', url: 'data_decision/data_decision_corporate.html' },
-            { label: 'Smart Cash (SC)', url: 'data_decision/data_decision_sc.html' },
-            { label: 'Personal Loan (PL)', url: 'data_decision/data_decision_pl.html' },
-            { label: 'Pemol_DSR', url:'data_decision/data_decision_pemol_dsr.html'}
+            { label: 'PEMOL', url: 'data_decision/pemol' },
+            { label: 'Merchant', url: 'data_decision/merchant' },
+            { label: 'Credit Card (CC)', url: 'data_decision/cc' },
+            { label: 'Corporate', url: 'data_decision/corporate' },
+            { label: 'Smart Cash (SC)', url: 'data_decision/sc' },
+            { label: 'Personal Loan (PL)', url: 'data_decision/pl' },
+            { label: 'Pemol_DSR', url:'data_decision/pemol_dsr'}
         ]
     },
     {
@@ -38,10 +38,10 @@ const menuItems = [
         label: 'Incoming',
         hasSubmenu: true,
         submenu: [
-            { label: 'Mobile Sales', url: 'incoming/incoming_mobile_sales.html' },
-            { label: 'Pemol', url: 'incoming/incoming_pemol.html' },
-            { label: 'TM CC', url: 'incoming/incoming_tm_cc.html' },
-            { label: 'TM SC', url: 'incoming/incoming_tm_sc.html' }
+            { label: 'Mobile Sales', url: 'incoming/mobile_sales' },
+            { label: 'Pemol', url: 'incoming/pemol' },
+            { label: 'TM CC', url: 'incoming/tm_cc' },
+            { label: 'TM SC', url: 'incoming/tm_sc' }
         ]
     },
     {
@@ -49,26 +49,26 @@ const menuItems = [
         label: 'Application Check',
         hasSubmenu: true,
         submenu: [
-            { label: 'Pemol', url: 'application_check/application_check_pemol.html' },
-            { label: 'Merchant', url: 'application_check/application_check_merchant.html' },
-            { label: 'Credit Card (CC)', url: 'application_check/application_check_cc.html' },
-            { label: 'Corporate', url: 'application_check/application_check_corporate.html' },
-            { label: 'Smart Cash (SC)', url: 'application_check/application_check_sc.html' },
-            { label: 'Personal Loan (PL)', url: 'application_check/application_check_pl.html' }
+            { label: 'Pemol', url: 'application_check/pemol' },
+            { label: 'Merchant', url: 'application_check/merchant' },
+            { label: 'CC Reguler', url: 'application_check/cc' },
+            { label: 'Corporate', url: 'application_check/corporate' },
+            { label: 'Smart Cash (SC)', url: 'application_check/sc' },
+            { label: 'Personal Loan (PL)', url: 'application_check/pl' }
         ]
     },
-    { icon: 'trending-up', label: 'My Performance', hasSubmenu: false, url: 'my_performance/my_performance.html' },
-    { icon: 'file-plus', label: 'Data Addendum', hasSubmenu: false, url: 'data_addendum/data_addendum.html' },
-    { icon: 'users', label: 'Team Performance', hasSubmenu: false, url: 'team_performance/team_performance.html' },
-    { icon: 'info', label: 'Sales Information', hasSubmenu: false, url: 'sales_information/sales_information.html' },
+    { icon: 'trending-up', label: 'My Performance', hasSubmenu: false, url: 'my_performance' },
+    { icon: 'file-plus', label: 'Data Addendum', hasSubmenu: false, url: 'data_addendum' },
+    { icon: 'users', label: 'Team Performance', hasSubmenu: false, url: 'team_performance' },
+    { icon: 'info', label: 'Sales Information', hasSubmenu: false, url: 'sales_information' },
     {
         icon: 'user-circle',
         label: 'Candidate Info',
         hasSubmenu: true,
         submenu: [
-            { label: 'Candidate Details', url: 'candidate_info/candidate_details.html' },
-            { label: 'Approval', url: 'candidate_info/approval.html' },
-            { label: 'History', url: 'candidate_info/history.html' }
+            { label: 'Candidate Details', url: 'candidate_info/candidate_details' },
+            { label: 'Approval', url: 'candidate_info/approval' },
+            { label: 'History', url: 'candidate_info/history' }
         ]
     },
     {
@@ -76,10 +76,10 @@ const menuItems = [
         label: 'Request to HRD',
         hasSubmenu: true,
         submenu: [
-            { label: 'Exit', url: 'request_to_hrd/request_to_hrd.html' },
-            { label: 'Restruct', url: 'request_to_hrd/request_to_hrd_restruct.html' },
-            { label: 'Level', url: 'request_to_hrd/request_to_hrd_level.html' },
-            { label: 'Reaktif', url: 'request_to_hrd/request_to_hrd_reactive.html' }
+            { label: 'Exit', url: 'request_to_hrd' },
+            { label: 'Restruct', url: 'request_to_hrd/restruct' },
+            { label: 'Level', url: 'request_to_hrd/level' },
+            { label: 'Reaktif', url: 'request_to_hrd/reactive' }
         ]
     },
     {
@@ -87,15 +87,15 @@ const menuItems = [
         label: 'Approval',
         hasSubmenu: true,
         submenu: [
-            { label: 'Restruct', url: 'Approval/approval_restruct.html' },
-            { label: 'Reaktif', url: 'Approval/approval_reaktif.html' },
-            { label: 'Promotion', url: 'Approval/approval_promotion.html' }
+            { label: 'Restruct', url: 'approval/restruct' },
+            { label: 'Reaktif', url: 'approval/reaktif' },
+            { label: 'Promotion', url: 'approval/promotion' }
         ]
     },
-    { icon: 'map-pin', label: 'Check Postal Code', hasSubmenu: false, url: 'check_postal_code/check_postal_code.html' },
-    { icon: 'copy', label: 'Duplicate Check', hasSubmenu: false, url: 'duplicate_check/duplicate_check.html' },
-    { icon: 'monitor', label: 'Monitoring', hasSubmenu: false, url: 'monitoring/monitoring.html' },
-    { icon: 'file-text', label: 'Slip Incentive', hasSubmenu: false, url: 'slip_incentive/slip_incentive.html' },
+    { icon: 'map-pin', label: 'Check Postal Code', hasSubmenu: false, url: 'check_postal_code' },
+    { icon: 'copy', label: 'Duplicate Check', hasSubmenu: false, url: 'duplicate_check' },
+    { icon: 'monitor', label: 'Monitoring', hasSubmenu: false, url: 'monitoring' },
+    { icon: 'file-text', label: 'Slip Incentive', hasSubmenu: false, url: 'slip_incentive' },
 ];
 
 /**
@@ -345,15 +345,19 @@ function initLayout(activeParentInput = '', activeSubmenuInput = '', customTitle
     // Detect Active Page based on URL (Priority for Sidebar Highlighting)
     let detectedParent = '';
     let detectedSubmenu = '';
-    const currentFilename = window.location.pathname.split('/').pop();
+    let currentPath = window.location.href.split('?')[0].replace(/\/$/, "");
 
     for (const item of menuItems) {
-        if (item.url && item.url.endsWith(currentFilename)) {
+        let itemUrl = item.url ? item.url.replace('.html', '') : '';
+        if (itemUrl && currentPath.endsWith(itemUrl)) {
             detectedParent = item.label;
             break;
         }
         if (item.hasSubmenu && item.submenu) {
-            const subMatch = item.submenu.find(sub => sub.url.endsWith(currentFilename));
+            const subMatch = item.submenu.find(sub => {
+                let sUrl = sub.url ? sub.url.replace('.html', '') : '';
+                return sUrl && currentPath.endsWith(sUrl);
+            });
             if (subMatch) {
                 detectedParent = item.label;
                 detectedSubmenu = subMatch.label;

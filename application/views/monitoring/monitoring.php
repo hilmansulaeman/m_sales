@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitoring - M-Sales</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>window.SITE_URL = "<?= site_url(); ?>/";</script>   <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+  <link href="https://fonts.cdnfonts.com/css/tiktok-sans" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "TikTok Sans", sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+
+  <!-- Actual Data Modal -->
+  <div id="actualModal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4 sm:p-6">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity" onclick="closeActualModal()"></div>
+
+    <!-- Modal Content -->
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-7xl z-10 overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div
+        class="px-4 py-4 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-center bg-white flex-shrink-0">
+        <h3 class="text-lg md:text-2xl font-bold text-[#20406b]" id="actualModalTitle">
+          Actual Data Summary
+        </h3>
+        <button onclick="closeActualModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-4 md:p-8 overflow-y-auto bg-gray-50">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-center border-collapse whitespace-nowrap">
+              <thead>
+                <tr class="bg-[#1E5BBC] text-white">
+                  <th rowspan="2" class="px-4 py-3 font-semibold border-r border-blue-400 w-16 bg-[#1E5BBC]">
+                    No
+                  </th>
+                  <th rowspan="2"
+                    class="px-6 py-3 font-semibold border-r border-blue-400 text-left min-w-[200px] bg-[#1E5BBC]">
+                    ASM Name
+                  </th>
+                  <th rowspan="2" class="px-4 py-3 font-semibold border-r border-blue-400 bg-[#1E5BBC]">
+                    MOB
+                  </th>
+                  <th rowspan="2" class="px-4 py-3 font-semibold border-r border-blue-400 bg-[#1E5BBC]">
+                    SPV
+                  </th>
+                  <th colspan="6" class="px-4 py-2 font-semibold border-r border-blue-400 border-b border-blue-400">
+                    Agustus 2025
+                  </th>
+                  <th colspan="6" class="px-4 py-2 font-semibold border-b border-blue-400">
+                    September 2025
+                  </th>
+                </tr>
+                <tr class="bg-[#1E5BBC] text-white">
+                  <!-- Agustus Columns -->
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    INC
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    RTS
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    NOA
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    DEC
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    A/R
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400">
+                    Rating
+                  </th>
+                  <!-- September Columns -->
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    INC
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    RTS
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    NOA
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    DEC
+                  </th>
+                  <th class="px-3 py-2 font-medium border-r border-blue-400/50">
+                    A/R
+                  </th>
+                  <th class="px-3 py-2 font-medium">Rating</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 text-gray-700">
+                <tr class="hover:bg-gray-50 bg-white">
+                  <td class="px-4 py-4 border-r border-gray-100">1</td>
+                  <td class="px-6 py-4 text-left border-r border-gray-100 font-medium text-gray-900">
+                    Ramaldo Oktama
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">33</td>
+                  <td class="px-4 py-4 border-r border-gray-100">50</td>
+                  <!-- Agustus Data -->
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">0%</td>
+                  <td class="px-3 py-4 border-r border-gray-100">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 whitespace-nowrap">
+                      Zero Account
+                    </span>
+                  </td>
+                  <!-- September Data -->
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">-</td>
+                  <td class="px-3 py-4 border-r border-gray-100">0%</td>
+                  <td class="px-3 py-4">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 whitespace-nowrap">
+                      Zero Account
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Data Modal -->
+  <div id="actionModal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4 sm:p-6">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black bg-opacity-50 transition-opacity" onclick="closeActionModal()"></div>
+
+    <!-- Modal Content -->
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-5xl z-10 overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- Modal Header -->
+      <div
+        class="px-4 py-4 md:px-8 md:py-6 border-b border-gray-100 flex justify-between items-center bg-white flex-shrink-0">
+        <h3 class="text-lg md:text-2xl font-bold text-[#20406b]" id="actionModalTitle">
+          RSM Commitment Data Summary
+        </h3>
+        <button onclick="closeActionModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-4 md:p-8 overflow-y-auto bg-gray-50">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-center border-collapse whitespace-nowrap">
+              <thead class="bg-[#1E5BBC] text-white">
+                <tr>
+                  <th class="px-4 py-3 font-semibold border-r border-blue-400 w-16">
+                    No
+                  </th>
+                  <th class="px-6 py-3 font-semibold border-r border-blue-400 text-left">
+                    Commitment
+                  </th>
+                  <th class="px-4 py-3 font-semibold border-r border-blue-400">
+                    Date Created
+                  </th>
+                  <th class="px-4 py-3 font-semibold border-r border-blue-400">
+                    Commitment Date
+                  </th>
+                  <th class="px-4 py-3 font-semibold border-r border-blue-400">
+                    Time Remaining
+                  </th>
+                  <th class="px-6 py-3 font-semibold">Created by</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 text-gray-700">
+                <tr class="hover:bg-gray-50 bg-white">
+                  <td class="px-4 py-4 border-r border-gray-100">1</td>
+                  <td class="px-6 py-4 text-left border-r border-gray-100 font-medium text-gray-900">
+                    Lorem ipsum dolor sit amet
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    26-Sep-2025
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    01-Sep-2025
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      -28 Days
+                    </span>
+                  </td>
+                  <td class="px-6 py-4">Mohammad Rizal</td>
+                </tr>
+                <tr class="hover:bg-gray-50 bg-white">
+                  <td class="px-4 py-4 border-r border-gray-100">2</td>
+                  <td class="px-6 py-4 text-left border-r border-gray-100 font-medium text-gray-900">
+                    Lorem ipsum dolor sit amet
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    26-Sep-2025
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    01-Sep-2025
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                      2 Days
+                    </span>
+                  </td>
+                  <td class="px-6 py-4">Mohammad Rizal</td>
+                </tr>
+                <tr class="hover:bg-gray-50 bg-white">
+                  <td class="px-4 py-4 border-r border-gray-100">3</td>
+                  <td class="px-6 py-4 text-left border-r border-gray-100 font-medium text-gray-900">
+                    Lorem ipsum dolor sit amet
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    26-Sep-2025
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    01-Sep-2025
+                  </td>
+                  <td class="px-4 py-4 border-r border-gray-100">
+                    <span
+                      class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      10 Days
+                    </span>
+                  </td>
+                  <td class="px-6 py-4">Mohammad Rizal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    initLayout("Monitoring");
+
+    const appContainer = document.querySelector("#app > div > div");
+    const main = document.createElement("div");
+    main.className = "flex-1 bg-gray-50 flex flex-col";
+
+    main.innerHTML = `
+      
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <div class="bg-white rounded-lg shadow-sm">
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-[#1E5BBC] text-white">
+                                <tr>
+                                    <th class="px-6 py-3 text-left font-semibold border-r border-blue-400"></th>
+                                    <th class="px-6 py-3 text-left font-semibold border-r border-blue-400">Target</th>
+                                    <th class="px-6 py-3 text-left font-semibold border-r border-blue-400">Actual</th>
+                                    <th class="px-6 py-3 text-left font-semibold border-r border-blue-400">Difference</th>
+                                    <th class="px-6 py-3 text-left font-semibold">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
+
+    appContainer.appendChild(main);
+
+    const monitoringData = [
+      {
+        id: 1,
+        label: "Summary RSM",
+        target: 150,
+        actual: 142,
+        difference: -8,
+      },
+      {
+        id: 2,
+        label: "Summary ASM",
+        target: 280,
+        actual: 265,
+        difference: -15,
+      },
+      {
+        id: 3,
+        label: "Application",
+        target: 450,
+        actual: 438,
+        difference: -12,
+      },
+      { id: 4, label: "Account", target: 320, actual: 315, difference: -5 },
+      { id: 5, label: "RTS", target: 95, actual: 88, difference: -7 },
+      {
+        id: 6,
+        label: "Under Performance",
+        target: 25,
+        actual: 32,
+        difference: 7,
+      },
+      {
+        id: 7,
+        label: "Approval Rate",
+        target: 85,
+        actual: 82,
+        difference: -3,
+      },
+    ];
+
+    function openActualModal(label) {
+      const modal = document.getElementById("actualModal");
+      const title = document.getElementById("actualModalTitle");
+
+      title.textContent = `Actual Data ${label}`;
+      modal.classList.remove("hidden");
+      // Prevent scrolling on background
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeActualModal() {
+      const modal = document.getElementById("actualModal");
+      modal.classList.add("hidden");
+      // Restore scrolling
+      document.body.style.overflow = "";
+    }
+
+    function openActionModal(label) {
+      const modal = document.getElementById("actionModal");
+      const title = document.getElementById("actionModalTitle");
+
+      // Format the title based on the label (e.g. "Summary RSM" -> "RSM Commitment Data Summary")
+      const cleanLabel = label.replace(/^Summary\s+/, "");
+      title.textContent = `${cleanLabel} Commitment Data Summary`;
+
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeActionModal() {
+      const modal = document.getElementById("actionModal");
+      modal.classList.add("hidden");
+      document.body.style.overflow = "";
+    }
+
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = monitoringData
+      .map(
+        (data) => `
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">${data.label
+          }</td>
+                <td class="px-6 py-4 text-sm text-gray-700">${data.target}</td>
+                <td class="px-6 py-4 text-sm">
+                    <button onclick="openActualModal('${data.label
+          }')" class="group inline-flex items-center px-3 py-1 rounded-full bg-[#3B6EC2] text-white text-sm font-medium hover:bg-[#2F5BA8] hover:shadow-md transition-all cursor-pointer">
+                        ${data.actual}
+                    </button>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <span class="font-medium ${data.difference < 0 ? "text-red-600" : "text-green-600"
+          }">
+                        ${data.difference > 0 ? "+" : ""}${data.difference}
+                    </span>
+                </td>
+                <td class="px-6 py-4 text-sm">
+                    <button onclick="openActionModal('${data.label
+          }')" class="flex items-center gap-2 px-4 py-2 bg-[#3B6EC2] text-white rounded-lg text-sm hover:bg-[#2F5BA8] transition-colors">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                </td>
+            </tr>
+        `
+      )
+      .join("");
+
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>

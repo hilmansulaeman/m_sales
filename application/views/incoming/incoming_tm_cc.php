@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Incoming TM CC - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      initLayout("Incoming", "TM CC");
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("main");
+      main.className = "flex-1 p-4 lg:p-6";
+
+      main.innerHTML = `
+            
+
+            <!-- Content -->
+            <div class="flex-1 p-6">
+                <!-- Main Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <!-- Search and Filters -->
+                <div class=" rounded-2xl p-4 mb-6">
+                <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                    <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
+                        <!-- Search -->
+                        <div class="relative w-full sm:w-72">
+                            <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                            <input
+                                type="text"
+                                placeholder="Search"
+                                class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+                            />
+                        </div>
+
+                        <!-- Date Range Picker -->
+                        <div class="relative w-full sm:w-72">
+                             <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
+                                <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer placeholder-gray-400"/>
+                            </div>
+
+                            <!-- Date Range Dropdown -->
+                            <div id="dateRangePicker" class="hidden absolute top-full left-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
+                                <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                                    <!-- Left Calendar (Jan 2025) -->
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                                            <span class="font-semibold text-gray-800 text-sm">January 2025</span>
+                                            <div class="w-6"></div>
+                                        </div>
+                                        <div class="grid grid-cols-7 text-center mb-2">
+                                            <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                        </div>
+                                        <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                            <!-- Empty -->
+                                            <span></span><span></span>
+                                            <!-- 1 (Start) -->
+                                            <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-l-full">1</button>
+                                            <!-- 2-5 (Range) -->
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">2</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">3</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">4</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">5</button>
+                                            
+                                            <!-- 6-12 (Full Row) -->
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">6</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">7</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">8</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">9</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">10</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50">11</button>
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">12</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Divider (Desktop Only) -->
+                                    <div class="hidden md:block w-px bg-gray-100"></div>
+
+                                    <!-- Right Calendar (Feb 2025) - Desktop Only -->
+                                    <div class="flex-1 hidden md:block">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <div class="w-6"></div>
+                                            <span class="font-semibold text-gray-800 text-sm">February 2025</span>
+                                                                                        <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                        </div>
+                                        <div class="grid grid-cols-7 text-center mb-2">
+                                            <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                        </div>
+                                        <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                            <!-- Empty -->
+                                            <span></span><span></span><span></span><span></span><span></span>
+                                            <!-- 1 (Range) -->
+                                            <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">1</button>
+                                            <!-- 2 (End) -->
+                                            <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-r-full">2</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Footer -->
+                                <div class="mt-6 flex justify-end gap-3 items-center pt-4 border-t border-gray-100">
+                                    <button class="text-[#3B6EC2] hover:text-[#2F5BA8] font-semibold text-sm transition-colors" onclick="toggleDateRangePicker(event)">Reset</button>
+                                    <button class="bg-[#3B6EC2] text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-[#2F5BA8] transition-colors" onclick="toggleDateRangePicker(event)">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Button -->
+                    <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <i data-lucide="share" class="w-4 h-4"></i>
+                        Export data
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-[#1E5BA8] text-white">
+                                <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">No</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">RSM Name</th>
+                                <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">NIK Sales</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Branch</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Total DSR Active</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Submit BCA</th>
+                                <th class="px-4 py-3 text-center text-sm font-medium">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                    <div id="showingInfo">Showing 1 to 1 of 1</div>
+
+                    <div class="flex items-center gap-2" id="paginationControls">
+                         <button class="p-1 hover:text-gray-700 text-gray-400 opacity-50 cursor-not-allowed"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                        <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
+                        <button class="p-1 hover:text-gray-700 text-gray-400 opacity-50 cursor-not-allowed"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <span>Show</span>
+                        <div class="relative">
+                            <select id="rowsPerPageSelect" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Modal -->
+            <div id="actionModal" class="hidden fixed inset-0 bg-black/50 z-[100] flex items-center justify-center opacity-0 transition-opacity duration-300 backdrop-blur-sm px-4">
+                <div class="bg-white rounded-3xl w-full max-w-5xl max-h-[90vh] flex flex-col shadow-2xl transform scale-95 transition-transform duration-300">
+                    <!-- Header -->
+                    <div class="px-8 py-6 flex items-center justify-between border-b border-gray-100">
+                        <h2 id="actionModalTitle" class="text-2xl font-bold text-[#1E3A8A]"></h2>
+                        <button onclick="closeActionModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-8 overflow-y-auto">
+                         <!-- Search & Date Filter -->
+                         <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                            <!-- Search -->
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Date -->
+                             <div class="relative w-full sm:w-auto">
+                                <div class="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-600 bg-white">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-gray-400"></i>
+                                    <span>1 Jan, 2025 - 2 Feb, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="overflow-x-auto rounded-lg border border-gray-200">
+                            <table class="w-full">
+                                <thead class="bg-[#1E5BA8] text-white">
+                                    <tr>
+                                        <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20 w-16">No</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">ASM Name</th>
+                                        <th class="px-4 py-3 text-left text-sm font-medium border-r border-white/20">NIK Sales</th>
+                                        <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Branch</th>
+                                        <th class="px-4 py-3 text-center text-sm font-medium border-r border-white/20">Total DSR Active</th>
+                                        <th class="px-4 py-3 text-center text-sm font-medium">Submit BCA</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-4 text-center text-sm text-gray-600">1</td>
+                                        <td class="px-4 py-4 text-sm text-gray-700">Anggi Nugraha</td>
+                                        <td class="px-4 py-4 text-sm text-gray-600">K1104148</td>
+                                        <td class="px-4 py-4 text-center text-sm text-gray-600">Jakarta</td>
+                                        <td class="px-4 py-4 text-center text-sm text-gray-600">2</td>
+                                        <td class="px-4 py-4 text-center text-sm text-gray-600">3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <!-- Pagination (Simplified) -->
+                         <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+                            <div>Showing 1 to 1 of 1</div>
+                             <div class="flex items-center gap-2">
+                                <button class="p-1 hover:text-gray-700 text-gray-400 opacity-50 cursor-not-allowed"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                                <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">1</span>
+                                <button class="p-1 hover:text-gray-700 text-gray-400 opacity-50 cursor-not-allowed"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                             </div>
+                             <div class="flex items-center gap-2">
+                                 <span>Show</span>
+                                 <div class="relative">
+                                     <select class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                         <option>10</option>
+                                     </select>
+                                      <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+
+      // Mock Data
+      const data = [
+        {
+          no: 1,
+          rsmName: "Ramaldo Oktama",
+          nikSales: "K1104148",
+          branch: "Jakarta",
+          totalDSRActive: 2,
+          submitBCA: 3,
+        },
+      ];
+
+      let currentPage = 1;
+      let rowsPerPage = 10;
+
+      function renderTable() {
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedItems = data.slice(start, end);
+        const tbody = document.getElementById("tableBody");
+
+        if (paginatedItems.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="7" class="text-center py-4 text-gray-500">No data found</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = paginatedItems
+          .map(
+            (row, index) => `
+            <tr class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="px-4 py-4 text-center text-sm text-gray-600 border-r border-gray-100">${
+                  start + index + 1
+                }</td>
+                <td class="px-4 py-4 text-sm text-gray-900 border-r border-gray-100">${
+                  row.rsmName
+                }</td>
+                <td class="px-4 py-4 text-sm text-gray-600 border-r border-gray-100">${
+                  row.nikSales
+                }</td>
+                <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                  row.branch
+                }</td>
+                <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                  row.totalDSRActive
+                }</td>
+                <td class="px-4 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                  row.submitBCA
+                }</td>
+                <td class="px-4 py-4 text-sm text-center">
+                    <button onclick="openActionModal('${
+                      row.rsmName
+                    }')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors">
+                        <i data-lucide="eye" class="w-5 h-5 mx-auto"></i>
+                    </button>
+                </td>
+            </tr>
+            `
+          )
+          .join("");
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(data.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const start =
+          data.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, data.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${data.length}`;
+
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(data.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Initial Render
+      renderTable();
+      renderPagination();
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      document.addEventListener("click", function (event) {
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
+        }
+      });
+
+      // Modal Logic
+      window.openActionModal = function (name) {
+        const modal = document.getElementById("actionModal");
+        const title = document.getElementById("actionModalTitle");
+
+        title.textContent = name;
+        modal.classList.remove("hidden");
+
+        // Animation
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modal.querySelector("div").classList.remove("scale-95");
+          modal.querySelector("div").classList.add("scale-100");
+        }, 10);
+
+        lucide.createIcons();
+      };
+
+      window.closeActionModal = function () {
+        const modal = document.getElementById("actionModal");
+        modal.classList.add("opacity-0");
+        modal.querySelector("div").classList.remove("scale-100");
+        modal.querySelector("div").classList.add("scale-95");
+
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      };
+
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

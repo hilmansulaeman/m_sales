@@ -59,7 +59,7 @@
               </div>
 
               <a
-                href="<?php echo site_url('auth'); ?>"
+                href="<?php echo site_url('panel'); ?>"
                 class="flex items-center gap-2 text-sm text-[#3B6EC2] hover:underline mb-6 inline-flex"
               >
                 <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -77,10 +77,16 @@
                 </p>
               </div>
 
-              <form onsubmit="handleSubmit(event)" class="space-y-5">
+              <?php if($this->session->flashdata('login_info')): ?>
+                  <?php echo $this->session->flashdata('login_info'); ?>
+              <?php endif; ?>
+              <?php echo validation_errors('<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert"><span class="block sm:inline">', '</span></div>'); ?>
+
+              <form method="post" action="<?php echo site_url('panel/forgot_password'); ?>" class="space-y-5">
                 <div>
                   <input
                     type="email"
+                    name="email"
                     id="email-mobile"
                     placeholder="Enter email"
                     class="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -110,7 +116,7 @@
           <!-- Desktop View -->
           <div class="hidden lg:block max-w-md mx-auto lg:mx-0">
             <a
-              href="<?php echo site_url('auth'); ?>"
+              href="<?php echo site_url('panel'); ?>"
               class="flex items-center gap-2 text-sm text-[#3B6EC2] hover:underline mb-8 inline-flex"
             >
               <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -126,10 +132,16 @@
               </p>
             </div>
 
-            <form onsubmit="handleSubmit(event)" class="space-y-5">
+            <?php if($this->session->flashdata('login_info')): ?>
+                <?php echo $this->session->flashdata('login_info'); ?>
+            <?php endif; ?>
+            <?php echo validation_errors('<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert"><span class="block sm:inline">', '</span></div>'); ?>
+
+            <form method="post" action="<?php echo site_url('panel/forgot_password'); ?>" class="space-y-5">
               <div>
                 <input
                   type="email"
+                  name="email"
                   id="email-desktop"
                   placeholder="Enter email"
                   class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"

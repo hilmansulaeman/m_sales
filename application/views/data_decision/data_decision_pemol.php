@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Decision PEMOL - M-Sales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>window.SITE_URL = "<?= site_url(); ?>/";</script>
+    <script src="<?= base_url('assets/js/layout.js') ?>"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+
+    <script>
+      initLayout("Data Decision", "PEMOL", "PEMOL");
+
+      const appContainer = document.querySelector("#app > div > div");
+      const main = document.createElement("div");
+      main.className = "flex-1 bg-gray-50 flex flex-col";
+
+      // Main Page Content
+      main.innerHTML = `
+            
+
+            <!-- Content -->
+            <div class="p-6">
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
+                <!-- Search and Filters -->
+                <div class=" rounded-2xl p-4 mb-6">
+                    <div class="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                        <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto items-center">
+                            <!-- Search -->
+                            <div class="relative w-full sm:w-72">
+                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                <input type="text" id="searchInput" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400" oninput="handleSearch(this.value)"/>
+                            </div>
+
+                            <!-- Date Range Picker -->
+                            <div class="relative w-full sm:w-72">
+                                 <div class="relative cursor-pointer" onclick="toggleDateRangePicker(event)">
+                                    <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                    <input type="text" placeholder="Select date range" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer placeholder-gray-400"/>
+                                </div>
+
+                                <!-- Date Range Dropdown -->
+                                <div id="dateRangePicker" class="hidden absolute top-full left-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 z-50 p-4 md:p-6 w-[300px] md:w-[640px] animate-in fade-in zoom-in-95 duration-200">
+                                    <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                                        <!-- Left Calendar (Jan 2025) -->
+                                        <div class="flex-1">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                                                <span class="font-semibold text-gray-800 text-sm">January 2025</span>
+                                                <div class="w-6"></div>
+                                            </div>
+                                            <div class="grid grid-cols-7 text-center mb-2">
+                                                <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                <!-- Empty -->
+                                                <span></span><span></span>
+                                                <!-- 1 (Start) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-l-full">1</button>
+                                                <!-- 2-5 (Range) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">2</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">3</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">4</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">5</button>
+                                                
+                                                <!-- 6-12 (Full Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">6</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">7</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">8</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">9</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">10</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">11</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">12</button>
+                                                
+                                                <!-- 13-19 (Full Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">13</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">14</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">15</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">16</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">17</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">18</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">19</button>
+                                                
+                                                <!-- 20-26 (Full Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">20</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">21</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">22</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">23</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">24</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">25</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">26</button>
+
+                                                <!-- 27-31 (Partial Row) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">27</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">28</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">29</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50">30</button>
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-r-full">31</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Divider (Desktop Only) -->
+                                        <div class="hidden md:block w-px bg-gray-100"></div>
+
+                                        <!-- Right Calendar (Feb 2025) - Desktop Only -->
+                                        <div class="flex-1 hidden md:block">
+                                            <div class="flex items-center justify-between mb-4">
+                                                <div class="w-6"></div>
+                                                <span class="font-semibold text-gray-800 text-sm">February 2025</span>
+                                                <button class="p-1 hover:bg-gray-100 rounded-full transition-colors text-gray-600"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                                            </div>
+                                            <div class="grid grid-cols-7 text-center mb-2">
+                                                <div class="text-gray-400 text-xs py-1">Mo</div><div class="text-gray-400 text-xs py-1">Tu</div><div class="text-gray-400 text-xs py-1">We</div><div class="text-gray-400 text-xs py-1">Th</div><div class="text-gray-400 text-xs py-1">Fr</div><div class="text-gray-400 text-xs py-1">Sa</div><div class="text-gray-400 text-xs py-1">Su</div>
+                                            </div>
+                                            <div class="grid grid-cols-7 gap-y-1 text-center text-sm text-gray-700">
+                                                <!-- Empty -->
+                                                <span></span><span></span><span></span><span></span><span></span>
+                                                <!-- 1 (Range) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-l-full">1</button>
+                                                <!-- 2 (End) -->
+                                                <button class="w-8 h-8 flex items-center justify-center bg-[#1E5BA8] text-white rounded-r-full">2</button>
+                                                
+                                                <!-- 3-9 -->
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">3</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">4</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">5</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">6</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">7</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">8</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">9</button>
+                                                <!-- 10-16 -->
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">10</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">11</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">12</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">13</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">14</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">15</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">16</button>
+                                                <!-- 17-23 -->
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">17</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">18</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">19</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">20</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">21</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">22</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">23</button>
+                                                <!-- 24-28 -->
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">24</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">25</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">26</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">27</button>
+                                                <button class="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">28</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="mt-6 flex justify-end gap-3 items-center pt-4 border-t border-gray-100">
+                                        <button class="text-[#3B6EC2] hover:text-[#2F5BA8] font-semibold text-sm transition-colors" onclick="toggleDateRangePicker(event)">Reset</button>
+                                        <button class="bg-[#3B6EC2] text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-[#2F5BA8] transition-colors" onclick="toggleDateRangePicker(event)">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Export Button -->
+                        <button class="w-full sm:w-auto bg-[#1E5BA8] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-[#15468a] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                            <i data-lucide="share" class="w-4 h-4"></i>
+                            Export data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <!-- Table -->
+                <div class="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                    <th class="px-4 py-3 text-center w-12 font-semibold border-r border-white/20 align-middle" rowspan="2">No</th>
+                                    <th class="px-4 py-3 text-left font-semibold border-r border-white/20 align-middle" rowspan="2">RSM Name</th>
+                                    <th class="px-4 py-3 text-left font-semibold border-r border-white/20 align-middle" rowspan="2">NIK Sales</th>
+                                    <th class="px-4 py-2 text-center font-semibold border-b border-white/20 border-r border-white/20" colspan="2">Open Account</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-r border-white/20 align-middle" rowspan="2">NE</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-r border-white/20 align-middle" rowspan="2">SK</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-r border-white/20 align-middle" rowspan="2">KTB</th>
+                                    <th class="px-4 py-3 text-center font-semibold border-r border-white/20 align-middle" rowspan="2">Total</th>
+                                    <th class="px-4 py-3 text-center font-semibold align-middle" rowspan="2">Action</th>
+                                </tr>
+                                <tr class="bg-[#1E5BA8] text-white text-xs">
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">My BCA</th>
+                                    <th class="px-4 py-2 text-center font-medium border-r border-white/20">BCA Mobile</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mainTableBody" class="divide-y divide-gray-200">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                        <div id="showingInfo">Showing 0 to 0 of 0</div>
+                        
+                        <div class="flex items-center gap-2" id="paginationControls">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span>Show</span>
+                             <div class="relative">
+                                 <select id="rowsPerPageSelect" onchange="handleRowsPerPageChange(this.value)" class="appearance-none border border-gray-200 rounded-lg pl-3 pr-8 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-3 h-3 pointer-events-none"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pemol Detail Modal -->
+            <div id="detailModal" class="hidden fixed inset-0 z-[100]" role="dialog" aria-modal="true">
+                <!-- Backdrop -->
+                <div class="fixed inset-0 bg-black/50 transition-opacity backdrop-blur-sm" onclick="closeDetailModal()"></div>
+
+                <!-- Modal Panel -->
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-center justify-center p-4 text-center">
+                        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:w-full sm:max-w-6xl flex flex-col my-8">
+                            
+                            <!-- Header -->
+                            <div class="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-white">
+                                <h2 class="text-2xl font-bold text-[#1E293B]" id="modalTitle">Ramaldo Oktama</h2>
+                                <button onclick="closeDetailModal()" class="text-gray-400 hover:text-gray-600 transition-colors p-1 hover:bg-gray-100 rounded-full">
+                                    <i data-lucide="x" class="w-6 h-6"></i>
+                                </button>
+                            </div>
+
+                            <div class="p-8">
+                                <div class="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+                                    <!-- Modal Filters -->
+                                    <div class="px-6 py-5 bg-white border-b border-gray-200">
+                                        <div class="flex flex-col md:flex-row gap-4 items-center justify-start">
+                                            <!-- Search -->
+                                            <div class="relative w-full md:w-80">
+                                                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                                <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"/>
+                                            </div>
+                                            
+                                            <!-- Date Range -->
+                                            <div class="relative w-full md:w-72">
+                                                <div class="relative">
+                                                    <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                                                    <input type="text" value="1 Jan, 2025 - 2 Feb, 2025" readonly class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-full text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Modal Table -->
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full">
+                                            <thead>
+                                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                                    <th class="px-6 py-4 text-center font-semibold w-16 align-middle border-r border-white/10" rowspan="2">No</th>
+                                                    <th class="px-6 py-4 text-left font-semibold align-middle border-r border-white/10" rowspan="2">ASM Name</th>
+                                                    <th class="px-6 py-4 text-left font-semibold align-middle border-r border-white/10" rowspan="2">NIK Sales</th>
+                                                    <th class="px-6 py-2 text-center font-semibold border-b border-white/10 border-r border-white/10" colspan="2">Open Account</th>
+                                                    <th class="px-6 py-4 text-center font-semibold align-middle border-r border-white/10" rowspan="2">NE</th>
+                                                    <th class="px-6 py-4 text-center font-semibold align-middle border-r border-white/10" rowspan="2">SK</th>
+                                                    <th class="px-6 py-4 text-center font-semibold align-middle border-r border-white/10" rowspan="2">KTB</th>
+                                                    <th class="px-6 py-4 text-center font-semibold align-middle" rowspan="2">Total</th>
+                                                </tr>
+                                                <tr class="bg-[#1E5BA8] text-white text-sm">
+                                                    <th class="px-6 py-2 text-center font-medium border-l border-white/10">My BCA</th>
+                                                    <th class="px-6 py-2 text-center font-medium border-l border-white/10">BCA Mobile</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="modalTableBody" class="bg-white divide-y divide-gray-100">
+                                                <!-- Populated via JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="px-6 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white text-sm text-gray-500 w-full">
+                                        <div>Showing 1 to 1 of 1</div>
+
+                                        <div class="flex items-center gap-2">
+                                            <button class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full text-gray-400 transition-colors">
+                                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                                            </button>
+                                            <span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-semibold rounded-lg text-xs">1</span>
+                                            <button class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full text-gray-400 transition-colors">
+                                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="flex items-center gap-3">
+                                            <span>Show</span>
+                                            <div class="relative">
+                                                 <select class="appearance-none border border-gray-200 rounded-full pl-4 pr-10 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-medium hover:border-blue-400 transition-colors cursor-pointer">
+                                                    <option>10</option>
+                                                    <option>25</option>
+                                                    <option>50</option>
+                                                </select>
+                                                <i data-lucide="chevron-down" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-3.5 h-3.5 pointer-events-none"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      appContainer.appendChild(main);
+
+      // Data
+      // Data
+      const mainData = [
+        {
+          no: 1,
+          rsmName: "Ramaldo Oktarna",
+          nikSales: "KT104148",
+          myBCA: 5,
+          mobileBCA: 7,
+          ne: 1,
+          sk: 3,
+          ktb: 2,
+          total: 18,
+        },
+        {
+          no: 2,
+          rsmName: "Budi Santoso",
+          nikSales: "KT104149",
+          myBCA: 3,
+          mobileBCA: 5,
+          ne: 2,
+          sk: 1,
+          ktb: 4,
+          total: 15,
+        },
+        {
+          no: 3,
+          rsmName: "Siti Aminah",
+          nikSales: "KT104150",
+          myBCA: 8,
+          mobileBCA: 6,
+          ne: 4,
+          sk: 2,
+          ktb: 5,
+          total: 25,
+        },
+        {
+          no: 4,
+          rsmName: "Agus Prasetyo",
+          nikSales: "KT104151",
+          myBCA: 4,
+          mobileBCA: 2,
+          ne: 1,
+          sk: 0,
+          ktb: 3,
+          total: 10,
+        },
+        {
+          no: 5,
+          rsmName: "Dewi Lestari",
+          nikSales: "KT104152",
+          myBCA: 7,
+          mobileBCA: 5,
+          ne: 3,
+          sk: 2,
+          ktb: 6,
+          total: 23,
+        },
+      ];
+
+      let currentPage = 1;
+      let rowsPerPage = 5;
+      let filteredData = [...mainData];
+      let searchQuery = "";
+
+      // Initial Render
+      renderTable();
+      renderPagination();
+
+      function renderTable() {
+        const tbody = document.getElementById("mainTableBody");
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedData = filteredData.slice(start, end);
+
+        tbody.innerHTML = paginatedData
+          .map(
+            (row, index) => `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-4 py-3 text-sm text-gray-700 text-center border-b border-gray-100">${
+                      start + index + 1
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-900 font-medium border-b border-gray-100">${
+                      row.rsmName
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-gray-700 border-b border-gray-100">${
+                      row.nikSales
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-700 border-b border-gray-100">${
+                      row.myBCA
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-700 border-b border-gray-100">${
+                      row.mobileBCA
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-700 border-b border-gray-100">${
+                      row.ne
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-700 border-b border-gray-100">${
+                      row.sk
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-700 border-b border-gray-100">${
+                      row.ktb
+                    }</td>
+                    <td class="px-4 py-3 text-sm text-center text-gray-900 font-bold border-b border-gray-100">${
+                      row.total
+                    }</td>
+                    <td class="px-4 py-3 text-center border-b border-gray-100">
+                        <button onclick="openDetailModal('${
+                          row.rsmName
+                        }')" class="text-[#3B6EC2] hover:text-[#2F5BA8] transition-colors inline-flex items-center justify-center">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                </tr>
+            `
+          )
+          .join("");
+
+        if (paginatedData.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-gray-500">No data found</td></tr>`;
+        }
+        lucide.createIcons();
+      }
+
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        const showingInfo = document.getElementById("showingInfo");
+        const paginationControls =
+          document.getElementById("paginationControls");
+
+        const start =
+          filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+        showingInfo.textContent = `Showing ${start} to ${end} of ${filteredData.length}`;
+
+        let controlsHtml = `
+                <button onclick="changePage(${
+                  currentPage - 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+        }" ${currentPage === 1 ? "disabled" : ""}>
+                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                </button>
+            `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+            controlsHtml += `<span class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 font-medium rounded-lg">${i}</span>`;
+          } else {
+            controlsHtml += `<button onclick="changePage(${i})" class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 text-gray-600 rounded-lg transition-colors">${i}</button>`;
+          }
+        }
+
+        controlsHtml += `
+                <button onclick="changePage(${
+                  currentPage + 1
+                })" class="p-1 hover:text-gray-700 text-gray-400 transition-colors ${
+          currentPage === totalPages || totalPages === 0
+            ? "opacity-50 cursor-not-allowed"
+            : ""
+        }" ${currentPage === totalPages || totalPages === 0 ? "disabled" : ""}>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </button>
+            `;
+        paginationControls.innerHTML = controlsHtml;
+        lucide.createIcons();
+      }
+
+      window.handleSearch = function (query) {
+        searchQuery = query.toLowerCase();
+        filteredData = mainData.filter(
+          (item) =>
+            item.rsmName.toLowerCase().includes(searchQuery) ||
+            item.nikSales.toLowerCase().includes(searchQuery)
+        );
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      window.changePage = function (page) {
+        const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      };
+
+      window.handleRowsPerPageChange = function (value) {
+        rowsPerPage = parseInt(value);
+        currentPage = 1;
+        renderTable();
+        renderPagination();
+      };
+
+      // Modal Logic
+      window.openDetailModal = function (rsmName) {
+        document.getElementById("modalTitle").innerText = rsmName;
+        document.getElementById("detailModal").classList.remove("hidden");
+        renderModalTable();
+        lucide.createIcons(); // Re-init icons inside modal
+      };
+
+      window.closeDetailModal = function () {
+        document.getElementById("detailModal").classList.add("hidden");
+      };
+
+      function renderModalTable() {
+        const modalTbody = document.getElementById("modalTableBody");
+        modalTbody.innerHTML = asmData
+          .map(
+            (item, index) => `
+                <tr class="hover:bg-blue-50/50 transition-colors group">
+                    <td class="px-6 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      index + 1
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-900 font-medium border-r border-gray-100">${
+                      item.asmName
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 text-left border-r border-gray-100">${
+                      item.nikSales
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      item.myBCA
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      item.mobileBCA
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      item.ne
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      item.sk
+                    }</td>
+                    <td class="px-6 py-4 text-sm text-gray-600 text-center border-r border-gray-100">${
+                      item.ktb
+                    }</td>
+                    <td class="px-6 py-4 text-sm font-bold text-gray-900 text-center">${
+                      item.total
+                    }</td>
+                </tr>
+            `
+          )
+          .join("");
+      }
+
+      // Date Range Picker Logic
+      window.toggleDateRangePicker = function (event) {
+        if (event) event.stopPropagation();
+        const picker = document.getElementById("dateRangePicker");
+        picker.classList.toggle("hidden");
+      };
+
+      document.addEventListener("click", function (event) {
+        const datePicker = document.getElementById("dateRangePicker");
+        const dateInput = event.target.closest(
+          '[onclick*="toggleDateRangePicker"]'
+        );
+        if (
+          datePicker &&
+          !datePicker.classList.contains("hidden") &&
+          !datePicker.contains(event.target) &&
+          !dateInput
+        ) {
+          datePicker.classList.add("hidden");
+        }
+      });
+
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
